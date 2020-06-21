@@ -93,14 +93,14 @@ phone = "(+886) 905 690 190"
 
 # Address
 # For country_code, use the 2-letter ISO code (see https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2 )
-address = {country = "Taiwan"}
+address = {country = "Taiwan", country_code = "TW"}
 
 # Geographic coordinates
 # To get your coordinates, right-click on Google Maps and choose "What's here?". The coords will show up at the bottom.
 coordinates = {latitude = "24.786723", longitude = "121.001710"}
 
 # Directions for visitors to locate you.
-directions = "EIC418, NCTU, Taiwan"
+directions = "EIC 418, NCTU"
 
 # Office hours
 # A list of your office hours. To remove, set to an empty list `[]`.
