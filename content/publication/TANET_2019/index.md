@@ -16,7 +16,7 @@ publishDate: 2020-06-20T21:44:53+08:00
 publication_types: ["1"]
 
 # Publication name and optional abbreviated publication name.
-publication: "面向 AI計算的輕量級 GPU雲端計算平台實作"
+publication: "面向 AI 計算的輕量級 GPU 雲端計算平台實作"
 publication_short: "TANET 2019"
 
 abstract: "Benefit from parallelized and large scale GPU computing approach, modern algorithms, like machine learning, deep learning and artificial intelligent related tasks, can be accelerated by GPGPU (General-purpose computing on graphics processing units), and this has been a state-of-art approach. However, due to limitation of using GPGPU, for example the exclusive hardware binding and domain dependent software development stack, it is very difficult to share computing resources with others. In this study, we try to build a light-weight GPU resource-governing framework, which can share sources for multiple users and groups, fast deployment, easily use as well as management intuitively. Within this framework, users can use different kind of GPU-enhanced container images to facilitate their development, and make sure all data stay in secure (comparing to existing container management tools which lack of data protection mechanism). All necessary functions for A.I. computing service are provided in this framework, including user login portal, application interface server, account services, storage service design and monitoring-management portal. Proposed framework would be a reference built for whom intent to construct an on premise site."
