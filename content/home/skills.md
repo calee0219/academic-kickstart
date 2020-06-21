@@ -27,9 +27,9 @@ subtitle = ""
   description = "70%"
 
 [[feature]]
-  icon = "cuttlefish"
-  icon_pack = "fab"
-  name = "C/Cpp"
+  icon = "custom"
+  icon_pack = "c-logo"
+  name = "C"
   description = "30%"
 
 [[feature]]
@@ -38,6 +38,17 @@ subtitle = ""
   name = "git"
   description = "65%"
 
+[[feature]]
+  icon = "docker"
+  icon_pack = "fab"
+  name = "docker"
+  description = "40%"
+
+[[feature]]
+  icon = "custom"
+  icon_pack = "golang-icon"
+  name = "Go"
+  description = "20%"
 
 # Uncomment to use emoji icons.
 # [[feature]]
