@@ -17,20 +17,27 @@ subtitle = ""
 [[feature]]
   icon = "linux"
   icon_pack = "fab"
-  name = "Linux Management"
-  description = "30%"
+  name = "Linux"
+  description = "60%"
 
 [[feature]]
   icon = "network-wired"
   icon_pack = "fas"
   name = "Networking"
-  description = "50%"
+  description = "70%"
 
 [[feature]]
   icon = "cuttlefish"
-  icon_pack = "fas"
+  icon_pack = "fab"
   name = "C/Cpp"
-  description = "20%"
+  description = "30%"
+
+[[feature]]
+  icon = "git-alt"
+  icon_pack = "fab"
+  name = "git"
+  description = "65%"
+
 
 # Uncomment to use emoji icons.
 # [[feature]]
