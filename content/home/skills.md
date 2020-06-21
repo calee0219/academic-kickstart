@@ -27,8 +27,8 @@ subtitle = ""
   description = "70%"
 
 [[feature]]
-  icon = "custom"
-  icon_pack = "c-logo"
+  icon = "c-logo"
+  icon_pack = "custom"
   name = "C"
   description = "30%"
 
@@ -45,8 +45,8 @@ subtitle = ""
   description = "40%"
 
 [[feature]]
-  icon = "custom"
-  icon_pack = "golang-icon"
+  icon = "golang-icon"
+  icon_pack = "custom"
   name = "Go"
   description = "20%"
 
