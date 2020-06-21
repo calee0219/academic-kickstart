@@ -18,27 +18,44 @@ date_format = "Jan 2006"
 #   Leave `date_end` empty if it's your current employer.
 #   Begin/end multi-line descriptions with 3 quotes `"""`.
 [[experience]]
-  title = "CEO"
-  company = "GenCoin"
-  company_url = ""
-  location = "California"
-  date_start = "2017-01-01"
-  date_end = ""
+  title = "TA"
+  company = "NCTU CSCC"
+  company_url = "https://cscc.cs.nctu.edu.tw/"
+  location = "Taiwan"
+  date_start = "2018-02-01"
+  date_end = "2019-09-01"
   description = """
   Responsibilities include:
   
-  * Analysing
-  * Modelling
-  * Deploying
+  * Networking
+  * Linux Server Managing
   """
+ 
+[[experience]]
+  title = "Intern"
+  company = "National Center for High-Performance Computing"
+  company_rul = "https://www.ncchc.org.wt"
+  location = "Hsinchu, Taiwan"
+  date_start = "2018-07-01"
+  date_end = "2018-12-01"
+  description = """Lightweight GPU computing platform. Base on docker container"""
+  
+[[experience]]
+  title = "Intern"
+  company = "National Center for High-Performance Computing"
+  company_url = "https://www.nchc.org.tw"
+  location = "Hsinchu, Taiwan"
+  date_start = "2017-07-01"
+  date_end = "2017-12-01"
+  description = """Working on block chain. Research in Ethereum and smart contract"""
 
 [[experience]]
-  title = "Professor"
-  company = "University X"
+  title = "IT Manager"
+  company = "TEDxNCTU"
   company_url = ""
-  location = "California"
-  date_start = "2016-01-01"
-  date_end = "2016-12-31"
-  description = """Taught electronic engineering and researched semiconductor physics."""
+  location = "Hsinchu, Taiwan"
+  date_start = "2017-05-01"
+  date_end = "2018-05-01"
+  description = """Manage everything about IT the the TEDxNCTU event"""
 
 +++

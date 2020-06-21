@@ -8,7 +8,7 @@ headless = true  # This file represents a page section.
 active = true  # Activate this widget? true/false
 weight = 80  # Order that this section will appear.
 
-title = "Featured Publications"
+title = "Publications"
 subtitle = ""
 
 [content]
@@ -30,7 +30,7 @@ subtitle = ""
     category = ""
     publication_type = ""
     author = ""
-  
+
 [design]
   # Toggle between the various page layout types.
   #   1 = List
@@ -57,7 +57,7 @@ subtitle = ""
   # image_darken = 0.6  # Darken the image? Range 0-1 where 0 is transparent and 1 is opaque.
 
   # Text color (true=light or false=dark).
-  # text_color_light = true  
+  # text_color_light = true
   
 [advanced]
  # Custom CSS. 
