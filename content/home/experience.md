@@ -32,6 +32,48 @@ date_format = "Jan 2006"
   """
 
 [[experience]]
+  title = "TA"
+  company = "Wireless Networks, NCTU"
+  company_rul = "https://www.nctu.edu.tw"
+  location = "Hsinchu, Taiwan"
+  date_start = "2020-03-01"
+  date_end = "2021-06-30"
+  description = """
+  **[Wireless Networks](https://timetable.nctu.edu.tw/?r=main/crsoutline&Acy=108&Sem=2&CrsNo=5270&lang=zh-tw)**
+  
+  * Teacher: [Perf. Jyh-Cheng Chen](https://people.cs.nctu.edu.tw/~jcc/)
+  * TA: [Chia-An Lee](https://calee.xyz), 張耀文, 林彥傑
+  """
+
+[[experience]]
+  title = "TA"
+  company = "Network Planning and Management Practices, NCTU"
+  company_rul = "https://www.nctu.edu.tw"
+  location = "Hsinchu, Taiwan"
+  date_start = "2018-09-01"
+  date_end = "2020-01-01"
+  description = """
+  **[Network Planning and Management Practices](https://timetable.nctu.edu.tw/?r=main/crsoutline&Acy=107&Sem=1&CrsNo=1180&lang=zh-tw)**
+  
+  * Teacher: [陳振庸](http://eclass.hust.edu.tw/instructor/jychen)
+  * TA: [Chia-An Lee](https://calee.xyz), [徐浚于](https://www.linkedin.com/in/浚于-徐-ab8b6415a/?originalSubdomain=tw), 張耀文, [謝詠安](https://www.linkedin.com/in/詠安-謝-61569b117/?originalSubdomain=tw)
+  """
+
+[[experience]]
+  title = "TA"
+  company = "Scratch and Python programing, NCTU"
+  company_rul = "https://www.nctu.edu.tw"
+  location = "Hsinchu, Taiwan"
+  date_start = "2017-07-01"
+  date_end = "2017-08-31"
+  description = """
+  **[NCTU Scratch and Python, 2017 Summer](https://github.com/mzshieh/snp2017)**
+  
+  * Teacher: [Prof. Min-Zheng Shieh](https://sites.google.com/site/mzshieh/)
+  * TA: [Chia-An Lee](https://calee.xyz), [Stephen Tseng](https://www.linkedin.com/in/silver9450/), Li Ya-Han
+  """
+
+[[experience]]
   title = "Intern"
   company = "National Center for High-Performance Computing"
   company_rul = "https://www.ncchc.org.wt"
