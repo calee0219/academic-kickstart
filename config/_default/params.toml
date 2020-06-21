@@ -100,7 +100,7 @@ address = {country = "Taiwan", country_code = "TW"}
 coordinates = {latitude = "24.786723", longitude = "121.001710"}
 
 # Directions for visitors to locate you.
-directions = ""
+directions = "EIC418, NCTU, Taiwan"
 
 # Office hours
 # A list of your office hours. To remove, set to an empty list `[]`.
