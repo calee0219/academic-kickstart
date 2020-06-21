@@ -26,11 +26,11 @@ date_format = "Jan 2006"
   date_end = "2019-09-01"
   description = """
   Responsibilities include:
-  
+
   * Networking
   * Linux Server Managing
   """
- 
+
 [[experience]]
   title = "Intern"
   company = "National Center for High-Performance Computing"
@@ -39,7 +39,7 @@ date_format = "Jan 2006"
   date_start = "2018-07-01"
   date_end = "2018-12-01"
   description = """Lightweight GPU computing platform. Base on docker container"""
-  
+
 [[experience]]
   title = "Intern"
   company = "National Center for High-Performance Computing"

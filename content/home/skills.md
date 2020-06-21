@@ -9,25 +9,25 @@ title = "Skills"
 subtitle = ""
 
 # Showcase personal skills or business features.
-# 
+#
 # Add/remove as many `[[feature]]` blocks below as you like.
-# 
+#
 # For available icons, see: https://sourcethemes.com/academic/docs/page-builder/#icons
 
 [[feature]]
-  icon = "fa-linux"
+  icon = "linux"
   icon_pack = "fab"
   name = "Linux Management"
   description = "30%"
-  
+
 [[feature]]
-  icon = "fa-network-wired"
+  icon = "network-wired"
   icon_pack = "fas"
   name = "Networking"
   description = "50%"
-  
+
 [[feature]]
-  icon = "fa-cuttlefish"
+  icon = "cuttlefish"
   icon_pack = "fas"
   name = "C/Cpp"
   description = "20%"
@@ -37,7 +37,7 @@ subtitle = ""
 #  icon = ":smile:"
 #  icon_pack = "emoji"
 #  name = "Emojiness"
-#  description = "100%"  
+#  description = "100%"
 
 # Uncomment to use custom SVG icons.
 # Place custom SVG icon in `assets/images/icon-pack/`, creating folders if necessary.
