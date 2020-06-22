@@ -3,7 +3,7 @@
 
 title: "面向 AI計算的輕量級 GPU雲端計算平台實作"
 authors: ["盧宇程", "林至偉", "林子敬", "李家安", "黃伯靜", "盧鴻復", "陳政宇"]
-date: 2019-11-11T21:44:53+08:00
+date: 2018-10-24T21:44:53+08:00
 doi: ""
 
 # Schedule page publish date (NOT publication's date).

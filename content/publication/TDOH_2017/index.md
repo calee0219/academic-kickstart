@@ -3,7 +3,7 @@
 
 title: "TDOH_2017 Introduce CVE-2017-9993"
 authors: ["Chia-An Lee"]
-date: 2020-06-22T03:18:47+08:00
+date: 2017-10-14T03:18:47+08:00
 doi: ""
 
 # Schedule page publish date (NOT publication's date).
