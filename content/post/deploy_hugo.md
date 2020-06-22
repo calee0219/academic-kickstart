@@ -1,7 +1,7 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-title: "Building a hugo site locally"
+title: "Building hugo-academic with GitHub"
 subtitle: ""
 summary: ""
 authors: ["Chia-An Lee"]
@@ -28,16 +28,16 @@ image:
 projects: []
 ---
 
-# 部署 Hugo + Academic theme + github pages 個人網頁
+Hugo + Academic theme + github pages 個人網頁
 
-Academic 官網建議使用 Netlify 方式部署，方法可見[此篇]
+Academic 官網建議使用 Netlify 方式部署，方法可見[此篇]()
 
 ## 安裝 HUGO
 
 - macOS
-```bash
-brew install hugo
-```
+  ```bash
+  brew install hugo
+  ```
 
 - Ubuntu
 
@@ -62,9 +62,9 @@ hugo server -D
 ### 設定
 
 - 刪除教學導覽
-```bash
-rm content/home/demo.md
-```
+  ```bash
+  rm content/home/demo.md
+  ```
 
 - 修改網頁 metadata
 
@@ -97,6 +97,8 @@ rm content/home/demo.md
 - icon: 像是 `skills.md` 頁面或其他會需要用到 icon，academic 預設有連動 `font awesome` 跟 `jpswalsh` 的 icon，更多的需要自行匯入 svg 檔到 `/assets/images/icon-pack/` 內，然後使用時填寫如下，其中 icon 部分填寫檔名 (.svg 之前的內容)
   
   ![](hugo-custom-icon.png)
+
+  Ref: https://sourcethemes.com/academic/docs/page-builder/#icons
 
 ## 部署 GitHub Pages
 
