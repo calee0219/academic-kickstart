@@ -68,7 +68,7 @@ hugo server -D
 
 - 修改網頁 metadata
 
-  ![](/static/img/hugo-metadata.png)
+  ![](/img/hugo-metadata.png)
 
 - 修改 title icon
 
@@ -88,7 +88,7 @@ hugo server -D
 
 - 將不需要的 block 隱藏，選擇 `content/home/` 下的 .md 檔案，將不需要的 md 內，`active = false`，需要的 `active = true`
 
-  ![](/static/img/hugo-active.png)
+  ![](/img/hugo-active.png)
 
 - `about.md` 需要另外修改，他是使用 link 到 admin author (預設是 admin，你也可以改成其他人)
 
