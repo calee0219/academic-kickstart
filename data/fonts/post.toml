@@ -1,0 +1,15 @@
+# Font style metadata
+name = "Post"
+
+# Optional Google font URL
+google_fonts = "Montserrat:400,700|Roboto:400,400italic,700|Roboto+Mono"
+
+# Font families
+heading_font = "Lato"
+body_font = "Lato"
+nav_font = "Lato"
+mono_font = "Lato"
+
+# Font size
+font_size = "12"
+font_size_small = "10"
