@@ -26,12 +26,9 @@ date_format = "Jan 2006"
   date_start = "2019-09-01"
   date_end = "2021-07-16"
   description = """
-  **[free5GC](https://free5gc.org)**
-  
   * Advisor: [Perf. Jyh-Cheng Chen](https://people.cs.nctu.edu.tw/~jcc/)
-  * Lab / Team: WIRELab / [CSLab](https://cslab.nctu.edu.tw/)
-  * Major: 5G core network, free5GC
-  * Project: [free5GC](https://free5gc.org)
+  * Lab: WIRELab / [CSLab](https://cslab.nctu.edu.tw/)
+  * Major: 5G core network, [free5GC](https://free5gc.org)
   * Thesis: Design and Implementation of a Low-Latency and High-Throughput 5G Core Network
   """
 
