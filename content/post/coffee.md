@@ -46,4 +46,4 @@ projects: []
 
 ### 2021/6
 
-疫情宅在家裡沒事做，不小心手滑，入手二手 Cold Bruer 冰滴壺 (2400)、MZ 電子溫度計 (800)、Fellow Stage EKG 900 溫控壺 (5980)、泰摩黑鏡電子秤 (1280)、SOTO 310 登山爐頭 (1980)、篩粉器 (148)、Bialetti 經典版摩卡壺 3 人分 (1000)、咖啡渣桶 (550)、Kalita 波佐見燒 砂岩陶土板 101 濾杯 (725)。
+疫情宅在家裡沒事做，不小心手滑，入手二手 [Cold Bruer 冰滴壺](https://www.bruer.co/) (2400)、[Muzhan 電子溫度計](https://www.muzhan-coffee.com/products_detail/127/1) (800)、[Fellow Stage EKG 900 溫控壺](https://www.fellowproducts.com.tw/products/ekg) (5980)、[泰摩黑鏡電子秤](https://www.timemore.com/taimochanpin/heijingdianzicheng/heijingbasicdianzicheng/) (1280)、SOTO 310 登山爐頭 (1980)、篩粉器 (148)、[Bialetti 經典摩卡壺 3 人份](https://www.ikuk.com.tw/products/bialetti-moka?variant=39374036271287) (1000)、咖啡渣桶 (550)、Kalita 波佐見燒 砂岩陶土版 101 濾杯 (725)。
