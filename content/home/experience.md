@@ -17,6 +17,34 @@ date_format = "Jan 2006"
 #   Required fields are `title`, `company`, and `date_start`.
 #   Leave `date_end` empty if it's your current employer.
 #   Begin/end multi-line descriptions with 3 quotes `"""`.
+
+[[experience]]
+  title = "Master Degree Student"
+  company = "Computer Science and Engineering, National Yang Ming Chiao Tung University"
+  company_url = "https://www.cs.nycu.edu.tw"
+  location = "Hsinchu, Taiwan"
+  date_start = "2019-09-01"
+  date_end = "2021-07-16"
+  description = """
+  **[free5GC](https://free5gc.org)**
+  
+  * Advisor: [Perf. Jyh-Cheng Chen](https://people.cs.nctu.edu.tw/~jcc/)
+  * Lab / Team: WIRELab / [CSLab](https://cslab.nctu.edu.tw/)
+  * Major: 5G core network, free5GC
+  * Project: [free5GC](https://free5gc.org)
+  * Thesis: Design and Implementation of a Low-Latency and High-Throughput 5G Core Network
+  """
+
+[[experience]]
+  title = "Bachelor Degree Student"
+  company = "Computer Science, National Chiao Tung University"
+  company_url = "https://www.cs.nctu.edu.tw"
+  location = "Hsinchu, Taiwan"
+  date_start = "2015-09-01"
+  date_end = "2019-07-31"
+  description = """
+  """
+
 [[experience]]
   title = "TA & Part Time"
   company = "NCTU CSCC"
