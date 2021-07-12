@@ -100,7 +100,7 @@ address = {country = "Taiwan"}
 coordinates = {latitude = "24.786723", longitude = "121.001710"}
 
 # Directions for visitors to locate you.
-directions = "EIC 418, NCTU"
+directions = "=NYCU"
 
 # Office hours
 # A list of your office hours. To remove, set to an empty list `[]`.
@@ -112,7 +112,7 @@ appointment_url = ""
 # Contact links
 #   Set to `[]` to disable, or comment out unwanted lines with a hash `#`.
 contact_links = [
-  # {icon = "twitter", icon_pack = "fab", name = "DM Me", link = "https://twitter.com/calee0219"},
+  {icon = "twitter", icon_pack = "fab", name = "DM Me", link = "https://twitter.com/calee0219"},
   #{icon = "skype", icon_pack = "fab", name = "Skype Me", link = "skype:echo123?call"},
   #{icon = "keybase", icon_pack = "fab", name = "Chat on Keybase", link = "https://keybase.io/"},
   #{icon = "comments", icon_pack = "fas", name = "Discuss on Forum", link = "https://discourse.gohugo.io"},
@@ -211,9 +211,10 @@ plugins_js  = []
   #   2: Compact
   #   3: Card
   #   4: Citation (publications only)
-  post_view = 2
+  post_view = 1
   publication_view = 2
   talk_view = 2
+  project_view = 3
 
 ############################
 ## Comments
