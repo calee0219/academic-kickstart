@@ -9,13 +9,13 @@ categories: []
 date: 2021-07-12T15:24:30+08:00
 
 # Optional external URL for project (replaces project detail page).
-external_link: "https://free5gc.org"
+external_link: "https://github.com/free5gc/free5gc"
 
 # Featured image
 # To use, add an image named `featured.jpg/png` to your page's folder.
 # Focal points: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight.
 image:
-  caption: ""
+  caption: "free5GC"
   focal_point: ""
   preview_only: false
 
@@ -30,7 +30,7 @@ image:
 url_code: "https://github.com/free5gc/free5gc"
 url_pdf: ""
 url_slides: ""
-url_video: "https://www.youtube.com/channel/UCywP5Acj50GlhSxZTJXlqtw/playlists"
+url_video: ""
 
 # Slides (optional).
 #   Associate this project with Markdown slides.
