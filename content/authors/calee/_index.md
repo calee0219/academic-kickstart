@@ -67,6 +67,6 @@ user_groups:
 - Visitors
 ---
 
-Chia-An Lee is a master student in National Chiao Tung University majoring in Computer Science at [WIRELab](http://wire.cs.nctu.edu.tw) which is lead by [Prof. Jyh-Cheng Chen](https://people.cs.nctu.edu.tw/~jcc/). Now, working on developing the open source core network [free5GC](https://free5gc.org/).
+Chia-An Lee is a master student in National Yang Ming Chiao Tung University majoring in Computer Science at [WIRELab](http://wire.cs.nctu.edu.tw) which is lead by [Prof. Jyh-Cheng Chen](https://people.cs.nctu.edu.tw/~jcc/). Now, working on developing the open source core network [free5GC](https://free5gc.org/).
 
 Used to be an TA in [NCTU CSCC](https://cscc.cs.nctu.edu.tw/). Interested in IT, SRE, Networking. Familiar with traditional networking and server management.
