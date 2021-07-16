@@ -37,7 +37,7 @@ featured: false
 #  icon: twitter
 
 url_pdf: "https://github.com/calee0219/academic-kickstart/raw/master/content/publication/MS_Thesis/%E7%A2%A9%E5%A3%AB%E8%AB%96%E6%96%87_0856004_%E6%9D%8E%E5%AE%B6%E5%AE%89_%E5%90%AB%E6%8E%88%E6%AC%8A.pdf"
-url_code:
+url_code: "https://github.com/calee0219/calee-thesis"
 url_dataset:
 url_poster:
 url_project:
