@@ -10,12 +10,12 @@ authors:
 superuser: true
 
 # Role/position
-role: Master student in CS NCTU, major in networking
+role: Master student in CS NYCU, major in networking
 
 # Organizations/Affiliations
 organizations:
 - name: National Chiao Tung University
-  url: "https://www.nctu.edu.tw/"
+  url: "https://www.nycu.edu.tw/"
 - name: free5GC
   url: "https://free5gc.org/"
 
@@ -30,7 +30,7 @@ interests:
 education:
   courses:
   - course: MEng in Computer Science
-    institution: National Chiao Tung University, Taiwan
+    institution: National Yang Ming Chiao Tung University, Taiwan
     year: 2021
   - course: BSc in Computer Science
     institution: National Chiao Tung University, Taiwan
