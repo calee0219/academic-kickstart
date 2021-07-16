@@ -14,7 +14,7 @@ role: Master student in CS NYCU, major in networking
 
 # Organizations/Affiliations
 organizations:
-- name: National Chiao Tung University
+- name: National Yang Ming Chiao Tung University
   url: "https://www.nycu.edu.tw/"
 - name: free5GC
   url: "https://free5gc.org/"
