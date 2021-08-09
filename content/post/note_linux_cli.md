@@ -57,6 +57,15 @@ projects: []
   sudo usermod -aG groupname username
   ```
 
+### password policy
+- [find here](https://www.server-world.info/en/note?os=Ubuntu_16.04&p=password)
+- [find here](https://www.centos.org/forums/viewtopic.php?t=30904)
+- [find here](http://ubuntuhandbook.org/index.php/2015/06/minimum-password-length-ubuntu/)
+- `vim /etc/pam.d/common-password`
+  ```
+  password required pam_cracklib.so minlen=8 # 最短 8 digits
+  ```
+
 ## SSH
 
 ### SSH Keep Alive
