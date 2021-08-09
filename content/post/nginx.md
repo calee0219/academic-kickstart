@@ -141,3 +141,40 @@ server {
     - 需要下 `semanage port -a -t http_port_t -p tcp {to port no.}`
     - 上面那個好像不用下，下這個就好 `setsebool -P httpd_can_network_connect 1`
     - (待釐清)
+
+## Load Balance
+
+這裡指的是 proxy pass 的 load balance
+
+利用 upstream 參數，參考[這裡](http://nginx.org/en/docs/http/ngx_http_upstream_module.html)
+
+```
+upstream backend {
+  server backend1.example.com       weight=5; # 可以設定權重
+    server backend2.example.com:8080; # 可以用 port
+    server unix:/tmp/backend3; # 可以用 unix domain socket
+
+    server backup1.example.com:8080   backup; # 備援
+    server backup2.example.com:8080   backup;
+}
+
+server {
+  listen 443 ssl http2;
+  location / {
+    proxy_pass https://backend; # 記得使用 upstream 定義的參數
+  }
+}
+```
+
+## IPv6 enable
+
+其實很簡單，參考 nginx.conf 也有寫的，只要多加 ipv6 的 ip 在 port 前面，沒寫 ip 預設只有 ipv4。
+
+```
+server {
+  listen 443;
+  listen [::]:443;
+  listen 80;
+  listen [::]:80;
+}
+```
