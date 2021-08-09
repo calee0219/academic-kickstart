@@ -5,8 +5,8 @@ title: "Building hugo-academic with GitHub"
 subtitle: ""
 summary: ""
 authors: ["Chia-An Lee"]
-tags: []
-categories: []
+tags: ["note", "hugo"]
+categories: ["infra"]
 date: 2020-06-21T22:13:15+08:00
 lastmod: 2020-06-21T22:13:15+08:00
 featured: false
