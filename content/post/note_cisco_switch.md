@@ -1,11 +1,11 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-title: "Cisco S 設定"
+title: "Cisco Switch 設定"
 subtitle: "技術筆記"
 summary: ""
 authors: ["Chia-An Lee"]
-tags: ["note", "cisco"]
+tags: ["note", "cisco", "switch"]
 categories: ["network"]
 date: 2021-08-09T07:48:37+08:00
 lastmod: 2021-08-09T07:48:37+08:00
