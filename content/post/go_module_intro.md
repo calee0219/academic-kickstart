@@ -3,8 +3,8 @@ title: "Go Module 雜談"
 subtitle: ""
 summary: ""
 authors: ["Chia-An Lee"]
-tags: []
-categories: []
+tags: ["intro", "go", "language"]
+categories: ["coding"]
 date: 2020-10-15T00:34:57Z
 lastmod: 2020-10-15T00:34:57Z
 featured: false
