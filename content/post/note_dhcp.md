@@ -74,6 +74,6 @@ projects: []
 
 ### Windows
 
-- Renew: `ipconfig /r`
+- Renew: `ipconfig /renew`
 
 ### MacOS
