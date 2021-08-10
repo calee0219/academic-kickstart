@@ -1,7 +1,7 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-title: "Cisco Router 設定"
+title: "Proxmox 相關"
 subtitle: "技術筆記"
 summary: ""
 authors: ["Chia-An Lee"]
