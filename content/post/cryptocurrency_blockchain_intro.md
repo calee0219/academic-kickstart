@@ -132,6 +132,22 @@ projects: []
 3. IO query
   我們知道，系統的整體性能，主要取決於網絡或數據存儲的I/O性能，網絡I/O優化空間不大，但是本地數據存儲的I/O是可以優化的。比如，比特幣選擇的是谷歌的LevelDB，據說這個資料庫讀寫性能很好，但是很多功能需要開發者自己實現。目前，困擾業界的一個重大問題是，加密貨幣交易處理量遠不如現在中心化的支付系統（銀行等），除了I/O，需要全方位的突破
 
+## Block Chain Security
+- [Security issue of exchange platform (Youtube)](https://www.youtube.com/watch?v=jkrcf3VV8IU)
+- [區塊鏈資安的眾多視角](https://medium.com/taipei-ethereum-meetup/perspectives-to-blockchain-security-8a44158b7015)
+- [51% 攻擊](http://www.8btc.com/51attack)
+- [提供 api 問題](https://ethereum.stackexchange.com/questions/301/why-cant-contracts-make-api-calls)
+- 隱私不完善問題
+- [Parity 錢包資安漏洞](https://fankailin.wordpress.com/2017/07/26/parity-%E9%8C%A2%E5%8C%85%E6%BC%8F%E6%B4%9E%E3%80%81%E6%BC%8F%E6%B4%9E%E3%80%81%E7%B8%B1%E6%B7%B1%E9%98%B2%E7%A6%A6/)
+- [智能合約 塞入 code 竊取](http://solidity.readthedocs.io/en/develop/security-considerations.html)
+- Prevent sybil attack (女巫攻擊)
+- 歷史案例
+    - [DAO attack](https://www.coindesk.com/understanding-dao-hack-journalists/)
+    - [153037](https://medium.com/@rtaylor30/how-i-snatched-your-153-037-eth-after-a-bad-tinder-date-d1d84422a50b)
+    - [$31M](https://medium.freecodecamp.org/a-hacker-stole-31m-of-ether-how-it-happened-and-what-it-means-for-ethereum-9e5dc29e33ce)
+    - [ss7 attack](http://securityaffairs.co/wordpress/63172/hacking/ss7-attacks.html)
+- 竄改挖礦協定
+
 ## 相關論文
 
 - [Introduction to Security and Privacy on the Blockchain](https://hackmd.io/OzAmDYENIUwZgLQCYCMAjADAgLK8CBOAVm3xmHMmEgDNQYYCg===)
