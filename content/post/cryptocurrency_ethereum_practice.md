@@ -169,3 +169,49 @@ web3.eth.sendTransaction({
 - gasPrice: 礦工獲得的手續費
     - gasPrice 越低，就有機會越晚被拿來驗證
     - 手續費太低，沒人想驗證
+
+## Web3JS
+- [wiki](https://github.com/ethereum/wiki/wiki/web.js-0.9)
+- [github](https://github.com/ethereum/web3.js/)
+- [api](https://github.com/ethereum/wiki/wiki/JavaScript-API)
+- [中文 api document](http://web3.tryblockchain.org/Web3.js-api-refrence.html)
+
+### module 介紹
+- ethereumjs-accounts
+    - [github](https://github.com/SilentCicero/ethereumjs-accounts)
+    - 簡報
+
+## Ethereum Swarm
+
+### 什麼事 Swarm
+Swarm 是基於區塊鏈上分散式的點對點儲存空間，將檔案以 P2P 的方式切割分散儲存在每個節點上，可提供上傳、下載的功能
+
+### 安裝
+- 安裝 golang
+    - sudo add-apt-repository ppa:evarlast/golang-1.8
+    - sudo apt update
+    - sudo apt install golang
+    - mkdir -p ~/go # GOPATH
+    - mkdir -p ~/go/bin
+- 安裝 geth, swarm
+    - mkdir -p $GOPATH/src/github.com/ethereum
+    - cd $GOPATH/src/github.com/ethereum
+    - git clone https://github.com/ethereum/go-ethereum
+    - cd go-ethereum
+    - git checkout master
+    - go get github.com/ethereum/go-ethereum
+    - make geth
+    - make swarm
+    - 之後在 ~/go/src/github.com/ethereum/go-ethereum/build/bin/swarm 就可以直接用了，可以考慮放到 PATH 或把這個資料夾放進 PATH
+
+### 啟動
+- 要有一個 ethereum account
+    - geth account new
+
+## 閃電網路/支付通道
+
+[Ethereum 區塊鏈支付通道](https://medium.com/taipei-ethereum-meetup/raiden-network-ethereum-%E5%8D%80%E5%A1%8A%E9%8F%88%E6%94%AF%E4%BB%98%E9%80%9A%E9%81%93-c44cea954e9b)
+
+## GHOST 演算法
+
+[On Slow and Fast Block Times](https://blog.ethereum.org/2015/09/14/on-slow-and-fast-block-times/)
