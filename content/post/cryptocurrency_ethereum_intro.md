@@ -1,7 +1,7 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-title: "加密貨幣 相關資源連結"
+title: "以太坊 相關資源連結"
 subtitle: "加密貨幣"
 summary: ""
 authors: ["Chia-An Lee"]
