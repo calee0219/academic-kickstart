@@ -1,7 +1,7 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-title: "N"
+title: "Nagious"
 subtitle: "技術筆記"
 summary: ""
 authors: ["Chia-An Lee"]
