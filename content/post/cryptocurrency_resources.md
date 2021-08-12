@@ -5,7 +5,7 @@ title: "加密貨幣 相關資源連結"
 subtitle: "加密貨幣"
 summary: ""
 authors: ["Chia-An Lee"]
-tags: ["note", "crypto currency", "block chain", "bitcoin", "ethereum"]
+tags: ["introduction", "crypto currency", "block chain", "bitcoin", "ethereum"]
 categories: ["crypto currency"]
 date: 2021-08-09T07:48:37+08:00
 lastmod: 2021-08-09T07:48:37+08:00
