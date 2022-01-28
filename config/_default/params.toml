@@ -97,7 +97,7 @@ address = {country = "Taiwan"}
 
 # Geographic coordinates
 # To get your coordinates, right-click on Google Maps and choose "What's here?". The coords will show up at the bottom.
-coordinates = {latitude = "24.786723", longitude = "121.001710"}
+coordinates = {latitude = "24.58336", longitude = "121.14529"}
 
 # Directions for visitors to locate you.
 directions = "NYCU"
