@@ -35,6 +35,8 @@ Synology VPN 撞牆紀錄
 ```sh
 sudo dnf install xl2tpd NetworkManager-l2tp NetworkManager-l2tp-gnome strongswan
 sudo reboot
+sudo modprobe l2tp_ppp # (option) 使用 kernel 支援的 L2TP
+sudo modprobe ppp-compress-18
 ```
 
 ## 設定
@@ -54,6 +56,8 @@ sudo reboot
 journalctl -f
 journalctl -fxeu ipsec.service
 ```
+
+重連 VPN 有機會無法連線，此時勾選 `Use L2TP ephemeral source port` 確定後再取消勾選有機會可以重新連線 (目前看起來跑 Quick Start 會出問題，感覺是 Client 的 NAT-T 有問題)
 
 ## Reference
 - https://wiki.archlinux.org/title/Openswan_L2TP/IPsec_VPN_client_setup
