@@ -5,10 +5,10 @@ title: "位元運算"
 subtitle: ""
 summary: ""
 authors: ["Chia-An Lee"]
-tags: ["coffee"]
-categories: ["experience"]
-date: 2021-06-08T07:48:37+08:00
-lastmod: 2021-06-08T07:48:37+08:00
+tags: ["coding"]
+categories: ["elegant programming", "elegant code"]
+date: 2022-03-23T07:48:37+08:00
+lastmod: 2022-03-23T07:48:37+08:00
 featured: false
 draft: false
 
