@@ -89,8 +89,8 @@ date_format = "Jan 2006"
   company = "Network Administration Practice, NCTU"
   company_url = "https://www.nctu.edu.tw"
   location = "Hsinchu, Taiwan"
-  date_start = "2018-02-21"
-  date_end = "2018-06-20"
+  date_start = "2018-02-22"
+  date_end = "2018-06-21"
   description = """
   **[Network Administration Practice](https://timetable.nycu.edu.tw/?r=main/crsoutline&Acy=106&Sem=2&CrsNo=5241)**
   **[Course Site](https://people.cs.nctu.edu.tw/~wangth/course/netadm2018/)**
