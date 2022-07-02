@@ -3,8 +3,8 @@ title: "2022 求職經歷"
 subtitle: ""
 summary: ""
 authors: ["Chia-An Lee"]
-tags: ["experience"]
-categories: ["Google", "Meta", "Amazon", "Shopee", "Booking.com", "Synology", "CyCarrier"]
+tags: ["Google", "Meta", "Amazon", "Shopee", "Booking.com", "Synology", "CyCarrier"]
+categories: ["experience"]
 date: 2022-07-02T08:46:29+08:00
 lastmod: 2022-07-02T20:00:00+08:00
 featured: false
@@ -21,7 +21,7 @@ image:
 
 先說結論，以下是有進到 interview process 的，其餘的都沒有進入 interview (無消息 or 被拒絕)
 
-| |Google|Meta|Amazon|Booking.com|Shopee|Synology|CyCarrier|
+| |Google|Meta|Amazon|Booking|Shopee|Synology|CyCarrier|
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
 |Location|TW|UK|TW|NL|SG|TW|TW|
 |Position|SWE|PE|CSE|SRE|SRE|SRE|SRE|
@@ -39,16 +39,16 @@ image:
 * 2022/05/05 - 請朋友幫忙內推 Synology
 * 2022/05/05 - 請朋友幫忙內推 Meta
 * 2022/05/08 - 做 Shopee 的 OA
-* 2022/05/09 - 海投 Booking.com
+* 2022/05/09 - 海投 Booking
 * 2022/05/10 - 請朋友幫忙內推 Amazon
-* 四月底五月中持續海投 ex. Booking.com, Apple, Cloudflare, Visa, ...
+* 四月底五月中持續海投 ex. Apple, Microsoft, Cloudflare, Visa, ...
 * 2022/05/11 - 原訂與 Google phone interview，因為確診而延後
 * 2022/05/12 - CyCarrier 一面
 * 2022/05/13 - Shopee 一面
 * 2022/05/15 - Meta OA
 * 2022/05/16 - Synology 一面
 * 2022/05/17 - CyCarrier 二面 (onsite), get offer
-* 2022/05/19 - Recruitment Phone Screen interview w/ Booking.com (跟 recruiter 小聊)
+* 2022/05/19 - Recruitment Phone Screen interview w/ Booking (跟 recruiter 小聊)
 * 2022/05/24 - Booking OA
 * 2022/05/25 - Google phone interview
 * 2022/05/25 - Shopee 二面
@@ -70,6 +70,37 @@ image:
 * 2022/06/24 - Get Shopee offer
 * 2022/06/24 - Decline Synology
 * 2022/06/28 - Amazon looping interview
+* 2022/06/29 - Get rejected from Booking, short talk w/ recruiter
 * 2022/06/29 - Decline Shopee, CyCarrier
 * 2022/06/30 - Pass AWS HC
 * 2022/06/30 - Decline Google
+* 2022/07/01 - Short talk w/ Shopee recruiter
+
+## 背景
+
+* 畢業於國立陽明交通大學資訊科學與工程研究所，研究所研究方向在於行動網路。另外大學時由於有資工系計中工作，擔任網路組組長，對傳統網路和故障排除也略知一二。
+* GPA 並不高，大學部 3 出頭，研究所勉強超過 3.5。
+* 大一到大三有與隊友參與 ACM-ICPC 的競賽，算是在這類題目上有所著墨。
+* 2021 年七月研究所畢業，由於疫情緩招，在家蹲了約兩個月，大概九月才入伍，四個月兵後，二月退伍。
+* 退伍後主要花時間在刷題，另由於面試 SRE 相關職缺，有對作業系統相關知識做一些複習。
+
+## 履歷
+
+見 [calee_cv.pdf](https://calee.xyz/files/calee_cv.pdf)，感謝朋友幫忙修改。對不同公司會加以調整，基本做成 1 page。
+我是使用 [sb2nov/resume](https://github.com/sb2nov/resume) 的 latex 模板。
+* 如果可以，請對數字上做琢磨，與其籠統地表示你建置了什麼服務，更應該表示這個服務產生的影響範圍。
+* 嘗試使用 STAR (situation, task, action, result) 方式撰寫，避免使用 we 而是使用 I。
+* GPA 好了話放上 GPA，如果有表現突出的課程可以寫 selected course
+* 基本上寫在履歷上的內容就是在暗示 interviewer 問你其中的細節，所以放上自己熟的而不是所有有碰過的專案。
+* 課外專案沒有也沒關係，放上你做過的課程專案，所以請偶爾選一些有整學期專案的課。
+* Skill 上可以盡可能地多寫關鍵字，兩個原因：1. 有些 career 系統用關鍵字 filter，沒寫就會沒有 match。2. recruiter 有可能不一定看得懂，但你多寫有機會讓他們覺得你有料讓你至少走到下個階段 (interview)。
+
+## 了解自己 與 尋找職缺
+
+## 準備方法
+
+### Coding interview
+
+### Behavior interview
+
+### System interview
