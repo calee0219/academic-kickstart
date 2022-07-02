@@ -18,37 +18,37 @@ subtitle = ""
   icon = "linux"
   icon_pack = "fab"
   name = "Linux"
-  description = "60%"
+  #description = "60%"
 
 [[feature]]
   icon = "network-wired"
   icon_pack = "fas"
   name = "Networking"
-  description = "70%"
+  #description = "70%"
 
 [[feature]]
   icon = "c-logo"
   icon_pack = "custom"
   name = "C"
-  description = "30%"
+  #description = "30%"
 
 [[feature]]
   icon = "git-alt"
   icon_pack = "fab"
   name = "git"
-  description = "65%"
+  #description = "65%"
 
 [[feature]]
   icon = "docker"
   icon_pack = "fab"
   name = "docker"
-  description = "40%"
+  #description = "40%"
 
 [[feature]]
   icon = "golang-icon"
   icon_pack = "custom"
   name = "Go"
-  description = "20%"
+  #description = "20%"
 
 # Uncomment to use emoji icons.
 # [[feature]]
