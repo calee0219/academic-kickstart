@@ -88,6 +88,7 @@ image:
 
 見 [calee_cv.pdf](https://calee.xyz/files/calee_cv.pdf)，感謝朋友幫忙修改。對不同公司會加以調整，基本做成 1 page。
 我是使用 [sb2nov/resume](https://github.com/sb2nov/resume) 的 latex 模板。
+
 * 如果可以，請對數字上做琢磨，與其籠統地表示你建置了什麼服務，更應該表示這個服務產生的影響範圍。
 * 嘗試使用 STAR (situation, task, action, result) 方式撰寫，避免使用 we 而是使用 I。
 * GPA 好了話放上 GPA，如果有表現突出的課程可以寫 selected course
@@ -99,21 +100,26 @@ image:
 ## 尋找職缺
 
 ### 了解自己
-- 可出國 vs 不可出國
-- 對領域有興趣 vs 想快退休
-- 了解對不同種類壓力的耐受程度
-- 安穩的工作 vs 想裁就裁員的工作
-- 希望工作自主性高 vs 希望更多時候是可以有人帶
-- 產品的 life cycle
-- work life balance / 加班 / 工時
-- 希望假多一點 vs 假期可以都換成工資
-- 對未來 career path 的想像
-- 對薪資的追求
-- 希望年資到就可以進到對應薪資 vs 需要自己爭取，薪資成長與個人能力相關
-- 新創 vs 中小公司 vs 大公司
-- 股票 / 本薪 / 分紅 / 績效獎金 / 簽約金
+
+* **對未來 career path 的想像**
+* 可出國 vs 不可出國
+* 對領域有興趣 vs 想快退休
+* 了解對不同種類壓力的耐受程度
+* 安穩的工作 vs 想裁就裁員的工作
+* 希望工作自主性高 vs 希望更多時候是可以有人帶
+* 產品的 life cycle
+* work life balance / 加班 / 工時
+* 希望假多一點 vs 假期可以都換成工資
+* 對薪資的追求
+* 希望年資到就可以進到對應薪資 vs 需要自己爭取，薪資成長與個人能力相關
+* 新創 vs 中小公司 vs 大公司
+* 股票 / 本薪 / 分紅 / 績效獎金 / 簽約金
+
+### 了解公司
 
 ### 看 Job Description
+
+JD 是各個職缺在開出來時描述這個職缺需要的技能以及工作上會處理的事務
 
 ### 評估薪資
 
@@ -144,6 +150,7 @@ image:
 ## 談薪
 
 ## Reference
+
 * [美國科技公司如何設計招聘流程](https://medium.com/@deserter/美國科技公司如何設計招聘流程-d1cd59ee19dc)
 * [levels.fyi](https://www.levels.fyi)
 * [一亩三分地](https://www.1point3acres.com/bbs/)
