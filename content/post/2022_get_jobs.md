@@ -135,6 +135,8 @@ image:
 * 跟認識的朋友打聽
 * 大概了解目前股價
 * 上 levels.fyi / glassdoor 查詢
+* 可能有畢業生會想問薪水應該在找工作站多大比例，當然每個人可能不同，但根據 ptt 前輩們的心得，應該算重要但不要放在第一順位
+* 我自己會說如果你不排斥的公司夠多，底線可以先放在整包 100，再根據面試的心得 (自己在人才市場的狀況) 做調整，所以絕對不要只面試一間公司
 
 ## 外商面試流程
 
@@ -168,7 +170,7 @@ image:
 #### 建議準備方法
 
 * 直接在 LeetCode 網頁上寫題目，並且不要開 Auto completion 來練習面試時沒有環境的狀況
-* 直接寫 Blind 75，每題設定時間在 20-30 分鐘內，寫不出來直接看解答，並透過 favorite list 記錄起來，等刷完一輪再回來重寫沒成功解出來的
+* 直接寫 Blind 75，每題設定時間在 20-30 分鐘內，寫不出來直接看解答，並透過 favorite list 記錄起來，等刷完一輪**再回來重寫沒成功在時間內解出來的，如果還是無法繼續勾起來下次再回來直到都能在時限內解出來**
   * 理由: 剛開始刷題時很多時候是連需要的資料結構都沒有夠熟，在怎麼花時間想也很難想出來，直接看解答了解資料結構後刷完一輪再回來檢視有沒有把這個結構學起來比較有效率
 * 跟 daily，保持刷提的手感，並且不像是 B75 一開始大概就知道要用哪種資料結構
 * 每周跟 weekily contest，用來大概了解自己在什麼程度，也可以逼你在兩個小時內要坐到寫出最後一題 (通常是比較水的 hard)
@@ -193,6 +195,16 @@ image:
 
 ## 時間規劃
 
+時間規劃上要掌握兩個原則，1. 竟可能同時拿到 offer 2. 不想去的先面試，當作面試練習。這兩個原則有時是蠻互相矛盾的，所以還是需要自己取捨。
+
+首先第二點應該很好理解，我自己的經驗也確實是越多次正式面試，後面的面試會越不緊張，Mock Interview 做再多次可能都沒有這樣的效果。再來就是要同時拿到 offer，其實也不難理解是為了 compete offer，首先通常越大的公司需要的 interview 流程越久，而越小的公司可能就越快，當然還是需要事前打聽一下比較好，了解大概的面試時間長度後，再根據其去調整丟履歷的時間，像是面完 Google 一面時丟可以兩個禮拜跑完的公司，當然其中還要考慮投出履歷到 reciuter 聯絡你可能還多少會有一些時間差，這部分可能就需要看你有沒有內推/打聽最近這家公司大概速度多快等。
+
+另外再差不多都面完等 offer 的時候，在一到兩個禮拜間結果會出來，如果超過兩個禮拜 reciuter 還沒聯絡你請務必寫信去確認，很高機會是他可能忘記了，當然也可能公司內部有其他異動，但提醒一下絕不會吃虧，而且也不要擔心會被 reciuter 嫌煩，reciuter 大部分的 performance 就是透過收到優秀的人才 (沒錯就是你) 來的。
+
+另外如果已經有想去的公司開獎了，也可以透過 email 來詢問結果是否出來 (~催 reciuter~)，不過最好先想清楚這個時間是不是你想要開獎的時間，有時候催完開獎後，又發現想等另外一個還沒開獎的會比較尷尬。通常你寄信予 reciuter 表示手上已經有不錯的 offer，希望可以加快速度，reciuter 都會願意幫你快一點跟主管談。
+
+最後是拖，當你拿到口頭 accept 後，reciuter 通常會要求你在一定的時間內回他，標準是一個禮拜，比較雞掰的有三天，反正絕對不要當下回覆他，可以說你需要跟家人朋友討論，最少拖過一個假日，說你要跟朋友討論可是你的好朋友假日才有空。通常因為你更想去的公司還沒開獎或有辦法幫你做更好 compete 的還沒出來，這時候可以馬上寄信給還沒出來的公司表示已經有 offer 如果可以希望他們快一點。盡可能的手上拿到愈多的 offer。
+
 ## 談薪
 
 ## Reference
@@ -208,3 +220,5 @@ image:
 * [Behavior Question 題目的蒐集](https://hackmd.io/@6PPVul2mS7OX2GuGXlUCDA/behavior_questions)
 * [Netflix at Velocity 2015: Linux Performance Tools](https://netflixtechblog.com/netflix-at-velocity-2015-linux-performance-tools-51964ddb81cf)
 * [The System Design Primer](https://github.com/donnemartin/system-design-primer)
+* [System design interview 的流程架構是什麼? 應該要怎麼準備和進行?](https://yschen25.blogspot.com/2022/07/system-design-interview.html?m=1)
+* [如何準備行為面試｜BQ Interview Prep](https://www.youtube.com/watch?v=0xKLVJuBRCU)
