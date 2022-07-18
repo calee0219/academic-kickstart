@@ -80,7 +80,7 @@ image:
 
 * 畢業於國立陽明交通大學資訊科學與工程研究所，研究所研究方向在於行動網路。另外大學時由於有資工系計中工作，擔任網路組組長，對傳統網路和故障排除也略知一二。
 * GPA 並不高，大學部 3 出頭，研究所勉強超過 3.5。
-* 大一到大三有與隊友參與 ACM-ICPC 的競賽，算是在這類題目上有所著墨。
+* 大一到大三有與隊友參與 ACM-ICPC 的競賽，算是在這類題目上有所著墨。不過話說回來，已經三年沒碰東西也差不多歸零了。
 * 2021 年七月研究所畢業，由於疫情緩招，在家蹲了約兩個月，大概九月才入伍，四個月兵後，二月退伍。
 * 退伍後主要花時間在刷題，另由於面試 SRE 相關職缺，有對作業系統相關知識做一些複習。
 
@@ -101,7 +101,7 @@ image:
 
 ### 了解自己
 
-* **對未來 career path 的想像**
+* **對未來想走的 career path 的想像**
 * 可出國 vs 不可出國
 * 對領域有興趣 vs 想快退休
 * 了解對不同種類壓力的耐受程度
@@ -176,6 +176,7 @@ image:
 * 每周跟 weekily contest，用來大概了解自己在什麼程度，也可以逼你在兩個小時內要坐到寫出最後一題 (通常是比較水的 hard)
 * 如果有買 premium 了話偶爾可以寫 Interview -> Online Assessment，可以透過報告多少估算自己目前位置
 * 面試前一兩個禮拜針對要面試的公司刷最近常考題
+* **Mock Interview**，這很重要，至少要練到流程熟悉，最好找同時要一起轉職 / 找工作的戰友互相練習，偶爾跟不同人練可以聽取不同的意見。
 
 > Premium 不一定要買，被鎖的 Solution 可以看 Discussion 或上網找，公司常考題一樣可以看 Discussion 或上網抓，不過如果要密集刷題，panding 煩人程度 + Solution 的時間 CP 值 + OA 的統計數據我最終還是有買
 
@@ -185,13 +186,16 @@ image:
 * Behavioral interview 反而是我比較不知道怎麼準備的部分，我主要是使用 [Behavior Question 題目的蒐集](https://hackmd.io/@6PPVul2mS7OX2GuGXlUCDA/behavior_questions) 這份請朋友問我，在問答的過程中去發想每個情境可以使用的經驗，並且我朋友也會提供給我一些 feedback
 * 比較特別的是 Amazon，通常其他公司 Behavioral 只會有一場，不過 Amazon 會有四場的 loop interview，並且會強調他希望的 Amazon 14 leadership principles，四場每場各 1hr，一樣會希望是透過 STAR 的形式回答
 
-### System interview
+### System interview / OS interview
 
-* System Interview 在 new grade 或 entry level 的職缺比較不太會被問到
-* 由於我蠻多工作是面 SRE 相關的職缺，所以多少有被問到類似的問題
-* Meta 對 New Grade 的問題主要偏向 OS 的問題，像是 booting process, virtual memory, IO, ...，另外可能會問實際上那些指令/操做對應到這些概念上
+* 由於我蠻多工作是面 SRE 相關的職缺，所以會被問到類似的問題，如果是一般 SWE 應該不會有
+* Meta 對 New Grade 的問題主要偏向 OS 的問題，像是 booting process, virtual memory, IO, ...，另外可能會問實際上那些指令 / 操做對應到這些概念上
 * 有些時候會問你過去對系統的經驗，或是 troubleshooting 的能力
-* 如果是標準的 system design interviewㄨ我自己是沒有很好的準備，所以也因此在 Booking 的面試中箭落馬，不過如果要我重新準備，我會推薦看 [The System Design Primer](https://github.com/donnemartin/system-design-primer)，並且惡補 YouTube 上別人分享的 system design interview 問與與回答
+
+### System Design interview
+
+* System Design Interview 在 new grade 或 entry level 的職缺比較不太會被問到
+* 如果是標準的 system design interview 我自己是沒有很好的準備，所以也因此在 Booking 的面試中箭落馬，不過如果要我重新準備，我會推薦看 [The System Design Primer](https://github.com/donnemartin/system-design-primer)，並且惡補 YouTube 上別人分享的 system design interview 問與與回答
 
 ## 時間規劃
 
