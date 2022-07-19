@@ -7,7 +7,7 @@ date: 2022-08-23T00:00:00+08:00
 doi: ""
 
 # Schedule page publish date (NOT publication's date).
-publishDate: 2022-08-23T16:42:00+02:00
+publishDate: 2022-07-15T16:42:00+02:00
 
 # Publication type.
 # Legend: 0 = Uncategorized; 1 = Conference paper; 2 = Journal article;
@@ -36,7 +36,7 @@ featured: false
 #  icon_pack: fab
 #  icon: twitter
 
-url_pdf: ""
+url_pdf:
 url_code:
 url_dataset:
 url_poster:

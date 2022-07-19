@@ -6,7 +6,7 @@ authors: ["Chia-An Lee"]
 tags: ["Google", "Meta", "Amazon", "Shopee", "Booking.com", "Synology", "CyCarrier"]
 categories: ["experience"]
 date: 2022-07-02T08:46:29+08:00
-lastmod: 2022-07-02T20:00:00+08:00
+lastmod: 2022-07-19T20:00:00+08:00
 featured: false
 draft: false
 
@@ -19,62 +19,7 @@ image:
 
 由於我 2021 年剛畢業時發懶不想當兵前先找工作，於是就拖延到 2022/02 當完兵後才開始找工作，不料這個舉動同時成為了我的危機也是轉機。
 
-先說結論，以下是有進到 interview process 的，其餘的都沒有進入 interview (無消息 or 被拒絕)
-
-| |Google|Meta|Amazon|Booking|Shopee|Synology|CyCarrier|
-|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
-|Location|TW|UK|TW|NL|SG|TW|TW|
-|Position|SWE|PE|CSE|SRE|SRE|SRE|SRE|
-|Result|team match|offer get|offer get|reject|offer get|offer get|offer get|
-
-## Time Line
-
-(沒特別寫 onsite 的都是線上 virtual)
-
-* 2022/02 - 退伍，變成智障，開始刷題 pick up background knowledge
-* 2022/04/21 - 請朋友幫忙內推 Google
-* 2022/04/26, 05/04 - 跟 Google recruiter short talk
-* 2022/04/27 - 請朋友幫忙內推 CyCarrier
-* 2022/05/03 - 請朋友幫忙內推 Shopee
-* 2022/05/05 - 請朋友幫忙內推 Synology
-* 2022/05/05 - 請朋友幫忙內推 Meta
-* 2022/05/08 - 做 Shopee 的 OA
-* 2022/05/09 - 海投 Booking
-* 2022/05/10 - 請朋友幫忙內推 Amazon
-* 四月底五月中持續海投 ex. Apple, Microsoft, Cloudflare, Visa, ...
-* 2022/05/11 - 原訂與 Google phone interview，因為確診而延後
-* 2022/05/12 - CyCarrier 一面
-* 2022/05/13 - Shopee 一面
-* 2022/05/15 - Meta OA
-* 2022/05/16 - Synology 一面
-* 2022/05/17 - CyCarrier 二面 (onsite), get offer
-* 2022/05/19 - Recruitment Phone Screen interview w/ Booking (跟 recruiter 小聊)
-* 2022/05/24 - Booking OA
-* 2022/05/25 - Google phone interview
-* 2022/05/25 - Shopee 二面
-* 2022/05/26 - Meta screening interview
-* 2022/05/27 - Synology 二面 (onsite), Get offer
-* 2022/06/07, 06/08 - Google virtual onsite interview
-* 2022/06/09 - Short talk w/ Booking recruiter
-* 2022/06/11 - AWS Learn to Hire (1)
-* 2022/06/13 - Booking coding interview
-* 2022/06/14 - Meta virtual onsite interview
-* 2022/06/15 - Short talk w/ Shopee recruiter
-* 2022/06/15 - Short talk w/ Booking recruiter
-* 2022/06/18 - AWS Learn to Hire (2)
-* 2022/06/20 - Pass Google HC
-* 2022/06/21 - Booking system design interview
-* 2022/06/22 - Get Meta offer
-* 2022/06/23 - Booking Final interview (behavior interview)
-* 2022/06/24 - Google team match
-* 2022/06/24 - Get Shopee offer
-* 2022/06/24 - Decline Synology
-* 2022/06/28 - Amazon looping interview
-* 2022/06/29 - Get rejected from Booking, short talk w/ recruiter
-* 2022/06/29 - Decline Shopee, CyCarrier
-* 2022/06/30 - Pass AWS HC
-* 2022/06/30 - Decline Google
-* 2022/07/01 - Short talk w/ Shopee recruiter
+詳細找的公司與摘要可以參考[這篇](./2022_interview.md)。
 
 ## 背景
 
@@ -115,20 +60,20 @@ image:
 * 新創 vs 中小公司 vs 大公司
 * 股票 / 本薪 / 分紅 / 績效獎金 / 簽約金
 
-### 了解公司
-
-* 直接在網路上尋找公司相關訊息，了解這家公司的產品 / 獲利方式 / 財報
-* 直接問在公司工作的朋友
-* 從 LinkedIn 上在公司內工作並與你有所連結 (ex. 校友) 寄信詢問
-* Meta 甚至還有專門  Meta Connection 讓你直接與公司員工交流
-
 ### 看 Job Description
 
 * JD 是各個職缺在開出來時描述這個職缺需要的技能以及工作上會處理的事務
 * 通常會列出 Basic Requirements / Prefered Requirements / About the jobs，並不是需要全部都會才能投，通常你只要會其中幾項就有機會申請
 * 常見的查詢方式可以在 LinkedIn 或 104 上看
 * 又或者直接搜尋 XXX 公司 + careers，比較大的公司都會有自己的 careers site 羅列需要的職缺，例如: careers.google.com / www.metacareers.com / www.amazon.jobs...
-* 其實蠻建議學生可以提早開始研究 JD，一來可以開始形塑對 career path 的想像，二來也可以針對想進入的領域鑽研，甚至著手學習 Requirements 要求的相關技能
+* 其實蠻建議**學生可以提早開始研究 JD**，一來可以開始形塑對 career path 的想像，二來也可以針對想進入的領域鑽研，甚至著手學習 Requirements 要求的相關技能，我也是在找工作看 JD 時才慢慢形塑出我想像中想要的 career path
+
+### 了解公司
+
+* 直接在網路上尋找公司相關訊息，了解這家公司的產品 / 獲利方式 / 財報
+* 直接問在公司工作的朋友
+* 從 LinkedIn 上在公司內工作並與你有所連結 (ex. 校友) 寄信詢問
+* Meta 甚至還有專門  Meta Connection 讓你直接與公司員工交流
 
 ### 評估薪資
 
@@ -211,6 +156,16 @@ image:
 
 ## 談薪
 
+新鮮人相對會不好談薪水，但在怎麼難都還是建議一定要問，談出好的薪水不但可以讓接下來的工作可以拿比較好的薪水，同時也是你在跳到下一家公司時，談薪水的底氣。然而很多同學可能會怕談薪水是否顯示自己貪心而無法拿到 offer，對於這點有太多前輩的經驗告訴我們不會了，反而需要比較擔心的是無法談到好的 offer。
+
+首先我們要了解談薪水最主要是跟 reciuter 談而非直接跟主管談，然而你的 offer 是由面試你的人 and/or 主管給的，所以其實 offer 沒那麼容易被 reciuter 拿掉，另外聽說在部分公司 reciuter 的 performance 就是招攬人才的數量，其次才是可以用比較 fair 的薪水招到人，因此就算你喊太高，最多就是跟你表明無法給，同時如果你無法接受待遇，相信 reciuter 還是會盡量幫你爭取。
+
+流程上 reciuter 會跟你確認期望待遇，再去跟主管與 HR 部門相互協商出最終的待遇。想當然爾公司會希望出價(相對)低而員工會希望高，通常比起跟公司喊高，跟面試者喊低會比較簡單，但若面試者不能接受，reciuter 應該還是會向內部提出詢問。舉我自己的例子，其中一間公司一開始就有表明畢業生新人不能 compete，但由於一些誤會，讓 reciuter 以為我還是需要 compete 不然無法接受，當時 reciuter 還是有詢問我的預期以及表示會向內部討論，不過後來我沒有把握住機會就是另一個悲傷的故事了。
+
+有些公司制度上就是畢業生無法談，有規定好的 range，這時候還是可以透過問問看是否有 sign on bonus (簽約金) 來提高價碼。舉個例子，當初我朋友就有建議我可以跟 reciuter 表示如果給 sign on bonus 可以馬上答應並拒絕掉其他家公司。
+
+至於要怎麼談出好的 offer，其實目前我也不是很了解，不過可以確定的是談薪水就是透過誠實但資訊不對等來談，reciuter 有自己公司內部的狀況與了解追蹤市場行情的資訊，而你也有了解自己狀況與目前手上 offer 狀況。至於新人有什麼優勢呢? 最簡單的便是前面講的，一定要投多家公司，透過 compete offer 的狀態來談出好的薪水。以我的例子來說，背景比我漂亮的朋友當初由於沒有 compete，所以只拿到公司的 base，但有 compete 的我是拿到 1.2 倍，而且後來還有再往上談的機會。
+
 ## Reference
 
 * [Cracking the Coding Interview](https://www.crackingthecodinginterview.com/)
@@ -226,3 +181,4 @@ image:
 * [The System Design Primer](https://github.com/donnemartin/system-design-primer)
 * [System design interview 的流程架構是什麼? 應該要怎麼準備和進行?](https://yschen25.blogspot.com/2022/07/system-design-interview.html?m=1)
 * [如何準備行為面試｜BQ Interview Prep](https://www.youtube.com/watch?v=0xKLVJuBRCU)
+* [如何談薪水Like A Pro](https://www.youtube.com/watch?v=OjaK7nmCYCo)
