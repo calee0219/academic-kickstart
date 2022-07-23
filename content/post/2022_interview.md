@@ -179,6 +179,8 @@ Meta 的面試分三個階段，首先會有一個 OA，20 題選擇題時限 18
 
 Meta 與 Booking.com 是我認為面試體驗最舒服的兩家公司，儘管我認為我面試的所有公司都已經很好了。Meta 有特別的網站可以幫你追蹤你目前的面試進度以及一些參考資料可以讀，會告訴你 Production Engineer 大概要準備那些東西，另外再 Onsite Interview 前也約了一個間單的 Q&A Session 讓你可以問想問的問題，像是我就有問 System 跟 Behavior 要怎麼準備的問題。而且 Meta 還有特別一個網頁可以讓你聯絡公司內隨機的人，可以詢問公司文化、做的事情、以及任何你好奇的問題，整體來說真的很不錯。
 
+![Meta 的求職網站](/img/2022_meta_offer_get.png)
+
 ### Booking
 
 [Booking.com](https://jobs.booking.com/careers) 我是透過英國的朋友介紹才認識的，不然其實我之前完全不知道這家公司與服務。朋友是跟我說有些想去歐洲工作的人會透過 Booking 當跳板 (?)，所以當時我想既然都投 Meta 了，就也頭頭看 Booking 好了。如果不認識的人，這家公司位於荷蘭，主要是做訂房或機票的網站服務。而我投的是 SRE (network engineer) 的職缺，是直接在 JD 上找看看像 Junior 的職缺。
