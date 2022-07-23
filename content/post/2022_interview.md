@@ -163,6 +163,34 @@ Synology 的面試分兩階段，第一階段是線上，有兩個面試官，�
 
 ### Google
 
+[美商科高](https://careers.google.com/locations/taipei/)應該算是近幾年來台灣軟體產業新人心中的第一志願，前幾年由於可能缺比較少，我聽過的都是有打 ACM-ICPC 的人材才有上，不過近幾年也許由於各種原因，台灣區的比重越來越種，headcount 給比較多，因此漸漸有聽到非 ICPC 的人也都有嘗試並且有上的機會。在三年前大學畢業時，我這屆便已經有幾個 ACM 的朋友有進 Google，不過那時候我感覺要真的超優秀才能進所以我不太敢投，不過今年因為也漸漸看到 Google 大舉徵人，而且偶爾也有收到 HR 來信問有沒有興趣 (亂槍打鳥型的信)，所以才鼓起勇氣投投看，當時也有在考慮要投 SWE new grad 還是直接投 SWE 社招，不過後來覺得只有今年能投校招，之後有想要還是可以投社招，所以就決定投校招。另外值得一提的 Google 除了台北部門 (101 {ChromeOS}, 新店 {Pixel, Platform}, 板橋{Nest, Pixel, Fitbit, Platform})，另外也有彰化機房主要處理 Data Center Hardware / 進出機器 相關，似乎好像也有新竹 Site (?)。
+
+丟完履歷後 reciuter 有先跟我約 concall 大概了解我的狀況，不過我由於校招、社招都有投，一開始狀況比較混亂 (Google 一次可以頭三個職缺)，不過 reciuter 跟我說校招跟社招只能選一個跑，所以我最後只跑了校招。校招面試分三階段，第一階段是 Phone Interview，主要是中文面試的 Coding Interview，問一題 LeetCode Medium。第二階段是 Virtual Onsite Interview，有四場，一場中文的 Behavior Interview，他們稱之為 Googleness Interview，另外三場是 Coding Interview，會有兩場英文以及一場中文，我被問到的是兩個 Medium 跟一個 Hard，另外我的經驗是 Google 比較喜歡問一題 + 一個 follow up，而不會是兩個不同題。在 Coding Interview 上面都是透過 Google Meet 視訊以及一個類似 Google Doc 但是有 hightlight 功能的平台來寫 code，時間基本上都是 45 分鐘，先自我介紹後開始問題目跟 follow up，最後看看你有沒有問題想問面試官。二面我原本是被排四場同一天，但我寄信去協調後改成兩天各兩場。另外值得一提的是我一面時由於剛好確診，覺得大腦狀況不太好，也寄信去詢問是否可以延後並且成功延後了一面的時間。
+
+基本上到這個階段面試就結束了，然後會進 Hire Committee 透過你面試後面試官給的 feedback 來決定要不要錄取，不過可能是我的狀況在 baseline 的程度，reciuter 有特別來信跟我要成績單與內推信，所以我另外回學校申請英文 GPA 成績單，以及請三個朋友幫我寫內推。大概一個禮拜後 reciuter 來電說可以進到接下來的 team match 環節，然後詢問我大概有興趣的領域，另外也有提由於我面試的時間偏晚，目前有的 new grad 缺大概都滿了，他會再幫我問相關部門有沒有興趣朝 L3 但不能很保證。接下來有參加一場 team match (Google 稱呼為 fit meeting)，主要是 Pixel performance 相關，不過由於我後來拿到 Meta Production Engineer 的 Offer，在左思右想下還是拒絕了接下來的 team match。
+
 ### Meta
 
+[Meta](https://www.metacareers.com/) 是 Facebook 的新公司名，台灣應該沒有聽說有開工程師的缺，我會投這家主要是因為我有一個大學朋友，大三暑假實習時就已經跑去倫敦 Facebook 工作，大四畢業後就直接去做正職，非常厲害，現在已經是高階工程師了 OAO。當初我開始在找工作時這位朋友就有問我有沒有興趣，其實我一開始是不敢投，不過後來想一想 Google 都投了，那何嘗不試試看，於是也透過朋友內推投遞履歷，另外這位朋友還特別幫我看 CV 哪裡要改以及幫我做 Mock Interview，真的非常感謝他。由於年初時 SWE 便已經 Hire Freeze 了，因此我投的是 Production Engineer，一開始不確定這個職缺在做什麼，不過後來研究了一下意外的是類似我想做的 SRE 相關工作。
+
+Meta 的面試分三個階段，首先會有一個 OA，20 題選擇題時限 18 分鐘，因為職缺的關係主要是考作業系統、網站安全、CPU 相關的問題，題目蠻 practical 蠻有趣的，類似有 trace 指令 / JWT / SQL injection / regex 等等。第二階段是 Screening Interviews 其實應該就是 Phone Interview，有兩場，一場考 Coding Interview，應該是 LeetCode Medium 中 Easy 的程度；另外一場考 System Interview，主要問我作業系統中 CPU / memory / IO 等問題，也有問一點 trouble shooting。最後是 Virtual Onsite Interview，有四場幫我排在同一天，兩場 Coding，一場 System，一場 Behavior。Coding 一開始會有 warn up 題，像是怎麼寫全排列，盡量不要在這題上花太多時間，然後會有新的題目 (非 follow up)，我被問到的題目都比較時做型的，像是怎麼處理 random，或是 count word，然而有一題最終解法很數學 (O(1) 解)，不過我沒想出數學解就是了 QQ。System interview 主要問 OS 的知識，考官請我講出我知道的 Booting Process，再從其中取出有趣的階段問問題，這部分蠻慶幸我有修 OSDI 以及偶爾聽 Jserv 老師的線上講座，另外剛好面試前的抱佛腳有抱到 pagging 的問題。
+
+面試完後大概五到七天會收到結果，reciuter 跟我約時間跟我講結果，因為有拿到 Offer 所以同時也告知我相關的薪資結構、福利、relocation 事情，並且希望我在一個禮拜內回覆是否接受。不過比較可惜的是 Meta 的畢業生職缺是不能 compete，甚至連 sign on bonus 都很難拿，至少我是沒有拿到 QQ。
+
+Meta 與 Booking.com 是我認為面試體驗最舒服的兩家公司，儘管我認為我面試的所有公司都已經很好了。Meta 有特別的網站可以幫你追蹤你目前的面試進度以及一些參考資料可以讀，會告訴你 Production Engineer 大概要準備那些東西，另外再 Onsite Interview 前也約了一個間單的 Q&A Session 讓你可以問想問的問題，像是我就有問 System 跟 Behavior 要怎麼準備的問題。而且 Meta 還有特別一個網頁可以讓你聯絡公司內隨機的人，可以詢問公司文化、做的事情、以及任何你好奇的問題，整體來說真的很不錯。
+
 ### Booking
+
+[Booking.com](https://jobs.booking.com/careers) 我是透過英國的朋友介紹才認識的，不然其實我之前完全不知道這家公司與服務。朋友是跟我說有些想去歐洲工作的人會透過 Booking 當跳板 (?)，所以當時我想既然都投 Meta 了，就也頭頭看 Booking 好了。如果不認識的人，這家公司位於荷蘭，主要是做訂房或機票的網站服務。而我投的是 SRE (network engineer) 的職缺，是直接在 JD 上找看看像 Junior 的職缺。
+
+Booking 的面試流程也是分為三階段，一開始會有 OA，60 分鐘兩道題，一題是 coding 一題是 shell script，coding 不難偏實作型，shell script 也是只需要平時有碰過大概就可以。接下來是 Coding Interview，我覺得題目蠻有趣也蠻 SRE 的，而非演算法題目，主要是要理解題目，理解完就可以用簡單 DFS 做出來。不過我一開始在理解題目時有點語言問題，所以花了一點時間。最後一階段有兩場，一場 System Design Interview 一場 Behavior Interview，System 大概問 DB 的 access 設計與 metrix 的設置衡量，由於沒有準備與經驗，我是真的面的蠻差的。而 Behavior 比較有趣的是有問商業邏輯，同樣的由於沒有工作經驗，這塊也是回答的支支吾吾的，我想這個職缺可能還是想要收比較有經驗的人吧。
+
+Booking 的面試體驗很讚，基本上每場面試之間都會有跟 reciuter 的 short talk，又我遇到的是 senior reciuter，我覺得我的 reciuter 其實很知道這個職缺在做什麼，像是剛投完履歷就有先跟 reciuter short talk，問一些我的背景，被問的問題我覺得就有一定的水準，OA 完後有跟我說下一階段 coding 要怎麼準備，希望面試的流程狀況長什麼樣子，System Design 前一樣有跟我講怎麼準備。另外每場面試 reciuter 都有給我面試 feedback，像是面試官覺得我 coding 很不錯不過語言理解上一開始他不太了解我在講什麼，而 System 上我可能尚缺經驗，在 Behavior 上我對商業邏輯的部分還需要加強。最後 Booking 在這個職位上 reject 我不過也問我說有沒有興趣試試看 SWE 的工作，因為在 Coding Interview 上面表現得還不錯也許可以面試看看。不過由於有心儀的職缺於是就拒絕了。但光是能拿到 FeedBack 我覺得應該算是所有面試裡面最棒的一間公司。
+
+### Amazon (AWS)
+
+[亞馬遜](https://www.amazon.jobs/en/)也算是近年來進來台灣的 Big 4，但相信大家也都有耳聞 Amazon 應該是 Big 4 裡面最辛苦的 XD。Amazon 台灣分別有 Ring team 開 SWE 的缺，主要是做 Echo 等 IoT 產品的開法，以及 AWS Cloud Support Engineer 的缺，負責 AWS 的 Support 團隊。由於我有一個朋友在 Ring、另外一個朋友在 AWS，因此我兩個都有打聽看看。最後由於投一投發現我不排斥出國，所以在這邊我請朋友幫我內推一個 AWS TW Support 以及兩個 Amazon Canada 的 SWE 職缺，另外值得一提的是，當時還有一位在美國的學長問我有沒有興趣投美國職缺，雖然最後綜合考量下我還是不敢投美國，不過還是非常感謝學長。
+
+Amazon Canada 最終是沒有回覆我，不過我有進到 AWS 了流程中。不過我並非走標準的面試流程，而是當時有一個 AWS 辦的 Learn to hire 的活動 (好像每年都會有?)，我是透過這個活動進去的。Learn to hire 主要有兩天，第一天是一個四個小時的講座，主要講一些網路上的服務協定或原理，第二天則是給故障排除的挑戰，假設我們是 Suppport team 遇到相對應的問題 / pcap 檔案，要怎麼除厝回復。在活動結束後由於我的 Challenge 寫得似乎還不錯，因此有收到繼續面試的邀請，而後續的面試就只剩下 Amazon Loop Interview，是一個四場的 behavior 的面試，比較特別的是 Amazon 有 14 個 leadership principles，因此會希望觀察你在這些 principle 的特質，我是有看啦，不過我覺得我的回答完全沒有特別去想這些特質，另外四場中也有一場有問我的過去經驗。
+
+最後有拿到 AWS 的 Offer，但由於薪資結構不太符合我的預期，我原本覺得我可以拿到 CSE (cloud support engineer) 的缺，但我最終可能是 Loop Interview 表現不夠好只拿到 CSA (cloud support assistance) 的職缺，因此最終還是拒絕了說。
