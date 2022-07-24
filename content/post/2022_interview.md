@@ -192,8 +192,10 @@ Booking 的面試體驗很讚，基本上每場面試之間都會有跟 recruite
 
 ### Amazon (AWS)
 
-[亞馬遜](https://www.amazon.jobs/en/)也算是近年來進來台灣的 Big 4，但相信大家也都有耳聞 Amazon 應該是 Big 4 裡面最辛苦的 XD。Amazon 台灣分別有 Ring team 開 SWE 的缺，主要是做 Echo 等 IoT 產品的開法，以及 AWS Cloud Support Engineer 的缺，負責 AWS 的 Support 團隊。由於我有一個朋友在 Ring、另外一個朋友在 AWS，因此我兩個都有打聽看看。最後由於投一投發現我不排斥出國，所以在這邊我請朋友幫我內推一個 AWS TW Support 以及兩個 Amazon Canada 的 SWE 職缺，另外值得一提的是，當時還有一位在美國的學長問我有沒有興趣投美國職缺，雖然最後綜合考量下我還是不敢投美國，不過還是非常感謝學長。
+[亞馬遜](https://www.amazon.jobs/en/)也算是近年來進來台灣的 Big 4，另有耳聞 Amazon 算是 Big 4 裡面最辛苦的 XD。Amazon 據我所知台灣分別有 Ring team 開 SDE 的缺，主要好像是做 IoT 產品的開發，以及 AWS Cloud Support Engineer 的缺，負責 AWS 的 Support 團隊。由於我有一個朋友在 Ring、另外一個朋友在 AWS，因此我兩個都有打聽看看。最後由於投一投發現我不排斥出國，所以在這邊我請朋友幫我內推一個 AWS TW Support 以及兩個 Amazon Canada 的 SDE 職缺，另外值得一提的是，當時還有一位在美國的學長問我有沒有興趣投美國職缺，雖然最後綜合考量下我還是不敢投美國，不過還是非常感謝學長。
 
 Amazon Canada 最終是沒有回覆我 (有可能是因為投兩個 site，所以想投國外的可能要考慮一下是否只選一個國家投)，不過我有進到 AWS 了流程中。不過我並非走標準的面試流程，而是當時有一個 AWS 辦的 Learn to hire 的活動 (好像每年都會有?)，我是透過這個活動進去的。Learn to hire 主要有兩天，第一天是一個四個小時的講座，主要講一些網路上的服務協定或原理，第二天則是給故障排除的挑戰，假設我們是 Suppport team 遇到相對應的問題 / pcap 檔案，要怎麼除厝回復。在活動結束後由於我的 Challenge 寫得似乎還不錯，因此有收到繼續面試的邀請，而後續的面試就只剩下 Amazon Loop Interview，是一個四場的 behavior 的面試，比較特別的是 Amazon 有 14 個 leadership principles，因此會希望觀察你在這些 principle 的特質，我是有看啦，不過我覺得我的回答完全沒有特別去想這些特質，另外四場中也有一場有問我的過去經驗。
 
 最後有拿到 AWS 的 Offer，但由於薪資結構不太符合我的預期，我原本覺得我可以拿到 CSE (cloud support engineer) 的缺，但我最終可能是 Loop Interview 表現不夠好只拿到 CSA (cloud support assistance) 的職缺，因此最終還是拒絕了說。
+
+> 另外感謝推友分享更正，Amazon 台灣有 Ring / sidewalk / lab126 / eero / twitch / AWS，開的不是SWE而是SDE，而且也不止 SDE，有開最香的 AS 呢，做的也不算是 echo IoT 開發，AWS 也不是只有 cloud support ，他們還有開 SDE in IoT。
