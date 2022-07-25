@@ -179,13 +179,13 @@ Meta 的面試分三個階段，首先會有一個 OA，20 題選擇題時限 18
 
 Meta 與 Booking.com 是我認為面試體驗最舒服的兩家公司，儘管我認為我面試的所有公司都已經很好了。Meta 有特別的網站可以幫你追蹤你目前的面試進度以及一些參考資料可以讀，會告訴你 Production Engineer 大概要準備那些東西，另外再 Onsite Interview 前也約了一個間單的 Q&A Session 讓你可以問想問的問題，像是我就有問 System 跟 Behavior 要怎麼準備的問題。而且 Meta 還有特別一個網頁可以讓你聯絡公司內隨機的人，可以詢問公司文化、做的事情、以及任何你好奇的問題，整體來說真的很不錯。
 
-![Meta 的求職網站](/img/2022_meta_offer_get.png "Meta 精美的進度追蹤網頁")
+![Meta 的求職網站](/img/2022_meta_offer_get.png "Meta 精美的進度追蹤網頁") Meta 精美的進度追蹤網頁
 
 > 附帶一提，Meta 對於 PE (類似 SRE 職缺) 的 coding interview 其實相對比 SWE 少一些，但相對希望對 OS 有更深入的理解。因此強烈建議對作業系統有興趣卻不太想進硬體公司且厭於刷提的人才可以研究看看這個職缺 (或可能其他大公司的 SRE)。
-> ![Meta PE algorithms requirement](/img/Meta_PE_req.jpg "Meta PE 要求需要會的演算法主題")
-> ![Meta SWE algorithms requirement](/img/Meta_SWE_req.jpg "Meta SWE 要求需要會的演算法主題")
-<!-- <img src="/img/Meta_PE_req.jpg" width="40%" alt="Meta PE algorithms requirements"/> -->
-<!-- <img src="/img/Meta_SWE_req.jpg" width="40%" alt="Meta SWE algorithms requirements"/> -->
+<!-- > ![Meta PE algorithms requirement](/img/Meta_PE_req.jpg "Meta PE 要求需要會的演算法主題")
+> ![Meta SWE algorithms requirement](/img/Meta_SWE_req.jpg "Meta SWE 要求需要會的演算法主題") -->
+<dev style="width: 50%"> <img src="/img/Meta_PE_req.jpg" alt="Meta PE algorithms requirements"/> Meta PE 要求需要會的演算法主題 </dev>
+<dev style="width: 50%"> <img src="/img/Meta_SWE_req.jpg" alt="Meta SWE algorithms requirements"/> Meta SWE 要求需要會的演算法主題 </dev>
 
 ### Booking
 

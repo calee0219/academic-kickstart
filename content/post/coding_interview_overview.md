@@ -58,7 +58,7 @@ projects: []
 
 OK, I think I understand the problem. Please give me one minute to think out the solution.
 
-當理解完題意要開始想解法時，記得給一個 trigger word，由於 coding interview 大多數時間都是不對的與面試官來回溝通，因此當需要一個安靜的時間可以講一下，讓面試官知道你須要想一下。
+當理解完題意要開始想解法時，記得給一個 trigger word，由於 coding interview 大多數時間都是不斷的與面試官來回溝通，因此當需要一個安靜的時間可以講一下，讓面試官知道你須要想一下。
 
 I have come out a solution. I want to start to present my solution.
 
