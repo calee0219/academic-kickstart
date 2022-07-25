@@ -4,7 +4,7 @@ subtitle: ""
 summary: ""
 authors: ["Chia-An Lee"]
 tags: ["Google", "Meta", "Amazon", "Shopee", "Booking.com", "Synology", "CyCarrier"]
-categories: ["experience"]
+categories: ["experience", "interview"]
 date: 2022-07-02T08:46:29+08:00
 lastmod: 2022-07-19T20:00:00+08:00
 featured: false
@@ -80,7 +80,7 @@ image:
 
 * 跟認識的朋友打聽
 * 大概了解目前股價
-* 上 levels.fyi / glassdoor 查詢
+* 上 [levels.fyi](https://www.levels.fyi/) / [glassdoor](https://www.glassdoor.com/member/home/index.htm) / [一畝三分地](https://www.1point3acres.com/) 查詢
 * 可能有畢業生會想問薪水應該在找工作站多大比例，當然每個人可能不同，但根據 ptt 前輩們的心得，應該算重要但不要放在第一順位
 * 我自己會說如果你不排斥的公司夠多，底線可以先放在整包 100，再根據面試的心得 (自己在人才市場的狀況) 做調整，所以絕對不要只面試一間公司
 * 薪資物價比，我自己看下來覺得其實除了美國可以給 Global Pay (XD) 之外，大部分不管歐美還是台日、新加坡都還是給 local pay，更甚至如果想存錢，難保說待在台灣其實更好存錢，去了解房租物價稅收會比只看到稅前薪水的數字還來的有意義，另外一個評估方法可以用國民平均收入與之倍數來評估
@@ -105,10 +105,10 @@ image:
 
 #### 我的準備方法
 
-* 剛退伍時透過 Study Plane 把手感練回來，一開始速度真的很慢，每天就一兩題
+* 剛退伍時透過 Study Plan 把手感練回來，一開始速度真的很慢，每天就一兩題
 * 後來知道有 daily challenge 後，也會開始每天寫 daily
 * 開始配合 weekily contest 來了解自己在 leetcode 大概狀態
-* 後來訂閱 premium 後會寫 Interview -> Online Assessment，對我來說 1. 強迫我坐下來兩個小時想三題，也因此開始有碰到 hard (不然以前都直接跳過 hard 2.OA 寫完會出報告，大愾評估你對不同主題的熟悉程度，以及你目前對面試 FAANG 還有多少程度差別
+* 後來訂閱 premium 後會寫 Interview -> Online Assessment，對我來說 1. 強迫我坐下來兩個小時想三題，也因此開始有碰到 hard (不然以前都直接跳過 hard 2.OA 寫完會出報告，大概評估你對不同主題的熟悉程度，以及你目前對面試 FAANG 還有多少程度差別
 * 參考網路文章後，透過 [neetcode.io](http://neetcode.io) 這個網站，把 Blind 75 沒寫的補完，寫完 B75 後有開始碰 NeetCode 150，不過截至目前還沒全部寫完。
 * 每題解完後會去看 solution 看看有沒有其他解法，另外也會點進排名看速度最快的人怎麼寫，我比較不會看 discussion，雖然可能可以看到很棒的解法或解釋，但我覺得時間 CP 值偏低，官方 Solution 就夠了，除非沒有才會去看 most voted discussion
 * 每周固定與朋友 Mock Interview，大該一周四次
@@ -177,6 +177,7 @@ LeetCode Premium 的 Interview -> Assessment 報告
 * [Cracking the Coding Interview](https://www.crackingthecodinginterview.com/)
 * [美國科技公司如何設計招聘流程](https://medium.com/@deserter/美國科技公司如何設計招聘流程-d1cd59ee19dc)
 * [levels.fyi](https://www.levels.fyi)
+* [glassdoor](https://www.glassdoor.com/member/home/index.htm)
 * [一亩三分地](https://www.1point3acres.com/bbs/)
 * [LeetCode 付費版在坑錢? Is LeetCode Premium Worth It in 2021?](https://www.youtube.com/watch?v=qYSOhTBmQLg)
 * [軟體工程師的修煉與成長](https://vgod.medium.com/list/e731a8ecf20d)
@@ -188,3 +189,7 @@ LeetCode Premium 的 Interview -> Assessment 報告
 * [System design interview 的流程架構是什麼? 應該要怎麼準備和進行?](https://yschen25.blogspot.com/2022/07/system-design-interview.html?m=1)
 * [如何準備行為面試｜BQ Interview Prep](https://www.youtube.com/watch?v=0xKLVJuBRCU)
 * [如何談薪水Like A Pro](https://www.youtube.com/watch?v=OjaK7nmCYCo)
+* [2022 New Grad 後疫情時代找工作](https://medium.com/mencher-publication/2022-new-grad-%E5%BE%8C%E7%96%AB%E6%83%85%E6%99%82%E4%BB%A3%E6%89%BE%E5%B7%A5%E4%BD%9C-e849769885e2)
+* [Shopee, Amazon Ring, SiFive, Foodpanda 面試經驗](https://blog.hyperbola.me/posts/other-interviews/)
+* [面試人員心得分享](https://www.ptt.cc/bbs/Tech_Job/M.1650729764.A.368.html)
+* [普通人的海外求職指南](https://readmoo.com/book/210226124000101)

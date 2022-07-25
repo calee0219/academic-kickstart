@@ -6,7 +6,7 @@ subtitle: ""
 summary: ""
 authors: ["Chia-An Lee"]
 tags: ["WNC", "Alpha", "PEGATRON", "Google", "Meta", "Amazon", "Shopee", "Booking.com", "Synology", "CyCarrier"]
-categories: ["experience"]
+categories: ["experience", "interview"]
 date: 2021-02-19T16:19:05+08:00
 lastmod: 2022-07-19T16:55:37+08:00
 featured: false
@@ -165,7 +165,7 @@ Synology 的面試分兩階段，第一階段是線上，有兩個面試官，�
 
 [美商科高](https://careers.google.com/locations/taipei/)應該算是近幾年來台灣軟體產業新人心中的第一志願，前幾年由於可能缺比較少，我聽過的都是有打 ACM-ICPC 的人材才有上，不過近幾年也許由於各種原因，台灣區的比重越來越種，headcount 給比較多，因此漸漸有聽到非 ICPC 的人也都有嘗試並且有上的機會。在三年前大學畢業時，我這屆便已經有幾個 ACM 的朋友有進 Google，不過那時候我感覺要真的超優秀才能進所以我不太敢投，不過今年因為也漸漸看到 Google 大舉徵人，而且偶爾也有收到 HR 來信問有沒有興趣 (亂槍打鳥型的信)，所以才鼓起勇氣投投看，當時也有在考慮要投 SWE new grad 還是直接投 SWE 社招，不過後來覺得只有今年能投校招，之後有想要還是可以投社招，所以就決定投校招。另外值得一提的 Google 除了台北部門 (101 {ChromeOS}, 新店 {Pixel, Platform}, 板橋{Nest, Pixel, Fitbit, Platform})，另外也有彰化機房主要處理 Data Center Hardware / 進出機器 相關，似乎好像也有新竹 Site (?)。
 
-丟完履歷後 recruiter 有先跟我約 concall 大概了解我的狀況，不過我由於校招、社招都有投，一開始狀況比較混亂 (Google 一次可以投三個職缺)，不過 recruiter 跟我說校招跟社招只能選一個跑，所以我最後只跑了校招。校招面試分三階段，第一階段是 Phone Interview，主要是中文面試的 Coding Interview，問一題 LeetCode Medium。第二階段是 Virtual Onsite Interview，有四場，一場中文的 Behavior Interview，他們稱之為 Googleness Interview，另外三場是 Coding Interview，會有兩場英文以及一場中文，我被問到的是兩個 Medium 跟一個 Hard，另外我的經驗是 Google 比較喜歡問一題 + 一個 follow up，而不會是兩個不同題。在 Coding Interview 上面都是透過 Google Meet 視訊以及一個類似 Google Doc 但是有 hightlight 功能的平台來寫 code，時間基本上都是 45 分鐘，先自我介紹後開始問題目跟 follow up，最後看看你有沒有問題想問面試官。二面我原本是被排四場同一天，但我寄信去協調後改成兩天各兩場。另外值得一提的是我一面時由於剛好確診，覺得大腦狀況不太好，也寄信去詢問是否可以延後並且成功延後了一面的時間。
+丟完履歷後 recruiter 有先跟我約 concall 大概了解我的狀況，不過我由於校招、社招都有投，一開始狀況比較混亂 (Google 一次可以投三個職缺)，然而 recruiter 跟我說校招跟社招只能選一個跑，所以我最後只跑了校招。校招面試分三階段，第一階段是 Phone Interview，主要是中文面試的 Coding Interview，問一題 LeetCode Medium，比較特別的是由於當初要一面時我剛好得 COVID，糾結下還是請 recruiter 幫我延期，recruiter 也很大方地答應，並且最後並不會影響結果，由此可知如果有什麼問題想延期面試我相信大部分的公司應該都會願意幫忙處理吧。第二階段是 Virtual Onsite Interview，有四場，一場中文的 Behavior Interview，他們稱之為 Googleness Interview，另外三場是 Coding Interview，會有兩場英文以及一場中文，我被問到的是兩個 Medium 跟一個 Hard，另外我的經驗是 Google 比較喜歡問一題 + 一個 follow up，而不會是兩個不同題。在 Coding Interview 上面都是透過 Google Meet 視訊以及一個類似 Google Doc 但是有 hightlight 功能的平台來寫 code，時間基本上都是 45 分鐘，先自我介紹後開始問題目跟 follow up，最後看看你有沒有問題想問面試官。二面我原本是被排四場同一天，但我寄信去協調後改成兩天各兩場。另外值得一提的是我一面時由於剛好確診，覺得大腦狀況不太好，也寄信去詢問是否可以延後並且成功延後了一面的時間。
 
 基本上到這個階段面試就結束了，然後會進 Hire Committee 透過你面試後面試官給的 feedback 來決定要不要錄取，不過可能是我的狀況在 baseline 的程度，recruiter 有特別來信跟我要成績單與內推信，所以我另外回學校申請英文 GPA 成績單，以及請三個朋友幫我寫內推。大概一個禮拜後 recruiter 來電說可以進到接下來的 team match 環節，然後詢問我大概有興趣的領域，另外也有提由於我面試的時間偏晚，目前有的 new grad 缺大概都滿了，他會再幫我問相關部門有沒有興趣朝 L3 但不能很保證。接下來有參加一場 team match (Google 稱呼為 fit meeting)，主要是 Pixel performance 相關，不過由於我後來拿到 Meta Production Engineer 的 Offer，在左思右想下還是拒絕了接下來的 team match。
 
@@ -194,8 +194,8 @@ Booking 的面試體驗很讚，基本上每場面試之間都會有跟 recruite
 
 [亞馬遜](https://www.amazon.jobs/en/)也算是近年來進來台灣的 Big 4，另有耳聞 Amazon 算是 Big 4 裡面最辛苦的 XD。Amazon 據我所知台灣分別有 Ring team 開 SDE 的缺，主要好像是做 IoT 產品的開發，以及 AWS Cloud Support Engineer 的缺，負責 AWS 的 Support 團隊。由於我有一個朋友在 Ring、另外一個朋友在 AWS，因此我兩個都有打聽看看。最後由於投一投發現我不排斥出國，所以在這邊我請朋友幫我內推一個 AWS TW Support 以及兩個 Amazon Canada 的 SDE 職缺，另外值得一提的是，當時還有一位在美國的學長問我有沒有興趣投美國職缺，雖然最後綜合考量下我還是不敢投美國，不過還是非常感謝學長。
 
-Amazon Canada 最終是沒有回覆我 (有可能是因為投兩個 site，所以想投國外的可能要考慮一下是否只選一個國家投)，不過我有進到 AWS 了流程中。不過我並非走標準的面試流程，而是當時有一個 AWS 辦的 Learn to hire 的活動 (好像每年都會有?)，我是透過這個活動進去的。Learn to hire 主要有兩天，第一天是一個四個小時的講座，主要講一些網路上的服務協定或原理，第二天則是給故障排除的挑戰，假設我們是 Suppport team 遇到相對應的問題 / pcap 檔案，要怎麼除厝回復。在活動結束後由於我的 Challenge 寫得似乎還不錯，因此有收到繼續面試的邀請，而後續的面試就只剩下 Amazon Loop Interview，是一個四場的 behavior 的面試，比較特別的是 Amazon 有 14 個 leadership principles，因此會希望觀察你在這些 principle 的特質，我是有看啦，不過我覺得我的回答完全沒有特別去想這些特質，另外四場中也有一場有問我的過去經驗。
+Amazon Canada 最終是沒有回覆我 (有可能是因為投兩個 site，所以想投國外的可能要考慮一下是否只選一個國家投)，不過我有進到 AWS 了流程中。不過我並非走標準的面試流程，而是當時有一個 AWS 辦的 Learn to hire 的活動 (好像每年都會有?)，我是透過這個活動進去的。Learn to hire 主要有兩天，第一天是一個四個小時的講座，主要講一些網路上的服務協定或原理，第二天則是給故障排除的挑戰，假設我們是 Suppport team 遇到相對應的問題 / pcap 檔案，要怎麼錯並回復客戶。在活動結束後由於我的 Challenge 寫得似乎還不錯，因此有收到繼續面試的邀請，而後續的面試就只剩下 Amazon Loop Interview，是一個四場的 behavior 面試，比較特別的是 Amazon 有 14 個 leadership principles，因此會希望觀察你在這些 principle 的特質，我是有看啦，不過我覺得我的回答完全沒有特別去想這些特質，另外四場中也有一場有問我的過去經驗。
 
 最後有拿到 AWS 的 Offer，但由於薪資結構不太符合我的預期，我原本覺得我可以拿到 CSE (cloud support engineer) 的缺，但我最終可能是 Loop Interview 表現不夠好只拿到 CSA (cloud support assistance) 的職缺，因此最終還是拒絕了說。
 
-> 另外感謝推友分享更正，Amazon 台灣有 Ring / sidewalk / lab126 / eero / twitch / AWS，開的不是SWE而是SDE，而且也不止 SDE，有開最香的 AS 呢，做的也不算是 echo IoT 開發，AWS 也不是只有 cloud support ，他們還有開 SDE in IoT。
+> 另外感謝推友分享更正，Amazon 台灣有 Ring / sidewalk / lab126 / eero / twitch / AWS，開的不是SWE而是SDE，而且也不止 SDE，有開最香的 AS，做的也不算是 echo IoT 開發，AWS 也不是只有 cloud support ，他們還有開 SDE in IoT。
