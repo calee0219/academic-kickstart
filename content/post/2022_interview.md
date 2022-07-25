@@ -184,8 +184,8 @@ Meta 與 Booking.com 是我認為面試體驗最舒服的兩家公司，儘管�
 > 附帶一提，Meta 對於 PE (類似 SRE 職缺) 的 coding interview 其實相對比 SWE 少一些，但相對希望對 OS 有更深入的理解。因此強烈建議對作業系統有興趣卻不太想進硬體公司且厭於刷提的人才可以研究看看這個職缺 (或可能其他大公司的 SRE)。
 <!-- > ![Meta PE algorithms requirement](/img/Meta_PE_req.jpg "Meta PE 要求需要會的演算法主題")
 > ![Meta SWE algorithms requirement](/img/Meta_SWE_req.jpg "Meta SWE 要求需要會的演算法主題") -->
-<div style="width: 50%; float:left;"> <img src="/img/Meta_PE_req.jpg" alt="Meta PE algorithms requirements"/> Meta PE 要求需要會的演算法主題 </dev>
-<div style="width: 50%; float:left;"> <img src="/img/Meta_SWE_req.jpg" alt="Meta SWE algorithms requirements"/> Meta SWE 要求需要會的演算法主題 </dev>
+<div style="width: 50%; float:left;"> <img src="/img/Meta_PE_req.jpg" alt="Meta PE algorithms requirements"/> Meta PE 要求需要會的演算法主題 </div>
+<div style="width: 50%; float:left;"> <img src="/img/Meta_SWE_req.jpg" alt="Meta SWE algorithms requirements"/> Meta SWE 要求需要會的演算法主題 </div>
 
 ### Booking
 
