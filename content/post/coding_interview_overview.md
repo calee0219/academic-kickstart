@@ -30,7 +30,7 @@ projects: []
 
 不過我個人覺得要在 15 分鐘內解決一題偏困難，另外以我對 Google 的面試經驗覺得 Google 傾向於詢問一個主題與一個 follow up，並且 follow up 有時候並不太難，因此我會比較傾向配置 25 / 20。
 
-在 Meta 的 coding interview 上面我的經驗是對方好像比較喜歡出獨立題目，並且一開始會有一題 warn up 題，盡量不要在 warn up 題花太多時間。
+在 Meta 的 coding interview 上面我的經驗是對方好像比較喜歡出獨立題目，並且一開始會有一題 warm up 題，盡量不要在 warm up 題花太多時間。
 
 ### 流程簡述
 
