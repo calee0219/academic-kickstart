@@ -54,7 +54,7 @@ projects: []
 
 首先考官會陳述題目，注意考官陳述的題目有沒有什麼關鍵字，有可能就是題目最佳化的關鍵。
 
-在考官陳述完題目後不要急於作答，先與考官確認題目意思與詢問不太清楚的資訊，永遠要記得做這個步驟那怕你覺得題目超簡單，最少也可以問個 test case 的 constrain (範圍)。陳清題目的方法可以與考官詢問是否有範例測資會自己製造一個範例，並且透過範例找到解答的過程來確認理解是否正確。
+在考官陳述完題目後不要急於作答，先與考官確認題目意思與詢問不太清楚的資訊，永遠要記得做這個步驟那怕你覺得題目超簡單，最少也可以問個 test case 的 constrain (範圍) / edge / boundary case。陳清題目的方法可以與考官詢問是否有範例測資會自己製造一個範例，並且透過範例找到解答的過程來確認理解是否正確。
 
 OK, I think I understand the problem. Please give me one minute to think out the solution.
 
@@ -121,6 +121,7 @@ I think I've finished the code, should we use some example to varify it / walk t
 * 不要動任何考官給的東西，如果需要，複製出來使用
 * 如果考官有給 hint，照著做就對了
 * 不要羞於跟面試官尋求幫助，也許可以比較委婉地敘述目前的想法以及卡關的地方
+* 注意測資是 int / float / long 等
 * 重要的地方下註解
 * 良好的 coding style、變數名稱、避免 dead code
 * 注意 pass by reference or value、string mutable or immutable、字串複製還是單純加長
@@ -128,4 +129,13 @@ I think I've finished the code, should we use some example to varify it / walk t
 
 ## Reference
 
+* [Cracking the coding interview](https://www.booksfree.org/cracking-the-coding-interview-6th-edition-189-programming-questions-and-solutions-pdf/)
 * [Questions to ask the company during your interview](https://github.com/viraptor/reverse-interview)
+* [Prepare for Your Google Interview: Coding](https://www.youtube.com/watch?v=6ZZX9iIgFoo)
+* [Interview tips from Google Software Engineers](https://www.youtube.com/watch?v=XOtrOSatBoY)
+* [How to ACE the Coding Interview](https://www.hackerearth.com/blog/developers/ace-coding-interviews/)
+* [How to: Prepare for a Google Engineering Interview](https://www.youtube.com/watch?v=ko-KkSmp-Lk)
+* [How I got into Google by Prajakta Tathavadkar](https://medium.com/@praajaktaa/how-i-got-into-google-161c97913b8b)
+* [How I got into Google by Gourav Mittal](https://gourav-mittal.medium.com/how-i-got-into-google-a7d92f581951)
+* [Average to Googler in Four Weeks: A Study Plan by Milan Naseri](https://www.linkedin.com/pulse/average-googler-four-weeks-study-plan-milad-naseri/)
+* [My Preparation Journey for Google Interviews by Shantanu Kshire](https://medium.com/swlh/my-preparation-journey-for-google-interviews-f41e2dc3cdf9)

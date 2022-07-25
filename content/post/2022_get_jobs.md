@@ -123,8 +123,8 @@ image:
 * 每周跟 weekily contest，用來大概了解自己在什麼程度，也可以逼你在兩個小時內要坐到寫出最後一題 (通常是比較水的 hard)
 * 如果有買 premium 了話偶爾可以寫 Interview -> Online Assessment，可以透過報告多少估算自己目前位置
 * 面試前一兩個禮拜針對要面試的公司刷最近常考題
-* **Mock Interview**，這很重要，至少要練到流程熟悉，最好找同時要一起轉職 / 找工作的戰友互相練習，偶爾跟不同人練可以聽取不同的意見，這邊真的要特別特別感謝我的朋友與貴人，願意在工作之餘，還空出時間陪我一周四天的 Mock Interview。
-* 另外附上[我的 LeetCode 帳號](https://leetcode.com/calee/)，在面試 Google 時大概 300 題上下
+* **Mock Interview**，這很重要，至少要練到流程熟悉 (流程可以參考[這篇](../coding_interview_overview))，最好找同時要一起轉職 / 找工作的戰友互相練習，偶爾跟不同人練可以聽取不同的意見，這邊真的要特別特別感謝我的朋友與貴人，願意在工作之餘，還空出時間陪我一周四天的 Mock Interview。
+* 另外附上[我的 LeetCode 帳號](https://leetcode.com/calee/)，在面試 Google 時大概 300 題上下，但其實很多人沒刷多少題，或刷比我多的大有人在，所以這僅僅只是參考就好
 
 > Premium 不一定要買，被鎖的 Solution 可以看 Discussion 或上網找，公司常考題一樣可以看 Discussion 或上網抓，不過如果要密集刷題，panding 煩人程度 + Solution 的時間 CP 值 + OA 的統計數據我最終還是有買
 
