@@ -62,9 +62,9 @@ OK, I think I understand the problem. Please give me one minute to think out the
 
 I have come out a solution. I want to start to present my solution.
 
-當想到解法要開始敘述解法時，一樣可以有一個 trigger point。或如果你不太確定，也許可以說: I'm not quiet sure now, here's what I've tought about the solution. 並嘗試敘述你的想法。
+當想到解法要開始敘述解法時，一樣可以有一個 trigger point。或如果你不太確定，也許可以說: I'm not quiet sure now, here's what I've thought about the problem. 並嘗試敘述你的想法。
 
-在解釋解法的過程中，有兩種方法。其一是條列式的講出要做的步驟，並大略記錄下來，但要小心不要過於詳細以至於流於 pseudo code，這種表達方法的好處是之後實作時可以直接參考已經紀錄下來的流程，並且也在表達上想清楚要儲存的資料結構，但壞處是通常會花比較多時間，需要小心掌控時間。其二是直接透過 test case 來描述做法，舉例來說: 可以先排序 array (此時把範例複製出一份排序好)，然後透過 two pointer (劃出兩個 pointer) 向內搜尋 (同時移動 pointer 尋找並解釋)。這個方法的好處可以讓解釋上更具體，並且普遍上要花的時間比較少就能很清楚的解釋，不過壞處可能是之後要實作時沒有參照。
+在解釋解法的過程中，有兩種方法。其一是條列式的講出要做的步驟，並大略記錄下來，但要小心不要過於詳細到流於 pseudo code，這種表達方法的好處是之後實作時可以直接參考已經紀錄下來的流程，並且也在表達同時也想清楚要使用的資料結構，但壞處通常會花比較多時間，需要小心掌控時間。其二是直接透過 test case 來描述做法，舉例來說: 可以先排序 array (此時把範例複製出一份排序好)，然後透過 two pointer (劃出兩個 pointer) 向內搜尋 (同時移動 pointer 尋找並解釋)。這個方法的好處可以讓解釋上更具體，並且普遍上要花的時間比較少就能很清楚的解釋，不過壞處可能是之後要實作時沒有參照，我個人傾向後者。
 
 That's all of my solution. Is it makes sense / sound reasonable?
 
@@ -94,10 +94,11 @@ I think I've finished the code, should we use some example to varify it / walk t
 ## 複雜度注意事項
 
 * stack space 是否有考慮進空間複雜度中
-* union-find 的複雜度
-* quick sort / hash table 請表明是 avrage case 或中文說"均攤"
+* union-find / recursive 的複雜度
+* quick sort / hash table 等請表明是 avrage case 或中文說"均攤"
 * string concate 的實做是完全複製或動態加長
 * O(n) 的 n 代表什麼意思 (array 長度、heap 高度、tree 深度、...)
+* 複雜度是只需要一個變數 n (其他變數保證比較小)，或是需要多個變數 n, m, h, ... (因為不保證關係)?
 * 你的 tree 是否平衡，如果未平衡會如何，此時可以詢問考官是否可以假設平衡樹，因為實踐平衡樹可能不是時間下可以完成的 (快去查 Treap 來用嘴巴平衡 XD)
 * 預處理的時間是否有考量進去
 

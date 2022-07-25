@@ -175,13 +175,15 @@ Synology 的面試分兩階段，第一階段是線上，有兩個面試官，�
 
 Meta 的面試分三個階段，首先會有一個 OA，20 題選擇題時限 18 分鐘，因為職缺的關係主要是考作業系統、網站安全、CPU 相關的問題，題目蠻 practical 蠻有趣的，類似有 trace 指令 / JWT / SQL injection / regex 等等。第二階段是 Screening Interviews 其實應該就是 Phone Interview，有兩場，一場考 Coding Interview，應該是 LeetCode Medium 中 Easy 的程度；另外一場考 System Interview，主要問我作業系統中 CPU / memory / IO 等問題，也有問一點 trouble shooting。最後是 Virtual Onsite Interview，有四場幫我排在同一天，兩場 Coding，一場 System，一場 Behavior。Coding 一開始會有 warm up 題，像是怎麼寫全排列，盡量不要在這題上花太多時間，然後會有新的題目 (非 follow up)，我被問到的題目都比較時做型的，像是怎麼處理 random，或是 count word，然而有一題最終解法很數學 (O(1) 解)，不過我沒想出數學解就是了 QQ。System interview 主要問 OS 的知識，考官請我講出我知道的 Booting Process，再從其中取出有趣的階段問問題，這部分蠻慶幸我有修 OSDI 以及偶爾聽 Jserv 老師的線上講座，另外剛好面試前的抱佛腳有抱到 paging 的問題。
 
+由於是跟國外的公司面試，想當然爾是全英文的溝通。我不會說英文不重要因為至少你需要聽跟說，不過我的經驗是只要你聽得懂面試官，並且面試官了解你想表的的東西，就算文法一蹋糊塗或講起來口音很重、很卡，面試官是不會在意的，其實當時我還有發生過題目看不懂因為幾個關鍵字不知道是什麼，面試官還有特別解釋給我說 XD。另外我也透個ㄧ些朋友聽說在面試上是不會因為語言而扣分的 (當然如果你理解得比較慢花比較多時間，可能解題上較要快一點 XD)。
+
 面試完後大概五到七天會收到結果，recruiter 跟我約時間跟我講結果，因為有拿到 Offer 所以同時也告知我相關的薪資結構、福利、relocation 事情，並且希望我在一個禮拜內回覆是否接受。不過比較可惜的是 Meta 的畢業生職缺是不能 compete，甚至連 sign on bonus 都很難拿，至少我是沒有拿到 QQ。
 
 Meta 與 Booking.com 是我認為面試體驗最舒服的兩家公司，儘管我認為我面試的所有公司都已經很好了。Meta 有特別的網站可以幫你追蹤你目前的面試進度以及一些參考資料可以讀，會告訴你 Production Engineer 大概要準備那些東西，另外再 Onsite Interview 前也約了一個間單的 Q&A Session 讓你可以問想問的問題，像是我就有問 System 跟 Behavior 要怎麼準備的問題。而且 Meta 還有特別一個網頁可以讓你聯絡公司內隨機的人，可以詢問公司文化、做的事情、以及任何你好奇的問題，整體來說真的很不錯。
 
 ![Meta 的求職網站](/img/2022_meta_offer_get.png "Meta 精美的進度追蹤網頁") Meta 精美的進度追蹤網頁
 
-> 附帶一提，Meta 對於 PE (類似 SRE 職缺) 的 coding interview 其實相對比 SWE 少一些，但相對希望對 OS 有更深入的理解。因此強烈建議對作業系統有興趣卻不太想進硬體公司且厭於刷提的人才可以研究看看這個職缺 (或可能其他大公司的 SRE)。
+> 附帶一提，Meta 對於 PE (類似 SRE 職缺) 的 coding interview 其實相對比 SWE 少一些，但相對希望對 OS 有更深入的理解。因此強烈建議對作業系統有興趣卻不太想進硬體公司且厭於刷題的人材可以研究看看這個職缺 (或可能其他大公司的 SRE)。
 <!-- > ![Meta PE algorithms requirement](/img/Meta_PE_req.jpg "Meta PE 要求需要會的演算法主題")
 > ![Meta SWE algorithms requirement](/img/Meta_SWE_req.jpg "Meta SWE 要求需要會的演算法主題") -->
 <div style="width: 50%; float:left;"> <img src="/img/Meta_PE_req.jpg" alt="Meta PE algorithms requirements"/> Meta PE 要求需要會的演算法主題 </div>
