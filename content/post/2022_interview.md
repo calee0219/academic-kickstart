@@ -182,6 +182,12 @@ Meta 與 Booking.com 是我認為面試體驗最舒服的兩家公司，儘管�
 ![Meta 的求職網站](/img/2022_meta_offer_get.png)
 Meta 精美的進度追蹤網頁
 
+附帶一提，Meta 對於 PE (類似 SRE 職缺) 的 coding interview 其實相對比 SWE 少一些，但相對希望對 OS 有更深入的理解，因此強烈建議對作業系統有興趣卻不太想進硬體公司的人才可以研究看看這個職缺 (或可能其他大公司的 SRE)。
+
+![Meta PE algorithms requirement](/img/Meta_PE_req.jpg) Meta PE 要求需要會的演算法主題
+
+![Meta SWE algorithms requirement](/img/Meta_SWE_req.jpg) Meta SWE 要求需要會的演算法主題
+
 ### Booking
 
 [Booking.com](https://jobs.booking.com/careers) 我是透過英國的朋友介紹才認識的，不然其實我之前完全不知道這家公司與服務。朋友是跟我說有些想去歐洲工作的人會透過 Booking 當跳板 (?)，所以當時我想既然都投 Meta 了，就也投投看 Booking 好了。如果不認識的人，這家公司位於荷蘭，主要是做訂房或機票的網站服務。而我投的是 SRE (network engineer) 的職缺，是直接在 JD 上找看看像 Junior 的職缺。
