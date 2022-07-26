@@ -89,9 +89,11 @@ I think I've finished the code, should we use some example to varify it / walk t
 * Can you tell one of the best part and one of the worst part of your company or team?
 * What do you learned most in your position?
 * What is your daily work flow? / What is the tipical days looks like?
-* 是否可以從頭到尾參與 Project，亦或 Project 容易受客戶影響而終結 (問台商)
+* 是否可以從頭到尾參與 Project，亦或 Project 容易受客戶影響而終結
 
 ## 複雜度注意事項
+
+在分析複雜度上可以注意以下狀況
 
 * stack space 是否有考慮進空間複雜度中
 * union-find / recursive 的複雜度
@@ -103,6 +105,8 @@ I think I've finished the code, should we use some example to varify it / walk t
 * 預處理的時間是否有考量進去
 
 ## 常用詞匯
+
+英文面試上好用的句子
 
 * I have couple of questions
 * Would the input always be a XXX
@@ -117,8 +121,11 @@ I think I've finished the code, should we use some example to varify it / walk t
 * Is the order of the output result matters? Or how should I order them?
 * Can I assume that all the input are valid?
 
-## Tips
+## 注意事項
 
+一些在面試上可以注意的東西
+
+* 如果有，自我介紹不要超過一分鐘
 * 不要動任何考官給的東西，如果需要，複製出來使用
 * 如果考官有給 hint，照著做就對了
 * 不要羞於跟面試官尋求幫助，也許可以比較委婉地敘述目前的想法以及卡關的地方
