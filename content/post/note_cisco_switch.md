@@ -31,7 +31,7 @@ projects: []
 
 ## 2960
 
-- [參考](https://hackmd.io/wej6-Ia8T3isStv2cd7cDA?fbclid=IwAR19Ijj6ya1NsnUkv2IzsUpWqS4toxU-Wpe0FVCswLdrmfszcXWMIXURPys)
+- [參考](https://hackmd.io/wej6-Ia8T3isStv2cd7cDA)
 
 ### [Document](https://www.cisco.com/c/en/us/support/switches/catalyst-2960-series-switches/products-installation-and-configuration-guides-list.html#anchor411)
 - 不知道後面接啥就 "?" 一下嚕~~

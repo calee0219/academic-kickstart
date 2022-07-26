@@ -205,3 +205,4 @@ LeetCode Premium 的 Interview -> Assessment 報告
 * [Shopee, Amazon Ring, SiFive, Foodpanda 面試經驗](https://blog.hyperbola.me/posts/other-interviews/)
 * [面試人員心得分享](https://www.ptt.cc/bbs/Tech_Job/M.1650729764.A.368.html)
 * [普通人的海外求職指南](https://readmoo.com/book/210226124000101)
+* [軟體職缺準備心得](https://www.ptt.cc/bbs/Soft_Job/M.1657873542.A.6AB.html)
