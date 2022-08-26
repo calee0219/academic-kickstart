@@ -112,3 +112,8 @@ to be continue...
 - 簽證郵寄費 311
 - 國際駕照規費 250
 - 來回台北的交通費 (外交部護照、VFS 簽證) ???
+
+## References
+
+- [申請互換英國汽車駕照懶人包 Exchange uk driving licence](https://www.puretravel.tw/2022/05/exchange-uk-driving-licence.html)
+- [申領國際駕照指南：如何用台灣駕照申領國際駕照？](https://www.skyscanner.com.tw/news/tips/how-to-acquire-an-international-driving-license-in-taiwan-201703)

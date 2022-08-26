@@ -42,10 +42,10 @@ url_dataset:
 url_poster:
 url_project:
 url_slides:
-url_source: "https://conferences.sigcomm.org/sigcomm/2022/program.html"
+url_source: "https://dl.acm.org/doi/10.1145/3544216.3544267"
 url_video:
 
-links: "https://dl.acm.org/doi/abs/10.1145/3544216.3544267"
+links:
 
 
 # Featured image
