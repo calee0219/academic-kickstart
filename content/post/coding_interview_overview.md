@@ -54,7 +54,7 @@ projects: []
 
 首先考官會陳述題目，注意考官陳述的題目有沒有什麼關鍵字，有可能就是題目最佳化的關鍵。
 
-在考官陳述完題目後不要急於作答，先與考官確認題目意思與詢問不太清楚的資訊，永遠要記得做這個步驟那怕你覺得題目超簡單，最少也可以問個 test case 的 constrain (範圍) / edge / boundary case。陳清題目的方法可以與考官詢問是否有範例測資會自己製造一個範例，並且透過範例找到解答的過程來確認理解是否正確。
+在考官陳述完題目後不要急於作答，先與考官確認題目意思與詢問不太清楚的資訊，永遠要記得做這個步驟那怕你覺得題目超簡單，最少也可以問個 test case 的 constrain (範圍) / edge / boundary case。澄清題目的方法可以與考官詢問是否有範例測資會自己製造一個範例，並且透過範例找到解答的過程來確認理解是否正確。
 
 OK, I think I understand the problem. Please give me one minute to think out the solution.
 

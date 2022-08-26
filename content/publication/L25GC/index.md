@@ -36,8 +36,8 @@ featured: false
 #  icon_pack: fab
 #  icon: twitter
 
-url_pdf:
-url_code:
+url_pdf: "https://dl.acm.org/doi/pdf/10.1145/3544216.3544267"
+url_code: "https://github.com/nycu-ucr/l25gc"
 url_dataset:
 url_poster:
 url_project:
@@ -45,7 +45,7 @@ url_slides:
 url_source: "https://conferences.sigcomm.org/sigcomm/2022/program.html"
 url_video:
 
-links:
+links: "https://dl.acm.org/doi/abs/10.1145/3544216.3544267"
 
 
 # Featured image
