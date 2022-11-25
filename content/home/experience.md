@@ -19,6 +19,18 @@ date_format = "Jan 2006"
 #   Begin/end multi-line descriptions with 3 quotes `"""`.
 
 [[experience]]
+  title = "Production Engineer"
+  company = "Meta"
+  company_url = "https://meta.com"
+  location = "London, United Kindom"
+  date_start = "2022-10-03"
+  date_end = ""
+  description = """
+  * Implement a alerming script for deletion schedular
+  * Impacted by non-performance layoffs
+  """
+
+[[experience]]
   title = "Master Degree Student"
   company = "Computer Science and Engineering, National Yang Ming Chiao Tung University"
   company_url = "https://www.cs.nycu.edu.tw"
