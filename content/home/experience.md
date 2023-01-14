@@ -26,7 +26,7 @@ date_format = "Jan 2006"
   date_start = "2022-10-03"
   date_end = ""
   description = """
-  * Implement a alerming script for deletion schedular
+  * Implement an alerting script for a deletion scheduler
   * Impacted by non-performance layoffs
   """
 
