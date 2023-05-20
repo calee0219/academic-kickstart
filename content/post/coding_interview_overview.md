@@ -22,6 +22,8 @@ projects: []
 
 --- 2023 更新 ---
 如果想要找 mock interview，可以來信 sz110010@gmail.com 詢問，但不保證有空幫忙 XD。
+(想要幫忙修履歷的也可以寄來看看)
+PS. 不 qualify senior，請不要對幫助抱太大期待 XD
 
 ## 流程
 
