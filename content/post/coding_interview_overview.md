@@ -21,8 +21,9 @@ projects: []
 這篇部落格主要著墨在 Coding Interview 的流程、注意事項，關於準備方法可以參考[這裡](https://calee.xyz/post/2022_get_jobs/#coding-interview)。
 
 --- 2023 更新 ---
-如果想要找 mock interview，可以來信 sz110010@gmail.com 詢問，但不保證有空幫忙 XD。
-(想要幫忙修履歷的也可以寄來看看)
+
+如果想要找 mock interview，可以來信 sz110010@gmail.com 詢問，想要幫忙修履歷的也可以寄來看看，但不保證有空幫忙 XD。
+
 PS. 不 qualify senior，請不要對幫助抱太大期待 XD
 
 ## 流程
