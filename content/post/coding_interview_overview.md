@@ -103,7 +103,7 @@ I think I've finished the code, should we use some example to varify it / walk t
 
 * stack space 是否有考慮進空間複雜度中
 * union-find / recursive 的複雜度
-* quick sort / hash table 等請表明是 avrage case 或中文說"均攤"
+* quick sort / hash table 等請表明是 average case 或中文說"均攤"
 * string concate 的實做是完全複製或動態加長
 * O(n) 的 n 代表什麼意思 (array 長度、heap 高度、tree 深度、...)
 * 複雜度是只需要一個變數 n (其他變數保證比較小)，或是需要多個變數 n, m, h, ... (因為不保證關係)?
