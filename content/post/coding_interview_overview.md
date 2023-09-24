@@ -26,7 +26,7 @@ projects: []
 
 PS. 不 qualify senior，請不要對幫助抱太大期待 XD
 
-BTW 我們公司最近重新開缺了，如果有看到有興趣的職缺，歡迎準備英文姓名、email、CV，可以找我 reference，另外我會希望能跟您約個 con-call 認識一下~ 🤗
+BTW 敝司 (Meta) 最近重新開缺了，如果有看到有興趣的職缺，歡迎準備英文姓名、email、CV，可以找我 reference，另外我會希望能跟您約個 con-call 認識一下~ 🤗
 
 ## 流程
 
