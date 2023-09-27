@@ -259,7 +259,7 @@ PS. 過程中與 Deloitte 文件交換的過程都是使用 Deloitte 的 Cobalt 
 - 8/15 到 UK Visa Application Centre 繳交簽證文件、護照
 - 8/25 收到 Visa 與 UKVI 01
 - 9/6  與 Altair DSP 第二次 concall
-- 9/25 非到英國
+- 9/25 飛到英國
 - 10/3 上工
 
 ## References
