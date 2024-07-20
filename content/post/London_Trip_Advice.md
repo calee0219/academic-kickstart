@@ -96,6 +96,8 @@ Full English brackfast -> ???
 
 ### Copy from [Craig's tour](https://www.facebook.com/craigartstour/posts/857671953028437)
 
+(標題連結還有其他地區的地圖，這邊只取倫敦部分供參考)
+
 * [Day1 walk](https://www.facebook.com/craigartstour/posts/767834615345505): [Map](https://www.google.com/maps/d/u/0/viewer?mid=1xQ9HroQ0ur3GSRUuFx06I2r9GSoDKoE&ll=51.50726719084324%2C-0.1341399999999915&z=14)
 * Day2 walk: [Map](https://www.google.com/maps/d/u/0/viewer?mid=1LJCM2f4WlllMPH39wGVjvAtYvW3hfww&ll=51.50850709981016%2C-0.09772699999999634&z=14)
 * Day3 walk: [Map](https://www.google.com/maps/d/u/0/viewer?mid=1ASg_xkfmXpBAcqfBJ7nQpcE0751kFXo&ll=51.503605696097175%2C-0.1719499999999874&z=15)
