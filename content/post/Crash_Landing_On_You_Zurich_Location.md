@@ -29,6 +29,12 @@ image:
 
 [Google Map](https://maps.app.goo.gl/dbEfSN4J5STB7uEP7)
 
+## 車站
+
+Zurich HB 外面的電車總站有一張，但由於我沒有時間因此沒拍，應該就是等到 2 號電車來就可以拍到
+
+<img src="https://live.staticflickr.com/65535/49649958526_05ce918c59_h.jpg" width="65%"> <img src="https://live.staticflickr.com/65535/49638676148_ec45f0081d_h.jpg" width="30%">
+
 ## 坐河邊
 
 首先來到女主坐在河邊的點 [Google Map](https://maps.app.goo.gl/BoyYb74wa8M5gEFt6)，拍照點大概在往河看右邊數來第二個長椅前後，要稍微開長焦特寫人像，對準後面黃色與紅色建築物中間的鴨鴨藍旗，大概拍攝者相對位置
@@ -67,4 +73,30 @@ image:
 ## 大教堂橋
 
 大教堂橋也可以拍到三張照片
+
+首先，拍攝者不要上橋，大概在 ROSE & BORN 門口旁邊的水溝蓋 [Google Map](https://maps.app.goo.gl/c5Gz2PNuuaW7hMJx5)
+
+<img src="/static/img/Zurich_Crash_Landing_On_You_Beside_The_Bridge_1.jpeg" width="20%"> <img src="/static/img/Zurich_Crash_Landing_On_You_Beside_The_Bridge_2.jpeg" width="20%"> <img src="/static/img/Zurich_Crash_Landing_On_You_Beside_The_Bridge_3.png" width="50%">
+
+請被攝者站在右邊數來第二座路燈旁邊，這張照片需要開超長焦鏡，讓路燈剛好放在後面教堂第四根柱子前面，人則是要站在第二根柱子下面，下面記得要留下一線橋墩
+
+<img src="https://www.swisseducation.com.hk/wp-content/uploads/2020/03/158201616678602500_a580xH.jpg" width="95%">
+<img src="/static/img/Zurich_Crash_Landing_On_You_Beside_The_Bridge.jpeg" width="95%">
+
+第二張是站在橋上，往蘇黎世湖的方向拍攝，此時拍攝者大概站在第二根路燈的右側 [Google Map](https://maps.app.goo.gl/7Bue6siT4ikH43s68)
+
+<img src="/static/img/Zurich_Crash_Landing_On_You_On_The_Bridge_1.jpeg" width="20%">
+
+拍攝過程中要留下左側建築物的一根塔樓，以及右側建築物的全貌，而被攝者則是站在路橋對面，動作隨意
+
+<img src="https://live.staticflickr.com/65535/49649928241_8f8936be7c_h.jpg" width="95%">
+<img src="/static/img/Zurich_Crash_Landing_On_You_On_The_Bridge.jpeg" width="95%">
+
+最後一張圖也是另一個雙人劇照，拍攝者大概在靠蘇黎世大教堂與蘇黎世湖側橋尾 [Google Map](https://maps.app.goo.gl/PhoyCp5kLzUCkH1s5)，拍攝時需要注意左側路燈第三根 (最靠近者) 的燈罩頂大概遮住 7 的位置 (我的位置還是太高了)，右邊建築物至少要流出一個天窗
+
+<img src="/static/img/Zurich_Crash_Landing_On_You_Church_1.jpeg" width="20%"> <img src="/static/img/Zurich_Crash_Landing_On_You_Church_2.jpeg" width="20%">
+
+被攝者兩人站中間，有下往上的視角拍攝
+
+<img src="https://live.staticflickr.com/65535/49639201186_f69336b6d5_h.jpg" width="45%"> <img src="/static/img/Zurich_Crash_Landing_On_You_Church.jpeg" width="45%">
 
