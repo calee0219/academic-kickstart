@@ -24,8 +24,6 @@ projects: []
 
 如果想要找 mock interview，可以來信 sz110010@gmail.com 詢問，想要幫忙修履歷的也可以寄來看看，但不保證有空幫忙 XD。
 
-PS. 不 qualify senior，請不要對幫助抱太大期待 XD
-
 <!-- Google Calendar Appointment Scheduling begin -->
 <link href="https://calendar.google.com/calendar/scheduling-button-script.css" rel="stylesheet">
 <script src="https://calendar.google.com/calendar/scheduling-button-script.js" async></script>
@@ -36,13 +34,16 @@ PS. 不 qualify senior，請不要對幫助抱太大期待 XD
     calendar.schedulingButton.load({
       url: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ10EEmxfEJfyec_e-58EktYERtAOp9E-kjF7olGPJC-Qfo5KltSpAUz0qgYwDkc02mlSQuYN20v?gv=true',
       color: '#039BE5',
-      label: '預約',
+      label: '預約 Mock Interview 時間',
       target,
     });
   });
 })();
 </script>
 <!-- end Google Calendar Appointment Scheduling -->
+
+
+PS. 不 qualify senior，請不要對幫助抱太大期待 XD
 
 BTW 敝司 (Meta) 最近重新開缺了，如果有看到有興趣的職缺，歡迎準備英文姓名、email、CV，可以找我 reference，另外我會希望能跟您約個 con-call 認識一下~ 🤗
 
