@@ -26,6 +26,24 @@ projects: []
 
 PS. 不 qualify senior，請不要對幫助抱太大期待 XD
 
+<!-- Google Calendar Appointment Scheduling begin -->
+<link href="https://calendar.google.com/calendar/scheduling-button-script.css" rel="stylesheet">
+<script src="https://calendar.google.com/calendar/scheduling-button-script.js" async></script>
+<script>
+(function() {
+  var target = document.currentScript;
+  window.addEventListener('load', function() {
+    calendar.schedulingButton.load({
+      url: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ10EEmxfEJfyec_e-58EktYERtAOp9E-kjF7olGPJC-Qfo5KltSpAUz0qgYwDkc02mlSQuYN20v?gv=true',
+      color: '#039BE5',
+      label: '預約',
+      target,
+    });
+  });
+})();
+</script>
+<!-- end Google Calendar Appointment Scheduling -->
+
 BTW 敝司 (Meta) 最近重新開缺了，如果有看到有興趣的職缺，歡迎準備英文姓名、email、CV，可以找我 reference，另外我會希望能跟您約個 con-call 認識一下~ 🤗
 
 ## 流程
