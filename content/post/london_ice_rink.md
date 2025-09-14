@@ -17,8 +17,6 @@ image:
 
 ---
 
-# 倫敦/倫敦近郊冰場
-
 全年
 * Queen House: https://www.rmg.co.uk/.../attractions/queens-house-ice-rink
 * Lee Valley: https://www.better.org.uk/leisure.../lee-valley/ice-centre
