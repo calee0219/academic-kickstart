@@ -25,7 +25,6 @@ image:
 * Planet Ice Gosport: https://planet-ice.co.uk/
 
 冬季
-* Natural History Museum: https://www.nhm.ac.uk/visit/exhibitions/ice-rink.html
 * Winter wonderland: https://hydeparkwinterwonderland.com/things.../ice-skating/
 * Somerset House: https://www.somersethouse.org.uk/wha.../skate-somerset-house
 * Battersea power station: https://glidebatterseapowerstation.co.uk/
