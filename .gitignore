@@ -4,6 +4,14 @@
 # Hugo
 resources/
 public/
+.hugo_build.lock
+
+# Node
+node_modules/
+pnpm-lock.yaml
+
+# Go
+go.sum
 
 # Mac
 .DS_Store

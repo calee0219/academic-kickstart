@@ -1,0 +1,165 @@
+# Display name
+title: Chia-An Lee
+
+# Full name (for SEO)
+first_name: Chia-An
+last_name: Lee
+
+# Is this the primary user of the site?
+superuser: true
+
+# Role/position
+role: Master student in CS NYCU, major in networking
+
+# Bio
+bio: |
+  Chia-An Lee is a master student in National Yang Ming Chiao Tung University majoring in Computer Science at [WIRELab](http://wire.cs.nctu.edu.tw) which is lead by [Prof. Jyh-Cheng Chen](https://people.cs.nctu.edu.tw/~jcc/). Now, working on developing the open source core network [free5GC](https://free5gc.org/).
+  Used to be an TA in [NCTU CSCC](https://cscc.cs.nctu.edu.tw/). Interested in IT, SRE, Networking. Familiar with traditional networking and server management.
+
+# Affiliations
+affiliations:
+  - name: National Yang Ming Chiao Tung University
+    url: "https://www.nycu.edu.tw/"
+  - name: free5GC
+    url: "https://free5gc.org/"
+
+# Social links
+links:
+  - icon: at-symbol
+    url: mailto:calee@cs.nctu.edu.tw
+    label: E-mail Me
+  - icon: brands/github
+    url: https://github.com/calee0219
+  - icon: brands/linkedin
+    url: https://www.linkedin.com/in/chia-an-lee-400956ba/
+  - icon: academicons/cv
+    url: files/calee_cv.pdf
+
+# Interests
+interests:
+  - Infrastructure
+  - Traditional Networking
+  - Mobile Networking
+
+# Education
+education:
+  - degree: MEng in Computer Science
+    institution: National Yang Ming Chiao Tung University, Taiwan
+    start: 2019-09-01
+    end: 2021-07-16
+  - degree: BSc in Computer Science
+    institution: National Chiao Tung University, Taiwan
+    start: 2015-09-01
+    end: 2019-07-31
+
+# Experience (migrated from old experience widget)
+experience:
+  - role: Production Engineer
+    org: Meta
+    url: https://meta.com
+    location: London, United Kingdom
+    start: 2022-10-03
+    summary: |
+      - Implement an alerting script for a deletion scheduler
+      - Impacted by non-performance layoffs
+  - role: Master Degree Student
+    org: "Computer Science and Engineering, National Yang Ming Chiao Tung University"
+    url: https://www.cs.nycu.edu.tw
+    location: Hsinchu, Taiwan
+    start: 2019-09-01
+    end: 2021-07-16
+    summary: |
+      - Advisor: [Prof. Jyh-Cheng Chen](https://people.cs.nctu.edu.tw/~jcc/)
+      - Lab: WIRELab / [CSLab](https://cslab.nctu.edu.tw/)
+      - Major: 5G core network, [free5GC](https://free5gc.org)
+      - Thesis: Design and Implementation of a Low-Latency and High-Throughput 5G Core Network
+  - role: Bachelor Degree Student
+    org: "Computer Science, National Chiao Tung University"
+    url: https://www.cs.nctu.edu.tw
+    location: Hsinchu, Taiwan
+    start: 2015-09-01
+    end: 2019-07-31
+  - role: TA & Part Time
+    org: NCTU CSCC
+    url: https://cscc.cs.nctu.edu.tw/
+    location: Taiwan
+    start: 2018-02-01
+    end: 2019-09-01
+    summary: |
+      Responsibilities include:
+      - Networking
+      - Linux Server Managing
+  - role: TA
+    org: "Wireless Networks, NCTU"
+    url: https://www.nctu.edu.tw
+    location: Hsinchu, Taiwan
+    start: 2020-03-01
+    end: 2021-06-30
+    summary: |
+      **[Wireless Networks](https://timetable.nctu.edu.tw/?r=main/crsoutline&Acy=108&Sem=2&CrsNo=5270)**
+      - Teacher: [Prof. Jyh-Cheng Chen](https://people.cs.nctu.edu.tw/~jcc/)
+  - role: TA
+    org: "Network Planning and Management Practices, NCTU"
+    url: https://www.nctu.edu.tw
+    location: Hsinchu, Taiwan
+    start: 2018-09-01
+    end: 2019-01-01
+    summary: |
+      **[Network Planning and Management Practices](https://timetable.nctu.edu.tw/?r=main/crsoutline&Acy=107&Sem=1&CrsNo=1180)**
+      - Teacher: [陳振庸](http://eclass.hust.edu.tw/instructor/jychen)
+  - role: TA
+    org: "Network Administration Practice, NCTU"
+    url: https://www.nctu.edu.tw
+    location: Hsinchu, Taiwan
+    start: 2018-02-22
+    end: 2018-06-21
+    summary: |
+      **[Network Administration Practice](https://timetable.nycu.edu.tw/?r=main/crsoutline&Acy=106&Sem=2&CrsNo=5241)**
+      - Teacher: [吳育松](https://www.cs.nycu.edu.tw/members/detail/ysw), 王則涵
+  - role: TA
+    org: "Scratch and Python Programming, NCTU"
+    url: https://www.nctu.edu.tw
+    location: Hsinchu, Taiwan
+    start: 2017-07-01
+    end: 2017-08-31
+    summary: |
+      **[NCTU Scratch and Python, 2017 Summer](https://github.com/mzshieh/snp2017)**
+      - Teacher: [Prof. Min-Zheng Shieh](https://sites.google.com/site/mzshieh/)
+  - role: Intern
+    org: National Center for High-Performance Computing
+    url: https://www.nchc.org.tw
+    location: Hsinchu, Taiwan
+    start: 2018-07-01
+    end: 2018-12-01
+    summary: "Lightweight GPU computing platform. Based on Docker container."
+  - role: Intern
+    org: National Center for High-Performance Computing
+    url: https://www.nchc.org.tw
+    location: Hsinchu, Taiwan
+    start: 2017-07-01
+    end: 2017-12-01
+    summary: "Working on blockchain. Research in Ethereum and smart contract."
+  - role: IT Manager
+    org: TEDxNCTU
+    location: Hsinchu, Taiwan
+    start: 2017-05-01
+    end: 2018-05-01
+    summary: "Manage everything about IT for the TEDxNCTU event."
+
+# Skills
+skills:
+  - name: Technical Skills
+    items:
+      - label: Linux
+        level: 5
+      - label: Networking
+        level: 5
+      - label: C/C++
+        level: 4
+      - label: Golang
+        level: 4
+      - label: Python
+        level: 4
+
+# Email
+email: "calee@cs.nctu.edu.tw"
