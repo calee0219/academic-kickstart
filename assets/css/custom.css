@@ -1,0 +1,43 @@
+/* Custom CSS overrides for calee.xyz */
+
+/* Reduce excessive section spacing on homepage */
+.hb-section {
+  padding-top: 1.5rem !important;
+  padding-bottom: 1.5rem !important;
+}
+
+/* First section (biography) - tighter top padding */
+.hb-section:first-of-type {
+  padding-top: 0.5rem !important;
+  padding-bottom: 1rem !important;
+}
+
+/* Skills section - reduce internal whitespace */
+.hb-section #skills {
+  margin-top: 0 !important;
+}
+
+/* Project card - make it wider when there's only one */
+.hb-section #projects .article-grid {
+  max-width: 600px !important;
+}
+
+/* Hide broken image placeholders when no featured image exists */
+.card img[src=""],
+.card img:not([src]),
+article img[src=""],
+article img:not([src]) {
+  display: none !important;
+}
+
+/* Hide the broken image container when no image is available */
+.card .relative.overflow-hidden:has(img:not([src])),
+.card .relative.overflow-hidden:has(img[src=""]) {
+  display: none !important;
+}
+
+/* Footer - clean up branding */
+footer .powered-by {
+  font-size: 0.75rem !important;
+  opacity: 0.6;
+}
