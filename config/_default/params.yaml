@@ -9,7 +9,7 @@ hugoblox:
   identity:
     name: "Chia-An Lee"
     type: person
-    tagline: "CS student in NYCU, Taiwan"
+    tagline: "Production Engineer at Meta"
     description: "Interested in networking, study on 5G, cooperate with free5GC."
     organization: "National Yang Ming Chiao Tung University"
     social:
@@ -30,7 +30,7 @@ hugoblox:
   # ──────────────────────────────────────────────────────────────────────────
   typography:
     font: academic
-    size: md
+    size: sm
 
   # ──────────────────────────────────────────────────────────────────────────
   # HEADER
@@ -51,7 +51,7 @@ hugoblox:
   footer:
     style: minimal
     language_switcher: false
-    text: ""
+    text: "© 2025 Chia-An Lee. All rights reserved."
 
   # ──────────────────────────────────────────────────────────────────────────
   # COPYRIGHT
@@ -120,5 +120,5 @@ hugoblox:
   # PREMIUM
   # ──────────────────────────────────────────────────────────────────────────
   pro:
-    hide_attribution: false
+    hide_attribution: true
     affiliate_code: ""

@@ -1,7 +1,7 @@
 ---
 title: "Linux PPPoE 設定"
 subtitle: ""
-summary: ""
+summary: "Linux 上 PPPoE 的設定方法，以 CentOS 為主，涵蓋 network-scripts 與 NetworkManager 的設定方式。"
 authors: ["Chia-An Lee"]
 tags: ["Linux", "PPPoE", "network"]
 categories: ["network"]
