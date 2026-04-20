@@ -86,11 +86,11 @@
       letter-spacing: 0.05em;
     }
 
-    /* Controls */
-    .controls {
+    /* Top controls: Group + Search + Language */
+    .controls-top {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 1rem 1.5rem;
+      padding: 1rem 1.5rem 0.5rem;
       display: flex;
       flex-wrap: wrap;
       gap: 0.75rem;
@@ -160,6 +160,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 0.5rem;
+      align-items: center;
     }
     .filter-section-label {
       font-size: 0.7rem;
@@ -175,6 +176,7 @@
       background: var(--border);
       margin: 0 0.5rem;
       align-self: stretch;
+      min-height: 1.5rem;
     }
     .filter-tag {
       background: var(--bg-card);
@@ -195,6 +197,17 @@
       background: var(--tag-bg);
       color: var(--tag-text);
       border-color: var(--accent);
+    }
+
+    /* Sort controls (below filters) */
+    .controls-sort {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0.5rem 1.5rem 0.75rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
     }
 
     /* Trip grid */
@@ -335,6 +348,51 @@
       font-size: 0.7rem;
     }
 
+    /* Active filter summary */
+    .active-filters-summary {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem 0.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      align-items: center;
+    }
+    .active-filter-chip {
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      border: 1px solid var(--accent);
+      border-radius: 20px;
+      padding: 0.2rem 0.6rem;
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .active-filter-chip .chip-remove {
+      cursor: pointer;
+      opacity: 0.7;
+      font-size: 0.85rem;
+      line-height: 1;
+    }
+    .active-filter-chip .chip-remove:hover {
+      opacity: 1;
+    }
+    .clear-all-btn {
+      background: transparent;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 0.2rem 0.6rem;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .clear-all-btn:hover {
+      border-color: var(--accent);
+      color: var(--text);
+    }
+
     /* Empty state */
     .empty-state {
       text-align: center;
@@ -358,7 +416,8 @@
     @media (max-width: 768px) {
       .header h1 { font-size: 1.6rem; }
       .stats { gap: 1.5rem; }
-      .controls { flex-direction: column; align-items: stretch; }
+      .controls-top { flex-direction: column; align-items: stretch; }
+      .controls-sort { flex-direction: column; align-items: stretch; }
       .lang-toggle { margin-left: 0; justify-content: center; }
       .search-input { width: 100%; }
       .trip-grid { grid-template-columns: 1fr; }
@@ -395,17 +454,8 @@
     </div>
   </div>
 
-  <div class="controls">
-    <div class="control-group">
-      <span class="control-label" id="sortLabel">Sort</span>
-      <select id="sortSelect">
-        <option value="date-desc">Newest First</option>
-        <option value="date-asc">Oldest First</option>
-        <option value="duration-desc">Longest First</option>
-        <option value="duration-asc">Shortest First</option>
-        <option value="name-asc">Name A&rarr;Z</option>
-      </select>
-    </div>
+  <!-- Top row: Group + Search + Language -->
+  <div class="controls-top">
     <div class="control-group">
       <span class="control-label" id="groupLabel">Group</span>
       <select id="groupSelect">
@@ -414,7 +464,7 @@
         <option value="season">By Season</option>
         <option value="type">By Type</option>
         <option value="status">By Status</option>
-        <option value="continent">By Continent</option>
+        <option value="continent" selected>By Continent</option>
         <option value="country">By Country</option>
       </select>
     </div>
@@ -427,10 +477,27 @@
     </div>
   </div>
 
-  <!-- Type & Status filters -->
+  <!-- Filter rows: Type & Status -->
   <div class="filter-tags" id="filterTagsType"></div>
-  <!-- Continent & Country filters -->
+  <!-- Filter rows: Continent & Country -->
   <div class="filter-tags" id="filterTagsGeo"></div>
+
+  <!-- Active filters summary -->
+  <div class="active-filters-summary" id="activeFiltersSummary"></div>
+
+  <!-- Sort row (below filters) -->
+  <div class="controls-sort">
+    <div class="control-group">
+      <span class="control-label" id="sortLabel">Sort</span>
+      <select id="sortSelect">
+        <option value="date-desc">Newest First</option>
+        <option value="date-asc">Oldest First</option>
+        <option value="duration-desc">Longest First</option>
+        <option value="duration-asc">Shortest First</option>
+        <option value="name-asc">Name A&rarr;Z</option>
+      </select>
+    </div>
+  </div>
 
   <div class="trip-container" id="tripContainer"></div>
 
@@ -681,6 +748,7 @@
         groupContinent: 'By Continent',
         groupCountry: 'By Country',
         filterTypeLabel: 'Type',
+        filterStatusLabel: 'Status',
         filterAll: 'All',
         filterCity: 'City',
         filterSki: 'Ski',
@@ -704,6 +772,8 @@
         continentEurope: 'Europe',
         continentNorthAmerica: 'North America',
         continentAsia: 'Asia',
+        activeFilters: 'Active filters:',
+        clearAll: 'Clear all',
       },
       zh: {
         pageTitle: '旅行規劃 & 歷史',
@@ -730,6 +800,7 @@
         groupContinent: '依洲別',
         groupCountry: '依國家',
         filterTypeLabel: '類型',
+        filterStatusLabel: '狀態',
         filterAll: '全部',
         filterCity: '城市',
         filterSki: '滑雪',
@@ -753,6 +824,8 @@
         continentEurope: '歐洲',
         continentNorthAmerica: '北美洲',
         continentAsia: '亞洲',
+        activeFilters: '篩選條件：',
+        clearAll: '清除全部',
       }
     };
 
@@ -770,8 +843,14 @@
     };
 
     let currentLang = 'en';
-    let activeTypeFilter = 'all';
-    let activeGeoFilter = 'all'; // 'all', continent name, or country name
+
+    // Multi-select filter state: Sets of active filter keys
+    // activeTypeFilters: Set of 'city', 'ski', 'nature'
+    // activeStatusFilters: Set of 'completed', 'planning'
+    // activeGeoFilters: Set of 'continent:Europe', 'country:Japan', etc.
+    let activeTypeFilters = new Set();
+    let activeStatusFilters = new Set();
+    let activeGeoFilters = new Set();
 
     // ===== Derive unique continents & countries =====
     function getUniqueContinents() {
@@ -794,7 +873,7 @@
       render();
     }
 
-    function t(key) {
+    function tr(key) {
       return i18n[currentLang][key] || key;
     }
 
@@ -804,58 +883,66 @@
     }
 
     function translateContinent(name) {
-      if (continentI18n[name]) return t(continentI18n[name]);
+      if (continentI18n[name]) return tr(continentI18n[name]);
       return name;
     }
 
     function updateUI() {
-      document.getElementById('pageTitle').textContent = t('pageTitle');
-      document.getElementById('pageDesc').textContent = t('pageDesc');
-      document.getElementById('backLink').textContent = t('backLink');
-      document.getElementById('sortLabel').textContent = t('sortLabel');
-      document.getElementById('groupLabel').textContent = t('groupLabel');
-      document.getElementById('searchInput').placeholder = t('searchPlaceholder');
-      document.getElementById('statTripsLabel').textContent = t('statTripsLabel');
-      document.getElementById('statCountriesLabel').textContent = t('statCountriesLabel');
-      document.getElementById('statDaysLabel').textContent = t('statDaysLabel');
-      document.getElementById('statCitiesLabel').textContent = t('statCitiesLabel');
-      document.getElementById('footerText').textContent = t('footerText');
+      document.getElementById('pageTitle').textContent = tr('pageTitle');
+      document.getElementById('pageDesc').textContent = tr('pageDesc');
+      document.getElementById('backLink').textContent = tr('backLink');
+      document.getElementById('sortLabel').textContent = tr('sortLabel');
+      document.getElementById('groupLabel').textContent = tr('groupLabel');
+      document.getElementById('searchInput').placeholder = tr('searchPlaceholder');
+      document.getElementById('statTripsLabel').textContent = tr('statTripsLabel');
+      document.getElementById('statCountriesLabel').textContent = tr('statCountriesLabel');
+      document.getElementById('statDaysLabel').textContent = tr('statDaysLabel');
+      document.getElementById('statCitiesLabel').textContent = tr('statCitiesLabel');
+      document.getElementById('footerText').textContent = tr('footerText');
 
       const sortSelect = document.getElementById('sortSelect');
-      sortSelect.options[0].text = t('sortDateDesc');
-      sortSelect.options[1].text = t('sortDateAsc');
-      sortSelect.options[2].text = t('sortDurDesc');
-      sortSelect.options[3].text = t('sortDurAsc');
-      sortSelect.options[4].text = t('sortName');
+      sortSelect.options[0].text = tr('sortDateDesc');
+      sortSelect.options[1].text = tr('sortDateAsc');
+      sortSelect.options[2].text = tr('sortDurDesc');
+      sortSelect.options[3].text = tr('sortDurAsc');
+      sortSelect.options[4].text = tr('sortName');
 
       const groupSelect = document.getElementById('groupSelect');
-      groupSelect.options[0].text = t('groupNone');
-      groupSelect.options[1].text = t('groupYear');
-      groupSelect.options[2].text = t('groupSeason');
-      groupSelect.options[3].text = t('groupType');
-      groupSelect.options[4].text = t('groupStatus');
-      groupSelect.options[5].text = t('groupContinent');
-      groupSelect.options[6].text = t('groupCountry');
+      groupSelect.options[0].text = tr('groupNone');
+      groupSelect.options[1].text = tr('groupYear');
+      groupSelect.options[2].text = tr('groupSeason');
+      groupSelect.options[3].text = tr('groupType');
+      groupSelect.options[4].text = tr('groupStatus');
+      groupSelect.options[5].text = tr('groupContinent');
+      groupSelect.options[6].text = tr('groupCountry');
 
       renderFilterTags();
+      renderActiveFiltersSummary();
     }
 
-    // ===== FILTER TAGS =====
+    // ===== FILTER TAGS (multi-select) =====
     function renderFilterTags() {
-      // Type & Status filters
+      // Type filters
       const typeContainer = document.getElementById('filterTagsType');
       const typeFilters = [
-        { key: 'all', label: t('filterAll') },
-        { key: 'city', label: t('filterCity') },
-        { key: 'ski', label: t('filterSki') },
-        { key: 'nature', label: t('filterNature') },
-        { key: 'completed', label: t('filterCompleted') },
-        { key: 'planning', label: t('filterPlanning') },
+        { key: 'city', label: tr('filterCity') },
+        { key: 'ski', label: tr('filterSki') },
+        { key: 'nature', label: tr('filterNature') },
       ];
+      const statusFilters = [
+        { key: 'completed', label: tr('filterCompleted') },
+        { key: 'planning', label: tr('filterPlanning') },
+      ];
+
       typeContainer.innerHTML =
-        `<span class="filter-section-label">${t('filterTypeLabel')}</span>` +
+        `<span class="filter-section-label">${tr('filterTypeLabel')}</span>` +
         typeFilters.map(f =>
-          `<span class="filter-tag ${activeTypeFilter === f.key ? 'active' : ''}" onclick="setTypeFilter('${f.key}')">${f.label}</span>`
+          `<span class="filter-tag ${activeTypeFilters.has(f.key) ? 'active' : ''}" onclick="toggleTypeFilter('${f.key}')">${f.label}</span>`
+        ).join('') +
+        `<span class="filter-divider"></span>` +
+        `<span class="filter-section-label">${tr('filterStatusLabel')}</span>` +
+        statusFilters.map(f =>
+          `<span class="filter-tag ${activeStatusFilters.has(f.key) ? 'active' : ''}" onclick="toggleStatusFilter('${f.key}')">${f.label}</span>`
         ).join('');
 
       // Geo filters (Continent + Country)
@@ -863,35 +950,114 @@
       const continents = getUniqueContinents();
       const countries = getUniqueCountries();
 
-      let geoHtml = `<span class="filter-section-label">${t('filterGeoLabel')}</span>`;
-      geoHtml += `<span class="filter-tag ${activeGeoFilter === 'all' ? 'active' : ''}" onclick="setGeoFilter('all')">${t('filterAllRegions')}</span>`;
-      geoHtml += `<span class="filter-divider"></span>`;
+      let geoHtml = `<span class="filter-section-label">${tr('filterGeoLabel')}</span>`;
 
       // Continents
       continents.forEach(c => {
-        geoHtml += `<span class="filter-tag ${activeGeoFilter === 'continent:' + c ? 'active' : ''}" onclick="setGeoFilter('continent:${c}')">${translateContinent(c)}</span>`;
+        const key = 'continent:' + c;
+        geoHtml += `<span class="filter-tag ${activeGeoFilters.has(key) ? 'active' : ''}" onclick="toggleGeoFilter('${key}')">${translateContinent(c)}</span>`;
       });
 
       geoHtml += `<span class="filter-divider"></span>`;
 
       // Countries
       countries.forEach(c => {
-        geoHtml += `<span class="filter-tag ${activeGeoFilter === 'country:' + c ? 'active' : ''}" onclick="setGeoFilter('country:${c}')">${translateCountry(c)}</span>`;
+        const key = 'country:' + c;
+        geoHtml += `<span class="filter-tag ${activeGeoFilters.has(key) ? 'active' : ''}" onclick="toggleGeoFilter('country:${c}')">${translateCountry(c)}</span>`;
       });
 
       geoContainer.innerHTML = geoHtml;
     }
 
-    function setTypeFilter(filter) {
-      activeTypeFilter = filter;
+    function toggleTypeFilter(key) {
+      if (activeTypeFilters.has(key)) {
+        activeTypeFilters.delete(key);
+      } else {
+        activeTypeFilters.add(key);
+      }
       renderFilterTags();
+      renderActiveFiltersSummary();
       render();
     }
 
-    function setGeoFilter(filter) {
-      activeGeoFilter = filter;
+    function toggleStatusFilter(key) {
+      if (activeStatusFilters.has(key)) {
+        activeStatusFilters.delete(key);
+      } else {
+        activeStatusFilters.add(key);
+      }
       renderFilterTags();
+      renderActiveFiltersSummary();
       render();
+    }
+
+    function toggleGeoFilter(key) {
+      if (activeGeoFilters.has(key)) {
+        activeGeoFilters.delete(key);
+      } else {
+        activeGeoFilters.add(key);
+      }
+      renderFilterTags();
+      renderActiveFiltersSummary();
+      render();
+    }
+
+    function clearAllFilters() {
+      activeTypeFilters.clear();
+      activeStatusFilters.clear();
+      activeGeoFilters.clear();
+      renderFilterTags();
+      renderActiveFiltersSummary();
+      render();
+    }
+
+    function removeFilter(category, key) {
+      if (category === 'type') activeTypeFilters.delete(key);
+      else if (category === 'status') activeStatusFilters.delete(key);
+      else if (category === 'geo') activeGeoFilters.delete(key);
+      renderFilterTags();
+      renderActiveFiltersSummary();
+      render();
+    }
+
+    // ===== ACTIVE FILTERS SUMMARY =====
+    function renderActiveFiltersSummary() {
+      const container = document.getElementById('activeFiltersSummary');
+      const hasFilters = activeTypeFilters.size > 0 || activeStatusFilters.size > 0 || activeGeoFilters.size > 0;
+
+      if (!hasFilters) {
+        container.innerHTML = '';
+        return;
+      }
+
+      const filterLabelMap = {
+        'city': tr('filterCity'),
+        'ski': tr('filterSki'),
+        'nature': tr('filterNature'),
+        'completed': tr('filterCompleted'),
+        'planning': tr('filterPlanning'),
+      };
+
+      let html = `<span class="filter-section-label">${tr('activeFilters')}</span>`;
+
+      activeTypeFilters.forEach(key => {
+        html += `<span class="active-filter-chip">${filterLabelMap[key]} <span class="chip-remove" onclick="removeFilter('type','${key}')">&times;</span></span>`;
+      });
+      activeStatusFilters.forEach(key => {
+        html += `<span class="active-filter-chip">${filterLabelMap[key]} <span class="chip-remove" onclick="removeFilter('status','${key}')">&times;</span></span>`;
+      });
+      activeGeoFilters.forEach(key => {
+        let label;
+        if (key.startsWith('continent:')) {
+          label = translateContinent(key.replace('continent:', ''));
+        } else {
+          label = translateCountry(key.replace('country:', ''));
+        }
+        html += `<span class="active-filter-chip">${label} <span class="chip-remove" onclick="removeFilter('geo','${key}')">&times;</span></span>`;
+      });
+
+      html += `<button class="clear-all-btn" onclick="clearAllFilters()">${tr('clearAll')}</button>`;
+      container.innerHTML = html;
     }
 
     // ===== SORTING =====
@@ -909,27 +1075,29 @@
       });
     }
 
-    // ===== FILTERING =====
+    // ===== FILTERING (multi-select with AND across categories, OR within category) =====
     function filterTrips(list) {
       const search = document.getElementById('searchInput').value.toLowerCase();
       return list.filter(trip => {
-        // Type / status filter
-        if (activeTypeFilter !== 'all') {
-          if (activeTypeFilter === 'completed' && trip.status !== 'completed') return false;
-          if (activeTypeFilter === 'planning' && trip.status !== 'planning') return false;
-          if (activeTypeFilter === 'city' && trip.type !== 'city') return false;
-          if (activeTypeFilter === 'ski' && trip.type !== 'ski') return false;
-          if (activeTypeFilter === 'nature' && trip.type !== 'nature') return false;
+        // Type filter (OR within category): trip must match at least one selected type
+        if (activeTypeFilters.size > 0) {
+          if (!activeTypeFilters.has(trip.type)) return false;
         }
-        // Geo filter
-        if (activeGeoFilter !== 'all') {
-          if (activeGeoFilter.startsWith('continent:')) {
-            const continent = activeGeoFilter.replace('continent:', '');
-            if (trip.continent !== continent) return false;
-          } else if (activeGeoFilter.startsWith('country:')) {
-            const country = activeGeoFilter.replace('country:', '');
-            if (!trip.countries.includes(country)) return false;
+        // Status filter (OR within category): trip must match at least one selected status
+        if (activeStatusFilters.size > 0) {
+          if (!activeStatusFilters.has(trip.status)) return false;
+        }
+        // Geo filter (OR within category): trip must match at least one selected geo
+        if (activeGeoFilters.size > 0) {
+          let geoMatch = false;
+          for (const gf of activeGeoFilters) {
+            if (gf.startsWith('continent:')) {
+              if (trip.continent === gf.replace('continent:', '')) { geoMatch = true; break; }
+            } else if (gf.startsWith('country:')) {
+              if (trip.countries.includes(gf.replace('country:', ''))) { geoMatch = true; break; }
+            }
           }
+          if (!geoMatch) return false;
         }
         // Search
         if (search) {
@@ -959,15 +1127,15 @@
             keys = [new Date(trip.date).getFullYear().toString()];
             break;
           case 'season':
-            const seasonMap = { spring: t('seasonSpring'), summer: t('seasonSummer'), autumn: t('seasonAutumn'), winter: t('seasonWinter') };
+            const seasonMap = { spring: tr('seasonSpring'), summer: tr('seasonSummer'), autumn: tr('seasonAutumn'), winter: tr('seasonWinter') };
             keys = [seasonMap[trip.season] || trip.season];
             break;
           case 'type':
-            const typeMap = { city: t('typeCity'), ski: t('typeSki'), nature: t('typeNature') };
+            const typeMap = { city: tr('typeCity'), ski: tr('typeSki'), nature: tr('typeNature') };
             keys = [typeMap[trip.type] || trip.type];
             break;
           case 'status':
-            keys = [trip.status === 'completed' ? t('statusCompleted') : t('statusPlanning')];
+            keys = [trip.status === 'completed' ? tr('statusCompleted') : tr('statusPlanning')];
             break;
           case 'continent':
             keys = [translateContinent(trip.continent)];
@@ -1018,7 +1186,7 @@
             <div class="card-subtitle">${data.subtitle}</div>
             <div class="card-meta">
               <span class="meta-item"><span class="meta-icon">📅</span> ${data.date_str}</span>
-              <span class="meta-item"><span class="meta-icon">⏱️</span> ${trip.duration} ${t('days')}</span>
+              <span class="meta-item"><span class="meta-icon">⏱️</span> ${trip.duration} ${tr('days')}</span>
               <span class="meta-item"><span class="meta-icon">📍</span> ${countriesDisplay}</span>
             </div>
             <div class="card-tags">
@@ -1039,8 +1207,8 @@
         container.innerHTML = `
           <div class="empty-state">
             <div class="empty-state-icon">🔍</div>
-            <h3>${t('emptyTitle')}</h3>
-            <p>${t('emptyDesc')}</p>
+            <h3>${tr('emptyTitle')}</h3>
+            <p>${tr('emptyDesc')}</p>
           </div>
         `;
         return;
