@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barcelona & Madrid 2025</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Hero Section -->
+<header class="hero" id="top">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <div class="hero-badge">2025.05.17 — 05.21</div>
+        <h1>Barcelona & Madrid</h1>
+        <p class="hero-subtitle" data-zh="巴塞隆納 · 馬德里 · 高第 · 佛朗明哥 · 美食之旅" data-en="Barcelona · Madrid · Gaudí · Flamenco · Culinary Journey">巴塞隆納 · 馬德里 · 高第 · 佛朗明哥 · 美食之旅</p>
+        <div class="hero-stats">
+            <div class="stat">
+                <span class="stat-number">5</span>
+                <span class="stat-label" data-zh="天" data-en="Days">天</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">2</span>
+                <span class="stat-label" data-zh="城市" data-en="Cities">城市</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">2</span>
+                <span class="stat-label" data-zh="人" data-en="Travelers">人</span>
+            </div>
+        </div>
+        <a href="#overview" class="hero-cta" data-zh="查看行程 ↓" data-en="View Itinerary ↓">查看行程 ↓</a>
+    </div>
+</header>
+
+<!-- Navigation -->
+<nav class="main-nav" id="mainNav">
+    <div class="nav-inner">
+        <a href="#top" class="nav-logo">BCN & MAD</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="nav-links" id="navLinks">
+            <a href="#overview" data-zh="總覽" data-en="Overview">總覽</a>
+            <a href="#schedule" data-zh="行程" data-en="Itinerary">行程</a>
+            <a href="#map" data-zh="地圖" data-en="Map">地圖</a>
+            <a href="#food" data-zh="美食" data-en="Food">美食</a>
+            <a href="#flamenco" data-zh="佛朗明哥" data-en="Flamenco">佛朗明哥</a>
+            <a href="#tips" data-zh="小貼士" data-en="Tips">小貼士</a>
+            <button class="lang-toggle" id="langToggle" title="Switch Language">EN</button>
+        </div>
+        <button class="lang-toggle lang-toggle-mobile" id="langToggleMobile" title="Switch Language">EN</button>
+    </div>
+</nav>
+
+<!-- Overview Section -->
+<section class="section" id="overview">
+    <div class="container">
+        <h2 class="section-title" data-zh="旅程總覽" data-en="Trip Overview">旅程總覽</h2>
+        <p class="section-subtitle" data-zh="從倫敦出發，探索西班牙兩大城市的建築、文化與美食" data-en="Departing from London, exploring the architecture, culture, and cuisine of Spain's two great cities">從倫敦出發，探索西班牙兩大城市的建築、文化與美食</p>
+        <div class="overview-grid">
+            <div class="overview-card">
+                <div class="card-icon">✈️</div>
+                <h3 data-zh="航班" data-en="Flights">航班</h3>
+                <div class="card-detail">
+                    <div class="detail-row"><span class="label" data-zh="去程" data-en="Outbound">去程</span><span>5/17 Vueling LHR → BCN 09:55</span></div>
+                    <div class="detail-row"><span class="label" data-zh="回程" data-en="Return">回程</span><span>5/21 BA MAD → LGW 20:40</span></div>
+                    <div class="detail-row"><span class="label" data-zh="行李" data-en="Luggage">行李</span><span>23kg × 2</span></div>
+                </div>
+            </div>
+            <div class="overview-card">
+                <div class="card-icon">🏨</div>
+                <h3 data-zh="巴塞隆納住宿" data-en="Barcelona Accommodation">巴塞隆納住宿</h3>
+                <div class="card-detail">
+                    <div class="detail-row"><span class="label" data-zh="旅館" data-en="Hotel">旅館</span><span>Pension San Ramon</span></div>
+                    <div class="detail-row"><span class="label" data-zh="地址" data-en="Address">地址</span><span><a href="https://maps.google.com/?q=San+Ramon+15+Ciutat+Vella+08001+Barcelona" target="_blank">San Ramón 15, Ciutat Vella</a></span></div>
+                    <div class="detail-row"><span class="label" data-zh="日期" data-en="Dates">日期</span><span data-zh="5/17–5/19（入住15:00 / 退房12:00）" data-en="5/17–5/19 (Check-in 15:00 / Check-out 12:00)">5/17–5/19（入住15:00 / 退房12:00）</span></div>
+                </div>
+            </div>
+            <div class="overview-card">
+                <div class="card-icon">🏨</div>
+                <h3 data-zh="馬德里住宿" data-en="Madrid Accommodation">馬德里住宿</h3>
+                <div class="card-detail">
+                    <div class="detail-row"><span class="label" data-zh="地址" data-en="Address">地址</span><span><a href="https://maps.google.com/?q=Toledo+94+Centro+28005+Madrid" target="_blank">Toledo 94 - 2º, Centro, 28005</a></span></div>
+                    <div class="detail-row"><span class="label" data-zh="日期" data-en="Dates">日期</span><span data-zh="5/19–5/21（入住15:00 / 退房11:00）" data-en="5/19–5/21 (Check-in 15:00 / Check-out 11:00)">5/19–5/21（入住15:00 / 退房11:00）</span></div>
+                </div>
+            </div>
+            <div class="overview-card">
+                <div class="card-icon">🚇</div>
+                <h3 data-zh="交通卡" data-en="Transport Cards">交通卡</h3>
+                <div class="card-detail">
+                    <div class="detail-row"><span class="label" data-zh="巴塞隆納" data-en="Barcelona">巴塞隆納</span><span><a href="https://www.holabarcelona.com/tickets/hola-bcn-barcelona-travel-card" target="_blank">Hola BCN 72hrs</a> €23.67</span></div>
+                    <div class="detail-row"><span class="label" data-zh="馬德里" data-en="Madrid">馬德里</span><span><a href="https://citycard.esmadrid.com/#advantage" target="_blank">Zone A 2-day</a> €17</span></div>
+                    <div class="detail-row"><span class="label" data-zh="城際火車" data-en="Train">城際火車</span><span>5/19 BCN→MAD 19:25-22:02 €59</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Daily Schedule Section -->
+<section class="section section-alt" id="schedule">
+    <div class="container">
+        <h2 class="section-title" data-zh="每日行程" data-en="Daily Itinerary">每日行程</h2>
+        <p class="section-subtitle" data-zh="五天四夜的精彩旅程" data-en="An exciting 5-day, 4-night journey">五天四夜的精彩旅程</p>
+        <div class="day-tabs">
+            <button class="day-tab active" data-day="1">Day 1<span data-zh="5/17 巴塞隆納" data-en="5/17 Barcelona">5/17 巴塞隆納</span></button>
+            <button class="day-tab" data-day="2">Day 2<span data-zh="5/18 巴塞隆納" data-en="5/18 Barcelona">5/18 巴塞隆納</span></button>
+            <button class="day-tab" data-day="3">Day 3<span data-zh="5/19 → 馬德里" data-en="5/19 → Madrid">5/19 → 馬德里</span></button>
+            <button class="day-tab" data-day="4">Day 4<span data-zh="5/20 馬德里" data-en="5/20 Madrid">5/20 馬德里</span></button>
+            <button class="day-tab" data-day="5">Day 5<span data-zh="5/21 回程" data-en="5/21 Return">5/21 回程</span></button>
+        </div>
+
+        <!-- Day 1 -->
+        <div class="day-content active" id="day-1">
+            <div class="day-header"><div class="day-header-badge">DAY 1</div><h3 data-zh="5/17（六）巴塞隆納 — 抵達 & 哥德區探索" data-en="5/17 (Sat) Barcelona — Arrival & Gothic Quarter">5/17（六）巴塞隆納 — 抵達 & 哥德區探索</h3></div>
+            <div class="timeline">
+                <div class="timeline-item"><div class="timeline-time">09:55</div><div class="timeline-content"><h4>✈️ <span data-zh="抵達巴塞隆納" data-en="Arrive in Barcelona">抵達巴塞隆納</span></h4><p data-zh="Vueling LHR → BCN，約 2 小時飛行" data-en="Vueling LHR → BCN, approx. 2-hour flight">Vueling LHR → BCN，約 2 小時飛行</p><p class="tip" data-zh="機場到市區約 50 分鐘（Aerobus 或地鐵 L9 Sud）" data-en="Airport to city center approx. 50 min (Aerobus or Metro L9 Sud)">機場到市區約 50 分鐘（Aerobus 或地鐵 L9 Sud）</p></div></div>
+                <div class="timeline-item"><div class="timeline-time">12:00</div><div class="timeline-content"><h4>🏨 <span data-zh="寄放行李" data-en="Drop Off Luggage">寄放行李</span></h4><p data-zh="Pension San Ramon（入住 15:00，可先寄放行李）" data-en="Pension San Ramon (Check-in at 15:00, luggage can be stored earlier)">Pension San Ramon（入住 15:00，可先寄放行李）</p></div></div>
+                <div class="timeline-item"><div class="timeline-time">12:30</div><div class="timeline-content"><h4>🍽️ <span data-zh="午餐 — Mercat de Santa Caterina" data-en="Lunch — Mercat de Santa Caterina">午餐 — Mercat de Santa Caterina</span></h4><p data-zh="在地人推薦的市場，比 La Boqueria 更道地。市場內的 Bar Joan 是朋友大力推薦的餐廳。" data-en="A locals' favorite market, more authentic than La Boqueria. Bar Joan inside is highly recommended by friends.">在地人推薦的市場，比 La Boqueria 更道地。市場內的 <strong>Bar Joan</strong> 是朋友大力推薦的餐廳。</p><p class="tip" data-zh="推薦：每日定食 menú del día，非常在地的體驗" data-en="Recommended: daily set menu (menú del día), a very local experience">推薦：每日定食 menú del día，非常在地的體驗</p></div></div>
+                <div class="timeline-item"><div class="timeline-time">14:00</div><div class="timeline-content"><h4>🚶 <span data-zh="哥德區 (Barri Gòtic) 散步" data-en="Gothic Quarter (Barri Gòtic) Walk">哥德區 (Barri Gòtic) 散步</span></h4><p data-zh="中世紀街道、隱藏廣場，巴塞隆納最古老的街區。途經巴塞隆納主教座堂，免費參觀，可上屋頂露台。" data-en="Medieval streets and hidden plazas, Barcelona's oldest neighborhood. Pass by Barcelona Cathedral — free entry, rooftop terrace available.">中世紀街道、隱藏廣場，巴塞隆納最古老的街區。途經<a href="https://maps.google.com/?q=Barcelona+Cathedral" target="_blank">巴塞隆納主教座堂</a>，免費參觀，可上屋頂露台。</p><p class="tip" data-zh="朋友建議：至少花一天在 El Gòtic 和 El Born 區域漫步" data-en="Friend's tip: Spend at least a full day wandering El Gòtic and El Born">朋友建議：至少花一天在 El Gòtic 和 El Born 區域漫步</p></div></div>
+                <div class="timeline-item"><div class="timeline-time">15:00</div><div class="timeline-content"><h4>🏨 Check-in</h4><p data-zh="回旅館辦理入住" data-en="Return to hotel for check-in">回旅館辦理入住</p></div></div>
+                <div class="timeline-item"><div class="timeline-time">16:00</div><div class="timeline-content"><h4>🏖️ <span data-zh="海灘散步" data-en="Beach Walk">海灘散步</span></h4><p data-zh="從 El Born 走到 Barceloneta 海灘，沿著海岸線從 W Hotel 方向走到 Poble Sec。" data-en="Walk from El Born to Barceloneta Beach, along the coastline from W Hotel towards Poble Sec.">從 El Born 走到 Barceloneta 海灘，沿著海岸線從 W Hotel 方向走到 Poble Sec。</p><p class="tip" data-zh="Platja de la Barceloneta 和 Platja de Sant Miquel 都值得一看" data-en="Both Platja de la Barceloneta and Platja de Sant Miquel are worth visiting">Platja de la Barceloneta 和 Platja de Sant Miquel 都值得一看</p></div></div>
+                <div class="timeline-item"><div class="timeline-time">18:00</div><div class="timeline-content"><h4>🍺 Rambla del Poble Sec</h4><p data-zh="朋友推薦的美食街區。Pincho J 是推薦的 pinchos 和啤酒餐廳，同條街上有很多選擇。" data-en="A food street recommended by friends. Pincho J is great for pinchos and beer, with many options along the same street.">朋友推薦的美食街區。<strong>Pincho J</strong> 是推薦的 pinchos 和啤酒餐廳，同條街上有很多選擇。</p></div></div>
+                <div class="timeline-item"><div class="timeline-time">20:00</div><div class="timeline-content"><h4>🌙 <span data-zh="夜晚漫步" data-en="Evening Stroll">夜晚漫步</span></h4><p data-zh="回到哥德區感受夜晚氛圍，或在 El Born 的小酒吧享受西班牙夜生活。" data-en="Return to the Gothic Quarter for the evening atmosphere, or enjoy Spanish nightlife at a bar in El Born.">回到哥德區感受夜晚氛圍，或在 El Born 的小酒吧享受西班牙夜生活。</p></div></div>
+            </div>
+        </div>
+
+        <!-- Day 2 -->
+        <div class="day-content" id="day-2">
+            <div class="day-header"><div class="day-header-badge">DAY 2</div><h3 data-zh="5/18（日）巴塞隆納 — 高第建築 & El Born" data-en="5/18 (Sun) Barcelona — Gaudí Architecture & El Born">5/18（日）巴塞隆納 — 高第建築 & El Born</h3></div>
+            <div class="timeline">
+                <div class="timeline-item"><div class="timeline-time">09:30</div><div class="timeline-content"><h4>🏠 <a href="https://www.casabatllo.es/en/online-tickets/" target="_blank"><span data-zh="巴特婁之家 Casa Batlló" data-en="Casa Batlló">巴特婁之家 Casa Batlló</span></a></h4><p data-zh="高第最具想像力的作品之一，外觀如龍鱗般的馬賽克磚。建議一早前往避開人潮。" data-en="One of Gaudí's most imaginative works, with dragon-scale mosaic facade. Visit early to avoid crowds.">高第最具想像力的作品之一，外觀如龍鱗般的馬賽克磚。建議一早前往避開人潮。</p><p class="price" data-zh="門票：約 €35-45（需提前預訂）| Passeig de Gràcia, 43" data-en="Tickets: ~€35-45 (advance booking required) | Passeig de Gràcia, 43">門票：約 €35-45（需提前預訂）| Passeig de Gràcia, 43</p></div></div>
+                <div class="timeline-item"><div class="timeline-time">11:00</div><div class="timeline-content"><h4>🏠 <span data-zh="米拉之家 Casa Milà (La Pedrera)" data-en="Casa Milà (La Pedrera)">米拉之家 Casa Milà (La Pedrera)</span></h4><p data-zh="高第的另一傑作，波浪形外牆和奇幻的屋頂煙囪。" data-en="Another Gaudí masterpiece, with undulating facade and fantastical rooftop chimneys.">高第的另一傑作，波浪形外牆和奇幻的屋頂煙囪。</p><p class="price" data-zh="門票：約 €25-30 | Passeig de Gràcia, 92" data-en="Tickets: ~€25-30 | Passeig de Gràcia, 92">門票：約 €25-30 | Passeig de Gràcia, 92</p></div></div>
+                <div class="timeline-item"><div class="timeline-time">12:30</div><div class="timeline-content"><h4>🍽️ <span data-zh="午餐 — Cervecería Catalana" data-en="Lunch — Cervecería Catalana">午餐 — Cervecería Catalana</span></h4><p data-zh="巴塞隆納最受歡迎的 Tapas 餐廳之一，位於 Passeig de Gràcia 附近。" data-en="One of Barcelona's most popular tapas restaurants, near Passeig de Gràcia.">巴塞隆納最受歡迎的 Tapas 餐廳之一，位於 Passeig de Gràcia 附近。</p></div></div>
+                <div class="timeline-item"><div class="timeline-time">14:00</div><div class="timeline-content"><h4>🚶 <span data-zh="El Born 區散步" data-en="El Born District Walk">El Born 區散步</span></h4><p data-zh="巴塞隆納最時尚的街區，精品店、咖啡館和藝廊林立。" data-en="Barcelona's trendiest neighborhood, lined with boutiques, cafés, and galleries.">巴塞隆納最時尚的街區，精品店、咖啡館和藝廊林立。</p><p class="tip" data-zh="Bar Jai-Ca（Barceloneta 區）和 Euskal Etxea（El Born 區）都是朋友推薦的餐廳" data-en="Bar Jai-Ca (Barceloneta) and Euskal Etxea (El Born) are both friend-recommended restaurants">Bar Jai-Ca（Barceloneta 區）和 Euskal Etxea（El Born 區）都是朋友推薦的餐廳</p></div></div>
+                <div class="timeline-item"><div class="timeline-time">16:00</div><div class="timeline-content"><h4>☕ <span data-zh="下午茶 — Granja Viader" data-en="Afternoon Tea — Granja Viader">下午茶 — Granja Viader</span></h4><p data-zh="品嚐經典的 Crema Catalana（加泰羅尼亞焦糖奶酪），這家店自 1870 年營業至今。" data-en="Try the classic Crema Catalana (Catalan crème brûlée) at this shop, open since 1870.">品嚐經典的 <strong>Crema Catalana</strong>（加泰羅尼亞焦糖奶酪），這家店自 1870 年營業至今。</p></div></div>
+                <div class="timeline-item"><div class="timeline-time">17:00</div><div class="timeline-content"><h4>🍞 Pa amb tomàquet</h4><p data-zh="在 Tapeo – Born 品嚐加泰隆尼亞經典番茄麵包。" data-en="Try the classic Catalan tomato bread at Tapeo – Born.">在 <strong>Tapeo – Born</strong> 品嚐加泰隆尼亞經典番茄麵包。</p></div></div>
+                <div class="timeline-item"><div class="timeline-time">19:00</div><div class="timeline-content"><h4>💃 <span data-zh="佛朗明哥表演（選項）" data-en="Flamenco Show (Optional)">佛朗明哥表演（選項）</span></h4><p><a href="https://booking.tablaocordobes.es/" target="_blank">Tablao Cordobés</a> / <a href="https://www.flamencopalaudalmases.com/" target="_blank">Palau Dalmases</a></p></div></div>
+            </div>
+        </div>
+
+        <!-- Day 3 -->
+        <div class="day-content" id="day-3">
+            <div class="day-header"><div class="day-header-badge">DAY 3</div><h3 data-zh="5/19（一）聖家堂 & 前往馬德里" data-en="5/19 (Mon) Sagrada Família & Travel to Madrid">5/19（一）聖家堂 & 前往馬德里</h3></div>
+            <div class="timeline">
+                <div class="timeline-item"><div class="timeline-time">09:00</div><div class="timeline-content"><h4>🚶 <span data-zh="早晨散步" data-en="Morning Walk">早晨散步</span></h4><p data-zh="在 El Born 或 El Gòtic 享受最後的巴塞隆納早晨。" data-en="Enjoy your last Barcelona morning in El Born or El Gòtic.">在 El Born 或 El Gòtic 享受最後的巴塞隆納早晨。</p></div></div>
+                <div class="timeline-item"><div class="timeline-time">10:00</div><div class="timeline-content"><h4>🍽️ <span data-zh="早午餐 — La Pubilla" data-en="Brunch — La Pubilla">早午餐 — La Pubilla</span></h4><p data-zh="品嚐 Escalivada（烤茄子與甜椒）" data-en="Try Escalivada (roasted eggplant and peppers)">品嚐 <strong>Escalivada</strong>（烤茄子與甜椒）</p></div></div>
+                <div class="timeline-item"><div class="timeline-time">12:00</div><div class="timeline-content"><h4>🏨 <span data-zh="退房 & 寄放行李" data-en="Check-out & Store Luggage">退房 & 寄放行李</span></h4><p data-zh="退房後將行李寄放在旅館或附近的行李寄放服務。" data-en="Check out and store luggage at the hotel or a nearby luggage storage service.">退房後將行李寄放在旅館或附近的行李寄放服務。</p></div></div>
+                <div class="timeline-item"><div class="timeline-time">13:00</div><div class="timeline-content"><h4>🍽️ <span data-zh="午餐 — 海鮮燉飯" data-en="Lunch — Seafood Paella">午餐 — 海鮮燉飯</span></h4><p data-zh="推薦 Can Solé 或 Xiringuito Escribà（海灘旁）" data-en="Recommended: Can Solé or Xiringuito Escribà (beachside)">推薦 <strong>Can Solé</strong> 或 <strong>Xiringuito Escribà</strong>（海灘旁）</p></div></div>
+                <div class="timeline-item highlight"><div class="timeline-time">14:30</div><div class="timeline-content"><h4>⛪ <a href="https://sagradafamilia.org/en/tickets" target="_blank"><span data-zh="聖家堂 Sagrada Família" data-en="Sagrada Família">聖家堂 Sagrada Família</span></a></h4><p data-zh="高第畢生心血之作，UNESCO 世界遺產。務必提前購票！" data-en="Gaudí's life work, a UNESCO World Heritage Site. Book tickets in advance!">高第畢生心血之作，UNESCO 世界遺產。務必提前購票！</p><p class="price" data-zh="門票：約 €26（基本）/ €36（含登塔）| 五月開放：週一至六 9:00-20:00，週日 10:30-20:00" data-en="Tickets: ~€26 (basic) / €36 (with tower) | May hours: Mon-Sat 9:00-20:00, Sun 10:30-20:00">門票：約 €26（基本）/ €36（含登塔）| 五月開放：週一至六 9:00-20:00，週日 10:30-20:00</p></div></div>
+                <div class="timeline-item highlight"><div class="timeline-time">15:15</div><div class="timeline-content"><h4>🗼 <span data-zh="爬塔" data-en="Tower Climb">爬塔</span></h4><p data-zh="登上誕生立面或受難立面的塔樓，俯瞰巴塞隆納全景。" data-en="Climb the Nativity or Passion facade towers for panoramic views of Barcelona.">登上誕生立面或受難立面的塔樓，俯瞰巴塞隆納全景。</p></div></div>
+                <div class="timeline-item"><div class="timeline-time">17:00</div><div class="timeline-content"><h4>🏔️ <span data-zh="Carmel Bunkers（選項）" data-en="Carmel Bunkers (Optional)">Carmel Bunkers（選項）</span></h4><p data-zh="巴塞隆納最佳全景觀景點，免費入場。從聖家堂步行約 30-40 分鐘。" data-en="Barcelona's best panoramic viewpoint, free entry. About 30-40 min walk from Sagrada Família.">巴塞隆納最佳全景觀景點，免費入場。從聖家堂步行約 30-40 分鐘。</p><p class="tip" data-zh="交通：Bus 22 到 &quot;Gran Vista&quot; 站，再步行 500m" data-en="Transport: Bus 22 to &quot;Gran Vista&quot; stop, then 500m walk">交通：Bus 22 到 "Gran Vista" 站，再步行 500m</p></div></div>
+                <div class="timeline-item"><div class="timeline-time">18:00</div><div class="timeline-content"><h4>🍽️ <span data-zh="晚餐" data-en="Dinner">晚餐</span></h4><p data-zh="在車站附近用餐" data-en="Dine near the train station">在車站附近用餐</p></div></div>
+                <div class="timeline-item"><div class="timeline-time">19:00</div><div class="timeline-content"><h4>🧳 <span data-zh="取行李前往車站" data-en="Pick Up Luggage & Head to Station">取行李前往車站</span></h4><p data-zh="前往 Barcelona Sants 車站" data-en="Head to Barcelona Sants station">前往 Barcelona Sants 車站</p></div></div>
+                <div class="timeline-item highlight"><div class="timeline-time">19:25</div><div class="timeline-content"><h4>🚄 <span data-zh="火車出發 BCN → MAD" data-en="Train Departure BCN → MAD">火車出發 BCN → MAD</span></h4><p data-zh="高速火車，約 2.5 小時。22:02 到達馬德里。" data-en="High-speed train, approx. 2.5 hours. Arrives Madrid at 22:02.">高速火車，約 2.5 小時。22:02 到達馬德里。</p><p class="price" data-zh="車票：€59" data-en="Ticket: €59">車票：€59</p></div></div>
+                <div class="timeline-item"><div class="timeline-time">22:30</div><div class="timeline-content"><h4>🏨 <span data-zh="馬德里 Check-in" data-en="Madrid Check-in">馬德里 Check-in</span></h4><p>Toledo 94 - 2º, Centro, 28005 Madrid</p></div></div>
+            </div>
+        </div>
+
+        <!-- Day 4 -->
+        <div class="day-content" id="day-4">
+            <div class="day-header"><div class="day-header-badge">DAY 4</div><h3 data-zh="5/20（二）馬德里 — 皇宮、博物館 & 佛朗明哥" data-en="5/20 (Tue) Madrid — Royal Palace, Museums & Flamenco">5/20（二）馬德里 — 皇宮、博物館 & 佛朗明哥</h3></div>
+            <div class="timeline">
+                <div class="timeline-item"><div class="timeline-time">09:00</div><div class="timeline-content"><h4>🏰 <a href="https://www.patrimonionacional.es/en/real-sitio/palacio-real-de-madrid" target="_blank"><span data-zh="馬德里皇宮 Palacio Real" data-en="Royal Palace (Palacio Real)">馬德里皇宮 Palacio Real</span></a></h4><p data-zh="歐洲最大的皇宮之一，超過 3,400 個房間。" data-en="One of Europe's largest palaces, with over 3,400 rooms.">歐洲最大的皇宮之一，超過 3,400 個房間。</p><p class="price" data-zh="門票：€12 | 免費時段：週一至四 16:00-18:00（10月-3月）/ 17:00-19:00（4月-9月）" data-en="Tickets: €12 | Free hours: Mon-Thu 16:00-18:00 (Oct-Mar) / 17:00-19:00 (Apr-Sep)">門票：€12 | 免費時段：週一至四 16:00-18:00（10月-3月）/ 17:00-19:00（4月-9月）</p></div></div>
+                <div class="timeline-item"><div class="timeline-time">11:00</div><div class="timeline-content"><h4>🚶 <span data-zh="太陽門廣場 Puerta del Sol" data-en="Puerta del Sol">太陽門廣場 Puerta del Sol</span></h4><p data-zh="馬德里的中心，西班牙公路網的零公里起點。別忘了和「熊與草莓樹」雕像合照。" data-en="The heart of Madrid and Spain's Kilometre Zero. Don't forget a photo with the Bear and Strawberry Tree statue.">馬德里的中心，西班牙公路網的零公里起點。別忘了和「熊與草莓樹」雕像合照。</p></div></div>
+                <div class="timeline-item"><div class="timeline-time">11:30</div><div class="timeline-content"><h4>🏛️ <span data-zh="主廣場 Plaza Mayor" data-en="Plaza Mayor">主廣場 Plaza Mayor</span></h4><p data-zh="歷史悠久的主廣場，附近有 Mercado de San Miguel 美食市場。" data-en="Historic main square, with Mercado de San Miguel food market nearby.">歷史悠久的主廣場，附近有 Mercado de San Miguel 美食市場。</p></div></div>
+                <div class="timeline-item"><div class="timeline-time">12:30</div><div class="timeline-content"><h4>🍽️ <span data-zh="午餐 — 炸魷魚三明治" data-en="Lunch — Fried Calamari Sandwich">午餐 — 炸魷魚三明治</span></h4><p data-zh="Bocadillo de calamares — 推薦 El Brillante 或 Bar La Campana" data-en="Bocadillo de calamares — try El Brillante or Bar La Campana"><strong>Bocadillo de calamares</strong> — 推薦 <strong>El Brillante</strong> 或 <strong>Bar La Campana</strong></p></div></div>
+                <div class="timeline-item"><div class="timeline-time">14:00</div><div class="timeline-content"><h4>🎨 <a href="https://www.museodelprado.es/en" target="_blank"><span data-zh="普拉多博物館 Museo del Prado" data-en="Prado Museum (Museo del Prado)">普拉多博物館 Museo del Prado</span></a></h4><p data-zh="世界頂級藝術博物館，收藏超過 8,600 幅畫作。必看：委拉斯蓋茲、哥雅、乙乙葛雷柯。" data-en="World-class art museum with over 8,600 paintings. Must-see: Velázquez, Goya, El Greco.">世界頂級藝術博物館，收藏超過 8,600 幅畫作。必看：委拉斯蓋茲、哥雅、乙乙葛雷柯。</p><p class="price" data-zh="門票：€15 | 免費時段：週一至六 18:00-20:00，週日 17:00-19:00" data-en="Tickets: €15 | Free hours: Mon-Sat 18:00-20:00, Sun 17:00-19:00">門票：€15 | 免費時段：週一至六 18:00-20:00，週日 17:00-19:00</p></div></div>
+                <div class="timeline-item"><div class="timeline-time">16:30</div><div class="timeline-content"><h4>🌳 <span data-zh="麗池公園 Retiro Park" data-en="Retiro Park">麗池公園 Retiro Park</span></h4><p data-zh="馬德里的綠洲，水晶宮（Palacio de Cristal）是必訪景點。" data-en="Madrid's green oasis. The Crystal Palace (Palacio de Cristal) is a must-visit.">馬德里的綠洲，水晶宮（Palacio de Cristal）是必訪景點。</p></div></div>
+                <div class="timeline-item"><div class="timeline-time">18:00</div><div class="timeline-content"><h4>🎨 <span data-zh="索菲亞王后藝術中心（選項）" data-en="Reina Sofía Museum (Optional)">索菲亞王后藝術中心（選項）</span></h4><p data-zh="畢卡索的《格爾尼卡》在此展出。" data-en="Picasso's Guernica is exhibited here.">畢卡索的《格爾尼卡》在此展出。</p><p class="tip" data-zh="免費時段：週一、三至六 19:00-21:00，週日 12:30-14:30" data-en="Free hours: Mon, Wed-Sat 19:00-21:00, Sun 12:30-14:30">免費時段：週一、三至六 19:00-21:00，週日 12:30-14:30</p></div></div>
+                <div class="timeline-item"><div class="timeline-time">19:30</div><div class="timeline-content"><h4>🍽️ <span data-zh="晚餐 — Casa Lucio" data-en="Dinner — Casa Lucio">晚餐 — Casa Lucio</span></h4><p data-zh="Huevos rotos（半熟蛋搭配薯條與火腿）— 馬德里最經典的這道菜。" data-en="Huevos rotos (broken eggs with fries and ham) — Madrid's most iconic dish."><strong>Huevos rotos</strong>（半熟蛋搭配薯條與火腿）— 馬德里最經典的這道菜。</p></div></div>
+                <div class="timeline-item highlight"><div class="timeline-time">21:00</div><div class="timeline-content"><h4>💃 <span data-zh="佛朗明哥表演" data-en="Flamenco Show">佛朗明哥表演</span></h4><p><a href="https://cardamomo.com" target="_blank">Cardamomo</a> / <a href="https://www.corraldelamoreria.com" target="_blank">Corral de la Morería</a></p></div></div>
+            </div>
+        </div>
+
+        <!-- Day 5 -->
+        <div class="day-content" id="day-5">
+            <div class="day-header"><div class="day-header-badge">DAY 5</div><h3 data-zh="5/21（三）馬德里最後巡禮 & 回程" data-en="5/21 (Wed) Last Day in Madrid & Return">5/21（三）馬德里最後巡禮 & 回程</h3></div>
+            <div class="timeline">
+                <div class="timeline-item"><div class="timeline-time">09:00</div><div class="timeline-content"><h4>☕ Churros con Chocolate</h4><p><a href="https://chocolateriasangines.com/" target="_blank"><strong>Chocolatería San Ginés</strong></a> — <span data-zh="自 1894 年營業，西班牙油條配熱巧克力。" data-en="Open since 1894, Spanish churros with hot chocolate.">自 1894 年營業，西班牙油條配熱巧克力。</span></p></div></div>
+                <div class="timeline-item"><div class="timeline-time">10:00</div><div class="timeline-content"><h4>🥩 Museo del Jamón</h4><p data-zh="平價享受頂級 Jamón ibérico（伊比利火腿）。" data-en="Affordable premium Jamón ibérico (Iberian ham).">平價享受頂級 <strong>Jamón ibérico</strong>（伊比利火腿）。</p></div></div>
+                <div class="timeline-item"><div class="timeline-time">11:00</div><div class="timeline-content"><h4>🏨 <span data-zh="退房" data-en="Check-out">退房</span></h4><p data-zh="退房並寄放行李" data-en="Check out and store luggage">退房並寄放行李</p></div></div>
+                <div class="timeline-item"><div class="timeline-time">11:30</div><div class="timeline-content"><h4>🚶 <span data-zh="自由活動" data-en="Free Time">自由活動</span></h4><p data-zh="Retiro Park、Gran Vía 購物街，或再訪喜歡的景點。" data-en="Retiro Park, Gran Vía shopping street, or revisit favorite spots.">Retiro Park、Gran Vía 購物街，或再訪喜歡的景點。</p></div></div>
+                <div class="timeline-item"><div class="timeline-time">13:00</div><div class="timeline-content"><h4>🍽️ <span data-zh="午餐 — La Bola Taberna" data-en="Lunch — La Bola Taberna">午餐 — La Bola Taberna</span></h4><p data-zh="Cocido Madrileño（馬德里燉肉雜燴）— 馬德里的靈魂美食。" data-en="Cocido Madrileño (Madrid stew) — the soul food of Madrid."><strong>Cocido Madrileño</strong>（馬德里燉肉雜燴）— 馬德里的靈魂美食。</p></div></div>
+                <div class="timeline-item"><div class="timeline-time">15:00</div><div class="timeline-content"><h4>🧳 <span data-zh="前往機場" data-en="Head to Airport">前往機場</span></h4><p data-zh="市區到 Adolfo Suárez Madrid–Barajas 機場約 1 小時。" data-en="City center to Adolfo Suárez Madrid–Barajas Airport, approx. 1 hour.">市區到 Adolfo Suárez Madrid–Barajas 機場約 1 小時。</p></div></div>
+                <div class="timeline-item highlight"><div class="timeline-time">20:40</div><div class="timeline-content"><h4>✈️ <span data-zh="回程 BA MAD → LGW" data-en="Return Flight BA MAD → LGW">回程 BA MAD → LGW</span></h4><p data-zh="行李：23kg × 2" data-en="Luggage: 23kg × 2">行李：23kg × 2</p></div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Map Section -->
+<section class="section" id="map">
+    <div class="container">
+        <h2 class="section-title" data-zh="互動地圖" data-en="Interactive Map">互動地圖</h2>
+        <p class="section-subtitle" data-zh="所有景點、餐廳和住宿位置" data-en="All attractions, restaurants, and accommodation locations">所有景點、餐廳和住宿位置</p>
+        <div class="map-tabs">
+            <button class="map-tab active" data-city="barcelona" data-zh="巴塞隆納" data-en="Barcelona">巴塞隆納</button>
+            <button class="map-tab" data-city="madrid" data-zh="馬德里" data-en="Madrid">馬德里</button>
+        </div>
+        <div id="map-container" style="height:500px;border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.1);"></div>
+        <div class="map-legend">
+            <div class="legend-item"><span class="legend-dot" style="background:#e74c3c;"></span> <span data-zh="住宿" data-en="Hotel">住宿</span></div>
+            <div class="legend-item"><span class="legend-dot" style="background:#3498db;"></span> <span data-zh="景點" data-en="Attraction">景點</span></div>
+            <div class="legend-item"><span class="legend-dot" style="background:#e67e22;"></span> <span data-zh="餐廳" data-en="Restaurant">餐廳</span></div>
+            <div class="legend-item"><span class="legend-dot" style="background:#9b59b6;"></span> <span data-zh="表演" data-en="Show">表演</span></div>
+            <div class="legend-item"><span class="legend-dot" style="background:#2ecc71;"></span> <span data-zh="交通" data-en="Transport">交通</span></div>
+        </div>
+    </div>
+</section>
+
+<!-- Food Section -->
+<section class="section section-alt" id="food">
+    <div class="container">
+        <h2 class="section-title" data-zh="美食指南" data-en="Food Guide">美食指南</h2>
+        <p class="section-subtitle" data-zh="不可錯過的西班牙經典美食" data-en="Must-try classic Spanish cuisine">不可錯過的西班牙經典美食</p>
+        <div class="food-city">
+            <h3 class="food-city-title" data-zh="巴塞隆納必吃" data-en="Barcelona Must-Eats">巴塞隆納必吃</h3>
+            <div class="food-grid">
+                <div class="food-card"><div class="food-name">Pa amb tomàquet</div><div class="food-desc" data-zh="番茄麵包 — 烤麵包塗上新鮮番茄和橄欖油" data-en="Tomato bread — toasted bread rubbed with fresh tomato and olive oil">番茄麵包 — 烤麵包塗上新鮮番茄和橄欖油</div><div class="food-where" data-zh="推薦：Tapeo – Born" data-en="Recommended: Tapeo – Born">推薦：Tapeo – Born</div></div>
+                <div class="food-card"><div class="food-name">Escalivada</div><div class="food-desc" data-zh="烤茄子與甜椒 — 地中海風味的烤蔬菜" data-en="Roasted eggplant and peppers — Mediterranean-style roasted vegetables">烤茄子與甜椒 — 地中海風味的烤蔬菜</div><div class="food-where" data-zh="推薦：La Pubilla" data-en="Recommended: La Pubilla">推薦：La Pubilla</div></div>
+                <div class="food-card"><div class="food-name">Seafood Paella</div><div class="food-desc" data-zh="海鮮燉飯 — 西班牙國菜" data-en="Seafood rice — Spain's national dish">海鮮燉飯 — 西班牙國菜</div><div class="food-where" data-zh="推薦：Can Solé / Xiringuito Escribà" data-en="Recommended: Can Solé / Xiringuito Escribà">推薦：Can Solé / Xiringuito Escribà</div></div>
+                <div class="food-card"><div class="food-name">Tapas</div><div class="food-desc" data-zh="西班牙小點 — 西班牙飲食文化的精髓" data-en="Spanish small plates — the essence of Spanish food culture">西班牙小點 — 西班牙飲食文化的精髓</div><div class="food-where" data-zh="推薦：Cervecería Catalana" data-en="Recommended: Cervecería Catalana">推薦：Cervecería Catalana</div></div>
+                <div class="food-card"><div class="food-name">Crema Catalana</div><div class="food-desc" data-zh="加泰羅尼亞焦糖奶酪 — 比法式焦糖布丁更古老" data-en="Catalan crème brûlée — older than the French version">加泰羅尼亞焦糖奶酪 — 比法式焦糖布丁更古老</div><div class="food-where" data-zh="推薦：Granja Viader（1870 年創立）" data-en="Recommended: Granja Viader (est. 1870)">推薦：Granja Viader（1870 年創立）</div></div>
+            </div>
+        </div>
+        <div class="food-city">
+            <h3 class="food-city-title" data-zh="馬德里必吃" data-en="Madrid Must-Eats">馬德里必吃</h3>
+            <div class="food-grid">
+                <div class="food-card"><div class="food-name">Bocadillo de calamares</div><div class="food-desc" data-zh="炸魷魚三明治 — 馬德里獨有的街頭美食" data-en="Fried calamari sandwich — Madrid's unique street food">炸魷魚三明治 — 馬德里獨有的街頭美食</div><div class="food-where" data-zh="推薦：El Brillante / Bar La Campana" data-en="Recommended: El Brillante / Bar La Campana">推薦：El Brillante / Bar La Campana</div></div>
+                <div class="food-card"><div class="food-name">Huevos rotos</div><div class="food-desc" data-zh="半熟蛋搭配薯條與火腿" data-en="Broken eggs with fries and ham">半熟蛋搭配薯條與火腿</div><div class="food-where" data-zh="推薦：Casa Lucio" data-en="Recommended: Casa Lucio">推薦：Casa Lucio</div></div>
+                <div class="food-card"><div class="food-name">Cocido Madrileño</div><div class="food-desc" data-zh="馬德里燉肉雜燴 — 鷹嘴豆、肉類和蔬菜的豐盛燉菜" data-en="Madrid stew — hearty chickpea, meat, and vegetable stew">馬德里燉肉雜燴 — 鷹嘴豆、肉類和蔬菜的豐盛燉菜</div><div class="food-where" data-zh="推薦：La Bola Taberna" data-en="Recommended: La Bola Taberna">推薦：La Bola Taberna</div></div>
+                <div class="food-card"><div class="food-name">Jamón ibérico</div><div class="food-desc" data-zh="伊比利火腿 — 橡果飼養的黑毛豬製成" data-en="Iberian ham — made from acorn-fed black pigs">伊比利火腿 — 橡果飼養的黑毛豬製成</div><div class="food-where" data-zh="推薦：Museo del Jamón" data-en="Recommended: Museo del Jamón">推薦：Museo del Jamón</div></div>
+                <div class="food-card"><div class="food-name">Churros con chocolate</div><div class="food-desc" data-zh="西班牙油條配熱巧克力" data-en="Spanish churros with hot chocolate">西班牙油條配熱巧克力</div><div class="food-where" data-zh="推薦：Chocolatería San Ginés（1894 年創立）" data-en="Recommended: Chocolatería San Ginés (est. 1894)">推薦：Chocolatería San Ginés（1894 年創立）</div></div>
+            </div>
+        </div>
+        <div class="food-city">
+            <h3 class="food-city-title" data-zh="朋友推薦餐廳（巴塞隆納）" data-en="Friend-Recommended Restaurants (Barcelona)">朋友推薦餐廳（巴塞隆納）</h3>
+            <div class="food-grid">
+                <div class="food-card friend-rec"><div class="food-name">Bar Joan</div><div class="food-desc" data-zh="Mercat de Santa Caterina 內，道地市場美食" data-en="Inside Mercat de Santa Caterina, authentic market food">Mercat de Santa Caterina 內，道地市場美食</div><div class="food-where">Mercat de Santa Caterina</div></div>
+                <div class="food-card friend-rec"><div class="food-name">Bar Jai-Ca</div><div class="food-desc" data-zh="Barceloneta 區的海鮮小酒館" data-en="Seafood tavern in Barceloneta">Barceloneta 區的海鮮小酒館</div><div class="food-where">Barceloneta</div></div>
+                <div class="food-card friend-rec"><div class="food-name">Euskal Etxea</div><div class="food-desc" data-zh="El Born 區的巴斯克風格餐廳" data-en="Basque-style restaurant in El Born">El Born 區的巴斯克風格餐廳</div><div class="food-where">El Born</div></div>
+                <div class="food-card friend-rec"><div class="food-name">Pincho J</div><div class="food-desc" data-zh="Pinchos 和啤酒，同條街上有很多選擇" data-en="Pinchos and beer, many options along the same street">Pinchos 和啤酒，同條街上有很多選擇</div><div class="food-where">Rambla del Poble Sec</div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Flamenco Section -->
+<section class="section" id="flamenco">
+    <div class="container">
+        <h2 class="section-title" data-zh="佛朗明哥表演" data-en="Flamenco Shows">佛朗明哥表演</h2>
+        <p class="section-subtitle" data-zh="感受西班牙最熱情的藝術形式" data-en="Experience Spain's most passionate art form">感受西班牙最熱情的藝術形式</p>
+        <div class="flamenco-grid">
+            <div class="flamenco-city">
+                <h3 data-zh="巴塞隆納" data-en="Barcelona">巴塞隆納</h3>
+                <div class="flamenco-card"><h4><a href="https://booking.tablaocordobes.es/" target="_blank">Tablao Cordobés</a></h4><p data-zh="La Rambla 上的知名佛朗明哥場地" data-en="Renowned flamenco venue on La Rambla">La Rambla 上的知名佛朗明哥場地</p></div>
+                <div class="flamenco-card"><h4><a href="https://www.flamencopalaudalmases.com/" target="_blank">Palau Dalmases</a></h4><p data-zh="在 17 世紀的巴洛克宮殿中欣賞表演" data-en="Watch performances in a 17th-century Baroque palace">在 17 世紀的巴洛克宮殿中欣賞表演</p></div>
+            </div>
+            <div class="flamenco-city">
+                <h3 data-zh="馬德里" data-en="Madrid">馬德里</h3>
+                <div class="flamenco-card"><h4><a href="https://cardamomo.com" target="_blank">Cardamomo</a></h4><p data-zh="太陽門附近 | 場次：19:30 / 21:00 / 22:30" data-en="Near Puerta del Sol | Shows: 19:30 / 21:00 / 22:30">太陽門附近 | 場次：19:30 / 21:00 / 22:30</p></div>
+                <div class="flamenco-card"><h4><a href="https://tablaoflamenco1911.com" target="_blank">Tablao Flamenco 1911</a></h4><p data-zh="歷史悠久的表演場地" data-en="Historic performance venue">歷史悠久的表演場地</p></div>
+                <div class="flamenco-card"><h4><a href="https://www.corraldelamoreria.com" target="_blank">Corral de la Morería</a></h4><p data-zh="1956 年開業，被譽為全西班牙最佳佛朗明哥場地" data-en="Open since 1956, considered the best flamenco venue in all of Spain">1956 年開業，被譽為全西班牙最佳佛朗明哥場地</p></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Tips Section -->
+<section class="section section-alt" id="tips">
+    <div class="container">
+        <h2 class="section-title" data-zh="旅行小貼士" data-en="Travel Tips">旅行小貼士</h2>
+        <p class="section-subtitle" data-zh="來自朋友和研究的實用建議" data-en="Practical advice from friends and research">來自朋友和研究的實用建議</p>
+        <div class="tips-grid">
+            <div class="tip-card"><div class="tip-icon">⚠️</div><h4 data-zh="避免觀光客陷阱" data-en="Avoid Tourist Traps">避免觀光客陷阱</h4><p data-zh="不要在 Rambla de Catalunya 上用餐。Mercat de la Boqueria 偏觀光化，建議改去 Mercat de Santa Caterina。" data-en="Don't eat on Rambla de Catalunya. Mercat de la Boqueria is touristy — try Mercat de Santa Caterina instead.">不要在 Rambla de Catalunya 上用餐。Mercat de la Boqueria 偏觀光化，建議改去 Mercat de Santa Caterina。</p></div>
+            <div class="tip-card"><div class="tip-icon">🎫</div><h4 data-zh="提前購票" data-en="Book Tickets Early">提前購票</h4><p data-zh="聖家堂、Casa Batlló、Casa Milà 等熱門景點務必提前在官網購票，現場常常售罄。" data-en="Book tickets online in advance for popular sites like Sagrada Família, Casa Batlló, and Casa Milà — they often sell out.">聖家堂、Casa Batlló、Casa Milà 等熱門景點務必提前在官網購票，現場常常售罄。</p></div>
+            <div class="tip-card"><div class="tip-icon">🕐</div><h4 data-zh="西班牙用餐時間" data-en="Spanish Meal Times">西班牙用餐時間</h4><p data-zh="午餐 14:00-16:00，晚餐 21:00-23:00。很多餐廳在這些時段之外不供餐。" data-en="Lunch 14:00-16:00, dinner 21:00-23:00. Many restaurants don't serve outside these hours.">午餐 14:00-16:00，晚餐 21:00-23:00。很多餐廳在這些時段之外不供餐。</p></div>
+            <div class="tip-card"><div class="tip-icon">🚇</div><h4 data-zh="交通卡划算" data-en="Transport Cards Save Money">交通卡划算</h4><p data-zh="Hola Barcelona 和馬德里 Zone A 交通卡都比單次購票划算很多。" data-en="Hola Barcelona and Madrid Zone A travel cards are much cheaper than single tickets.">Hola Barcelona 和馬德里 Zone A 交通卡都比單次購票划算很多。</p></div>
+            <div class="tip-card"><div class="tip-icon">🌅</div><h4 data-zh="最佳觀景點" data-en="Best Viewpoint">最佳觀景點</h4><p data-zh="Carmel Bunkers 是巴塞隆納最佳免費觀景點，日落時分最美。從聖家堂步行約 30-40 分鐘。" data-en="Carmel Bunkers is Barcelona's best free viewpoint, most beautiful at sunset. About 30-40 min walk from Sagrada Família.">Carmel Bunkers 是巴塞隆納最佳免費觀景點，日落時分最美。從聖家堂步行約 30-40 分鐘。</p></div>
+            <div class="tip-card"><div class="tip-icon">🎨</div><h4 data-zh="免費博物館時段" data-en="Free Museum Hours">免費博物館時段</h4><p data-zh="普拉多博物館週一至六 18:00-20:00 免費；索菲亞王后藝術中心週一、三至六 19:00-21:00 免費。" data-en="Prado Museum free Mon-Sat 18:00-20:00; Reina Sofía free Mon, Wed-Sat 19:00-21:00.">普拉多博物館週一至六 18:00-20:00 免費；索菲亞王后藝術中心週一、三至六 19:00-21:00 免費。</p></div>
+            <div class="tip-card"><div class="tip-icon">🚶</div><h4 data-zh="步行探索" data-en="Explore on Foot">步行探索</h4><p data-zh="El Born 和 El Gòtic 是巴塞隆納最適合步行探索的街區，建議至少花一天慢慢逛。" data-en="El Born and El Gòtic are Barcelona's best neighborhoods for walking — spend at least a day exploring.">El Born 和 El Gòtic 是巴塞隆納最適合步行探索的街區，建議至少花一天慢慢逛。</p></div>
+            <div class="tip-card"><div class="tip-icon">💃</div><h4 data-zh="佛朗明哥預訂" data-en="Book Flamenco Early">佛朗明哥預訂</h4><p data-zh="熱門場地建議提前預訂，週末場次更容易客滿。" data-en="Book popular venues in advance — weekend shows fill up quickly.">熱門場地建議提前預訂，週末場次更容易客滿。</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <p data-zh="Barcelona & Madrid 2025 — 五天四夜西班牙之旅" data-en="Barcelona & Madrid 2025 — A 5-Day Spain Adventure">Barcelona & Madrid 2025 — 五天四夜西班牙之旅</p>
+        <p class="footer-sub">Built with care for an unforgettable journey</p>
+    </div>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

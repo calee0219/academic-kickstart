@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🗾 2025-26 日本滑雪團</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Hero Section -->
+    <header class="hero" id="top">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-badge">2025.12 — 2026.01</div>
+            <h1 data-i18n="hero.title">🗾 日本滑雪團</h1>
+            <p class="hero-subtitle" data-i18n="hero.subtitle">苗場 · 上越國際 · 越後湯澤 · 東京</p>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-number">11</span>
+                    <span class="stat-label" data-i18n="hero.days">天</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">2</span>
+                    <span class="stat-label" data-i18n="hero.resorts">雪場</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">9</span>
+                    <span class="stat-label" data-i18n="hero.people">人</span>
+                </div>
+            </div>
+            <a href="#schedule" class="hero-cta" data-i18n="hero.cta">查看行程 ↓</a>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="main-nav" id="mainNav">
+        <div class="nav-inner">
+            <a href="#top" class="nav-logo" data-i18n="nav.logo">🗾 滑雪團</a>
+            <div class="nav-links">
+                <a href="#overview" data-i18n="nav.overview">總覽</a>
+                <a href="#schedule" data-i18n="nav.schedule">行程</a>
+                <a href="#ski-resorts" data-i18n="nav.resorts">雪場</a>
+                <a href="#map" data-i18n="nav.map">地圖</a>
+                <a href="#accommodation" data-i18n="nav.accommodation">住宿</a>
+                <a href="#transport" data-i18n="nav.transport">交通</a>
+                <a href="#sightseeing" data-i18n="nav.sightseeing">觀光</a>
+                <a href="#members" data-i18n="nav.members">成員</a>
+                <a href="#planning" data-i18n="nav.planning">籌備</a>
+            </div>
+            <button id="langToggle" class="lang-toggle" onclick="toggleLanguage()" title="Switch to English">EN</button>
+            <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Overview Section -->
+        <section class="section" id="overview">
+            <div class="container">
+                <h2 class="section-title" data-i18n="overview.title">行程總覽</h2>
+                <p class="section-desc" data-i18n="overview.desc">一場橫跨年末年初的日本滑雪之旅，從新潟的粉雪天堂到東京的都市探索。</p>
+                <div class="overview-cards">
+                    <div class="overview-card">
+                        <div class="card-icon">✈️</div>
+                        <h3 data-i18n="overview.depart.title">出發</h3>
+                        <p data-i18n="overview.depart.desc">12/24 抵達成田機場<br>Skyliner 前往東京</p>
+                    </div>
+                    <div class="overview-card">
+                        <div class="card-icon">⛷️</div>
+                        <h3 data-i18n="overview.naeba.title">苗場滑雪</h3>
+                        <p data-i18n="overview.naeba.desc">12/26 — 12/28<br>苗場 + 神樂雪場<br>3 天滑雪</p>
+                    </div>
+                    <div class="overview-card">
+                        <div class="card-icon">🏔️</div>
+                        <h3 data-i18n="overview.joetsu.title">上越國際</h3>
+                        <p data-i18n="overview.joetsu.desc">12/29 — 12/31<br>日本最大單一雪場<br>3 天滑雪 + 夜滑</p>
+                    </div>
+                    <div class="overview-card">
+                        <div class="card-icon">🏯</div>
+                        <h3 data-i18n="overview.return.title">觀光 & 回程</h3>
+                        <p data-i18n="overview.return.desc">1/1 — 1/4<br>越後湯澤 · 東京觀光<br>自由活動 · 回程</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Schedule Section -->
+        <section class="section section-alt" id="schedule">
+            <div class="container">
+                <h2 class="section-title" data-i18n="schedule.title">每日行程</h2>
+                <p class="section-desc" data-i18n="schedule.desc">12 月 24 日至 1 月 4 日的完整行程安排</p>
+                <div class="timeline">
+                    <!-- Day 24 -->
+                    <div class="timeline-item">
+                        <div class="timeline-date">
+                            <span class="date-day">24</span>
+                            <span class="date-month" data-i18n="day24.month">12月</span>
+                            <span class="date-weekday" data-i18n="day24.weekday">三</span>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-tag tag-travel" data-i18n="tag.travel">移動日</div>
+                            <h3 data-i18n="day24.title">抵達東京</h3>
+                            <ul>
+                                <li data-i18n="day24.li1">成田機場抵達（hchsu 16:50 / yaowen, kuohh, hclee, syujy 19:20）</li>
+                                <li data-i18n="day24.li2">Skyliner 前往上野（現場買票）</li>
+                                <li data-i18n="day24.li3">採買雪場所需物資</li>
+                            </ul>
+                            <div class="timeline-stay" data-i18n="day24.stay">🏨 APA Hotel 上野稻荷町駅北</div>
+                        </div>
+                    </div>
+                    <!-- Day 25 -->
+                    <div class="timeline-item">
+                        <div class="timeline-date">
+                            <span class="date-day">25</span>
+                            <span class="date-month" data-i18n="day25.month">12月</span>
+                            <span class="date-weekday" data-i18n="day25.weekday">四</span>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-tag tag-travel" data-i18n="tag.travel">移動日</div>
+                            <h3 data-i18n="day25.title">前往苗場</h3>
+                            <ul>
+                                <li data-i18n="day25.li1">上野 → 越後湯澤（新幹線 Toki 323，13:46–14:56）</li>
+                                <li data-i18n="day25.li2">越後湯澤 → 二居田代（公車 15:30 發車）</li>
+                                <li data-i18n="day25.li3">購買苗場雪票</li>
+                            </ul>
+                            <div class="timeline-stay" data-i18n="day25.stay">🏠 Little Japan Echigo（3+3+3 人房，3 晚）</div>
+                        </div>
+                    </div>
+                    <!-- Day 26 -->
+                    <div class="timeline-item">
+                        <div class="timeline-date">
+                            <span class="date-day">26</span>
+                            <span class="date-month" data-i18n="day26.month">12月</span>
+                            <span class="date-weekday" data-i18n="day26.weekday">五</span>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-tag tag-ski" data-i18n="tag.ski">滑雪日</div>
+                            <h3 data-i18n="day26.title">苗場滑雪 Day 1</h3>
+                            <ul>
+                                <li data-i18n="day26.li1">苗場 + 神樂雪場全日滑雪</li>
+                                <li data-i18n="day26.li2">雪票：早鳥 ¥6,200 / 一般 ¥7,000 / 全山 ¥9,800</li>
+                                <li data-i18n="day26.li3">田代租借站可租雪具（需身份證明）</li>
+                            </ul>
+                            <div class="timeline-stay" data-i18n="day26.stay">🏠 Little Japan Echigo</div>
+                        </div>
+                    </div>
+                    <!-- Day 27 -->
+                    <div class="timeline-item">
+                        <div class="timeline-date">
+                            <span class="date-day">27</span>
+                            <span class="date-month" data-i18n="day27.month">12月</span>
+                            <span class="date-weekday" data-i18n="day27.weekday">六</span>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-tag tag-ski" data-i18n="tag.ski">滑雪日</div>
+                            <h3 data-i18n="day27.title">苗場滑雪 Day 2 [SB 教練日]</h3>
+                            <ul>
+                                <li data-i18n="day27.li1">單板教練課程（calee / yaowen / syujy / yahsieh / 學妹）</li>
+                                <li data-i18n="day27.li2">單板教練課程（kuohh / hclee）</li>
+                                <li data-i18n="day27.li3">可滑至下午，已確認大眾班表</li>
+                            </ul>
+                            <div class="timeline-stay" data-i18n="day27.stay">🏠 Little Japan Echigo</div>
+                        </div>
+                    </div>
+                    <!-- Day 28 -->
+                    <div class="timeline-item">
+                        <div class="timeline-date">
+                            <span class="date-day">28</span>
+                            <span class="date-month" data-i18n="day28.month">12月</span>
+                            <span class="date-weekday" data-i18n="day28.weekday">日</span>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-tag tag-ski" data-i18n="tag.ski">滑雪日</div>
+                            <div class="timeline-tag tag-travel" data-i18n="tag.travel">移動日</div>
+                            <h3 data-i18n="day28.title">苗場滑雪 Day 3 → 移動至上越</h3>
+                            <ul>
+                                <li data-i18n="day28.li1">苗場整日滑雪</li>
+                                <li data-i18n="day28.li2">公車回越後湯澤（末三便 17:00 / 18:30 / 19:47）</li>
+                                <li data-i18n="day28.li3">JR 越後湯澤 → 浦佐（Urasa）</li>
+                                <li data-i18n="day28.li4">步行至民宿（1.1 公里，約 16 分鐘）</li>
+                            </ul>
+                            <div class="timeline-stay" data-i18n="day28.stay">🏠 浦佐 Airbnb 民宿</div>
+                        </div>
+                    </div>
+                    <!-- Day 29 -->
+                    <div class="timeline-item">
+                        <div class="timeline-date">
+                            <span class="date-day">29</span>
+                            <span class="date-month" data-i18n="day29.month">12月</span>
+                            <span class="date-weekday" data-i18n="day29.weekday">一</span>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-tag tag-ski" data-i18n="tag.ski">滑雪日</div>
+                            <h3 data-i18n="day29.title">上越國際 Day 1</h3>
+                            <ul>
+                                <li data-i18n="day29.li1">上越國際スキー場前駅搭車上山</li>
+                                <li data-i18n="day29.li2">電子票（文組持有）</li>
+                                <li data-i18n="day29.li3">可夜滑至 21:00（¥1,500）</li>
+                                <li data-i18n="day29.li4">Annex 日歸溫泉</li>
+                            </ul>
+                            <div class="timeline-stay" data-i18n="day29.stay">🏠 浦佐 Airbnb 民宿</div>
+                        </div>
+                    </div>
+                    <!-- Day 30 -->
+                    <div class="timeline-item">
+                        <div class="timeline-date">
+                            <span class="date-day">30</span>
+                            <span class="date-month" data-i18n="day30.month">12月</span>
+                            <span class="date-weekday" data-i18n="day30.weekday">二</span>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-tag tag-ski" data-i18n="tag.ski">滑雪日</div>
+                            <h3 data-i18n="day30.title">上越國際 Day 2</h3>
+                            <ul>
+                                <li data-i18n="day30.li1">全日滑雪</li>
+                                <li data-i18n="day30.li2">22 條雪道、4 大區域</li>
+                            </ul>
+                            <div class="timeline-stay" data-i18n="day30.stay">🏠 浦佐 Airbnb 民宿</div>
+                        </div>
+                    </div>
+                    <!-- Day 31 -->
+                    <div class="timeline-item">
+                        <div class="timeline-date">
+                            <span class="date-day">31</span>
+                            <span class="date-month" data-i18n="day31.month">12月</span>
+                            <span class="date-weekday" data-i18n="day31.weekday">三</span>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-tag tag-ski" data-i18n="tag.ski">滑雪日</div>
+                            <h3 data-i18n="day31.title">上越國際 Day 3 — 跨年夜</h3>
+                            <ul>
+                                <li data-i18n="day31.li1">全日滑雪</li>
+                                <li data-i18n="day31.li2">跨年夜滑雪迎接新年</li>
+                            </ul>
+                            <div class="timeline-stay" data-i18n="day31.stay">🏠 浦佐 Airbnb 民宿</div>
+                        </div>
+                    </div>
+                    <!-- Day 01 -->
+                    <div class="timeline-item">
+                        <div class="timeline-date">
+                            <span class="date-day">01</span>
+                            <span class="date-month" data-i18n="day01.month">1月</span>
+                            <span class="date-weekday" data-i18n="day01.weekday">四</span>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-tag tag-sightseeing" data-i18n="tag.sightseeing">觀光日</div>
+                            <div class="timeline-tag tag-travel" data-i18n="tag.travel">移動日</div>
+                            <h3 data-i18n="day01.title">新年觀光 → 回東京</h3>
+                            <ul>
+                                <li data-i18n="day01.li1">越後湯澤觀光（ぽんしゅ館、溫泉等）</li>
+                                <li data-i18n="day01.li2">新幹線 Tanigawa 86 回東京（17:08→18:20）</li>
+                            </ul>
+                            <div class="timeline-stay" data-i18n="day01.stay">🏨 APA Hotel 人形町駅東（1/1–1/4，3 晚）</div>
+                        </div>
+                    </div>
+                    <!-- Day 02 -->
+                    <div class="timeline-item">
+                        <div class="timeline-date">
+                            <span class="date-day">02</span>
+                            <span class="date-month" data-i18n="day02.month">1月</span>
+                            <span class="date-weekday" data-i18n="day02.weekday">五</span>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-tag tag-sightseeing" data-i18n="tag.sightseeing">觀光日</div>
+                            <h3 data-i18n="day02.title">東京自由活動</h3>
+                            <ul>
+                                <li data-i18n="day02.li1">10:45 モンハン酒場（9 人，ID: 2VN4SJ）</li>
+                                <li data-i18n="day02.li2">yahsieh 成田 19:30 離開</li>
+                                <li data-i18n="day02.li3">自由活動</li>
+                            </ul>
+                            <div class="timeline-stay" data-i18n="day02.stay">🏨 APA Hotel 人形町駅東</div>
+                        </div>
+                    </div>
+                    <!-- Day 03 -->
+                    <div class="timeline-item">
+                        <div class="timeline-date">
+                            <span class="date-day">03</span>
+                            <span class="date-month" data-i18n="day03.month">1月</span>
+                            <span class="date-weekday" data-i18n="day03.weekday">六</span>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-tag tag-sightseeing" data-i18n="tag.sightseeing">觀光日</div>
+                            <h3 data-i18n="day03.title">東京自由活動</h3>
+                            <ul>
+                                <li data-i18n="day03.li1">自由活動</li>
+                                <li data-i18n="day03.li2">推薦：備長名古屋鰻魚飯（東京天空樹店）</li>
+                            </ul>
+                            <div class="timeline-stay" data-i18n="day03.stay">🏨 APA Hotel 人形町駅東</div>
+                        </div>
+                    </div>
+                    <!-- Day 04 -->
+                    <div class="timeline-item">
+                        <div class="timeline-date">
+                            <span class="date-day">04</span>
+                            <span class="date-month" data-i18n="day04.month">1月</span>
+                            <span class="date-weekday" data-i18n="day04.weekday">日</span>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-tag tag-travel" data-i18n="tag.return">回程</div>
+                            <h3 data-i18n="day04.title">回程日</h3>
+                            <ul>
+                                <li data-i18n="day04.li1">yaowen / hclee / kuohh / syujy — 成田 13:00</li>
+                                <li data-i18n="day04.li2">hchsu — 成田 15:30</li>
+                                <li data-i18n="day04.li3">calee — 成田 17:00</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ski Resorts Section -->
+        <section class="section" id="ski-resorts">
+            <div class="container">
+                <h2 class="section-title" data-i18n="resorts.title">雪場介紹</h2>
+                <p class="section-desc" data-i18n="resorts.desc">兩座新潟縣頂級雪場，享受日本最優質的粉雪體驗</p>
+
+                <div class="resort-card">
+                    <div class="resort-image">
+                        <img src="images/naeba.jpg" alt="苗場滑雪場" loading="lazy">
+                    </div>
+                    <div class="resort-info">
+                        <h3 data-i18n="naeba.name">苗場滑雪場 + 神樂</h3>
+                        <p class="resort-subtitle" data-i18n="naeba.subtitle">Mt. Naeba / Kagura — 新潟縣湯澤町</p>
+                        <div class="resort-details">
+                            <div class="detail-grid">
+                                <div class="detail-item">
+                                    <span class="detail-label" data-i18n="naeba.label.season">營業期間</span>
+                                    <span class="detail-value">2025/12/13 — 2026/04/05</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label" data-i18n="naeba.label.elevation">海拔</span>
+                                    <span class="detail-value">900m — 1,789m</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label" data-i18n="naeba.label.runs">雪道數</span>
+                                    <span class="detail-value" data-i18n="naeba.val.runs">24 條</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label" data-i18n="naeba.label.night">夜滑</span>
+                                    <span class="detail-value" data-i18n="naeba.val.night">12/20 — 3/21（每日）</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label" data-i18n="naeba.label.gondola">Dragondola</span>
+                                    <span class="detail-value" data-i18n="naeba.val.gondola">日本最長纜車 5.5km</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label" data-i18n="naeba.label.feature">特色</span>
+                                    <span class="detail-value" data-i18n="naeba.val.feature">高品質粉雪、大型度假村</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="price-table">
+                            <h4 data-i18n="naeba.price.title">雪票價格</h4>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th data-i18n="naeba.price.type">類型</th>
+                                        <th data-i18n="naeba.price.1p">1 人</th>
+                                        <th data-i18n="naeba.price.2p">2 人</th>
+                                        <th data-i18n="naeba.price.4p">4 人</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td data-i18n="naeba.price.early">早鳥預售</td><td>¥6,200</td><td>¥12,000</td><td>¥23,600</td></tr>
+                                    <tr><td data-i18n="naeba.price.day">當日券</td><td>¥7,000</td><td>—</td><td>—</td></tr>
+                                    <tr><td data-i18n="naeba.price.all">全山滑走</td><td>¥9,800</td><td>—</td><td>—</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <a href="https://www.princehotels.co.jp/ski/naeba/" target="_blank" class="resort-link" data-i18n="naeba.link">官方網站 →</a>
+                    </div>
+                </div>
+
+                <div class="resort-card resort-card-reverse">
+                    <div class="resort-image">
+                        <img src="images/joetsu.jpg" alt="上越國際滑雪場" loading="lazy">
+                    </div>
+                    <div class="resort-info">
+                        <h3 data-i18n="joetsu.name">上越國際滑雪場</h3>
+                        <p class="resort-subtitle" data-i18n="joetsu.subtitle">Joetsu Kokusai Ski Resort — 新潟縣南魚沼市</p>
+                        <div class="resort-details">
+                            <div class="detail-grid">
+                                <div class="detail-item">
+                                    <span class="detail-label" data-i18n="joetsu.label.area">面積</span>
+                                    <span class="detail-value" data-i18n="joetsu.val.area">380 公頃（日本最大單一雪場）</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label" data-i18n="joetsu.label.runs">雪道數</span>
+                                    <span class="detail-value" data-i18n="joetsu.val.runs">22 條 / 4 大區域</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label" data-i18n="joetsu.label.night">夜滑</span>
+                                    <span class="detail-value" data-i18n="joetsu.val.night">12/27 — 3/22（每日至 21:00）</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label" data-i18n="joetsu.label.access">交通</span>
+                                    <span class="detail-value" data-i18n="joetsu.val.access">JR 上越國際スキー場前駅直達</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label" data-i18n="joetsu.label.nightpass">夜滑票</span>
+                                    <span class="detail-value">¥1,500</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label" data-i18n="joetsu.label.feature">特色</span>
+                                    <span class="detail-value" data-i18n="joetsu.val.feature">超廣闊雪場、車站直達</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="price-table">
+                            <h4 data-i18n="joetsu.price.title">雪票 & 租借</h4>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th data-i18n="joetsu.price.item">項目</th>
+                                        <th data-i18n="joetsu.price.price">價格</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td data-i18n="joetsu.price.day">1 日券</td><td>¥3,900</td></tr>
+                                    <tr><td data-i18n="joetsu.price.set">雪具 Set</td><td>¥5,000</td></tr>
+                                    <tr><td data-i18n="joetsu.price.rental">Rental Set（1日券+雪具）</td><td>¥8,900</td></tr>
+                                    <tr><td data-i18n="joetsu.price.night">夜滑</td><td>¥1,500</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <a href="https://jkokusai.co.jp/ski/" target="_blank" class="resort-link" data-i18n="joetsu.link">官方網站 →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Map Section -->
+        <section class="section section-alt" id="map">
+            <div class="container">
+                <h2 class="section-title" data-i18n="map.title">行程地圖</h2>
+                <p class="section-desc" data-i18n="map.desc">從東京出發，前往新潟雪國的完整路線</p>
+                <div id="tripMap" class="trip-map"></div>
+                <div class="map-legend">
+                    <div class="legend-item"><span class="legend-dot" style="background:#e74c3c"></span> <span data-i18n="map.airport">機場</span></div>
+                    <div class="legend-item"><span class="legend-dot" style="background:#3498db"></span> <span data-i18n="map.station">車站</span></div>
+                    <div class="legend-item"><span class="legend-dot" style="background:#2ecc71"></span> <span data-i18n="map.resort">雪場</span></div>
+                    <div class="legend-item"><span class="legend-dot" style="background:#f39c12"></span> <span data-i18n="map.hotel">住宿</span></div>
+                    <div class="legend-item"><span class="legend-dot" style="background:#9b59b6"></span> <span data-i18n="map.spot">觀光</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Accommodation Section -->
+        <section class="section" id="accommodation">
+            <div class="container">
+                <h2 class="section-title" data-i18n="accom.title">住宿安排</h2>
+                <p class="section-desc" data-i18n="accom.desc">從溫馨民宿到都市飯店，每晚的落腳處</p>
+                <div class="accommodation-grid">
+                    <div class="accom-card">
+                        <div class="accom-dates">12/24</div>
+                        <h3 data-i18n="accom1.name">APA Hotel 上野稻荷町駅北</h3>
+                        <p class="accom-location" data-i18n="accom1.location">📍 東京都台東區</p>
+                        <p data-i18n="accom1.desc">抵達東京首晚住宿，鄰近上野車站，方便隔日搭乘新幹線前往越後湯澤。</p>
+                        <div class="accom-meta">
+                            <span data-i18n="accom1.meta1">單人房</span>
+                            <span data-i18n="accom1.meta2">1 晚</span>
+                        </div>
+                    </div>
+                    <div class="accom-card">
+                        <div class="accom-dates">12/25 — 12/27</div>
+                        <h3 data-i18n="accom2.name">Little Japan Echigo</h3>
+                        <p class="accom-location" data-i18n="accom2.location">📍 新潟縣湯澤町（苗場附近）</p>
+                        <p data-i18n="accom2.desc">苗場雪場附近的溫馨民宿，3+3+3 人房配置。提供簡易廚房（IH 爐、冰箱、微波爐、電鍋）、免費飲品（咖啡、紅茶、綠茶）。</p>
+                        <div class="accom-meta">
+                            <span data-i18n="accom2.meta1">10 人 / 3 間房</span>
+                            <span data-i18n="accom2.meta2">3 晚</span>
+                        </div>
+                    </div>
+                    <div class="accom-card">
+                        <div class="accom-dates">12/28 — 12/31</div>
+                        <h3 data-i18n="accom3.name">浦佐 Airbnb 民宿</h3>
+                        <p class="accom-location" data-i18n="accom3.location">📍 新潟縣南魚沼市浦佐</p>
+                        <p data-i18n="accom3.desc">靠近上越國際滑雪場的村舍，4 間臥室、8 張床、2.5 間浴室。從浦佐站步行約 16 分鐘（1.1 公里）。</p>
+                        <div class="accom-meta">
+                            <span data-i18n="accom3.meta1">4 臥室</span>
+                            <span data-i18n="accom3.meta2">4 晚</span>
+                        </div>
+                    </div>
+                    <div class="accom-card">
+                        <div class="accom-dates">1/1 — 1/3</div>
+                        <h3 data-i18n="accom4.name">APA Hotel 人形町駅東</h3>
+                        <p class="accom-location" data-i18n="accom4.location">📍 東京都中央區</p>
+                        <p data-i18n="accom4.desc">東京觀光期間住宿，7 間房（2 間雙人 + 5 間單人）。位於日本橋人形町，交通便利，周邊美食豐富。</p>
+                        <div class="accom-meta">
+                            <span data-i18n="accom4.meta1">7 間房</span>
+                            <span data-i18n="accom4.meta2">3 晚</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Transport Section -->
+        <section class="section section-alt" id="transport">
+            <div class="container">
+                <h2 class="section-title" data-i18n="transport.title">交通資訊</h2>
+                <p class="section-desc" data-i18n="transport.desc">新幹線、公車、Skyliner — 完整的交通接駁安排</p>
+                <div class="transport-timeline">
+                    <div class="transport-item">
+                        <div class="transport-icon">✈️</div>
+                        <div class="transport-detail">
+                            <h4 data-i18n="tr1.title">成田機場 → 上野</h4>
+                            <p data-i18n="tr1.desc">Skyliner（現場買票）約 41 分鐘</p>
+                            <span class="transport-date">12/24</span>
+                        </div>
+                    </div>
+                    <div class="transport-item">
+                        <div class="transport-icon">🚄</div>
+                        <div class="transport-detail">
+                            <h4 data-i18n="tr2.title">上野 → 越後湯澤</h4>
+                            <p data-i18n="tr2.desc">上越新幹線 Toki 323（13:46 → 14:56）約 70 分鐘</p>
+                            <span class="transport-date">12/25</span>
+                        </div>
+                    </div>
+                    <div class="transport-item">
+                        <div class="transport-icon">🚌</div>
+                        <div class="transport-detail">
+                            <h4 data-i18n="tr3.title">越後湯澤 → 苗場（二居田代）</h4>
+                            <p data-i18n="tr3.desc">公車 約 45 分鐘（末三便 15:30 / 17:15 / 18:40）</p>
+                            <span class="transport-date">12/25</span>
+                        </div>
+                    </div>
+                    <div class="transport-item">
+                        <div class="transport-icon">🚌</div>
+                        <div class="transport-detail">
+                            <h4 data-i18n="tr4.title">苗場 → 越後湯澤</h4>
+                            <p data-i18n="tr4.desc">公車（末三便 17:00 / 18:30 / 19:47）</p>
+                            <span class="transport-date">12/28</span>
+                        </div>
+                    </div>
+                    <div class="transport-item">
+                        <div class="transport-icon">🚃</div>
+                        <div class="transport-detail">
+                            <h4 data-i18n="tr5.title">越後湯澤 → 浦佐</h4>
+                            <p data-i18n="tr5.desc">JR 上越線（彈性時間）</p>
+                            <span class="transport-date">12/28</span>
+                        </div>
+                    </div>
+                    <div class="transport-item">
+                        <div class="transport-icon">🚃</div>
+                        <div class="transport-detail">
+                            <h4 data-i18n="tr6.title">浦佐 → 上越國際スキー場前駅</h4>
+                            <p data-i18n="tr6.desc">JR 上越線（車站直達雪場）</p>
+                            <span class="transport-date">12/29–31</span>
+                        </div>
+                    </div>
+                    <div class="transport-item">
+                        <div class="transport-icon">🚄</div>
+                        <div class="transport-detail">
+                            <h4 data-i18n="tr7.title">越後湯澤 → 東京</h4>
+                            <p data-i18n="tr7.desc">上越新幹線 Tanigawa 86（17:08 → 18:20）約 72 分鐘</p>
+                            <span class="transport-date">1/1</span>
+                        </div>
+                    </div>
+                    <div class="transport-item">
+                        <div class="transport-icon">✈️</div>
+                        <div class="transport-detail">
+                            <h4 data-i18n="tr8.title">東京 → 成田機場</h4>
+                            <p data-i18n="tr8.desc">Skyliner 回程</p>
+                            <span class="transport-date">1/2–4</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sightseeing Section -->
+        <section class="section" id="sightseeing">
+            <div class="container">
+                <h2 class="section-title" data-i18n="sight.title">觀光景點</h2>
+                <p class="section-desc" data-i18n="sight.desc">滑雪之外，探索越後湯澤與東京的精彩</p>
+
+                <h3 class="subsection-title" data-i18n="sight.yuzawa">🍶 越後湯澤 / 南魚沼</h3>
+                <div class="spots-grid">
+                    <div class="spot-card">
+                        <h4 data-i18n="spot.ponshukan.title">ぽんしゅ館（Ponshukan）</h4>
+                        <p data-i18n="spot.ponshukan.desc">越後湯澤車站內的清酒博物館，可品嚐超過 100 種新潟地酒。投幣式品酒體驗，是日本酒愛好者的天堂。</p>
+                        <a href="https://www.ponshukan.com/yuzawa/" target="_blank" data-i18n="spot.ponshukan.link">官網 →</a>
+                    </div>
+                    <div class="spot-card">
+                        <h4 data-i18n="spot.kiyotsu.title">清津峽 / Tunnel of Light</h4>
+                        <p data-i18n="spot.kiyotsu.desc">日本三大峽谷之一，隧道內的藝術裝置將自然與現代藝術完美結合。鏡面水池倒映峽谷美景，是新潟最具代表性的打卡景點。</p>
+                    </div>
+                    <div class="spot-card">
+                        <h4 data-i18n="spot.hakkai.title">八海山索道</h4>
+                        <p data-i18n="spot.hakkai.desc">搭乘纜車登上八海山，俯瞰南魚沼平原的壯麗雪景。八海山也是知名清酒品牌的發源地。</p>
+                        <a href="https://www.snowmonkeyresorts.com/zh-hant/activities/mount-hakkai-hakkaisan-ropeway/" target="_blank" data-i18n="spot.hakkai.link">詳情 →</a>
+                    </div>
+                    <div class="spot-card">
+                        <h4 data-i18n="spot.uonuma.title">魚沼之里</h4>
+                        <p data-i18n="spot.uonuma.desc">八海釀造的複合設施，包含酒藏、餐廳、甜點店。可參觀清酒釀造過程，品嚐以八海山清酒製作的甜點。</p>
+                        <a href="https://www.uonuma-no-sato.jp/" target="_blank" data-i18n="spot.uonuma.link">官網 →</a>
+                    </div>
+                    <div class="spot-card">
+                        <h4 data-i18n="spot.hoshitoge.title">星峠梯田</h4>
+                        <p data-i18n="spot.hoshitoge.desc">被選為「日本棚田百選」的絕美梯田，冬季被白雪覆蓋時呈現夢幻般的景色。</p>
+                    </div>
+                    <div class="spot-card">
+                        <h4 data-i18n="spot.soba.title">大源太蕎麥麵體驗</h4>
+                        <p data-i18n="spot.soba.desc">親手製作正宗越後蕎麥麵的體驗工房，使用當地石磨蕎麥粉，體驗日本傳統手打蕎麥的樂趣。</p>
+                        <a href="https://www.bring-you.info/zh-tw/daigenta-soba" target="_blank" data-i18n="spot.soba.link">詳情 →</a>
+                    </div>
+                </div>
+
+                <h3 class="subsection-title" data-i18n="sight.tokyo">🗼 東京</h3>
+                <div class="spots-grid">
+                    <div class="spot-card">
+                        <h4 data-i18n="spot.unagi.title">備長名古屋鰻魚飯</h4>
+                        <p data-i18n="spot.unagi.desc">東京天空樹 Solamachi 店。正宗名古屋鰻魚三吃（ひつまぶし），可享受三種不同吃法。</p>
+                    </div>
+                    <div class="spot-card">
+                        <h4 data-i18n="spot.monhun.title">モンハン酒場</h4>
+                        <p data-i18n="spot.monhun.desc">Monster Hunter 主題餐廳，1/2 上午 10:45 已預約 9 人（ID: 2VN4SJ）。</p>
+                    </div>
+                </div>
+
+                <h3 class="subsection-title" data-i18n="sight.kansai">⛩️ 關西（Calee 個人行程 12/19–12/25）</h3>
+                <div class="spots-grid">
+                    <div class="spot-card">
+                        <h4 data-i18n="spot.kyoto.title">京都景點</h4>
+                        <p data-i18n="spot.kyoto.desc">鴨川、祗園、三千院、延曆寺、嵐山祐斎亭、車折神社、下鴨神社、貴船神社、京都御苑、三十三間堂、上賀茂神社、東寺、宇治</p>
+                    </div>
+                    <div class="spot-card">
+                        <h4 data-i18n="spot.amanohashidate.title">天橋立</h4>
+                        <p data-i18n="spot.amanohashidate.desc">日本三景之一。推薦搭 JR 直達車「はしだて特急」從京都出發（約 2 小時）。飛龍觀回廊的「從跨下窺看」是必做體驗。</p>
+                    </div>
+                    <div class="spot-card">
+                        <h4 data-i18n="spot.kyotofood.title">京都美食</h4>
+                        <p data-i18n="spot.kyotofood.desc">Gion Duck Rice、THE TERMINAL KYOTO、上賀茂神社旁神馬堂麻糬（需早上 10 點前排隊）</p>
+                    </div>
+                    <div class="spot-card">
+                        <h4 data-i18n="spot.osakafood.title">大阪美食</h4>
+                        <p data-i18n="spot.osakafood.desc">松よし（鶴橋燒肉）、Tori Soba Zagin（雞白湯拉麵）、Tempura nuu nuu（天婦羅）、Yakitori Matsuri（北新地燒鳥）</p>
+                    </div>
+                    <div class="spot-card">
+                        <h4 data-i18n="spot.tsubamesanjo.title">燕三條</h4>
+                        <p data-i18n="spot.tsubamesanjo.desc">12/25 下午前往。日本金屬加工重鎮，以菜刀、餐具聞名世界。燕三條 Wing 可參觀職人工藝。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Members Section -->
+        <section class="section section-alt" id="members">
+            <div class="container">
+                <h2 class="section-title" data-i18n="members.title">團員資訊</h2>
+                <p class="section-desc" data-i18n="members.desc">雪具需求與航班資訊一覽</p>
+
+                <div class="members-table-wrapper">
+                    <table class="members-table">
+                        <thead>
+                            <tr>
+                                <th data-i18n="members.th.name">成員</th>
+                                <th data-i18n="members.th.type">滑雪類型</th>
+                                <th data-i18n="members.th.gear">雪具需求</th>
+                                <th data-i18n="members.th.arrive">抵達</th>
+                                <th data-i18n="members.th.depart">離開</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>calee</strong></td>
+                                <td data-i18n="member.calee.type">單板 SB</td>
+                                <td data-i18n="member.calee.gear">全套自備</td>
+                                <td data-i18n="member.calee.arrive">12/20 起日本 remote</td>
+                                <td>1/4 成田 17:00</td>
+                            </tr>
+                            <tr>
+                                <td><strong>yahsieh</strong></td>
+                                <td data-i18n="member.yahsieh.type">單板 SB</td>
+                                <td data-i18n="member.yahsieh.gear">全套自備</td>
+                                <td data-i18n="member.yahsieh.arrive">12/7 起日本 remote</td>
+                                <td>1/2 成田 19:30</td>
+                            </tr>
+                            <tr>
+                                <td><strong>yaowen</strong></td>
+                                <td data-i18n="member.yaowen.type">單板 SB</td>
+                                <td data-i18n="member.yaowen.gear">需要單板</td>
+                                <td>12/24 成田 19:20</td>
+                                <td>1/4 成田 13:00</td>
+                            </tr>
+                            <tr>
+                                <td><strong>syujy</strong></td>
+                                <td data-i18n="member.syujy.type">單板 SB</td>
+                                <td data-i18n="member.syujy.gear">需要單板</td>
+                                <td>12/24 成田 19:20</td>
+                                <td>1/4 成田 13:00</td>
+                            </tr>
+                            <tr>
+                                <td><strong>kuohh</strong></td>
+                                <td data-i18n="member.kuohh.type">單板 SB</td>
+                                <td data-i18n="member.kuohh.gear">需要單板 + 鞋子</td>
+                                <td>12/24 成田 19:20</td>
+                                <td>1/4 成田 13:00</td>
+                            </tr>
+                            <tr>
+                                <td><strong>hclee</strong></td>
+                                <td data-i18n="member.hclee.type">單板 SB</td>
+                                <td data-i18n="member.hclee.gear">需要單板 + 鞋子</td>
+                                <td>12/24 成田 19:20</td>
+                                <td>1/4 成田 13:00</td>
+                            </tr>
+                            <tr>
+                                <td><strong>yysung</strong></td>
+                                <td data-i18n="member.yysung.type">雙板 SK</td>
+                                <td data-i18n="member.yysung.gear">需要雙板 + 雪杖</td>
+                                <td>12/24</td>
+                                <td data-i18n="member.yysung.depart">未定</td>
+                            </tr>
+                            <tr>
+                                <td><strong>wangtr</strong></td>
+                                <td data-i18n="member.wangtr.type">雙板 SK</td>
+                                <td data-i18n="member.wangtr.gear">需要雙板 + 雪杖</td>
+                                <td>12/24</td>
+                                <td data-i18n="member.wangtr.depart">未定</td>
+                            </tr>
+                            <tr>
+                                <td><strong>hchsu</strong></td>
+                                <td data-i18n="member.hchsu.type">雙板 SK</td>
+                                <td data-i18n="member.hchsu.gear">需要雙板 + 鞋子 + 雪杖</td>
+                                <td>12/24 成田 16:50</td>
+                                <td>1/4 成田 15:30</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="subsection-title" style="margin-top:3rem;" data-i18n="instructor.title">教練安排</h3>
+                <div class="instructor-cards">
+                    <div class="instructor-card">
+                        <h4 data-i18n="inst1.title">單板教練 — 第一組</h4>
+                        <p data-i18n="inst1.members">calee / yaowen / syujy / yahsieh / 學妹</p>
+                        <span class="instructor-date" data-i18n="inst1.date">12/27（六）</span>
+                    </div>
+                    <div class="instructor-card">
+                        <h4 data-i18n="inst2.title">單板教練 — 第二組</h4>
+                        <p>kuohh / hclee</p>
+                        <span class="instructor-date" data-i18n="inst2.date">12/27（六）</span>
+                    </div>
+                    <div class="instructor-card">
+                        <h4 data-i18n="inst3.title">雙板教練</h4>
+                        <p data-i18n="inst3.members">yysung（偏好中文教練，一整天）</p>
+                        <span class="instructor-date" data-i18n="inst3.date">待定</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Planning History Section -->
+        <section class="section" id="planning">
+            <div class="container">
+                <h2 class="section-title" data-i18n="planning.title">籌備歷程</h2>
+                <p class="section-desc" data-i18n="planning.desc">從初步構想到最終定案的完整討論過程</p>
+                <div class="planning-accordion">
+                    <details class="planning-item">
+                        <summary>
+                            <span class="planning-number">0</span>
+                            <span class="planning-title" data-i18n="plan0.title">初步構想</span>
+                        </summary>
+                        <div class="planning-content">
+                            <p data-i18n="plan0.p1">最初考慮的目的地涵蓋全球：法國三峽谷、霞慕尼，奧地利 Arlberg，義大利多洛米蒂，日本岩手夏油高原、長野，以及哈爾濱。經過假期統計與討論，決定分為兩個團：2026 年歐洲/紐西蘭/北美團，以及 2025 年底日本團。</p>
+                            <p data-i18n="plan0.p2">日本雪場候選：白馬岩越、白馬八方尾根、白馬五龍、志賀高原、奧志賀高原、高鷲 Snow Park。</p>
+                            <p data-i18n="plan0.p3">提出三個方案投票：(1) 高鷲 Snow Park + 名古屋觀光 (2) 白馬兩雪場 + 觀光 (3) 志賀高原兩雪場 + 觀光。</p>
+                        </div>
+                    </details>
+                    <details class="planning-item">
+                        <summary>
+                            <span class="planning-number">1</span>
+                            <span class="planning-title" data-i18n="plan1.title">地點與日期定案</span>
+                        </summary>
+                        <div class="planning-content">
+                            <p data-i18n="plan1.p1">投票結果：白馬方案獲得最多支持（yahsieh、yaowen、hclee、Calee）。日期定案為 12/25–1/4 滑雪，12/20–12/25 個人自由安排。機票方向：去程可選大阪或東京，回程統一東京。</p>
+                            <p data-i18n="plan1.p2">觀光願望清單：大阪京都、名古屋、白馬村、長野縣、金澤 21 世紀美術館、安康魚、河豚。</p>
+                        </div>
+                    </details>
+                    <details class="planning-item">
+                        <summary>
+                            <span class="planning-number">2</span>
+                            <span class="planning-title" data-i18n="plan2.title">行程草案</span>
+                        </summary>
+                        <div class="planning-content">
+                            <p data-i18n="plan2.p1">雪場方案調整為苗場 + 上越國際。制定初版行程表：12/25 抵達東京後前往苗場，12/26–28 苗場滑雪，12/28 移動至上越，12/29–31 上越滑雪，1/1 後回東京觀光。</p>
+                            <p data-i18n="plan2.p2">住宿研究：苗場王子飯店（4 人房 ¥15,951/天/人）、上越地區待定。</p>
+                        </div>
+                    </details>
+                    <details class="planning-item">
+                        <summary>
+                            <span class="planning-number">3</span>
+                            <span class="planning-title" data-i18n="plan3.title">交通與住宿確認</span>
+                        </summary>
+                        <div class="planning-content">
+                            <p data-i18n="plan3.p1">確認苗場交通：從越後湯澤有公車，單程 45 分鐘，最早 8:12 發車。苗場雪票一日 ¥7,200。</p>
+                            <p data-i18n="plan3.p2">已訂住宿：苗場 — Little Japan Echigo（Booking.com）、上越 — Airbnb 村舍（4 臥室 8 床 2.5 浴室）。</p>
+                        </div>
+                    </details>
+                    <details class="planning-item">
+                        <summary>
+                            <span class="planning-number">4</span>
+                            <span class="planning-title" data-i18n="plan4.title">景點研究與教練</span>
+                        </summary>
+                        <div class="planning-content">
+                            <p data-i18n="plan4.p1">深入研究周邊景點：湯澤/南魚沼（ぽんしゅ館、清津峽、八海山索道、星峠梯田）、沼田（溫泉、城遺址）、前橋（不倒翁體驗、赤城神社）、新潟市（佐渡金山、燕三條菜刀、彌彥神社）。</p>
+                            <p data-i18n="plan4.p2">教練聯繫：SNOWDAY、SNOWPiNK。</p>
+                        </div>
+                    </details>
+                    <details class="planning-item">
+                        <summary>
+                            <span class="planning-number">5</span>
+                            <span class="planning-title" data-i18n="plan5.title">最終行程確認</span>
+                        </summary>
+                        <div class="planning-content">
+                            <p data-i18n="plan5.p1">確認所有成員時間與進出方式。最終行程表定案，教練分組確認：單板兩組、雙板一組。新幹線時刻確認，住宿從苗場王子飯店改為神樂民宿。</p>
+                        </div>
+                    </details>
+                    <details class="planning-item">
+                        <summary>
+                            <span class="planning-number">6</span>
+                            <span class="planning-title" data-i18n="plan6.title">預訂完成</span>
+                        </summary>
+                        <div class="planning-content">
+                            <p data-i18n="plan6.p1">新幹線 Toki 323 已訂（0 元票，現場可能需處理付款）。Skyliner 現場買票。APA Hotel 1/1–1/4 官網預約完成（現場付款）。苗場雪票可出國前訂。上越國際電子票已訂。</p>
+                            <p data-i18n="plan6.p2">東京美食：備長名古屋鰻魚飯（天空樹店）。</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- Useful Info Section -->
+        <section class="section section-alt" id="useful-info">
+            <div class="container">
+                <h2 class="section-title" data-i18n="info.title">實用資訊</h2>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h4 data-i18n="info.tickets">🎿 雪票購買連結</h4>
+                        <ul>
+                            <li><a href="https://webket.jp/pc/ticket/itemdetail?fc=00137&ac=0320&igc=0004" target="_blank" data-i18n="info.tickets.naeba">苗場早鳥雪票（Webket）</a></li>
+                            <li><a href="https://www.princehotels.co.jp/ski/kagura/winter/lift/" target="_blank" data-i18n="info.tickets.kagura">神樂雪票（官網）</a></li>
+                            <li><a href="https://jkokusai.co.jp/ski/lift/" target="_blank" data-i18n="info.tickets.joetsu">上越國際雪票</a></li>
+                        </ul>
+                    </div>
+                    <div class="info-card">
+                        <h4 data-i18n="info.bus">🚌 公車時刻表</h4>
+                        <ul>
+                            <li><a href="http://www.naeba.gr.jp/access/bus.pdf" target="_blank" data-i18n="info.bus.weekday">苗場公車（平日）</a></li>
+                            <li><a href="http://www.naeba.gr.jp/access/bus_hol.pdf" target="_blank" data-i18n="info.bus.holiday">苗場公車（假日）</a></li>
+                            <li><a href="https://jkokusai.co.jp/ski/access/" target="_blank" data-i18n="info.bus.joetsu">上越國際交通</a></li>
+                        </ul>
+                    </div>
+                    <div class="info-card">
+                        <h4 data-i18n="info.hotel">🏨 住宿連結</h4>
+                        <ul>
+                            <li><a href="https://www.booking.com/hotel/jp/little-japan-echigo.zh-tw.html" target="_blank" data-i18n="info.hotel.lj">Little Japan Echigo（Booking）</a></li>
+                            <li><a href="https://www.airbnb.com.tw/rooms/1101301069647806142" target="_blank" data-i18n="info.hotel.airbnb">浦佐民宿（Airbnb）</a></li>
+                        </ul>
+                    </div>
+                    <div class="info-card">
+                        <h4 data-i18n="info.instructor">📱 教練聯繫</h4>
+                        <ul>
+                            <li><a href="https://www.instagram.com/snowday_2023" target="_blank">SNOWDAY（Instagram）</a></li>
+                            <li><a href="https://www.instagram.com/snowpink.jp" target="_blank">SNOWPiNK（Instagram）</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>    <!-- Trip Series Navigation -->
+    <section class="ts-section">
+        <div class="container">
+            <h3 class="ts-title" data-i18n="series.title">滑雪旅行系列</h3>
+            <div class="ts-grid">
+            <a href="/trip/2024/2324-jp-ski/" class="ts-card">
+                <div class="ts-year">2024</div>
+                <div class="ts-info">
+                    <h4 data-i18n="series.2024.title">福島滑雪之旅</h4>
+                    <p>Fukushima · Aizu · Nikko · Tokyo</p>
+                    <span class="ts-meta" data-i18n="series.2024.meta">9 天 · 8 人 · Listel Ski Fantasia</span>
+                </div>
+                <span class="ts-arrow">&rarr;</span>
+            </a>
+            <a href="/trip/2025/2425-jp-ski/" class="ts-card">
+                <div class="ts-year">2025 (I)</div>
+                <div class="ts-info">
+                    <h4 data-i18n="series.2025I.title">北海道 Kiroro 滑雪之旅</h4>
+                    <p>Hokkaido · Kiroro · Otaru · Sapporo</p>
+                    <span class="ts-meta" data-i18n="series.2025I.meta">11 天 · 8 人 · Kiroro Snow World</span>
+                </div>
+                <span class="ts-arrow">&rarr;</span>
+            </a>
+            <div class="ts-card ts-card--active">
+                <div class="ts-year">2025 (II)</div>
+                <div class="ts-info">
+                    <h4 data-i18n="series.2025II.title">新潟滑雪團</h4>
+                    <p>Naeba · Joetsu Kokusai · Echigo-Yuzawa · Tokyo</p>
+                    <span class="ts-meta" data-i18n="series.2025II.meta">11 天 · 9 人 · 苗場 + 上越國際</span>
+                </div>
+                <span class="ts-badge" data-i18n="series.current">目前</span>
+            </div>
+            <a href="/trip/2026/eu-ski/" class="ts-card">
+                <div class="ts-year">2026</div>
+                <div class="ts-info">
+                    <h4 data-i18n="series.2026.title">歐洲滑雪＋城市旅遊</h4>
+                    <p>Austria · Christmas Markets · Alpine Skiing</p>
+                    <span class="ts-meta" data-i18n="series.2026.meta">規劃中 · 奧地利四大雪場</span>
+                </div>
+                <span class="ts-arrow">&rarr;</span>
+            </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p data-i18n="footer.main">🗾 2025-26 日本滑雪團 — 苗場 · 上越國際 · 越後湯澤 · 東京</p>
+            <p class="footer-note" data-i18n="footer.note">本頁面整理自團隊 Notion 籌備文件，僅供團員參考使用</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="i18n.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

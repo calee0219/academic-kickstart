@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2023 Boston & New York Trip</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="icon" type="image/png" sizes="180x180" href="favicon.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo">BOS / NYC</a>
+      <div class="nav-links" id="navLinks">
+        <a href="#overview" data-i18n="nav.overview">Overview</a>
+        <a href="#map-overview" data-i18n="nav.map">Map</a>
+        <a href="#itinerary" data-i18n="nav.itinerary">Itinerary</a>
+        <a href="#food" data-i18n="nav.food">Food</a>
+        <a href="#attractions" data-i18n="nav.attractions">Attractions</a>
+        <a href="#reference" data-i18n="nav.reference">Reference</a>
+      </div>
+      <button class="lang-toggle" id="langToggle" title="Switch to English" onclick="i18n.toggle()">EN</button>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero" id="hero">
+    <div class="hero-particles" id="heroParticles"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-date">2023.11.03 — 11.14</p>
+      <h1>Boston & New York</h1>
+      <p class="hero-subtitle" data-i18n="hero.subtitle">從倫敦出發，橫跨大西洋的 12 天美東之旅</p>
+      <p class="hero-desc" data-i18n="hero.desc" data-i18n-html>白山國家公園 · 波士頓美術館 · 哈佛 · MIT · 自由之路 · 賞鯨<br>中央公園 · 自由女神 · 帝國大廈 · Hamilton · 大都會博物館</p>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num">12</span><span class="stat-label" data-i18n="hero.days">Days</span></div>
+        <div class="stat"><span class="stat-num">2</span><span class="stat-label" data-i18n="hero.cities">Cities</span></div>
+        <div class="stat"><span class="stat-num">5</span><span class="stat-label" data-i18n="hero.museums">Museums</span></div>
+        <div class="stat"><span class="stat-num">1</span><span class="stat-label">Broadway</span></div>
+      </div>
+      <a href="#overview" class="hero-scroll">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
+      </a>
+    </div>
+  </header>
+
+  <!-- Overview Section -->
+  <section class="section" id="overview">
+    <div class="container">
+      <h2 class="section-title" data-i18n="overview.title">Trip Overview</h2>
+      <div class="overview-grid">
+        <div class="overview-card">
+          <div class="oc-icon">&#9992;</div>
+          <h3 data-i18n="overview.flight">Flight</h3>
+          <p>London Heathrow (LHR) &rarr; Boston Logan (BOS)</p>
+          <p class="oc-detail" data-i18n="overview.flight.detail">11/3 出發 · 11/14 返回</p>
+        </div>
+        <div class="overview-card">
+          <div class="oc-icon">&#127968;</div>
+          <h3 data-i18n="overview.accommodation">Accommodation</h3>
+          <p><strong>Boston:</strong> 871 Harrison Ave, Boston</p>
+          <p><strong>New York:</strong> 242 Beacon Ave, New Jersey</p>
+        </div>
+        <div class="overview-card">
+          <div class="oc-icon">&#128652;</div>
+          <h3 data-i18n="overview.transportation">Transportation</h3>
+          <p>Boston &harr; New York by Amtrak / Bus</p>
+          <p class="oc-detail" data-i18n="overview.transport.detail">從 South Station 出發</p>
+        </div>
+        <div class="overview-card">
+          <div class="oc-icon">&#127915;</div>
+          <h3 data-i18n="overview.highlights">Highlights</h3>
+          <p>Hamilton on Broadway</p>
+          <p data-i18n="overview.highlights.citypass">CityPass 暢遊紐約景點</p>
+        </div>
+      </div>
+
+      <!-- Timeline Overview -->
+      <div class="timeline-overview">
+        <h3 data-i18n="overview.timeline">行程總覽</h3>
+        <div class="timeline-bar">
+          <div class="tl-segment tl-flight" style="flex:0.5"><span>&#9992;</span></div>
+          <div class="tl-segment tl-boston" style="flex:7"><span>Boston</span></div>
+          <div class="tl-segment tl-newyork" style="flex:4"><span>New York</span></div>
+          <div class="tl-segment tl-flight" style="flex:0.5"><span>&#9992;</span></div>
+        </div>
+        <div class="tl-dates">
+          <span>11/3</span><span>11/4</span><span>11/5</span><span>11/6</span><span>11/7</span><span>11/8</span><span>11/9</span><span>11/10</span><span>11/11</span><span>11/12</span><span>11/13</span><span>11/14</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Map Overview Section -->
+  <section class="section section-dark" id="map-overview">
+    <div class="container">
+      <h2 class="section-title light" data-i18n="map.title">Interactive Map</h2>
+      <div class="map-tabs">
+        <button class="map-tab active" data-map="boston">Boston</button>
+        <button class="map-tab" data-map="newyork">New York</button>
+        <button class="map-tab" data-map="full" data-i18n="map.full">Full Route</button>
+      </div>
+      <div id="mainMap" class="main-map"></div>
+    </div>
+  </section>
+
+  <!-- Itinerary Section -->
+  <section class="section" id="itinerary">
+    <div class="container">
+      <h2 class="section-title" data-i18n="itinerary.title">Daily Itinerary</h2>
+
+      <!-- Day Navigation -->
+      <div class="day-nav" id="dayNav">
+        <button class="day-btn active" data-day="all">All</button>
+        <button class="day-btn" data-day="day1">11/3</button>
+        <button class="day-btn" data-day="day2">11/4</button>
+        <button class="day-btn" data-day="day3">11/5</button>
+        <button class="day-btn" data-day="day4">11/6</button>
+        <button class="day-btn" data-day="day5">11/7</button>
+        <button class="day-btn" data-day="day6">11/8</button>
+        <button class="day-btn" data-day="day7">11/9</button>
+        <button class="day-btn" data-day="day8">11/10</button>
+        <button class="day-btn" data-day="day9">11/11</button>
+        <button class="day-btn" data-day="day10">11/12</button>
+        <button class="day-btn" data-day="day11">11/13</button>
+        <button class="day-btn" data-day="day12">11/14</button>
+      </div>
+
+      <!-- Day Cards -->
+      <div class="days-container" id="daysContainer">
+
+        <!-- Day 1 -->
+        <div class="day-card" data-day="day1">
+          <div class="day-header boston">
+            <div class="day-badge">Day 1</div>
+            <h3 data-i18n="day1.title">11月3日 (五) — London → Boston</h3>
+            <span class="day-tag" data-i18n="day1.tag">&#9992; Travel Day</span>
+          </div>
+          <div class="day-body">
+            <div class="timeline">
+              <div class="tl-item">
+                <div class="tl-time">08:00 <span class="tz">GMT</span></div>
+                <div class="tl-content">
+                  <h4 data-i18n="day1.t1.title">從家裡出發</h4>
+                  <p data-i18n="day1.t1.desc">前往 Heathrow 機場</p>
+                </div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-time">09:00 <span class="tz">GMT</span></div>
+                <div class="tl-content">
+                  <h4 data-i18n="day1.t2.title">抵達 Heathrow 機場</h4>
+                  <p>Terminal 5</p>
+                </div>
+              </div>
+              <div class="tl-item highlight">
+                <div class="tl-time">11:25 <span class="tz">GMT</span></div>
+                <div class="tl-content">
+                  <h4 data-i18n="day1.t3.title">飛機起飛</h4>
+                  <p>London Heathrow &rarr; Boston Logan International</p>
+                </div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-time">15:05 <span class="tz">EST</span></div>
+                <div class="tl-content">
+                  <h4 data-i18n="day1.t4.title">降落波士頓</h4>
+                  <p>Logan International Airport, Terminal E</p>
+                </div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-time">16:00 <span class="tz">EST</span></div>
+                <div class="tl-content">
+                  <h4 data-i18n="day1.t5.title">預計出關</h4>
+                  <p data-i18n="day1.t5.desc">前往住宿：871 Harrison Avenue, Boston</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Day 2 -->
+        <div class="day-card" data-day="day2">
+          <div class="day-header boston">
+            <div class="day-badge">Day 2</div>
+            <h3 data-i18n="day2.title">11月4日 (六) — 白山國家公園</h3>
+            <span class="day-tag" data-i18n="day2.tag">&#127956; Nature</span>
+          </div>
+          <div class="day-body">
+            <div class="timeline">
+              <div class="tl-item highlight">
+                <div class="tl-time">Full Day</div>
+                <div class="tl-content">
+                  <h4><a href="https://www.fs.usda.gov/whitemountain" target="_blank">White Mountain National Forest</a></h4>
+                  <p data-i18n="day2.t1.desc">白山國家公園位於新罕布夏州，距離波士頓約 2.5 小時車程。11 月初的白山已過了秋葉高峰期，但仍可欣賞到壯麗的山景和初冬的寧靜氛圍。</p>
+                  <div class="info-box">
+                    <strong data-i18n="day2.info.title">旅遊資訊</strong>
+                    <ul>
+                      <li data-i18n="day2.info.1">距離波士頓約 140 英里，車程約 2.5 小時</li>
+                      <li data-i18n="day2.info.2">11 月氣溫約 -2&deg;C ~ 10&deg;C，需準備保暖衣物</li>
+                      <li data-i18n="day2.info.3">Kancamagus Highway 是著名的景觀公路</li>
+                      <li data-i18n="day2.info.4">可搭乘 Conway Scenic Railroad 觀光火車</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Day 3 -->
+        <div class="day-card" data-day="day3">
+          <div class="day-header boston">
+            <div class="day-badge">Day 3</div>
+            <h3 data-i18n="day3.title">11月5日 (日) — 波士頓文化巡禮</h3>
+            <span class="day-tag" data-i18n="day3.tag">&#127912; Culture</span>
+          </div>
+          <div class="day-body">
+            <div class="timeline">
+              <div class="tl-item">
+                <div class="tl-time">09:00</div>
+                <div class="tl-content">
+                  <h4><a href="https://www.mfa.org/" target="_blank">Museum of Fine Arts, Boston</a></h4>
+                  <p data-i18n="day3.mfa.desc">波士頓美術館是全美最大的博物館之一，擁有超過 50 萬件藝術品，橫跨 100 多個展廳。必看亮點包括莫內的《吉維尼附近的罌粟花田》、梵谷的《郵差約瑟夫·魯蘭》及埃及木乃伊收藏。</p>
+                  <p class="addr"><a href="https://maps.app.goo.gl/MFA_Boston" target="_blank">465 Huntington Ave, Boston, MA 02115</a></p>
+                </div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-time">14:00</div>
+                <div class="tl-content">
+                  <h4><a href="https://www.harvard.edu/" target="_blank">Harvard University</a></h4>
+                  <p data-i18n="day3.harvard.desc">創立於 1636 年，是美國最古老的高等學府。漫步 Harvard Yard，參觀 John Harvard 雕像（摸左腳據說能帶來好運），以及 Widener Library 壯觀的階梯。</p>
+                </div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-time">15:30</div>
+                <div class="tl-content">
+                  <h4>Harvard Museum</h4>
+                  <p data-i18n="day3.harvardmuseum.desc">哈佛自然歷史博物館收藏了著名的玻璃花（Blaschka Glass Flowers）— 超過 4,000 件精緻的玻璃植物模型。</p>
+                </div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-time">16:30</div>
+                <div class="tl-content">
+                  <h4><a href="https://www.mit.edu/" target="_blank">MIT</a></h4>
+                  <p data-i18n="day3.mit.desc">麻省理工學院，世界頂尖的理工大學。校園內的 Stata Center（Frank Gehry 設計）和 MIT Media Lab 值得一看。</p>
+                </div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-time">17:30</div>
+                <div class="tl-content">
+                  <h4 data-i18n="day3.meet.title">Meet Chun-Chen Yao</h4>
+                  <p data-i18n="day3.meet.desc">與在波士頓的朋友碰面</p>
+                </div>
+              </div>
+              <div class="tl-item food-item">
+                <div class="tl-time">19:00</div>
+                <div class="tl-content">
+                  <h4><a href="https://www.yelp.com/biz/alive-and-kicking-lobsters-cambridge" target="_blank">Alive & Kicking Lobsters</a></h4>
+                  <p data-i18n="day3.lobster.desc">隱藏在 Cambridge 住宅區的龍蝦小店，外觀毫不起眼卻是當地人的最愛。招牌龍蝦三明治用料實在，新鮮龍蝦肉配上義大利麵包，是波士頓最道地的龍蝦體驗之一。</p>
+                  <p class="addr"><a href="https://maps.app.goo.gl/alivekicking" target="_blank">269 Putnam Ave, Cambridge, MA 02139</a></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Day 4 -->
+        <div class="day-card" data-day="day4">
+          <div class="day-header boston">
+            <div class="day-badge">Day 4</div>
+            <h3 data-i18n="day4.title">11月6日 (一) — 賞鯨 & 自由之路</h3>
+            <span class="day-tag" data-i18n="day4.tag">&#128011; Adventure</span>
+          </div>
+          <div class="day-body">
+            <div class="timeline">
+              <div class="tl-item highlight">
+                <div class="tl-time">09:30</div>
+                <div class="tl-content">
+                  <h4><a href="https://www.cityexperiences.com/boston/city-cruises/whale-watch/" target="_blank">Boston Whale Watching Cruise</a></h4>
+                  <p data-i18n="day4.whale.desc">搭乘高速雙體船前往 Stellwagen Bank 國家海洋保護區賞鯨。波士頓是全球最佳賞鯨地點之一，11 月仍有機會看到座頭鯨和長鬚鯨。航程約 3-4 小時。</p>
+                  <p class="addr" data-i18n="day4.whale.addr">出發地點：Long Wharf</p>
+                </div>
+              </div>
+              <div class="tl-item food-item">
+                <div class="tl-time">13:30</div>
+                <div class="tl-content">
+                  <h4><a href="https://faneuilhallmarketplace.com/" target="_blank">Quincy Market</a></h4>
+                  <p data-i18n="day4.quincy.desc">建於 1826 年的歷史市場，是波士頓最具代表性的美食廣場。可以品嚐新英格蘭蛤蜊巧達濃湯（Clam Chowder）、龍蝦捲等當地美食。</p>
+                  <p class="addr"><a href="https://maps.app.goo.gl/quincymarket" target="_blank">4 South Market St, Boston, MA 02109</a></p>
+                </div>
+              </div>
+              <div class="tl-item highlight">
+                <div class="tl-time">15:00</div>
+                <div class="tl-content">
+                  <h4><a href="https://www.thefreedomtrail.org/" target="_blank">Freedom Trail</a></h4>
+                  <p data-i18n="day4.freedom.desc">自由之路是一條 2.5 英里的紅磚步道，串連 16 個美國獨立革命的歷史景點。從 Boston Common 出發，途經麻州議會大廈、Park Street Church、Old North Church，最終到達 Bunker Hill Monument。</p>
+                  <div class="info-box">
+                    <strong data-i18n="day4.freedom.info.title">必看景點</strong>
+                    <ul>
+                      <li data-i18n="day4.freedom.info.1">Boston Common — 美國最古老的公園 (1634)</li>
+                      <li data-i18n="day4.freedom.info.2">Massachusetts State House — 金色圓頂地標</li>
+                      <li data-i18n="day4.freedom.info.3">Granary Burying Ground — Paul Revere、Samuel Adams 長眠之地</li>
+                      <li data-i18n="day4.freedom.info.4">Old North Church — "One if by land, two if by sea"</li>
+                      <li data-i18n="day4.freedom.info.5">Faneuil Hall — "自由的搖籃"</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="tl-item food-item">
+                <div class="tl-time">21:30</div>
+                <div class="tl-content">
+                  <h4><a href="https://www.krasiboston.com/" target="_blank">Krasi</a></h4>
+                  <p data-i18n="day4.krasi.desc">Back Bay 的希臘小酒館，以精緻的 meze 小菜和豐富的希臘葡萄酒聞名。每週三的 Symposium Wednesday 是希臘葡萄酒文化的慶典。</p>
+                  <p class="addr"><a href="https://maps.app.goo.gl/krasi" target="_blank">48 Gloucester St, Boston, MA 02115</a></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Day 5 -->
+        <div class="day-card" data-day="day5">
+          <div class="day-header boston">
+            <div class="day-badge">Day 5</div>
+            <h3 data-i18n="day5.title">11月7日 (二) — Work Day</h3>
+            <span class="day-tag" data-i18n="day5.tag">&#128187; Work</span>
+          </div>
+          <div class="day-body">
+            <div class="timeline">
+              <div class="tl-item">
+                <div class="tl-time">Full Day</div>
+                <div class="tl-content">
+                  <h4>Work</h4>
+                  <p data-i18n="day5.desc">工作日</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Day 6 -->
+        <div class="day-card" data-day="day6">
+          <div class="day-header boston">
+            <div class="day-badge">Day 6</div>
+            <h3 data-i18n="day6.title">11月8日 (三) — Remote Work + Asta</h3>
+            <span class="day-tag" data-i18n="day6.tag">&#128187; Work</span>
+          </div>
+          <div class="day-body">
+            <div class="timeline">
+              <div class="tl-item">
+                <div class="tl-time">Daytime</div>
+                <div class="tl-content">
+                  <h4 data-i18n="day6.work.title">Remote Work</h4>
+                  <p data-i18n="day6.work.desc">遠端工作</p>
+                </div>
+              </div>
+              <div class="tl-item food-item highlight">
+                <div class="tl-time">19:00</div>
+                <div class="tl-content">
+                  <h4><a href="http://www.astaboston.com/" target="_blank">Asta</a></h4>
+                  <p data-i18n="day6.asta.desc">Back Bay 的 tasting menu 餐廳，主廚 Alex Crabb 以創意十足的季節性料理聞名。開放式廚房讓你近距離觀賞料理過程，是波士頓最具創意的餐廳之一。僅供 tasting menu，週日和週一公休。</p>
+                  <p class="addr"><a href="https://maps.app.goo.gl/asta" target="_blank">47 Massachusetts Ave, Boston, MA 02115</a></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Day 7 -->
+        <div class="day-card" data-day="day7">
+          <div class="day-header boston">
+            <div class="day-badge">Day 7</div>
+            <h3 data-i18n="day7.title">11月9日 (四) — Remote Work</h3>
+            <span class="day-tag" data-i18n="day7.tag">&#128187; Work</span>
+          </div>
+          <div class="day-body">
+            <div class="timeline">
+              <div class="tl-item">
+                <div class="tl-time">Full Day</div>
+                <div class="tl-content">
+                  <h4>Remote Work</h4>
+                  <p data-i18n="day7.desc">遠端工作</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Day 8 -->
+        <div class="day-card" data-day="day8">
+          <div class="day-header newyork">
+            <div class="day-badge">Day 8</div>
+            <h3 data-i18n="day8.title">11月10日 (五) — Boston → New York</h3>
+            <span class="day-tag" data-i18n="day8.tag">&#128747; NYC Day 1</span>
+          </div>
+          <div class="day-body">
+            <div class="timeline">
+              <div class="tl-item">
+                <div class="tl-time">Early AM</div>
+                <div class="tl-content">
+                  <h4 data-i18n="day8.transit.title">Boston → New York</h4>
+                  <p data-i18n="day8.transit.desc">從 South Station 搭乘巴士/火車前往紐約，車程約 4 小時。</p>
+                </div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-time">Afternoon</div>
+                <div class="tl-content">
+                  <h4 data-i18n="day8.office.title">辦公室巡禮 & 買 Hamilton 票</h4>
+                  <p data-i18n="day8.office.desc">抵達紐約後先到辦公室放行李，順便到 Richard Rodgers Theatre 現場購買 Hamilton 門票（現場買可省去 $20 online fee）。</p>
+                </div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-time">15:00</div>
+                <div class="tl-content">
+                  <h4><a href="https://www.centralparknyc.org/" target="_blank">Central Park</a></h4>
+                  <p data-i18n="day8.centralpark.desc">紐約的綠色心臟，佔地 843 英畝。11 月的中央公園秋色正濃，Bethesda Fountain、Bow Bridge 和 The Mall 都是經典景點。</p>
+                </div>
+              </div>
+              <div class="tl-item highlight">
+                <div class="tl-time">16:00</div>
+                <div class="tl-content">
+                  <h4><a href="https://www.amnh.org/" target="_blank">American Museum of Natural History</a> <span class="badge">CityPass</span></h4>
+                  <p data-i18n="day8.amnh.desc">美國自然歷史博物館，電影《乜都唔識又嚟博物館》的取景地。必看恐龍化石展廳和海洋生物大廳的藍鯨模型。</p>
+                </div>
+              </div>
+              <div class="tl-item food-item">
+                <div class="tl-time">18:45</div>
+                <div class="tl-content">
+                  <h4><a href="https://www.smithandwollensky.com/" target="_blank">Smith & Wollensky</a></h4>
+                  <p data-i18n="day8.steak.desc">紐約經典牛排館，股神巴菲特（Warren Buffett）每年在此舉辦慈善午餐拍賣。巴菲特的招牌點餐：五分熟牛排配薯餅和櫻桃可樂。</p>
+                  <p class="addr"><a href="https://maps.app.goo.gl/smithwollensky" target="_blank">797 3rd Ave, New York, NY 10022</a></p>
+                </div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-time">21:00</div>
+                <div class="tl-content">
+                  <h4 data-i18n="day8.times.title">Times Square 夜景</h4>
+                  <p data-i18n="day8.times.desc">時代廣場的霓虹燈在夜晚最為壯觀，感受「世界的十字路口」的繁華。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Day 9 -->
+        <div class="day-card" data-day="day9">
+          <div class="day-header newyork">
+            <div class="day-badge">Day 9</div>
+            <h3 data-i18n="day9.title">11月11日 (六) — 自由女神 & 帝國大廈</h3>
+            <span class="day-tag" data-i18n="day9.tag">&#127963; NYC Day 2</span>
+          </div>
+          <div class="day-body">
+            <div class="timeline">
+              <div class="tl-item highlight">
+                <div class="tl-time">10:00</div>
+                <div class="tl-content">
+                  <h4><a href="https://www.circleline.com/" target="_blank">Best of NYC Cruise</a> <span class="badge">CityPass +$10</span></h4>
+                  <p data-i18n="day9.cruise.desc">Circle Line 遊船環繞曼哈頓，近距離觀賞自由女神像。自由女神像於 1886 年由法國贈送，高 93 公尺，是美國最具代表性的地標。</p>
+                </div>
+              </div>
+              <div class="tl-item highlight">
+                <div class="tl-time">13:00</div>
+                <div class="tl-content">
+                  <h4><a href="https://intrepidmuseum.org/" target="_blank">Intrepid Sea, Air & Space Museum</a> <span class="badge">CityPass</span></h4>
+                  <p data-i18n="day9.intrepid.desc">無畏號航空母艦博物館，停泊在哈德遜河畔的退役航母上。館內展示太空梭 Enterprise、潛艇 Growler、協和號超音速客機等。</p>
+                </div>
+              </div>
+              <div class="tl-item highlight">
+                <div class="tl-time">16:15</div>
+                <div class="tl-content">
+                  <h4><a href="https://www.esbnyc.com/" target="_blank">Empire State Building</a> <span class="badge">CityPass</span></h4>
+                  <p data-i18n="day9.esb.desc">帝國大廈 86 樓觀景台看夕陽和夜景。建於 1931 年，高 443 公尺，曾是世界最高建築。11 月日落約 16:40，建議提前到達佔好位置。</p>
+                  <div class="info-box">
+                    <strong data-i18n="day9.esb.info.title">觀景台資訊</strong>
+                    <ul>
+                      <li data-i18n="day9.esb.info.1">86F — 室外觀景台，360 度全景</li>
+                      <li data-i18n="day9.esb.info.2">102F — 室內觀景台，需額外付費</li>
+                      <li data-i18n="day9.esb.info.3">11 月日落約 16:40，建議 16:00 前到達</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="tl-item food-item">
+                <div class="tl-time">19:00</div>
+                <div class="tl-content">
+                  <h4><a href="https://www.chelseamarket.com/" target="_blank">Chelsea Market</a></h4>
+                  <p data-i18n="day9.chelsea.desc">雀兒喜市場是紐約最受歡迎的美食市場之一，前身是 Nabisco 餅乾工廠。推薦 Los Tacos No. 1 的墨西哥捲餅和 Lobster Place 的海鮮。</p>
+                </div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-time">20:30</div>
+                <div class="tl-content">
+                  <h4><a href="https://maps.app.goo.gl/2f47seTi2bjp4ozZ8" target="_blank">Starbucks Reserve Roastery</a></h4>
+                  <p data-i18n="day9.starbucks.desc">全球僅有 6 家的星巴克臻選烘焙工坊，三層樓的空間展示咖啡從生豆到杯中的完整旅程。</p>
+                </div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-time">22:00</div>
+                <div class="tl-content">
+                  <h4 data-i18n="day9.hoboken.title">Hoboken 看曼哈頓夜景</h4>
+                  <p data-i18n="day9.hoboken.desc">從 Pier A Pergola, Hoboken 眺望曼哈頓天際線，是觀賞紐約夜景的絕佳地點，比布魯克林更少遊客。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Day 10 -->
+        <div class="day-card" data-day="day10">
+          <div class="day-header newyork">
+            <div class="day-badge">Day 10</div>
+            <h3 data-i18n="day10.title">11月12日 (日) — Brooklyn Bridge & Hamilton</h3>
+            <span class="day-tag" data-i18n="day10.tag">&#127917; NYC Day 3</span>
+          </div>
+          <div class="day-body">
+            <div class="timeline">
+              <div class="tl-item">
+                <div class="tl-time">09:00</div>
+                <div class="tl-content">
+                  <h4>Manhattan Bridge & Brooklyn Bridge</h4>
+                  <p data-i18n="day10.bridge.desc">曼哈頓大橋和布魯克林大橋是紐約最具標誌性的橋樑。布魯克林大橋建於 1883 年，步行橫跨約需 30 分鐘，可欣賞曼哈頓天際線的壯麗景色。</p>
+                </div>
+              </div>
+              <div class="tl-item food-item">
+                <div class="tl-time">12:00</div>
+                <div class="tl-content">
+                  <h4><a href="https://www.ellensstardustdiner.com/" target="_blank">Ellen's Stardust Diner</a></h4>
+                  <p data-i18n="day10.ellens.desc">紐約最有名的主題餐廳之一，服務生都是追夢百老匯的歌手，邊用餐邊欣賞現場演唱。被稱為「百老匯最便宜的演出」。</p>
+                  <p class="addr"><a href="https://maps.app.goo.gl/K1v9Ew9VaVFRAPiB8" target="_blank">1650 Broadway, New York, NY 10019</a></p>
+                </div>
+              </div>
+              <div class="tl-item highlight">
+                <div class="tl-time">13:00</div>
+                <div class="tl-content">
+                  <h4>Hamilton &mdash; Richard Rodgers Theatre</h4>
+                  <p data-i18n="day10.hamilton.desc">百老匯音樂劇《Hamilton》，以嘻哈音樂講述美國開國元勳 Alexander Hamilton 的故事。2015 年首演以來橫掃 11 座東尼獎，是百老匯最受歡迎的音樂劇之一。現場購票可省去 $20 online fee。</p>
+                  <div class="info-box">
+                    <strong data-i18n="day10.hamilton.info.title">觀劇小提示</strong>
+                    <ul>
+                      <li data-i18n="day10.hamilton.info.1">建議提前 30-40 分鐘到場</li>
+                      <li data-i18n="day10.hamilton.info.2">穿著 business casual 即可</li>
+                      <li data-i18n="day10.hamilton.info.3">建議先熟悉歌曲和美國獨立戰爭歷史</li>
+                      <li data-i18n="day10.hamilton.info.4">演出時長約 2 小時 45 分鐘（含中場休息）</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-time">16:30</div>
+                <div class="tl-content">
+                  <h4><a href="https://www.moma.org/" target="_blank">MoMA &mdash; Museum of Modern Art</a></h4>
+                  <p data-i18n="day10.moma.desc">現代藝術博物館，收藏了梵谷《星夜》、畢卡索《亞維儂的少女》、莫內《睡蓮》等經典作品。太晚到達時，售票口免費讓我們進場。</p>
+                  <p class="addr"><a href="https://maps.app.goo.gl/cqLaEZg4r6j5SgUG6" target="_blank">11 W 53rd St, New York, NY 10019</a></p>
+                </div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-time">18:30</div>
+                <div class="tl-content">
+                  <h4>Lady M</h4>
+                  <p data-i18n="day10.ladym.desc">以千層蛋糕聞名的法式甜點店，招牌 Mille Cr&ecirc;pes 有 20 層薄如紙的法式可麗餅。</p>
+                </div>
+              </div>
+              <div class="tl-item food-item highlight">
+                <div class="tl-time">20:00</div>
+                <div class="tl-content">
+                  <h4><a href="https://www.oxalisnyc.com/" target="_blank">Oxalis</a></h4>
+                  <p data-i18n="day10.oxalis.desc">布魯克林的精緻餐廳，位於 Brooklyn Museum 和 Prospect Park 附近。提供 carte blanche tasting menu，以當季食材創作的精緻料理。</p>
+                  <p class="addr"><a href="https://maps.app.goo.gl/nhANHPhGe6srGLqeA" target="_blank">791 Washington Ave, Brooklyn, NY 11238</a></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Day 11 -->
+        <div class="day-card" data-day="day11">
+          <div class="day-header newyork">
+            <div class="day-badge">Day 11</div>
+            <h3 data-i18n="day11.title">11月13日 (一) — 大都會 & 華爾街</h3>
+            <span class="day-tag" data-i18n="day11.tag">&#127963; NYC Day 4</span>
+          </div>
+          <div class="day-body">
+            <div class="timeline">
+              <div class="tl-item">
+                <div class="tl-time">09:00</div>
+                <div class="tl-content">
+                  <h4 data-i18n="day11.office.title">辦公室參觀 & 早餐</h4>
+                  <p data-i18n="day11.office.desc">行李運到辦公室，參觀辦公室</p>
+                </div>
+              </div>
+              <div class="tl-item highlight">
+                <div class="tl-time">10:00</div>
+                <div class="tl-content">
+                  <h4><a href="https://www.metmuseum.org/" target="_blank">The Metropolitan Museum of Art</a></h4>
+                  <p data-i18n="day11.met.desc">大都會博物館是西半球最大的藝術博物館，擁有超過 200 萬件藏品。從古埃及的 Temple of Dendur 到歐洲繪畫大師的傑作，一天根本逛不完。</p>
+                  <div class="info-box">
+                    <strong data-i18n="day11.met.info.title">必看展區</strong>
+                    <ul>
+                      <li>Egyptian Art &mdash; Temple of Dendur</li>
+                      <li>European Paintings &mdash; Vermeer, Rembrandt</li>
+                      <li>The American Wing</li>
+                      <li>Arms and Armor</li>
+                      <li data-i18n="day11.met.info.5">The Roof Garden (季節性開放)</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-time">13:00</div>
+                <div class="tl-content">
+                  <h4><a href="https://www.911memorial.org/" target="_blank">9/11 Memorial & Museum</a></h4>
+                  <p data-i18n="day11.911.desc">911 紀念博物館建在世貿中心遺址上，兩個巨大的瀑布水池標記著雙子塔的原址。地下博物館展示了 2001 年 9 月 11 日的歷史，令人深思。</p>
+                </div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-time">15:00</div>
+                <div class="tl-content">
+                  <h4>Wall Street &mdash; Charging Bull</h4>
+                  <p data-i18n="day11.bull.desc">華爾街銅牛（Charging Bull）是紐約金融區的標誌性雕塑，象徵著華爾街的力量和樂觀。重達 3,200 公斤的銅牛由藝術家 Arturo Di Modica 於 1989 年創作。</p>
+                </div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-time">16:00</div>
+                <div class="tl-content">
+                  <h4><a href="https://www.thehighline.org/" target="_blank">The High Line</a></h4>
+                  <p data-i18n="day11.highline.desc">高架公園是由廢棄的高架鐵路改建而成的空中花園，全長 1.45 英里。沿途可欣賞哈德遜河景色和獨特的城市藝術裝置。</p>
+                </div>
+              </div>
+              <div class="tl-item food-item">
+                <div class="tl-time">18:30</div>
+                <div class="tl-content">
+                  <h4><a href="https://maps.app.goo.gl/rWLZg9HmpYJ9yQPJ7" target="_blank">Porte&ntilde;o</a></h4>
+                  <p data-i18n="day11.porteno.desc">附近隨便找的阿根廷餐廳，提供道地的南美料理。</p>
+                </div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-time">20:00</div>
+                <div class="tl-content">
+                  <h4 data-i18n="day11.office3.title">辦公室參觀 3</h4>
+                  <p data-i18n="day11.office3.desc">第三次辦公室參觀</p>
+                </div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-time">23:30</div>
+                <div class="tl-content">
+                  <h4>Grand Central Terminal Speed Run</h4>
+                  <p data-i18n="day11.grand.desc">中央車站是紐約最壯觀的建築之一，Beaux-Arts 風格的大廳天花板繪有星座圖。即使只是快速經過，也值得抬頭欣賞。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Day 12 -->
+        <div class="day-card" data-day="day12">
+          <div class="day-header boston">
+            <div class="day-badge">Day 12</div>
+            <h3 data-i18n="day12.title">11月14日 (二) — 返回倫敦</h3>
+            <span class="day-tag" data-i18n="day12.tag">&#9992; Travel Day</span>
+          </div>
+          <div class="day-body">
+            <div class="timeline">
+              <div class="tl-item">
+                <div class="tl-time">01:00</div>
+                <div class="tl-content">
+                  <h4 data-i18n="day12.bus.title">夜車回 Boston</h4>
+                  <p data-i18n="day12.bus.desc">搭乘夜間巴士從紐約返回波士頓</p>
+                </div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-time">Morning</div>
+                <div class="tl-content">
+                  <h4>Freedom Trail & Quincy Market</h4>
+                  <p data-i18n="day12.morning.desc">最後再走一次自由之路和 Quincy Market，把握最後的波士頓時光。</p>
+                </div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-time">16:00</div>
+                <div class="tl-content">
+                  <h4>Logan International Airport</h4>
+                  <p data-i18n="day12.airport.desc">前往機場 Terminal E</p>
+                </div>
+              </div>
+              <div class="tl-item highlight">
+                <div class="tl-time">18:55 <span class="tz">EST</span></div>
+                <div class="tl-content">
+                  <h4 data-i18n="day12.depart.title">飛機起飛</h4>
+                  <p>Boston &rarr; London Heathrow</p>
+                </div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-time">06:30 <span class="tz">GMT+1</span></div>
+                <div class="tl-content">
+                  <h4 data-i18n="day12.arrive.title">抵達倫敦</h4>
+                  <p data-i18n="day12.arrive.desc">Heathrow Terminal 5，隔天 9:00 上班</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Food Section -->
+  <section class="section section-dark" id="food">
+    <div class="container">
+      <h2 class="section-title light" data-i18n="food.title">Food & Dining</h2>
+      <div class="food-grid">
+        <div class="food-card boston-food">
+          <div class="food-city">Boston</div>
+          <div class="food-list">
+            <div class="food-entry">
+              <h4><a href="https://www.yelp.com/biz/alive-and-kicking-lobsters-cambridge" target="_blank">Alive & Kicking Lobsters</a></h4>
+              <p data-i18n="food.boston.lobster.desc">Cambridge 的隱藏版龍蝦小店，招牌龍蝦三明治用料實在</p>
+              <span class="food-tag" data-i18n="food.boston.lobster.tag">龍蝦</span>
+            </div>
+            <div class="food-entry">
+              <h4><a href="https://faneuilhallmarketplace.com/" target="_blank">Quincy Market</a></h4>
+              <p data-i18n="food.boston.quincy.desc">歷史市場美食廣場，必嚐 Clam Chowder</p>
+              <span class="food-tag" data-i18n="food.boston.quincy.tag">市場</span>
+            </div>
+            <div class="food-entry">
+              <h4><a href="https://www.krasiboston.com/" target="_blank">Krasi</a></h4>
+              <p data-i18n="food.boston.krasi.desc">Back Bay 希臘小酒館，精緻 meze 小菜配葡萄酒</p>
+              <span class="food-tag" data-i18n="food.boston.krasi.tag">希臘</span>
+            </div>
+            <div class="food-entry">
+              <h4><a href="http://www.astaboston.com/" target="_blank">Asta</a></h4>
+              <p data-i18n="food.boston.asta.desc">創意 tasting menu，開放式廚房，波士頓最具創意的餐廳</p>
+              <span class="food-tag">Fine Dining</span>
+            </div>
+          </div>
+        </div>
+        <div class="food-card newyork-food">
+          <div class="food-city">New York</div>
+          <div class="food-list">
+            <div class="food-entry">
+              <h4><a href="https://www.smithandwollensky.com/" target="_blank">Smith & Wollensky</a></h4>
+              <p data-i18n="food.ny.steak.desc">巴菲特最愛的牛排館，經典紐約牛排體驗</p>
+              <span class="food-tag" data-i18n="food.ny.steak.tag">牛排</span>
+            </div>
+            <div class="food-entry">
+              <h4><a href="https://www.ellensstardustdiner.com/" target="_blank">Ellen's Stardust Diner</a></h4>
+              <p data-i18n="food.ny.ellens.desc">服務生現場演唱的主題餐廳，百老匯最便宜的演出</p>
+              <span class="food-tag" data-i18n="food.ny.ellens.tag">美式</span>
+            </div>
+            <div class="food-entry">
+              <h4><a href="https://www.oxalisnyc.com/" target="_blank">Oxalis</a></h4>
+              <p data-i18n="food.ny.oxalis.desc">布魯克林精緻餐廳，carte blanche tasting menu</p>
+              <span class="food-tag">Fine Dining</span>
+            </div>
+            <div class="food-entry">
+              <h4><a href="https://www.chelseamarket.com/" target="_blank">Chelsea Market</a></h4>
+              <p data-i18n="food.ny.chelsea.desc">前 Nabisco 工廠改建的美食市場，Los Tacos No. 1 必吃</p>
+              <span class="food-tag" data-i18n="food.ny.chelsea.tag">市場</span>
+            </div>
+            <div class="food-entry">
+              <h4><a href="https://maps.app.goo.gl/rWLZg9HmpYJ9yQPJ7" target="_blank">Porte&ntilde;o</a></h4>
+              <p data-i18n="food.ny.porteno.desc">阿根廷料理</p>
+              <span class="food-tag" data-i18n="food.ny.porteno.tag">南美</span>
+            </div>
+            <div class="food-entry">
+              <h4>Lady M</h4>
+              <p data-i18n="food.ny.ladym.desc">法式千層蛋糕，招牌 Mille Cr&ecirc;pes</p>
+              <span class="food-tag" data-i18n="food.ny.ladym.tag">甜點</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Attractions Section -->
+  <section class="section" id="attractions">
+    <div class="container">
+      <h2 class="section-title" data-i18n="attr.title">Attractions Guide</h2>
+      <div class="attr-grid">
+
+        <div class="attr-card">
+          <div class="attr-badge boston-badge">Boston</div>
+          <h4><a href="https://www.mfa.org/" target="_blank">Museum of Fine Arts</a></h4>
+          <p data-i18n="attr.mfa.desc">超過 50 萬件藝術品，100+ 展廳</p>
+          <div class="attr-meta">
+            <span data-i18n="attr.mfa.time">&#128336; 建議 3-4 小時</span>
+            <span>&#128176; $27</span>
+          </div>
+        </div>
+
+        <div class="attr-card">
+          <div class="attr-badge boston-badge">Boston</div>
+          <h4><a href="https://www.harvard.edu/" target="_blank">Harvard University</a></h4>
+          <p data-i18n="attr.harvard.desc">美國最古老的大學 (1636)，Harvard Yard 必訪</p>
+          <div class="attr-meta">
+            <span data-i18n="attr.harvard.time">&#128336; 建議 1-2 小時</span>
+            <span>&#128176; Free</span>
+          </div>
+        </div>
+
+        <div class="attr-card">
+          <div class="attr-badge boston-badge">Boston</div>
+          <h4><a href="https://www.thefreedomtrail.org/" target="_blank">Freedom Trail</a></h4>
+          <p data-i18n="attr.freedom.desc">2.5 英里紅磚步道，16 個歷史景點</p>
+          <div class="attr-meta">
+            <span data-i18n="attr.freedom.time">&#128336; 建議 2-3 小時</span>
+            <span>&#128176; Free (self-guided)</span>
+          </div>
+        </div>
+
+        <div class="attr-card">
+          <div class="attr-badge boston-badge">Boston</div>
+          <h4><a href="https://www.cityexperiences.com/boston/city-cruises/whale-watch/" target="_blank">Whale Watching</a></h4>
+          <p data-i18n="attr.whale.desc">高速雙體船前往 Stellwagen Bank 賞鯨</p>
+          <div class="attr-meta">
+            <span>&#128336; 3-4 hrs</span>
+            <span>&#128176; ~$65</span>
+          </div>
+        </div>
+
+        <div class="attr-card">
+          <div class="attr-badge ny-badge">NYC</div>
+          <h4><a href="https://www.esbnyc.com/" target="_blank">Empire State Building</a></h4>
+          <p data-i18n="attr.esb.desc">86F 室外觀景台，360 度紐約全景</p>
+          <div class="attr-meta">
+            <span data-i18n="attr.esb.time">&#128336; 建議 1-2 小時</span>
+            <span>&#128176; CityPass</span>
+          </div>
+        </div>
+
+        <div class="attr-card">
+          <div class="attr-badge ny-badge">NYC</div>
+          <h4><a href="https://www.circleline.com/" target="_blank">Circle Line Cruise</a></h4>
+          <p data-i18n="attr.cruise.desc">遊船環繞曼哈頓，近距離看自由女神</p>
+          <div class="attr-meta">
+            <span>&#128336; 2.5 hrs</span>
+            <span>&#128176; CityPass +$10</span>
+          </div>
+        </div>
+
+        <div class="attr-card">
+          <div class="attr-badge ny-badge">NYC</div>
+          <h4><a href="https://intrepidmuseum.org/" target="_blank">Intrepid Museum</a></h4>
+          <p data-i18n="attr.intrepid.desc">退役航母上的海空太空博物館</p>
+          <div class="attr-meta">
+            <span data-i18n="attr.intrepid.time">&#128336; 建議 2-3 小時</span>
+            <span>&#128176; CityPass</span>
+          </div>
+        </div>
+
+        <div class="attr-card">
+          <div class="attr-badge ny-badge">NYC</div>
+          <h4><a href="https://www.metmuseum.org/" target="_blank">The Met</a></h4>
+          <p data-i18n="attr.met.desc">西半球最大藝術博物館，200 萬件藏品</p>
+          <div class="attr-meta">
+            <span data-i18n="attr.met.time">&#128336; 建議 4+ 小時</span>
+            <span>&#128176; $30</span>
+          </div>
+        </div>
+
+        <div class="attr-card">
+          <div class="attr-badge ny-badge">NYC</div>
+          <h4><a href="https://www.911memorial.org/" target="_blank">9/11 Memorial</a></h4>
+          <p data-i18n="attr.911.desc">世貿中心遺址上的紀念博物館</p>
+          <div class="attr-meta">
+            <span data-i18n="attr.911.time">&#128336; 建議 2-3 小時</span>
+            <span>&#128176; $33</span>
+          </div>
+        </div>
+
+        <div class="attr-card">
+          <div class="attr-badge ny-badge">NYC</div>
+          <h4><a href="https://www.moma.org/" target="_blank">MoMA</a></h4>
+          <p data-i18n="attr.moma.desc">現代藝術博物館，梵谷《星夜》所在地</p>
+          <div class="attr-meta">
+            <span data-i18n="attr.moma.time">&#128336; 建議 2-3 小時</span>
+            <span>&#128176; $25</span>
+          </div>
+        </div>
+
+        <div class="attr-card">
+          <div class="attr-badge ny-badge">NYC</div>
+          <h4><a href="https://www.thehighline.org/" target="_blank">The High Line</a></h4>
+          <p data-i18n="attr.highline.desc">廢棄高架鐵路改建的空中花園</p>
+          <div class="attr-meta">
+            <span data-i18n="attr.highline.time">&#128336; 建議 1-2 小時</span>
+            <span>&#128176; Free</span>
+          </div>
+        </div>
+
+        <div class="attr-card">
+          <div class="attr-badge ny-badge">NYC</div>
+          <h4>Hamilton on Broadway</h4>
+          <p data-i18n="attr.hamilton.desc">嘻哈音樂劇，11 座東尼獎</p>
+          <div class="attr-meta">
+            <span>&#128336; 2h 45min</span>
+            <span>&#128176; ~$200+</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Reference Section -->
+  <section class="section section-dark" id="reference">
+    <div class="container">
+      <h2 class="section-title light" data-i18n="ref.title">Reference & Discussion</h2>
+      <p class="section-desc" data-i18n="ref.desc">以下為行前蒐集的參考資料與討論紀錄，包含另一次紐約旅行的推薦景點與餐廳。</p>
+
+      <div class="ref-grid">
+        <div class="ref-card">
+          <h4 data-i18n="ref.food.title">&#127860; 紐約餐廳推薦 (Reference)</h4>
+          <table class="ref-table">
+            <thead><tr><th data-i18n="ref.food.th1">餐廳</th><th data-i18n="ref.food.th2">類型</th><th data-i18n="ref.food.th3">備註</th></tr></thead>
+            <tbody>
+              <tr><td>La Bagel Delight</td><td data-i18n="ref.food.r1.type">早餐</td><td data-i18n="ref.food.r1.note">Brooklyn 貝果名店</td></tr>
+              <tr><td>Luke's Lobster</td><td data-i18n="ref.food.r2.type">龍蝦堡</td><td>Brooklyn Bridge Park</td></tr>
+              <tr><td>Joe's Pizza</td><td data-i18n="ref.food.r3.type">披薩</td><td data-i18n="ref.food.r3.note">紐約經典薄皮披薩</td></tr>
+              <tr><td>Los Tacos No. 1</td><td data-i18n="ref.food.r4.type">墨西哥</td><td data-i18n="ref.food.r4.note">Chelsea Market 內</td></tr>
+              <tr><td>Soju Haus</td><td data-i18n="ref.food.r5.type">韓式</td><td>K Town</td></tr>
+              <tr><td>Shake Shack</td><td data-i18n="ref.food.r6.type">漢堡</td><td>Fulton Center</td></tr>
+              <tr><td>The Halal Guys</td><td data-i18n="ref.food.r7.type">清真餐車</td><td data-i18n="ref.food.r7.note">街頭美食經典</td></tr>
+              <tr><td>Mountain House</td><td data-i18n="ref.food.r8.type">川菜</td><td data-i18n="ref.food.r8.note">川山甲，Manhattan</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="ref-card">
+          <h4 data-i18n="ref.attractions.title">&#127963; 紐約景點推薦 (Reference)</h4>
+          <table class="ref-table">
+            <thead><tr><th data-i18n="ref.attractions.th1">景點</th><th data-i18n="ref.attractions.th2">區域</th><th data-i18n="ref.attractions.th3">備註</th></tr></thead>
+            <tbody>
+              <tr><td>Time Out Market</td><td>Brooklyn</td><td data-i18n="ref.attractions.r1.note">Rooftop 直面曼哈頓大橋</td></tr>
+              <tr><td>% Arabica</td><td>Brooklyn</td><td>Spanish Latte</td></tr>
+              <tr><td>One World Observatory</td><td>Downtown</td><td data-i18n="ref.attractions.r3.note">100-102F 觀景台</td></tr>
+              <tr><td>Oculus Center</td><td>Downtown</td><td data-i18n="ref.attractions.r4.note">二樓拍照平台</td></tr>
+              <tr><td>SoHo</td><td>Manhattan</td><td data-i18n="ref.attractions.r5.note">逛街購物區</td></tr>
+              <tr><td>Little Island</td><td>West Side</td><td data-i18n="ref.attractions.r6.note">哈德遜河上的人造島公園</td></tr>
+              <tr><td>Vessel</td><td>Hudson Yards</td><td data-i18n="ref.attractions.r7.note">蜂巢造型建築</td></tr>
+              <tr><td>Rockefeller Center</td><td>Midtown</td><td data-i18n="ref.attractions.r8.note">Top of the Rock 360 度全景</td></tr>
+              <tr><td>SUMMIT One Vanderbilt</td><td>Midtown</td><td data-i18n="ref.attractions.r9.note">曼哈頓中城最高觀景台</td></tr>
+              <tr><td>Woodbury Outlets</td><td>Suburbs</td><td data-i18n="ref.attractions.r10.note">名牌暢貨中心，需租車</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="ref-card">
+          <h4 data-i18n="ref.broadway.title">&#128218; Broadway 參考</h4>
+          <table class="ref-table">
+            <thead><tr><th data-i18n="ref.broadway.th1">劇目</th><th data-i18n="ref.broadway.th2">劇院</th><th data-i18n="ref.broadway.th3">備註</th></tr></thead>
+            <tbody>
+              <tr><td>Hamilton</td><td>Richard Rodgers Theatre</td><td data-i18n="ref.broadway.r1.note">本次行程觀看，現場購票</td></tr>
+              <tr><td>Aladdin</td><td>New Amsterdam Theatre</td><td data-i18n="ref.broadway.r2.note">Reference 行程觀看，Ticket Master 購票 $663</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="ref-card">
+          <h4 data-i18n="ref.citypass.title">&#128176; CityPass 使用紀錄</h4>
+          <table class="ref-table">
+            <thead><tr><th data-i18n="ref.citypass.th1">景點</th><th data-i18n="ref.citypass.th2">備註</th></tr></thead>
+            <tbody>
+              <tr><td>American Museum of Natural History</td><td data-i18n="ref.citypass.r1.note">CityPass 包含</td></tr>
+              <tr><td>Circle Line Best of NYC Cruise</td><td data-i18n="ref.citypass.r2.note">CityPass + $10</td></tr>
+              <tr><td>Intrepid Sea, Air & Space Museum</td><td data-i18n="ref.citypass.r3.note">CityPass 包含</td></tr>
+              <tr><td>Empire State Building</td><td data-i18n="ref.citypass.r4.note">CityPass 包含</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>2023 Boston & New York Trip &mdash; Nov 3 - Nov 14, 2023</p>
+      <p class="footer-sub" data-i18n="footer.built">Built with Leaflet & OpenStreetMap</p>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="i18n.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

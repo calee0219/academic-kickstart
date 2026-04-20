@@ -1,0 +1,1694 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2024/01 福島滑雪之旅 | Fukushima Japan Ski Trip</title>
+    <!-- Favicon: snow-capped mountain SVG -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><defs><linearGradient id='sky' x1='0' y1='0' x2='0' y2='1'><stop offset='0%25' stop-color='%231a237e'/><stop offset='100%25' stop-color='%23667eea'/></linearGradient></defs><rect width='64' height='64' rx='12' fill='url(%23sky)'/><polygon points='32,10 48,44 16,44' fill='%23546e7a'/><polygon points='32,10 38,28 26,28' fill='%23eceff1'/><polygon points='24,22 36,44 12,44' fill='%23607d8b' opacity='0.7'/><polygon points='24,22 28,32 20,32' fill='%23eceff1'/><circle cx='50' cy='14' r='4' fill='%23fff' opacity='0.9'/><text x='32' y='58' text-anchor='middle' font-size='12' font-family='sans-serif' fill='%23fff' font-weight='bold'>SKI</text></svg>">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --snow-white: #f8f9fa;
+            --ice-blue: #e3f2fd;
+            --deep-blue: #1a237e;
+            --accent-red: #c62828;
+            --warm-gold: #f9a825;
+            --dark-bg: #0d1117;
+            --card-bg: #ffffff;
+            --text-primary: #1a1a2e;
+            --text-secondary: #4a4a6a;
+            --gradient-start: #667eea;
+            --gradient-end: #764ba2;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            color: var(--text-primary);
+            background: var(--snow-white);
+            line-height: 1.8;
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 600px;
+            background: url('/trip/images/fukushima-ski.webp') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.45);
+            opacity: 1;
+        }
+        .snowflake {
+            position: absolute;
+            color: #fff;
+            font-size: 1em;
+            top: -10px;
+            opacity: 0.8;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            to { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: white;
+            padding: 2rem;
+        }
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 4px 20px rgba(0,0,0,0.3);
+        }
+        .hero-content .subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            font-weight: 300;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+            letter-spacing: 0.1em;
+        }
+        .hero-content .date-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.25);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            margin-bottom: 2rem;
+        }
+        .hero-content .scroll-hint {
+            margin-top: 2rem;
+            animation: bounce 2s infinite;
+            font-size: 1.5rem;
+            opacity: 0.7;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        /* Nav */
+        .nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 1px 20px rgba(0,0,0,0.08);
+            transform: translateY(-100%);
+            transition: transform 0.3s ease;
+        }
+        .nav.visible { transform: translateY(0); }
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0.8rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .nav-logo { font-weight: 700; font-size: 1.1rem; color: var(--deep-blue); }
+        .nav-links { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            background: var(--ice-blue);
+            color: var(--deep-blue);
+        }
+
+        /* Language Toggle */
+        .lang-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            color: white;
+            border: none;
+            padding: 0.35rem 0.9rem;
+            border-radius: 20px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+            margin-left: 0.5rem;
+        }
+        .lang-toggle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        .lang-toggle .globe { font-size: 1rem; }
+
+        /* Hero language toggle (floating) */
+        .hero-lang-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1.5rem;
+            z-index: 1001;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+        .hero-lang-toggle:hover {
+            background: rgba(255,255,255,0.25);
+            transform: scale(1.05);
+        }
+        .hero-lang-toggle.hidden { opacity: 0; pointer-events: none; }
+
+        /* Section */
+        .section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 5rem 2rem;
+        }
+        .section-header { text-align: center; margin-bottom: 3rem; }
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            color: var(--deep-blue);
+            margin-bottom: 0.5rem;
+        }
+        .section-header .section-sub {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            font-weight: 300;
+        }
+        .section-divider {
+            width: 60px; height: 3px;
+            background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+
+        /* Full-width section wrapper */
+        .section-full {
+            background: #f5f7fb;
+            padding: 5rem 2rem;
+        }
+        .section-full .section-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Overview Cards */
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .overview-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .overview-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+        .overview-card .icon { font-size: 2.5rem; margin-bottom: 1rem; }
+        .overview-card h3 { font-size: 1.1rem; color: var(--deep-blue); margin-bottom: 0.3rem; }
+        .overview-card p { color: var(--text-secondary); font-size: 0.9rem; }
+
+        /* Map */
+        .map-container {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.1);
+            margin: 2rem 0;
+        }
+        .map-tabs { display: flex; border-bottom: 1px solid #eee; }
+        .map-tab {
+            flex: 1; padding: 1rem; text-align: center; cursor: pointer;
+            background: white; border: none; font-family: inherit;
+            font-size: 0.95rem; color: var(--text-secondary); transition: all 0.3s;
+        }
+        .map-tab.active {
+            color: var(--deep-blue); font-weight: 600;
+            border-bottom: 3px solid var(--gradient-start);
+        }
+        #map-overview, #map-route { height: 500px; }
+
+        /* Timeline */
+        .timeline { position: relative; padding-left: 3rem; }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px; top: 0; bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--gradient-start), var(--gradient-end));
+            border-radius: 2px;
+        }
+        .timeline-day { position: relative; margin-bottom: 3rem; }
+        .timeline-day::before {
+            content: '';
+            position: absolute;
+            left: -2.35rem; top: 0.5rem;
+            width: 14px; height: 14px;
+            border-radius: 50%;
+            background: var(--gradient-start);
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px var(--gradient-start);
+        }
+        .day-header {
+            display: flex; align-items: baseline; gap: 1rem;
+            margin-bottom: 1rem; flex-wrap: wrap;
+        }
+        .day-date {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem; font-weight: 700; color: var(--deep-blue);
+        }
+        .day-title { font-size: 1rem; color: var(--text-secondary); font-weight: 400; }
+        .day-tag {
+            display: inline-block; padding: 0.2rem 0.8rem;
+            border-radius: 20px; font-size: 0.75rem; font-weight: 500;
+        }
+        .tag-travel { background: #e3f2fd; color: #1565c0; }
+        .tag-ski { background: #e8f5e9; color: #2e7d32; }
+        .tag-sightseeing { background: #fff3e0; color: #e65100; }
+        .tag-city { background: #fce4ec; color: #c62828; }
+        .day-content {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.06);
+        }
+        .schedule-item {
+            display: flex; gap: 1rem; padding: 0.8rem 0;
+            border-bottom: 1px solid #f5f5f5; align-items: flex-start;
+        }
+        .schedule-item:last-child { border-bottom: none; }
+        .schedule-time {
+            min-width: 70px; font-weight: 600;
+            color: var(--gradient-start); font-size: 0.9rem; padding-top: 2px;
+        }
+        .schedule-desc { flex: 1; }
+        .schedule-desc strong { color: var(--deep-blue); }
+        .transport-badge {
+            display: inline-flex; align-items: center; gap: 0.3rem;
+            background: #f0f4ff; padding: 0.15rem 0.6rem;
+            border-radius: 12px; font-size: 0.78rem;
+            color: var(--gradient-start); margin: 0.3rem 0.3rem 0.3rem 0;
+        }
+        .restaurant-link {
+            display: inline-flex; align-items: center; gap: 0.3rem;
+            background: #fff3e0; padding: 0.15rem 0.6rem;
+            border-radius: 12px; font-size: 0.78rem;
+            color: #e65100; margin: 0.3rem 0.3rem 0.3rem 0;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .restaurant-link:hover { background: #ffe0b2; }
+
+        /* Attraction Cards */
+        .attractions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        .attraction-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .attraction-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+        }
+        .attraction-img { width: 100%; height: 220px; object-fit: cover; }
+        .attraction-body { padding: 1.5rem; }
+        .attraction-body h3 { font-size: 1.2rem; color: var(--deep-blue); margin-bottom: 0.3rem; }
+        .attraction-body h3 a {
+            color: inherit; text-decoration: none;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.3s;
+        }
+        .attraction-body h3 a:hover { border-bottom-color: var(--gradient-start); }
+        .attraction-body .attraction-jp {
+            color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.8rem;
+        }
+        .attraction-body p {
+            color: var(--text-secondary); font-size: 0.92rem; line-height: 1.7;
+        }
+        .attraction-meta { display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap; }
+        .meta-item {
+            display: flex; align-items: center; gap: 0.3rem;
+            font-size: 0.82rem; color: var(--text-secondary);
+        }
+        .meta-item a { color: inherit; }
+
+        /* Accommodation */
+        .accommodation-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        .accom-card {
+            background: white; border-radius: 16px; padding: 1.5rem;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.06);
+            border-top: 4px solid var(--warm-gold);
+        }
+        .accom-card h4 { color: var(--deep-blue); margin-bottom: 0.5rem; }
+        .accom-card .accom-dates {
+            font-size: 0.85rem; color: var(--gradient-start);
+            font-weight: 500; margin-bottom: 0.8rem;
+        }
+        .accom-card p { font-size: 0.9rem; color: var(--text-secondary); }
+
+        /* Cost Breakdown */
+        .cost-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+        .cost-card {
+            background: white; border-radius: 16px; padding: 1.5rem;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.06);
+        }
+        .cost-card h4 {
+            color: var(--deep-blue); margin-bottom: 1rem;
+            padding-bottom: 0.5rem; border-bottom: 2px solid var(--ice-blue);
+        }
+        .cost-row {
+            display: flex; justify-content: space-between;
+            padding: 0.4rem 0; font-size: 0.9rem;
+            border-bottom: 1px solid #f5f5f5;
+        }
+        .cost-row:last-child { border-bottom: none; }
+        .cost-row .cost-label { color: var(--text-secondary); }
+        .cost-row .cost-value { font-weight: 600; color: var(--deep-blue); }
+        .cost-total {
+            display: flex; justify-content: space-between;
+            padding: 0.8rem 0; margin-top: 0.5rem;
+            border-top: 2px solid var(--gradient-start);
+            font-weight: 700; color: var(--deep-blue);
+        }
+
+        /* Restaurant Section */
+        .restaurant-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        .restaurant-card {
+            background: white; border-radius: 16px; padding: 1.5rem;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.06);
+            border-left: 4px solid var(--warm-gold);
+        }
+        .restaurant-card h4 { color: var(--deep-blue); margin-bottom: 0.3rem; font-size: 1rem; }
+        .restaurant-card .rest-day {
+            font-size: 0.8rem; color: var(--gradient-start); font-weight: 500; margin-bottom: 0.5rem;
+        }
+        .restaurant-card p { font-size: 0.88rem; color: var(--text-secondary); }
+        .restaurant-card a {
+            color: var(--gradient-start); text-decoration: none; font-size: 0.85rem;
+        }
+        .restaurant-card a:hover { text-decoration: underline; }
+
+        /* Meeting Notes */
+        .meeting-timeline { display: grid; gap: 1.5rem; }
+        .meeting-card {
+            background: white; border-radius: 16px; padding: 1.5rem 2rem;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.06);
+            border-left: 4px solid var(--gradient-start);
+            transition: transform 0.2s;
+        }
+        .meeting-card:hover { transform: translateX(5px); }
+        .meeting-card h4 { color: var(--deep-blue); margin-bottom: 0.5rem; font-size: 1.05rem; }
+        .meeting-card .meeting-date {
+            font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 0.8rem;
+        }
+        .meeting-card ul {
+            padding-left: 1.2rem; color: var(--text-secondary); font-size: 0.9rem;
+        }
+        .meeting-card li { margin-bottom: 0.3rem; }
+        .vote-result {
+            display: inline-block; background: #e8f5e9; color: #2e7d32;
+            padding: 0.1rem 0.5rem; border-radius: 8px; font-size: 0.78rem;
+            font-weight: 500; margin-left: 0.3rem;
+        }
+
+        /* Checklist */
+        .checklist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1.5rem;
+        }
+        .checklist-group {
+            background: white; border-radius: 16px; padding: 1.5rem;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.06);
+        }
+        .checklist-group h4 { color: var(--deep-blue); margin-bottom: 1rem; font-size: 1rem; }
+        .checklist-item {
+            display: flex; align-items: center; gap: 0.5rem;
+            padding: 0.4rem 0; font-size: 0.9rem; color: var(--text-secondary);
+        }
+        .checklist-item::before { content: '\2611'; color: var(--gradient-start); }
+
+        /* Info box */
+        .info-box {
+            background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+            border-radius: 16px; padding: 1.5rem 2rem; margin: 1.5rem 0;
+        }
+        .info-box h4 { color: var(--deep-blue); margin-bottom: 0.5rem; }
+        .info-box p { color: var(--text-secondary); font-size: 0.92rem; }
+
+        /* Footer */
+        .footer {
+            background: var(--dark-bg);
+            color: rgba(255,255,255,0.7);
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+        .footer a { color: rgba(255,255,255,0.9); text-decoration: none; }
+
+        /* Fade in */
+        .fade-in {
+            opacity: 0; transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+        /* Members */
+        .members-row {
+            display: flex; flex-wrap: wrap; justify-content: center;
+            gap: 1rem; margin-top: 1.5rem;
+        }
+        .member-chip {
+            background: white; border-radius: 30px;
+            padding: 0.5rem 1.2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            font-size: 0.9rem; color: var(--deep-blue); font-weight: 500;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .section { padding: 3rem 1rem; }
+            .section-full { padding: 3rem 1rem; }
+            .timeline { padding-left: 2rem; }
+            .timeline-day::before { left: -1.35rem; }
+            .attractions-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            .day-content { padding: 1rem; }
+            #map-overview, #map-route { height: 350px; }
+            .hero-lang-toggle { top: 0.5rem; right: 0.8rem; font-size: 0.8rem; padding: 0.3rem 0.8rem; }
+        }
+    </style>
+<style>
+/* ===== Trip Series Navigation ===== */
+.ts-section {
+    padding: 4rem 2rem 3rem;
+    background: linear-gradient(180deg, #f8f9fa 0%, #e3f2fd 100%);
+    text-align: center;
+}
+.ts-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1a237e;
+    margin-bottom: 2rem;
+    letter-spacing: 0.05em;
+}
+.ts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+.ts-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.2rem 1.5rem;
+    border-radius: 14px;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    text-align: left;
+    min-height: 90px;
+}
+a.ts-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+.ts-card--active {
+    background: #e8eaf6;
+    border: 2px solid #667eea;
+}
+.ts-card--active .ts-year {
+    color: #667eea;
+}
+a.ts-card .ts-year {
+    color: #2b6cb0;
+}
+.ts-year {
+    font-size: 1.4rem;
+    font-weight: 800;
+    font-family: 'Inter', sans-serif;
+    line-height: 1.1;
+    flex-shrink: 0;
+    white-space: nowrap;
+    min-width: 68px;
+}
+.ts-info h4 {
+    font-size: 0.98rem;
+    font-weight: 600;
+    color: #1a1a2e;
+    margin: 0 0 0.15rem;
+    line-height: 1.3;
+}
+.ts-info p {
+    font-size: 0.8rem;
+    color: #5a5a7a;
+    margin: 0 0 0.15rem;
+    line-height: 1.3;
+}
+.ts-meta {
+    font-size: 0.73rem;
+    color: #999;
+}
+.ts-arrow {
+    font-size: 1.2rem;
+    color: #2b6cb0;
+    margin-left: auto;
+    flex-shrink: 0;
+    transition: transform 0.25s ease;
+}
+a.ts-card:hover .ts-arrow {
+    transform: translateX(4px);
+}
+.ts-badge {
+    position: absolute;
+    top: -9px;
+    right: 14px;
+    background: #667eea;
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 2px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.03em;
+}
+@media (max-width: 640px) {
+    .ts-grid {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+    }
+    .ts-card {
+        padding: 1rem 1.2rem;
+    }
+    .ts-year {
+        font-size: 1.2rem;
+        min-width: 58px;
+    }
+}
+</style>
+</head>
+<body>
+
+<!-- Floating Language Toggle (visible in hero area) -->
+<button class="hero-lang-toggle" id="heroLangBtn" onclick="toggleLang()">
+    <span class="globe">&#x1F310;</span> <span id="heroLangLabel">EN</span>
+</button>
+
+<!-- Navigation -->
+<nav class="nav" id="navbar">
+    <div class="nav-inner">
+        <div class="nav-logo" data-zh="&#x1F3D4;&#xFE0F; 福島滑雪 2024" data-en="&#x1F3D4;&#xFE0F; Fukushima Ski 2024">&#x1F3D4;&#xFE0F; 福島滑雪 2024</div>
+        <div class="nav-links">
+            <a href="#overview" data-zh="總覽" data-en="Overview">總覽</a>
+            <a href="#map" data-zh="地圖" data-en="Map">地圖</a>
+            <a href="#itinerary" data-zh="行程" data-en="Itinerary">行程</a>
+            <a href="#attractions" data-zh="景點" data-en="Attractions">景點</a>
+            <a href="#restaurants" data-zh="美食" data-en="Food">美食</a>
+            <a href="#accommodation" data-zh="住宿" data-en="Hotels">住宿</a>
+            <a href="#costs" data-zh="費用" data-en="Costs">費用</a>
+            <a href="#meetings" data-zh="討論" data-en="Meetings">討論</a>
+            <a href="#checklist" data-zh="清單" data-en="Checklist">清單</a>
+            <button class="lang-toggle" onclick="toggleLang()">
+                <span class="globe">&#x1F310;</span> <span id="navLangLabel">EN</span>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero" id="top">
+    <div class="hero-content">
+        <div class="date-badge">2024.01.13 &mdash; 01.21</div>
+        <h1 data-zh="福島滑雪之旅" data-en="Fukushima Ski Trip">福島滑雪之旅</h1>
+        <p class="subtitle">Fukushima &middot; Aizu &middot; Nikko &middot; Tokyo</p>
+        <p style="opacity:0.7; font-size:0.95rem; margin-top:0.5rem;" data-zh="8 人冬季冒險 &mdash; 滑雪 &middot; 溫泉 &middot; 古城 &middot; 雪景" data-en="8-person winter adventure &mdash; Skiing &middot; Onsen &middot; Castles &middot; Snow">8 人冬季冒險 &mdash; 滑雪 &middot; 溫泉 &middot; 古城 &middot; 雪景</p>
+        <div class="scroll-hint">&darr;</div>
+    </div>
+</section>
+
+<!-- Overview -->
+<section class="section" id="overview">
+    <div class="section-header fade-in">
+        <h2 data-zh="旅程總覽" data-en="Trip Overview">旅程總覽</h2>
+        <div class="section-divider"></div>
+        <p class="section-sub" data-zh="Trip Overview" data-en="Trip Overview">Trip Overview</p>
+    </div>
+    <div class="overview-grid fade-in">
+        <div class="overview-card">
+            <div class="icon">&#x1F4C5;</div>
+            <h3 data-zh="9 天 8 夜" data-en="9 Days 8 Nights">9 天 8 夜</h3>
+            <p>2024/01/13 (Sat) &mdash; 01/21 (Sun)</p>
+        </div>
+        <div class="overview-card">
+            <div class="icon">&#x1F46B;</div>
+            <h3 data-zh="8 位旅伴" data-en="8 Travelers">8 位旅伴</h3>
+            <p data-zh="一起滑雪、泡湯、探索" data-en="Skiing, hot springs &amp; exploring together">一起滑雪、泡湯、探索</p>
+        </div>
+        <div class="overview-card">
+            <div class="icon">&#x26F7;&#xFE0F;</div>
+            <h3 data-zh="3 天滑雪" data-en="3 Days Skiing">3 天滑雪</h3>
+            <p>Listel Ski Fantasia</p>
+        </div>
+        <div class="overview-card">
+            <div class="icon">&#x1F3EF;</div>
+            <h3 data-zh="4 座城市" data-en="4 Cities">4 座城市</h3>
+            <p data-zh="東京 &middot; 豬苗代 &middot; 會津若松 &middot; 日光" data-en="Tokyo &middot; Inawashiro &middot; Aizu-Wakamatsu &middot; Nikko">東京 &middot; 豬苗代 &middot; 會津若松 &middot; 日光</p>
+        </div>
+        <div class="overview-card">
+            <div class="icon">&#x2668;&#xFE0F;</div>
+            <h3 data-zh="溫泉體驗" data-en="Onsen Experience">溫泉體驗</h3>
+            <p data-zh="李斯特 + 御宿東鳳" data-en="Listel + Onyado Toho">李斯特 + 御宿東鳳</p>
+        </div>
+        <div class="overview-card">
+            <div class="icon">&#x2708;&#xFE0F;</div>
+            <h3 data-zh="華航直飛" data-en="China Airlines Direct">華航直飛</h3>
+            <p>TPE &harr; NRT</p>
+        </div>
+    </div>
+    <div class="members-row fade-in">
+        <div class="member-chip">calee</div>
+        <div class="member-chip">yahsieh</div>
+        <div class="member-chip">yysung</div>
+        <div class="member-chip">syujy</div>
+        <div class="member-chip">wangtr</div>
+        <div class="member-chip">hchsu</div>
+        <div class="member-chip">hchsu1112</div>
+        <div class="member-chip">yaowen</div>
+    </div>
+</section>
+
+<!-- Map -->
+<section class="section" id="map">
+    <div class="section-header fade-in">
+        <h2 data-zh="旅程地圖" data-en="Route Map">旅程地圖</h2>
+        <div class="section-divider"></div>
+        <p class="section-sub" data-zh="Interactive Route Map" data-en="Interactive Route Map">Interactive Route Map</p>
+    </div>
+    <div class="map-container fade-in">
+        <div class="map-tabs">
+            <button class="map-tab active" onclick="showMap('overview')" data-zh="全覽地圖" data-en="Overview Map">全覽地圖</button>
+            <button class="map-tab" onclick="showMap('route')" data-zh="路線地圖" data-en="Route Map">路線地圖</button>
+        </div>
+        <div id="map-overview"></div>
+        <div id="map-route" style="display:none;"></div>
+    </div>
+</section>
+
+<!-- Itinerary -->
+<section class="section" id="itinerary">
+    <div class="section-header fade-in">
+        <h2 data-zh="每日行程" data-en="Daily Itinerary">每日行程</h2>
+        <div class="section-divider"></div>
+        <p class="section-sub" data-zh="Day-by-Day Itinerary" data-en="Day-by-Day Itinerary">Day-by-Day Itinerary</p>
+    </div>
+
+    <div class="timeline fade-in">
+        <!-- Day 1 -->
+        <div class="timeline-day">
+            <div class="day-header">
+                <span class="day-date">Day 1</span>
+                <span class="day-title" data-zh="1月13日 (六)" data-en="Jan 13 (Sat)">1月13日 (六)</span>
+                <span class="day-tag tag-travel" data-zh="&#x2708;&#xFE0F; 移動日" data-en="&#x2708;&#xFE0F; Travel Day">&#x2708;&#xFE0F; 移動日</span>
+            </div>
+            <div class="day-content">
+                <div class="schedule-item">
+                    <span class="schedule-time">08:00</span>
+                    <div class="schedule-desc" data-zh="前往投票（台灣總統大選）" data-en="Go vote (Taiwan presidential election)">前往投票（台灣總統大選）</div>
+                </div>
+                <div class="schedule-item">
+                    <span class="schedule-time">14:40</span>
+                    <div class="schedule-desc" data-zh="華航班機 TPE &rarr; NRT 起飛" data-en="China Airlines flight TPE &rarr; NRT departs">華航班機 TPE &rarr; NRT 起飛</div>
+                </div>
+                <div class="schedule-item">
+                    <span class="schedule-time">~21:00</span>
+                    <div class="schedule-desc" data-zh="抵達<strong>成田機場</strong>，搭 Skyliner 前往東京<br><span class='transport-badge'>&#x1F683; Skyliner ~1hr / ~&yen;1,000</span>" data-en="Arrive at <strong>Narita Airport</strong>, take Skyliner to Tokyo<br><span class='transport-badge'>&#x1F683; Skyliner ~1hr / ~&yen;1,000</span>">抵達<strong>成田機場</strong>，搭 Skyliner 前往東京<br><span class="transport-badge">&#x1F683; Skyliner ~1hr / ~&yen;1,000</span></div>
+                </div>
+                <div class="schedule-item">
+                    <span class="schedule-time">~22:00</span>
+                    <div class="schedule-desc" data-zh="入住 <strong>東橫INN 神田秋葉原</strong>，與 yahsieh 會合<br>晚餐在東京享用" data-en="Check in at <strong>Toyoko Inn Kanda Akihabara</strong>, meet up with yahsieh<br>Dinner in Tokyo">入住 <strong>東橫INN 神田秋葉原</strong>，與 yahsieh 會合<br>晚餐在東京享用</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 2 -->
+        <div class="timeline-day">
+            <div class="day-header">
+                <span class="day-date">Day 2</span>
+                <span class="day-title" data-zh="1月14日 (日)" data-en="Jan 14 (Sun)">1月14日 (日)</span>
+                <span class="day-tag tag-city" data-zh="&#x1F5FC; 東京 &rarr; 豬苗代" data-en="&#x1F5FC; Tokyo &rarr; Inawashiro">&#x1F5FC; 東京 &rarr; 豬苗代</span>
+            </div>
+            <div class="day-content">
+                <div class="schedule-item">
+                    <span class="schedule-time">09:00</span>
+                    <div class="schedule-desc" data-zh="<strong>teamLab Planets</strong> 沉浸式數位藝術體驗（豐洲）<br>7人參加（wangtr 自由行動，在秋葉原附近）<br><span class='transport-badge'>&#x1F687; 地鐵前往豐洲</span>" data-en="<strong>teamLab Planets</strong> immersive digital art experience (Toyosu)<br>7 people attending (wangtr free time near Akihabara)<br><span class='transport-badge'>&#x1F687; Metro to Toyosu</span>"><strong>teamLab Planets</strong> 沉浸式數位藝術體驗（豐洲）<br>7人參加（wangtr 自由行動，在秋葉原附近）<br><span class="transport-badge">&#x1F687; 地鐵前往豐洲</span></div>
+                </div>
+                <div class="schedule-item">
+                    <span class="schedule-time" data-zh="中午" data-en="Noon">中午</span>
+                    <div class="schedule-desc" data-zh="午餐自由選擇<br><a href='https://tabelog.com/tw/tokyo/A1313/A131301/13002328/' target='_blank' class='restaurant-link'>&#x1F363; 築地海鮮</a><span class='restaurant-link'>&#x1F356; 燒肉</span><span class='restaurant-link'>&#x1F35C; 隨便吃</span>" data-en="Free lunch choice<br><a href='https://tabelog.com/tw/tokyo/A1313/A131301/13002328/' target='_blank' class='restaurant-link'>&#x1F363; Tsukiji Seafood</a><span class='restaurant-link'>&#x1F356; Yakiniku</span><span class='restaurant-link'>&#x1F35C; Casual</span>">午餐自由選擇<br><a href="https://tabelog.com/tw/tokyo/A1313/A131301/13002328/" target="_blank" class="restaurant-link">&#x1F363; 築地海鮮</a><span class="restaurant-link">&#x1F356; 燒肉</span><span class="restaurant-link">&#x1F35C; 隨便吃</span></div>
+                </div>
+                <div class="schedule-item">
+                    <span class="schedule-time" data-zh="中午" data-en="Noon">中午</span>
+                    <div class="schedule-desc" data-zh="準備泡麵 + 筷子（平日午餐或宵夜用）；有空買酒" data-en="Buy instant noodles + chopsticks (for weekday lunch/snacks); buy drinks if time permits">準備泡麵 + 筷子（平日午餐或宵夜用）；有空買酒</div>
+                </div>
+                <div class="schedule-item">
+                    <span class="schedule-time">14:12</span>
+                    <div class="schedule-desc" data-zh="<strong>東京站</strong>搭新幹線出發（已訂 30% off 早鳥票）<br><span class='transport-badge'>&#x1F685; 新幹線 &yen;5,838/人 ~1.5hr</span>" data-en="Depart from <strong>Tokyo Station</strong> by Shinkansen (30% off early bird tickets)<br><span class='transport-badge'>&#x1F685; Shinkansen &yen;5,838/person ~1.5hr</span>"><strong>東京站</strong>搭新幹線出發（已訂 30% off 早鳥票）<br><span class="transport-badge">&#x1F685; 新幹線 &yen;5,838/人 ~1.5hr</span></div>
+                </div>
+                <div class="schedule-item">
+                    <span class="schedule-time">15:48</span>
+                    <div class="schedule-desc" data-zh="抵達<strong>郡山站</strong>" data-en="Arrive at <strong>Koriyama Station</strong>">抵達<strong>郡山站</strong></div>
+                </div>
+                <div class="schedule-item">
+                    <span class="schedule-time">16:15</span>
+                    <div class="schedule-desc" data-zh="轉乘 JR 磐越西線<br><span class='transport-badge'>&#x1F683; JR 快速 ~36min</span>" data-en="Transfer to JR Ban-Etsu West Line<br><span class='transport-badge'>&#x1F683; JR Rapid ~36min</span>">轉乘 JR 磐越西線<br><span class="transport-badge">&#x1F683; JR 快速 ~36min</span></div>
+                </div>
+                <div class="schedule-item">
+                    <span class="schedule-time">16:51</span>
+                    <div class="schedule-desc" data-zh="抵達<strong>豬苗代站</strong>" data-en="Arrive at <strong>Inawashiro Station</strong>">抵達<strong>豬苗代站</strong></div>
+                </div>
+                <div class="schedule-item">
+                    <span class="schedule-time">17:00</span>
+                    <div class="schedule-desc" data-zh="搭接駁車抵達<strong>Hotel Listel Inawashiro</strong><br>晚餐在飯店享用（含餐方案）<br>&#x1F4DE; 預約號碼 A00 24831946<br>下午五點前決定隔天去李斯特雪場還是豬苗代雪場" data-en="Shuttle to <strong>Hotel Listel Inawashiro</strong><br>Dinner at hotel (meal plan included)<br>&#x1F4DE; Reservation No. A00 24831946<br>Decide by 5pm whether to ski at Listel or Inawashiro next day">搭接駁車抵達<strong>Hotel Listel Inawashiro</strong><br>晚餐在飯店享用（含餐方案）<br>&#x1F4DE; 預約號碼 A00 24831946<br>下午五點前決定隔天去李斯特雪場還是豬苗代雪場</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 3-5 Skiing -->
+        <div class="timeline-day">
+            <div class="day-header">
+                <span class="day-date">Day 3&ndash;5</span>
+                <span class="day-title" data-zh="1月15&ndash;17日 (一&ndash;三)" data-en="Jan 15&ndash;17 (Mon&ndash;Wed)">1月15&ndash;17日 (一&ndash;三)</span>
+                <span class="day-tag tag-ski" data-zh="&#x26F7;&#xFE0F; 滑雪日" data-en="&#x26F7;&#xFE0F; Ski Days">&#x26F7;&#xFE0F; 滑雪日</span>
+            </div>
+            <div class="day-content">
+                <div class="info-box">
+                    <h4>Listel Ski Fantasia</h4>
+                    <p data-zh="三天滑雪行程。Day 3 上午安排教練課，之後自由滑行。每日可享免費溫泉。<br>分組：SK 雙板 5人 / SB 單板 3人（calee, syujy, yaowen）<br>溝通方式：手機隨身、Apple Watch 對講機、Discord，不要落單，滑到底定期看訊息。" data-en="Three days of skiing. Day 3 morning: instructor lesson, then free skiing. Free onsen daily.<br>Groups: SK (ski) 5 people / SB (snowboard) 3 people (calee, syujy, yaowen)<br>Communication: keep phone handy, Apple Watch walkie-talkie, Discord. Don't ski alone, check messages at the bottom.">三天滑雪行程。Day 3 上午安排教練課，之後自由滑行。每日可享免費溫泉。<br>分組：SK 雙板 5人 / SB 單板 3人（calee, syujy, yaowen）<br>溝通方式：手機隨身、Apple Watch 對講機、Discord，不要落單，滑到底定期看訊息。</p>
+                </div>
+                <div class="schedule-item">
+                    <span class="schedule-time">06:30</span>
+                    <div class="schedule-desc" data-zh="部隊起床" data-en="Wake up call">部隊起床</div>
+                </div>
+                <div class="schedule-item">
+                    <span class="schedule-time">07:00</span>
+                    <div class="schedule-desc" data-zh="飯店早餐" data-en="Hotel breakfast">飯店早餐</div>
+                </div>
+                <div class="schedule-item">
+                    <span class="schedule-time">08:00</span>
+                    <div class="schedule-desc" data-zh="辦手續 + 租借雪具（SK: 板、鞋、杖 / SB: 板、鞋）" data-en="Check-in + rent gear (SK: skis, boots, poles / SB: board, boots)">辦手續 + 租借雪具（SK: 板、鞋、杖 / SB: 板、鞋）</div>
+                </div>
+                <div class="schedule-item">
+                    <span class="schedule-time">09:30</span>
+                    <div class="schedule-desc" data-zh="<strong>Day 3：教練課程</strong>（09:30&ndash;11:30，3小時）<br>SK 5人 &yen;19,500 / SB 3人 &yen;22,000（含 &yen;15,500 教練費）<br>纜車券 50% off 優惠（1日券/5時間券適用）" data-en="<strong>Day 3: Instructor lesson</strong> (09:30&ndash;11:30, 3 hours)<br>SK 5 ppl &yen;19,500 / SB 3 ppl &yen;22,000 (incl. &yen;15,500 instructor fee)<br>Lift pass 50% off (1-day/5-hour pass)"><strong>Day 3：教練課程</strong>（09:30&ndash;11:30，3小時）<br>SK 5人 &yen;19,500 / SB 3人 &yen;22,000（含 &yen;15,500 教練費）<br>纜車券 50% off 優惠（1日券/5時間券適用）</div>
+                </div>
+                <div class="schedule-item">
+                    <span class="schedule-time" data-zh="午後" data-en="Afternoon">午後</span>
+                    <div class="schedule-desc" data-zh="自由滑雪，午餐自理（飯店 / 雪場餐廳）" data-en="Free skiing, lunch on your own (hotel / slope restaurant)">自由滑雪，午餐自理（飯店 / 雪場餐廳）</div>
+                </div>
+                <div class="schedule-item">
+                    <span class="schedule-time" data-zh="傍晚" data-en="Evening">傍晚</span>
+                    <div class="schedule-desc" data-zh="飯店晚餐（含餐方案）+ 免費溫泉（記得帶毛巾，check-out 日 17:00 前都可泡）" data-en="Hotel dinner (meal plan) + free onsen (bring towel, available until 17:00 on checkout day)">飯店晚餐（含餐方案）+ 免費溫泉（記得帶毛巾，check-out 日 17:00 前都可泡）</div>
+                </div>
+                <div class="schedule-item">
+                    <span class="schedule-time">Day 5</span>
+                    <div class="schedule-desc" data-zh="17:00 前歸還雪具，晚上收拾行李<br>&#x1F4DE; 叫隔天一早的計程車（7:30 從李斯特出發）" data-en="Return gear before 17:00, pack luggage in the evening<br>&#x1F4DE; Book taxi for next morning (7:30 from Listel)">17:00 前歸還雪具，晚上收拾行李<br>&#x1F4DE; 叫隔天一早的計程車（7:30 從李斯特出發）</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 6 -->
+        <div class="timeline-day">
+            <div class="day-header">
+                <span class="day-date">Day 6</span>
+                <span class="day-title" data-zh="1月18日 (四)" data-en="Jan 18 (Thu)">1月18日 (四)</span>
+                <span class="day-tag tag-sightseeing" data-zh="&#x1F33F; 五色沼 &rarr; 會津若松" data-en="&#x1F33F; Goshikinuma &rarr; Aizu-Wakamatsu">&#x1F33F; 五色沼 &rarr; 會津若松</span>
+            </div>
+            <div class="day-content">
+                <div class="schedule-item">
+                    <span class="schedule-time">07:30</span>
+                    <div class="schedule-desc" data-zh="搭計程車從李斯特前往<strong>豬苗代站</strong>（4台）<br><span class='transport-badge'>&#x1F695; 計程車 ~15min / ~&yen;3,000&ndash;4,000</span><br><small style='color:#999;'>備案：叫不到車 &rarr; 7:00 前開始走路到白津公車站（1.4km, ~30min+行李）搭 7:38 公車</small>" data-en="Taxi from Listel to <strong>Inawashiro Station</strong> (4 taxis)<br><span class='transport-badge'>&#x1F695; Taxi ~15min / ~&yen;3,000&ndash;4,000</span><br><small style='color:#999;'>Backup: walk to Shiratsu bus stop (1.4km, ~30min+luggage) for 7:38 bus</small>">搭計程車從李斯特前往<strong>豬苗代站</strong>（4台）<br><span class="transport-badge">&#x1F695; 計程車 ~15min / ~&yen;3,000&ndash;4,000</span><br><small style="color:#999;">備案：叫不到車 &rarr; 7:00 前開始走路到白津公車站（1.4km, ~30min+行李）搭 7:38 公車</small></div>
+                </div>
+                <div class="schedule-item">
+                    <span class="schedule-time">~08:15</span>
+                    <div class="schedule-desc" data-zh="在豬苗代站寄放行李（五色沼回來再拿）<br>搭公車前往<strong>五色沼入口</strong><br><span class='transport-badge'>&#x1F68C; 公車 08:15發 ~30min</span>" data-en="Store luggage at Inawashiro Station (pick up after Goshikinuma)<br>Take bus to <strong>Goshikinuma Entrance</strong><br><span class='transport-badge'>&#x1F68C; Bus departs 08:15 ~30min</span>">在豬苗代站寄放行李（五色沼回來再拿）<br>搭公車前往<strong>五色沼入口</strong><br><span class="transport-badge">&#x1F68C; 公車 08:15發 ~30min</span></div>
+                </div>
+                <div class="schedule-item">
+                    <span class="schedule-time">08:46</span>
+                    <div class="schedule-desc" data-zh="<strong>五色沼自然探勝路</strong>健行（約 2 小時，3.6 公里）<br>欣賞火山湖群的藍、綠、紅等繽紛色彩" data-en="<strong>Goshikinuma Nature Trail</strong> hike (~2 hours, 3.6 km)<br>Enjoy the colorful volcanic lakes in blue, green, red hues"><strong>五色沼自然探勝路</strong>健行（約 2 小時，3.6 公里）<br>欣賞火山湖群的藍、綠、紅等繽紛色彩</div>
+                </div>
+                <div class="schedule-item">
+                    <span class="schedule-time">11:04</span>
+                    <div class="schedule-desc" data-zh="從磐梯高原搭公車返回豬苗代站（11:04 或 11:10 發，11:52 到）<br><span class='transport-badge'>&#x1F68C; 公車 ~42min</span>" data-en="Bus from Bandai Plateau back to Inawashiro (departs 11:04 or 11:10, arrives 11:52)<br><span class='transport-badge'>&#x1F68C; Bus ~42min</span>">從磐梯高原搭公車返回豬苗代站（11:04 或 11:10 發，11:52 到）<br><span class="transport-badge">&#x1F68C; 公車 ~42min</span></div>
+                </div>
+                <div class="schedule-item">
+                    <span class="schedule-time">11:58</span>
+                    <div class="schedule-desc" data-zh="拿行李 + 搭 JR 前往<strong>會津若松</strong>（6分鐘轉乘！）<br><span class='transport-badge'>&#x1F683; JR 11:58發 ~33min</span><br><small style='color:#999;'>沒上車備案：下一班 12:52&rarr;13:20 到，在豬苗代吃午餐</small>" data-en="Pick up luggage + JR to <strong>Aizu-Wakamatsu</strong> (6-min transfer!)<br><span class='transport-badge'>&#x1F683; JR departs 11:58 ~33min</span><br><small style='color:#999;'>Backup: next train 12:52&rarr;13:20, have lunch in Inawashiro</small>">拿行李 + 搭 JR 前往<strong>會津若松</strong>（6分鐘轉乘！）<br><span class="transport-badge">&#x1F683; JR 11:58發 ~33min</span><br><small style="color:#999;">沒上車備案：下一班 12:52&rarr;13:20 到，在豬苗代吃午餐</small></div>
+                </div>
+                <div class="schedule-item">
+                    <span class="schedule-time">~13:00</span>
+                    <div class="schedule-desc" data-zh="行李放在若松車站，午餐<br><a href='https://tabelog.com/tw/fukushima/A0705/A070501/7015734/' target='_blank' class='restaurant-link'>&#x1F35C; 拉麵（位置很少）</a><a href='https://tabelog.com/tw/fukushima/A0705/A070501/7001819/' target='_blank' class='restaurant-link'>&#x1F969; 鄉土料理（馬肉）</a><a href='https://tabelog.com/tw/fukushima/A0705/A070501/7000125/' target='_blank' class='restaurant-link'>&#x1F357; 拉麵/烤雞串/炸豬排</a><a href='https://tabelog.com/tw/fukushima/A0705/A070501/7000102/' target='_blank' class='restaurant-link'>&#x1F35A; 丼飯類</a><a href='https://tabelog.com/tw/fukushima/A0705/A070501/7000837/' target='_blank' class='restaurant-link'>&#x1F35D; 蕎麥麵</a>" data-en="Leave luggage at Wakamatsu Station, lunch<br><a href='https://tabelog.com/tw/fukushima/A0705/A070501/7015734/' target='_blank' class='restaurant-link'>&#x1F35C; Ramen (limited seats)</a><a href='https://tabelog.com/tw/fukushima/A0705/A070501/7001819/' target='_blank' class='restaurant-link'>&#x1F969; Local cuisine (horse meat)</a><a href='https://tabelog.com/tw/fukushima/A0705/A070501/7000125/' target='_blank' class='restaurant-link'>&#x1F357; Ramen/Yakitori/Tonkatsu</a><a href='https://tabelog.com/tw/fukushima/A0705/A070501/7000102/' target='_blank' class='restaurant-link'>&#x1F35A; Donburi</a><a href='https://tabelog.com/tw/fukushima/A0705/A070501/7000837/' target='_blank' class='restaurant-link'>&#x1F35D; Soba</a>">行李放在若松車站，午餐<br><a href="https://tabelog.com/tw/fukushima/A0705/A070501/7015734/" target="_blank" class="restaurant-link">&#x1F35C; 拉麵（位置很少）</a><a href="https://tabelog.com/tw/fukushima/A0705/A070501/7001819/" target="_blank" class="restaurant-link">&#x1F969; 鄉土料理（馬肉）</a><a href="https://tabelog.com/tw/fukushima/A0705/A070501/7000125/" target="_blank" class="restaurant-link">&#x1F357; 拉麵/烤雞串/炸豬排</a><a href="https://tabelog.com/tw/fukushima/A0705/A070501/7000102/" target="_blank" class="restaurant-link">&#x1F35A; 丼飯類</a><a href="https://tabelog.com/tw/fukushima/A0705/A070501/7000837/" target="_blank" class="restaurant-link">&#x1F35D; 蕎麥麵</a></div>
+                </div>
+                <div class="schedule-item">
+                    <span class="schedule-time">14:00</span>
+                    <div class="schedule-desc" data-zh="購買<strong>海卡拉桑巴士一日券</strong>（在会津若松駅前バス案内所購買，景點有折扣）<br>先去<strong>鶴城（會津若松城）</strong>（營業 8:30&ndash;17:00）<br><span class='transport-badge'>&#x1F68C; 海卡拉桑巴士 半小時一班</span>" data-en="Buy <strong>Haikara-san Bus 1-day pass</strong> (at Aizu-Wakamatsu Station bus info center, discounts at attractions)<br>Visit <strong>Tsuruga Castle</strong> (open 8:30&ndash;17:00)<br><span class='transport-badge'>&#x1F68C; Haikara-san Bus every 30min</span>">購買<strong>海卡拉桑巴士一日券</strong>（在会津若松駅前バス案内所購買，景點有折扣）<br>先去<strong>鶴城（會津若松城）</strong>（營業 8:30&ndash;17:00）<br><span class="transport-badge">&#x1F68C; 海卡拉桑巴士 半小時一班</span></div>
+                </div>
+                <div class="schedule-item">
+                    <span class="schedule-time">15:30</span>
+                    <div class="schedule-desc" data-zh="有空再去<strong>御藥園</strong>（投票得票最高的景點）" data-en="If time permits, visit <strong>Oyakuen Garden</strong> (top-voted attraction)">有空再去<strong>御藥園</strong>（投票得票最高的景點）</div>
+                </div>
+                <div class="schedule-item">
+                    <span class="schedule-time">~17:00</span>
+                    <div class="schedule-desc" data-zh="搭海卡拉桑巴士回若松車站拿行李（末班 17:30 會津車站發）" data-en="Haikara-san Bus back to station for luggage (last bus 17:30 from Aizu Station)">搭海卡拉桑巴士回若松車站拿行李（末班 17:30 會津車站發）</div>
+                </div>
+                <div class="schedule-item">
+                    <span class="schedule-time">17:40</span>
+                    <div class="schedule-desc" data-zh="搭接駁車前往<strong>御宿東鳳</strong>溫泉旅館（18:00 到）<br>Check-in + 晚餐 + 露天溫泉" data-en="Shuttle to <strong>Onyado Toho</strong> onsen ryokan (arrive 18:00)<br>Check-in + dinner + open-air onsen">搭接駁車前往<strong>御宿東鳳</strong>溫泉旅館（18:00 到）<br>Check-in + 晚餐 + 露天溫泉</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 7 -->
+        <div class="timeline-day">
+            <div class="day-header">
+                <span class="day-date">Day 7</span>
+                <span class="day-title" data-zh="1月19日 (五)" data-en="Jan 19 (Fri)">1月19日 (五)</span>
+                <span class="day-tag tag-sightseeing" data-zh="&#x1F3D8;&#xFE0F; 大內宿 &rarr; 日光" data-en="&#x1F3D8;&#xFE0F; Ouchi-juku &rarr; Nikko">&#x1F3D8;&#xFE0F; 大內宿 &rarr; 日光</span>
+            </div>
+            <div class="day-content">
+                <div class="schedule-item">
+                    <span class="schedule-time">07:00</span>
+                    <div class="schedule-desc" data-zh="東鳳早餐" data-en="Toho breakfast">東鳳早餐</div>
+                </div>
+                <div class="schedule-item">
+                    <span class="schedule-time">08:55</span>
+                    <div class="schedule-desc" data-zh="搭接駁車至會津若松站<br><span class='transport-badge'>&#x1F68C; 接駁車 ~20min</span>" data-en="Shuttle to Aizu-Wakamatsu Station<br><span class='transport-badge'>&#x1F68C; Shuttle ~20min</span>">搭接駁車至會津若松站<br><span class="transport-badge">&#x1F68C; 接駁車 ~20min</span></div>
+                </div>
+                <div class="schedule-item">
+                    <span class="schedule-time">09:35</span>
+                    <div class="schedule-desc" data-zh="搭會津鐵道前往湯野上溫泉站（10:06 到）<br>行李寄放在湯野上站（不會回會津）<br><span class='transport-badge'>&#x1F683; 會津鐵道 ~31min</span>" data-en="Aizu Railway to Yunokami-Onsen Station (arrive 10:06)<br>Store luggage at Yunokami (not returning to Aizu)<br><span class='transport-badge'>&#x1F683; Aizu Railway ~31min</span>">搭會津鐵道前往湯野上溫泉站（10:06 到）<br>行李寄放在湯野上站（不會回會津）<br><span class="transport-badge">&#x1F683; 會津鐵道 ~31min</span></div>
+                </div>
+                <div class="schedule-item">
+                    <span class="schedule-time">10:20</span>
+                    <div class="schedule-desc" data-zh="搭猿遊號巴士前往大內宿（10:40 到）<br><span class='transport-badge'>&#x1F68C; 猿遊號 ~20min</span>" data-en="Saruyugo Bus to Ouchi-juku (arrive 10:40)<br><span class='transport-badge'>&#x1F68C; Saruyugo Bus ~20min</span>">搭猿遊號巴士前往大內宿（10:40 到）<br><span class="transport-badge">&#x1F68C; 猿遊號 ~20min</span></div>
+                </div>
+                <div class="schedule-item">
+                    <span class="schedule-time">10:40</span>
+                    <div class="schedule-desc" data-zh="漫步<strong>大內宿</strong>茅葺屋群，品嚐大蔥蕎麥麵<br>午餐在大內宿吃（選擇可能不多，可先從別處買）" data-en="Stroll through <strong>Ouchi-juku</strong> thatched-roof village, try negi-soba (leek soba)<br>Lunch at Ouchi-juku (limited options, consider buying food beforehand)">漫步<strong>大內宿</strong>茅葺屋群，品嚐大蔥蕎麥麵<br>午餐在大內宿吃（選擇可能不多，可先從別處買）</div>
+                </div>
+                <div class="schedule-item">
+                    <span class="schedule-time">12:30</span>
+                    <div class="schedule-desc" data-zh="搭猿遊號返回湯野上溫泉站（12:50 到）<br>也有 11:40 和 14:00 的班次" data-en="Saruyugo Bus back to Yunokami-Onsen (arrive 12:50)<br>Also 11:40 and 14:00 departures available">搭猿遊號返回湯野上溫泉站（12:50 到）<br>也有 11:40 和 14:00 的班次</div>
+                </div>
+                <div class="schedule-item">
+                    <span class="schedule-time">13:29</span>
+                    <div class="schedule-desc" data-zh="搭 JR 到會津田島（13:59 到），在車站附近晃一小時<br><span class='transport-badge'>&#x1F683; 會津鐵道 ~30min</span>" data-en="JR to Aizu-Tajima (arrive 13:59), explore around station for ~1hr<br><span class='transport-badge'>&#x1F683; Aizu Railway ~30min</span>">搭 JR 到會津田島（13:59 到），在車站附近晃一小時<br><span class="transport-badge">&#x1F683; 會津鐵道 ~30min</span></div>
+                </div>
+                <div class="schedule-item">
+                    <span class="schedule-time">15:00</span>
+                    <div class="schedule-desc" data-zh="搭車前往下今市（16:27 到）— 特急鐵道只賣對號座，一到就要先買<br><span class='transport-badge'>&#x1F683; 會津鐵道+東武 ~1.5hr</span>" data-en="Train to Shimo-Imaichi (arrive 16:27) &mdash; limited express is reserved seating only, buy tickets immediately<br><span class='transport-badge'>&#x1F683; Aizu Railway + Tobu ~1.5hr</span>">搭車前往下今市（16:27 到）— 特急鐵道只賣對號座，一到就要先買<br><span class="transport-badge">&#x1F683; 會津鐵道+東武 ~1.5hr</span></div>
+                </div>
+                <div class="schedule-item">
+                    <span class="schedule-time">~17:00</span>
+                    <div class="schedule-desc" data-zh="轉乘至東武日光（約一小時兩班），晚餐在日光享用<br><a href='https://tabelog.com/tw/tochigi/A0903/A090301/9001045/' target='_blank' class='restaurant-link'>&#x1F37A; 酒吧</a><a href='https://tabelog.com/tw/tochigi/A0903/A090301/9017600/' target='_blank' class='restaurant-link'>&#x1F35D; 義式</a><span class='restaurant-link'>&#x1F374; 西式料理</span><a href='https://tabelog.com/tw/tochigi/A0903/A090301/9015090/' target='_blank' class='restaurant-link'>&#x1F962; 豆腐料理</a><br>入住 <strong>Nikko House / Vacation STAY 40938</strong>（距車站 1.1km，可能要搭計程車）" data-en="Transfer to Tobu-Nikko (~2 trains/hr), dinner in Nikko<br><a href='https://tabelog.com/tw/tochigi/A0903/A090301/9001045/' target='_blank' class='restaurant-link'>&#x1F37A; Bar</a><a href='https://tabelog.com/tw/tochigi/A0903/A090301/9017600/' target='_blank' class='restaurant-link'>&#x1F35D; Italian</a><span class='restaurant-link'>&#x1F374; Western</span><a href='https://tabelog.com/tw/tochigi/A0903/A090301/9015090/' target='_blank' class='restaurant-link'>&#x1F962; Tofu cuisine</a><br>Check in at <strong>Nikko House / Vacation STAY 40938</strong> (1.1km from station, may need taxi)">轉乘至東武日光（約一小時兩班），晚餐在日光享用<br><a href="https://tabelog.com/tw/tochigi/A0903/A090301/9001045/" target="_blank" class="restaurant-link">&#x1F37A; 酒吧</a><a href="https://tabelog.com/tw/tochigi/A0903/A090301/9017600/" target="_blank" class="restaurant-link">&#x1F35D; 義式</a><span class="restaurant-link">&#x1F374; 西式料理</span><a href="https://tabelog.com/tw/tochigi/A0903/A090301/9015090/" target="_blank" class="restaurant-link">&#x1F962; 豆腐料理</a><br>入住 <strong>Nikko House / Vacation STAY 40938</strong>（距車站 1.1km，可能要搭計程車）</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 8 -->
+        <div class="timeline-day">
+            <div class="day-header">
+                <span class="day-date">Day 8</span>
+                <span class="day-title" data-zh="1月20日 (六)" data-en="Jan 20 (Sat)">1月20日 (六)</span>
+                <span class="day-tag tag-sightseeing" data-zh="&#x26E9;&#xFE0F; 日光 &rarr; 東京" data-en="&#x26E9;&#xFE0F; Nikko &rarr; Tokyo">&#x26E9;&#xFE0F; 日光 &rarr; 東京</span>
+            </div>
+            <div class="day-content">
+                <div class="schedule-item">
+                    <span class="schedule-time" data-zh="早上" data-en="Morning">早上</span>
+                    <div class="schedule-desc" data-zh="到東武日光站寄放行李<br>搭「世界遺産めぐり」巡迴公車（在大猷院・二荒山神社前下車）<br><span class='transport-badge'>&#x1F68C; 世界遺產巡迴巴士</span>" data-en="Store luggage at Tobu-Nikko Station<br>Take World Heritage Loop Bus (get off at Daiyuin/Futarasan-jinja)<br><span class='transport-badge'>&#x1F68C; World Heritage Loop Bus</span>">到東武日光站寄放行李<br>搭「世界遺産めぐり」巡迴公車（在大猷院・二荒山神社前下車）<br><span class="transport-badge">&#x1F68C; 世界遺產巡迴巴士</span></div>
+                </div>
+                <div class="schedule-item">
+                    <span class="schedule-time">09:00</span>
+                    <div class="schedule-desc" data-zh="參觀<strong>日光東照宮</strong> + <strong>日光二荒山神社</strong><br>UNESCO 世界遺產，德川家康靈廟" data-en="Visit <strong>Nikko Toshogu Shrine</strong> + <strong>Nikko Futarasan Shrine</strong><br>UNESCO World Heritage, mausoleum of Tokugawa Ieyasu">參觀<strong>日光東照宮</strong> + <strong>日光二荒山神社</strong><br>UNESCO 世界遺產，德川家康靈廟</div>
+                </div>
+                <div class="schedule-item">
+                    <span class="schedule-time">11:30</span>
+                    <div class="schedule-desc" data-zh="前往<strong>華嚴瀑布</strong>（冬季冰瀑奇觀）<br>走到西参道入口搭往湯元温泉的公車，在「中禅寺温泉」下車<br><span class='transport-badge'>&#x1F68C; 公車 ~40min</span>" data-en="Head to <strong>Kegon Falls</strong> (spectacular frozen waterfall in winter)<br>Walk to Nishi-sando entrance, take bus to Yumoto Onsen, get off at Chuzenji Onsen<br><span class='transport-badge'>&#x1F68C; Bus ~40min</span>">前往<strong>華嚴瀑布</strong>（冬季冰瀑奇觀）<br>走到西参道入口搭往湯元温泉的公車，在「中禅寺温泉」下車<br><span class="transport-badge">&#x1F68C; 公車 ~40min</span></div>
+                </div>
+                <div class="schedule-item">
+                    <span class="schedule-time">13:00</span>
+                    <div class="schedule-desc" data-zh="中禪寺湖畔午餐 + 看湖<br><a href='https://tabelog.com/tw/tochigi/A0903/A090301/9010363/' target='_blank' class='restaurant-link'>&#x1F962; 豆腐料理</a><a href='https://tabelog.com/tw/tochigi/A0903/A090301/9004648/' target='_blank' class='restaurant-link'>&#x1F364; 炸蝦丼</a><a href='https://tabelog.com/tw/tochigi/A0903/A090301/9008621/' target='_blank' class='restaurant-link'>&#x1F36E; 羊羹（伴手禮）</a><a href='https://tabelog.com/tw/tochigi/A0903/A090301/9008238/' target='_blank' class='restaurant-link'>&#x1F366; 冰（點心）</a>" data-en="Lunch by Lake Chuzenji + lake viewing<br><a href='https://tabelog.com/tw/tochigi/A0903/A090301/9010363/' target='_blank' class='restaurant-link'>&#x1F962; Tofu cuisine</a><a href='https://tabelog.com/tw/tochigi/A0903/A090301/9004648/' target='_blank' class='restaurant-link'>&#x1F364; Tempura don</a><a href='https://tabelog.com/tw/tochigi/A0903/A090301/9008621/' target='_blank' class='restaurant-link'>&#x1F36E; Yokan (souvenir)</a><a href='https://tabelog.com/tw/tochigi/A0903/A090301/9008238/' target='_blank' class='restaurant-link'>&#x1F366; Ice cream</a>">中禪寺湖畔午餐 + 看湖<br><a href="https://tabelog.com/tw/tochigi/A0903/A090301/9010363/" target="_blank" class="restaurant-link">&#x1F962; 豆腐料理</a><a href="https://tabelog.com/tw/tochigi/A0903/A090301/9004648/" target="_blank" class="restaurant-link">&#x1F364; 炸蝦丼</a><a href="https://tabelog.com/tw/tochigi/A0903/A090301/9008621/" target="_blank" class="restaurant-link">&#x1F36E; 羊羹（伴手禮）</a><a href="https://tabelog.com/tw/tochigi/A0903/A090301/9008238/" target="_blank" class="restaurant-link">&#x1F366; 冰（點心）</a></div>
+                </div>
+                <div class="schedule-item">
+                    <span class="schedule-time">15:00</span>
+                    <div class="schedule-desc" data-zh="搭公車回 JR 日光或東武日光站" data-en="Bus back to JR Nikko or Tobu-Nikko Station">搭公車回 JR 日光或東武日光站</div>
+                </div>
+                <div class="schedule-item">
+                    <span class="schedule-time">17:24</span>
+                    <div class="schedule-desc" data-zh="搭東武日光線回<strong>淺草</strong>（19:15 到）<br><small style='color:#999;'>最晚 17:24 發，或 17:44 發 19:35 到（超級壓線）</small><br><span class='transport-badge'>&#x1F683; 東武特急 ~2hr</span>" data-en="Tobu-Nikko Line to <strong>Asakusa</strong> (arrive 19:15)<br><small style='color:#999;'>Latest 17:24, or 17:44 arriving 19:35 (very tight)</small><br><span class='transport-badge'>&#x1F683; Tobu Limited Express ~2hr</span>">搭東武日光線回<strong>淺草</strong>（19:15 到）<br><small style="color:#999;">最晚 17:24 發，或 17:44 發 19:35 到（超級壓線）</small><br><span class="transport-badge">&#x1F683; 東武特急 ~2hr</span></div>
+                </div>
+                <div class="schedule-item">
+                    <span class="schedule-time">~19:30</span>
+                    <div class="schedule-desc" data-zh="回<strong>東橫INN</strong>放行李，轉車到銀座" data-en="Back to <strong>Toyoko Inn</strong> to drop luggage, transfer to Ginza">回<strong>東橫INN</strong>放行李，轉車到銀座</div>
+                </div>
+                <div class="schedule-item">
+                    <span class="schedule-time">20:30</span>
+                    <div class="schedule-desc" data-zh="<strong><a href='https://tabelog.com/tw/tokyo/A1301/A130101/13222093/' target='_blank' style='color:var(--deep-blue);'>USHIGORO S. GINZA</a></strong> 銀座燒肉晚餐<br>&yen;20,000&ndash;29,000 / 人（已訂位）" data-en="<strong><a href='https://tabelog.com/tw/tokyo/A1301/A130101/13222093/' target='_blank' style='color:var(--deep-blue);'>USHIGORO S. GINZA</a></strong> Ginza yakiniku dinner<br>&yen;20,000&ndash;29,000 / person (reserved)"><strong><a href="https://tabelog.com/tw/tokyo/A1301/A130101/13222093/" target="_blank" style="color:var(--deep-blue);">USHIGORO S. GINZA</a></strong> 銀座燒肉晚餐<br>&yen;20,000&ndash;29,000 / 人（已訂位）</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 9 -->
+        <div class="timeline-day">
+            <div class="day-header">
+                <span class="day-date">Day 9</span>
+                <span class="day-title" data-zh="1月21日 (日)" data-en="Jan 21 (Sun)">1月21日 (日)</span>
+                <span class="day-tag tag-travel" data-zh="&#x2708;&#xFE0F; 回程" data-en="&#x2708;&#xFE0F; Return">&#x2708;&#xFE0F; 回程</span>
+            </div>
+            <div class="day-content">
+                <div class="schedule-item">
+                    <span class="schedule-time" data-zh="早上" data-en="Morning">早上</span>
+                    <div class="schedule-desc" data-zh="自由行動，購買伴手禮（omiyage）" data-en="Free time, buy souvenirs (omiyage)">自由行動，購買伴手禮（omiyage）</div>
+                </div>
+                <div class="schedule-item">
+                    <span class="schedule-time" data-zh="中午" data-en="Noon">中午</span>
+                    <div class="schedule-desc"><a href="https://tabelog.com/tw/tokyo/A1313/A131301/13002328/" target="_blank" class="restaurant-link" data-zh="&#x1F363; 築地海鮮午餐" data-en="&#x1F363; Tsukiji seafood lunch">&#x1F363; 築地海鮮午餐</a></div>
+                </div>
+                <div class="schedule-item">
+                    <span class="schedule-time">~14:30</span>
+                    <div class="schedule-desc" data-zh="吃完午餐開始往<strong>成田機場</strong>移動<br><span class='transport-badge'>&#x1F683; Skyliner/NEX ~1hr</span>" data-en="After lunch, head to <strong>Narita Airport</strong><br><span class='transport-badge'>&#x1F683; Skyliner/NEX ~1hr</span>">吃完午餐開始往<strong>成田機場</strong>移動<br><span class="transport-badge">&#x1F683; Skyliner/NEX ~1hr</span></div>
+                </div>
+                <div class="schedule-item">
+                    <span class="schedule-time">17:00</span>
+                    <div class="schedule-desc" data-zh="yahsieh 班機起飛" data-en="yahsieh's flight departs">yahsieh 班機起飛</div>
+                </div>
+                <div class="schedule-item">
+                    <span class="schedule-time">17:45</span>
+                    <div class="schedule-desc" data-zh="其他人班機起飛 &rarr; 返回桃園機場，自行解散" data-en="Others' flight departs &rarr; arrive at Taoyuan Airport, dismiss">其他人班機起飛 &rarr; 返回桃園機場，自行解散</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Attractions -->
+<div class="section-full" id="attractions">
+    <div class="section-inner">
+        <div class="section-header fade-in">
+            <h2 data-zh="景點介紹" data-en="Attractions">景點介紹</h2>
+            <div class="section-divider"></div>
+            <p class="section-sub" data-zh="Attractions &amp; Points of Interest" data-en="Attractions &amp; Points of Interest">Attractions &amp; Points of Interest</p>
+        </div>
+        <div class="attractions-grid fade-in">
+            <div class="attraction-card">
+                <img src="images/goshikinuma.jpg" alt="五色沼" class="attraction-img" loading="lazy">
+                <div class="attraction-body">
+                    <h3><a href="https://fukushima.travel/destination/goshiki-numa-ponds/13" target="_blank">五色沼 (Goshikinuma)</a></h3>
+                    <p class="attraction-jp" data-zh="五色沼自然探勝路 &mdash; 裏磐梯" data-en="Goshikinuma Nature Trail &mdash; Urabandai">五色沼自然探勝路 &mdash; 裏磐梯</p>
+                    <p data-zh="五色沼是磐梯山腳下的火山湖群，由 1888 年磐梯山噴發所形成，包含 20 至 30 個大小不一的湖沼。因礦物質含量不同，每個湖泊呈現出藍、綠、紅、金等夢幻色彩。全長 3.6 公里的自然探勝路平緩好走，約 70&ndash;90 分鐘即可走完，冬季積雪覆蓋的湖畔景色格外迷人。" data-en="Goshikinuma is a group of volcanic lakes at the foot of Mt. Bandai, formed by the 1888 eruption. The 20-30 ponds display stunning blue, green, red, and gold colors due to varying mineral content. The 3.6km nature trail is gentle and takes 70-90 minutes. The snow-covered lakeside scenery in winter is particularly enchanting.">五色沼是磐梯山腳下的火山湖群，由 1888 年磐梯山噴發所形成，包含 20 至 30 個大小不一的湖沼。因礦物質含量不同，每個湖泊呈現出藍、綠、紅、金等夢幻色彩。全長 3.6 公里的自然探勝路平緩好走，約 70&ndash;90 分鐘即可走完，冬季積雪覆蓋的湖畔景色格外迷人。</p>
+                    <div class="attraction-meta">
+                        <span class="meta-item">&#x1F4CD; <a href="https://maps.google.com/?q=37.6667,140.0667" target="_blank" data-zh="裏磐梯, 福島" data-en="Urabandai, Fukushima">裏磐梯, 福島</a></span>
+                        <span class="meta-item">&#x1F97E; 3.6km / 70&ndash;90min</span>
+                        <span class="meta-item" data-zh="&#x1F5D3;&#xFE0F; 四季皆宜" data-en="&#x1F5D3;&#xFE0F; All seasons">&#x1F5D3;&#xFE0F; 四季皆宜</span>
+                    </div>
+                </div>
+            </div>
+            <div class="attraction-card">
+                <img src="images/ouchijuku.jpg" alt="大內宿" class="attraction-img" loading="lazy">
+                <div class="attraction-body">
+                    <h3><a href="https://fukushima.travel/destination/ouchi-juku/11" target="_blank">大內宿 (Ouchi-juku)</a></h3>
+                    <p class="attraction-jp" data-zh="江戶時代茅葺屋宿場町" data-en="Edo-period thatched-roof post town">江戶時代茅葺屋宿場町</p>
+                    <p data-zh="大內宿是福島縣下鄉町的江戶時代宿場町，保存了超過 300 年歷史的茅葺屋頂建築群。這裡曾是連結會津若松與日光的重要驛站，如今街道兩旁的傳統建築改為商店和餐廳。冬季時整個村落被厚雪覆蓋，宛如童話世界。必吃名物是用一整根大蔥當筷子吃的「大蔥蕎麥麵」。" data-en="Ouchi-juku is an Edo-period post town in Shimogo, Fukushima, preserving over 300 years of thatched-roof architecture. Once an important relay station between Aizu-Wakamatsu and Nikko, the traditional buildings now house shops and restaurants. In winter, the village is blanketed in thick snow like a fairytale. The must-try specialty is negi-soba &mdash; buckwheat noodles eaten with a whole leek as chopsticks.">大內宿是福島縣下鄉町的江戶時代宿場町，保存了超過 300 年歷史的茅葺屋頂建築群。這裡曾是連結會津若松與日光的重要驛站，如今街道兩旁的傳統建築改為商店和餐廳。冬季時整個村落被厚雪覆蓋，宛如童話世界。必吃名物是用一整根大蔥當筷子吃的「大蔥蕎麥麵」。</p>
+                    <div class="attraction-meta">
+                        <span class="meta-item">&#x1F4CD; <a href="https://maps.google.com/?q=37.3383,139.85" target="_blank" data-zh="下鄉町, 福島" data-en="Shimogo, Fukushima">下鄉町, 福島</a></span>
+                        <span class="meta-item" data-zh="&#x1F35C; 大蔥蕎麥麵" data-en="&#x1F35C; Negi-soba">&#x1F35C; 大蔥蕎麥麵</span>
+                        <span class="meta-item" data-zh="&#x2744;&#xFE0F; 冬季雪景最佳" data-en="&#x2744;&#xFE0F; Best in winter snow">&#x2744;&#xFE0F; 冬季雪景最佳</span>
+                    </div>
+                </div>
+            </div>
+            <div class="attraction-card">
+                <img src="images/tsuruga-castle.jpeg" alt="鶴城" class="attraction-img" loading="lazy">
+                <div class="attraction-body">
+                    <h3><a href="https://samurai-city.jp/en/history/2083" target="_blank">鶴城 (Tsuruga Castle)</a></h3>
+                    <p class="attraction-jp" data-zh="會津若松城 &mdash; 赤瓦天守閣" data-en="Aizu-Wakamatsu Castle &mdash; Red-tiled keep">會津若松城 &mdash; 赤瓦天守閣</p>
+                    <p data-zh="鶴城始建於 1384 年，是日本唯一擁有赤瓦屋頂的天守閣（2011 年修復）。這座城堡在戊辰戰爭（1868 年）中見證了會津藩武士的最後抵抗，是日本幕末歷史的重要舞台。冬季紅瓦白雪的對比格外壯觀。城內設有博物館，展示會津藩的歷史文物。" data-en="Tsuruga Castle, built in 1384, is the only castle in Japan with a red-tiled keep (restored in 2011). It witnessed the last stand of Aizu samurai during the Boshin War (1868), making it a significant site in late Edo history. The contrast of red tiles against white snow in winter is spectacular. The castle houses a museum of Aizu clan artifacts.">鶴城始建於 1384 年，是日本唯一擁有赤瓦屋頂的天守閣（2011 年修復）。這座城堡在戊辰戰爭（1868 年）中見證了會津藩武士的最後抵抗，是日本幕末歷史的重要舞台。冬季紅瓦白雪的對比格外壯觀。城內設有博物館，展示會津藩的歷史文物。</p>
+                    <div class="attraction-meta">
+                        <span class="meta-item">&#x1F4CD; <a href="https://maps.google.com/?q=37.4876,139.931" target="_blank" data-zh="會津若松市" data-en="Aizu-Wakamatsu">會津若松市</a></span>
+                        <span class="meta-item">&#x1F552; 8:30&ndash;17:00</span>
+                        <span class="meta-item" data-zh="&#x1F3EF; 日本百名城" data-en="&#x1F3EF; Top 100 Castles">&#x1F3EF; 日本百名城</span>
+                    </div>
+                </div>
+            </div>
+            <div class="attraction-card">
+                <img src="images/listel-ski.jpg" alt="Listel Ski" class="attraction-img" loading="lazy">
+                <div class="attraction-body">
+                    <h3><a href="https://www.listel-inawashiro.jp/english/ski/" target="_blank">Listel Ski Fantasia</a></h3>
+                    <p class="attraction-jp">Hotel Listel Inawashiro</p>
+                    <p data-zh="李斯特滑雪場是日本首個舉辦 FIS 自由式滑雪世界盃饅頭賽的雪場（1988 年），主滑道平均坡度僅 8 度，非常適合初學者和家庭。酒店直通雪場，設有溫泉、泳池和健身房。從雪場可遠眺磐梯山和豬苗代湖的壯麗雪景。" data-en="Listel Ski Fantasia was the first resort in Japan to host the FIS Freestyle Skiing World Cup moguls event (1988). With an average slope of only 8 degrees, it's perfect for beginners and families. The hotel is directly connected to the slopes and features onsen, pool, and gym. The resort offers stunning views of Mt. Bandai and Lake Inawashiro.">李斯特滑雪場是日本首個舉辦 FIS 自由式滑雪世界盃饅頭賽的雪場（1988 年），主滑道平均坡度僅 8 度，非常適合初學者和家庭。酒店直通雪場，設有溫泉、泳池和健身房。從雪場可遠眺磐梯山和豬苗代湖的壯麗雪景。</p>
+                    <div class="attraction-meta">
+                        <span class="meta-item">&#x1F4CD; <a href="https://maps.google.com/?q=37.5407,140.0878" target="_blank" data-zh="豬苗代町, 福島" data-en="Inawashiro, Fukushima">豬苗代町, 福島</a></span>
+                        <span class="meta-item" data-zh="&#x26F7;&#xFE0F; 初學者友善" data-en="&#x26F7;&#xFE0F; Beginner-friendly">&#x26F7;&#xFE0F; 初學者友善</span>
+                        <span class="meta-item" data-zh="&#x2668;&#xFE0F; 附設溫泉" data-en="&#x2668;&#xFE0F; Onsen included">&#x2668;&#xFE0F; 附設溫泉</span>
+                    </div>
+                </div>
+            </div>
+            <div class="attraction-card">
+                <img src="images/nikko-toshogu.jpg" alt="日光東照宮" class="attraction-img" loading="lazy">
+                <div class="attraction-body">
+                    <h3><a href="https://www.japan.travel/en/world-heritage/the-shrines-and-temples-of-nikko/" target="_blank">日光東照宮 (Nikko Toshogu)</a></h3>
+                    <p class="attraction-jp">UNESCO World Heritage</p>
+                    <p data-zh="日光東照宮是德川家康的靈廟，1999 年被列為 UNESCO 世界遺產。神社群由 103 棟宗教建築組成，以精緻華麗的雕刻聞名，其中最知名的是「三猿」（非禮勿視、非禮勿聽、非禮勿言）和「眠貓」雕刻。冬季白雪覆蓋的金碧輝煌建築群，呈現出莊嚴而夢幻的氛圍。" data-en="Nikko Toshogu is the mausoleum of Tokugawa Ieyasu, designated a UNESCO World Heritage Site in 1999. The shrine complex comprises 103 religious buildings renowned for their exquisite carvings, most famously the 'Three Wise Monkeys' (see no evil, hear no evil, speak no evil) and the 'Sleeping Cat.' The snow-covered gilded buildings in winter create a majestic, dreamlike atmosphere.">日光東照宮是德川家康的靈廟，1999 年被列為 UNESCO 世界遺產。神社群由 103 棟宗教建築組成，以精緻華麗的雕刻聞名，其中最知名的是「三猿」（非禮勿視、非禮勿聽、非禮勿言）和「眠貓」雕刻。冬季白雪覆蓋的金碧輝煌建築群，呈現出莊嚴而夢幻的氛圍。</p>
+                    <div class="attraction-meta">
+                        <span class="meta-item">&#x1F4CD; <a href="https://maps.google.com/?q=36.7581,139.5994" target="_blank" data-zh="日光市, 栃木" data-en="Nikko, Tochigi">日光市, 栃木</a></span>
+                        <span class="meta-item">&#x1F552; 9:00&ndash;17:00</span>
+                        <span class="meta-item" data-zh="&#x1F30F; 世界遺產" data-en="&#x1F30F; World Heritage">&#x1F30F; 世界遺產</span>
+                    </div>
+                </div>
+            </div>
+            <div class="attraction-card">
+                <img src="images/kegon-falls.webp" alt="華嚴瀑布" class="attraction-img" loading="lazy">
+                <div class="attraction-body">
+                    <h3><a href="https://www.visitnikko.jp/spots/kegon-falls/" target="_blank">華嚴瀑布 (Kegon Falls)</a></h3>
+                    <p class="attraction-jp" data-zh="日本三大名瀑之一" data-en="One of Japan's Three Great Waterfalls">日本三大名瀑之一</p>
+                    <p data-zh="華嚴瀑布從中禪寺湖傾瀉而下，落差達 97 公尺，是日本三大名瀑之一。冬季時瀑布幾乎完全結冰，形成壯觀的冰柱群，藍白色的冰瀑在陽光下閃耀，是冬季日光最令人震撼的自然奇觀。可搭乘電梯至觀景台近距離欣賞。" data-en="Kegon Falls cascades 97 meters from Lake Chuzenji, making it one of Japan's Three Great Waterfalls. In winter, the falls nearly freeze completely, forming spectacular ice columns that shimmer blue-white in the sunlight &mdash; the most breathtaking natural wonder of winter Nikko. An elevator takes visitors to an observation deck for close-up views.">華嚴瀑布從中禪寺湖傾瀉而下，落差達 97 公尺，是日本三大名瀑之一。冬季時瀑布幾乎完全結冰，形成壯觀的冰柱群，藍白色的冰瀑在陽光下閃耀，是冬季日光最令人震撼的自然奇觀。可搭乘電梯至觀景台近距離欣賞。</p>
+                    <div class="attraction-meta">
+                        <span class="meta-item">&#x1F4CD; <a href="https://maps.google.com/?q=36.7378,139.5" target="_blank" data-zh="中禪寺湖畔, 日光" data-en="Lake Chuzenji, Nikko">中禪寺湖畔, 日光</a></span>
+                        <span class="meta-item" data-zh="&#x1F4A7; 落差 97m" data-en="&#x1F4A7; 97m drop">&#x1F4A7; 落差 97m</span>
+                        <span class="meta-item" data-zh="&#x2744;&#xFE0F; 冬季冰瀑" data-en="&#x2744;&#xFE0F; Frozen in winter">&#x2744;&#xFE0F; 冬季冰瀑</span>
+                    </div>
+                </div>
+            </div>
+            <div class="attraction-card">
+                <img src="images/goshikinuma2.jpg" alt="末廣酒造" class="attraction-img" loading="lazy">
+                <div class="attraction-body">
+                    <h3><a href="https://fukushima.travel/destination/suehiro-sake-brewery-kaeigura/48" target="_blank">末廣酒造 (Suehiro Sake Brewery)</a></h3>
+                    <p class="attraction-jp" data-zh="嘉永藏 &mdash; 1850年創業" data-en="Kaeigura &mdash; Est. 1850">嘉永藏 &mdash; 1850年創業</p>
+                    <p data-zh="末廣酒造創立於 1850 年，至今已傳承七代，是會津地區最具代表性的酒造之一。其「嘉永藏」被指定為會津若松市重要歷史建築，遊客可免費參觀釀造過程並試飲各式清酒。酒造使用當地米和水，釀出真正反映會津風土的美酒。" data-en="Suehiro Sake Brewery, founded in 1850, has been passed down for seven generations and is one of the most iconic breweries in the Aizu region. Its 'Kaeigura' is designated as an important historical building. Visitors can tour the brewing process for free and sample various sake. The brewery uses local rice and water to craft sake that truly reflects Aizu's terroir.">末廣酒造創立於 1850 年，至今已傳承七代，是會津地區最具代表性的酒造之一。其「嘉永藏」被指定為會津若松市重要歷史建築，遊客可免費參觀釀造過程並試飲各式清酒。酒造使用當地米和水，釀出真正反映會津風土的美酒。</p>
+                    <div class="attraction-meta">
+                        <span class="meta-item">&#x1F4CD; <a href="https://maps.google.com/?q=37.4987,139.9267" target="_blank" data-zh="七日町, 會津若松" data-en="Nanukamachi, Aizu-Wakamatsu">七日町, 會津若松</a></span>
+                        <span class="meta-item" data-zh="&#x1F376; 免費試飲" data-en="&#x1F376; Free tasting">&#x1F376; 免費試飲</span>
+                        <span class="meta-item" data-zh="&#x1F3DB;&#xFE0F; 歷史建築" data-en="&#x1F3DB;&#xFE0F; Historic building">&#x1F3DB;&#xFE0F; 歷史建築</span>
+                    </div>
+                </div>
+            </div>
+            <div class="attraction-card">
+                <img src="images/ouchijuku2.webp" alt="teamLab Planets" class="attraction-img" loading="lazy">
+                <div class="attraction-body">
+                    <h3><a href="https://www.teamlab.art/e/planets/" target="_blank">teamLab Planets TOKYO</a></h3>
+                    <p class="attraction-jp" data-zh="豐洲沉浸式數位藝術美術館" data-en="Toyosu Immersive Digital Art Museum">豐洲沉浸式數位藝術美術館</p>
+                    <p data-zh="teamLab Planets 是東京最受歡迎的沉浸式數位藝術美術館，由藝術團隊 teamLab 打造。遊客赤腳涉水穿越巨大的藝術空間，身體與作品的界線逐漸消融。作品會隨著人們的存在而變化，每次造訪都是獨一無二的體驗。門票透過 KKday/Klook 購買較便宜。" data-en="teamLab Planets is Tokyo's most popular immersive digital art museum, created by art collective teamLab. Visitors walk barefoot through water in massive art spaces where the boundary between body and artwork dissolves. The artworks change with people's presence, making every visit unique. Tickets are cheaper through KKday/Klook.">teamLab Planets 是東京最受歡迎的沉浸式數位藝術美術館，由藝術團隊 teamLab 打造。遊客赤腳涉水穿越巨大的藝術空間，身體與作品的界線逐漸消融。作品會隨著人們的存在而變化，每次造訪都是獨一無二的體驗。門票透過 KKday/Klook 購買較便宜。</p>
+                    <div class="attraction-meta">
+                        <span class="meta-item">&#x1F4CD; <a href="https://maps.google.com/?q=35.6503,139.7892" target="_blank" data-zh="豐洲, 東京" data-en="Toyosu, Tokyo">豐洲, 東京</a></span>
+                        <span class="meta-item" data-zh="&#x1F3A8; 沉浸式藝術" data-en="&#x1F3A8; Immersive art">&#x1F3A8; 沉浸式藝術</span>
+                        <span class="meta-item" data-zh="&#x1F552; 建議預購門票" data-en="&#x1F552; Pre-book tickets">&#x1F552; 建議預購門票</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Restaurants -->
+<section class="section" id="restaurants">
+    <div class="section-header fade-in">
+        <h2 data-zh="美食推薦" data-en="Restaurant Picks">美食推薦</h2>
+        <div class="section-divider"></div>
+        <p class="section-sub" data-zh="Restaurant Picks" data-en="Restaurant Picks">Restaurant Picks</p>
+    </div>
+    <div class="restaurant-grid fade-in">
+        <div class="restaurant-card">
+            <h4>&#x1F363; <span data-zh="築地海鮮" data-en="Tsukiji Seafood">築地海鮮</span></h4>
+            <div class="rest-day" data-zh="Day 2 午餐 / Day 9 午餐" data-en="Day 2 Lunch / Day 9 Lunch">Day 2 午餐 / Day 9 午餐</div>
+            <p data-zh="東京築地場外市場，新鮮海鮮丼、壽司" data-en="Tokyo Tsukiji Outer Market, fresh seafood don &amp; sushi">東京築地場外市場，新鮮海鮮丼、壽司</p>
+            <a href="https://tabelog.com/tw/tokyo/A1313/A131301/13002328/" target="_blank">Tabelog &rarr;</a>
+        </div>
+        <div class="restaurant-card">
+            <h4>&#x1F969; USHIGORO S. GINZA</h4>
+            <div class="rest-day" data-zh="Day 8 晚餐 20:30（已訂位）" data-en="Day 8 Dinner 20:30 (Reserved)">Day 8 晚餐 20:30（已訂位）</div>
+            <p data-zh="銀座頂級燒肉，&yen;20,000&ndash;29,000/人" data-en="Premium Ginza yakiniku, &yen;20,000&ndash;29,000/person">銀座頂級燒肉，&yen;20,000&ndash;29,000/人</p>
+            <a href="https://tabelog.com/tw/tokyo/A1301/A130101/13222093/" target="_blank">Tabelog &rarr;</a>
+        </div>
+        <div class="restaurant-card">
+            <h4>&#x1F35C; <span data-zh="會津拉麵" data-en="Aizu Ramen">會津拉麵</span></h4>
+            <div class="rest-day" data-zh="Day 6 午餐候選" data-en="Day 6 Lunch option">Day 6 午餐候選</div>
+            <p data-zh="會津若松站附近拉麵店（位置很少，建議早到）" data-en="Ramen shop near Aizu-Wakamatsu Station (limited seats, arrive early)">會津若松站附近拉麵店（位置很少，建議早到）</p>
+            <a href="https://tabelog.com/tw/fukushima/A0705/A070501/7015734/" target="_blank">Tabelog &rarr;</a>
+        </div>
+        <div class="restaurant-card">
+            <h4>&#x1F969; <span data-zh="鄉土料理（馬肉）" data-en="Local Cuisine (Horse Meat)">鄉土料理（馬肉）</span></h4>
+            <div class="rest-day" data-zh="Day 6 午餐候選" data-en="Day 6 Lunch option">Day 6 午餐候選</div>
+            <p data-zh="會津若松鄉土料理，馬肉等在地美食" data-en="Aizu-Wakamatsu local cuisine, horse meat and regional specialties">會津若松鄉土料理，馬肉等在地美食</p>
+            <a href="https://tabelog.com/tw/fukushima/A0705/A070501/7001819/" target="_blank">Tabelog &rarr;</a>
+        </div>
+        <div class="restaurant-card">
+            <h4>&#x1F35D; <span data-zh="大蔥蕎麥麵" data-en="Negi-soba (Leek Soba)">大蔥蕎麥麵</span></h4>
+            <div class="rest-day" data-zh="Day 7 午餐 &mdash; 大內宿" data-en="Day 7 Lunch &mdash; Ouchi-juku">Day 7 午餐 &mdash; 大內宿</div>
+            <p data-zh="大內宿名物！用一整根大蔥當筷子吃蕎麥麵" data-en="Ouchi-juku specialty! Eat soba noodles using a whole leek as chopsticks">大內宿名物！用一整根大蔥當筷子吃蕎麥麵</p>
+        </div>
+        <div class="restaurant-card">
+            <h4>&#x1F962; <span data-zh="中禪寺湖畔豆腐料理" data-en="Lake Chuzenji Tofu Cuisine">中禪寺湖畔豆腐料理</span></h4>
+            <div class="rest-day" data-zh="Day 8 午餐候選" data-en="Day 8 Lunch option">Day 8 午餐候選</div>
+            <p data-zh="日光中禪寺湖旁的豆腐料理餐廳" data-en="Tofu cuisine restaurant by Lake Chuzenji, Nikko">日光中禪寺湖旁的豆腐料理餐廳</p>
+            <a href="https://tabelog.com/tw/tochigi/A0903/A090301/9010363/" target="_blank">Tabelog &rarr;</a>
+        </div>
+        <div class="restaurant-card">
+            <h4>&#x1F37A; <span data-zh="日光晚餐選項" data-en="Nikko Dinner Options">日光晚餐選項</span></h4>
+            <div class="rest-day" data-zh="Day 7 晚餐" data-en="Day 7 Dinner">Day 7 晚餐</div>
+            <p data-zh="酒吧、義式、西式料理、豆腐料理" data-en="Bar, Italian, Western, tofu cuisine">酒吧、義式、西式料理、豆腐料理</p>
+            <a href="https://tabelog.com/tw/tochigi/A0903/A090301/9001045/" target="_blank" data-zh="酒吧" data-en="Bar">酒吧</a> &middot;
+            <a href="https://tabelog.com/tw/tochigi/A0903/A090301/9017600/" target="_blank" data-zh="義式" data-en="Italian">義式</a> &middot;
+            <a href="https://tabelog.com/tw/tochigi/A0903/A090301/9015090/" target="_blank" data-zh="豆腐" data-en="Tofu">豆腐</a>
+        </div>
+        <div class="restaurant-card">
+            <h4>&#x1F36E; <span data-zh="日光伴手禮" data-en="Nikko Souvenirs">日光伴手禮</span></h4>
+            <div class="rest-day" data-zh="Day 8 中禪寺湖" data-en="Day 8 Lake Chuzenji">Day 8 中禪寺湖</div>
+            <p data-zh="羊羹（伴手禮）、冰品點心" data-en="Yokan (souvenir), ice cream snacks">羊羹（伴手禮）、冰品點心</p>
+            <a href="https://tabelog.com/tw/tochigi/A0903/A090301/9008621/" target="_blank" data-zh="羊羹" data-en="Yokan">羊羹</a> &middot;
+            <a href="https://tabelog.com/tw/tochigi/A0903/A090301/9008
+238/" target="_blank" data-zh="冰品" data-en="Ice cream">冰品</a>
+        </div>
+    </div>
+</section>
+
+<!-- Accommodation -->
+<div class="section-full" id="accommodation">
+    <div class="section-inner">
+        <div class="section-header fade-in">
+            <h2 data-zh="住宿安排" data-en="Accommodation">住宿安排</h2>
+            <div class="section-divider"></div>
+            <p class="section-sub" data-zh="Accommodation" data-en="Accommodation">Accommodation</p>
+        </div>
+        <div class="accommodation-cards fade-in">
+            <div class="accom-card">
+                <h4>&#x1F3E8; <span data-zh="東橫INN 神田秋葉原" data-en="Toyoko Inn Kanda Akihabara">東橫INN 神田秋葉原</span></h4>
+                <div class="accom-dates" data-zh="Day 1 (1/13) &amp; Day 8&ndash;9 (1/20&ndash;21)" data-en="Day 1 (1/13) &amp; Day 8&ndash;9 (1/20&ndash;21)">Day 1 (1/13) &amp; Day 8&ndash;9 (1/20&ndash;21)</div>
+                <p data-zh="東京站附近，交通便利。含免費早餐。" data-en="Near Tokyo Station, convenient transportation. Free breakfast included.">東京站附近，交通便利。含免費早餐。</p>
+            </div>
+            <div class="accom-card">
+                <h4>&#x26F7;&#xFE0F; Hotel Listel Inawashiro</h4>
+                <div class="accom-dates" data-zh="Day 2&ndash;5 (1/14&ndash;18) &mdash; 3泊4日" data-en="Day 2&ndash;5 (1/14&ndash;18) &mdash; 3 nights">Day 2&ndash;5 (1/14&ndash;18) &mdash; 3泊4日</div>
+                <p data-zh="含早晚餐 + 雪具 package &yen;510,400（8人）<br>&#x1F4DE; 預約號碼 A00 24831946<br>附設溫泉、泳池，直通雪場" data-en="Includes breakfast &amp; dinner + gear package &yen;510,400 (8 ppl)<br>&#x1F4DE; Reservation No. A00 24831946<br>Onsen, pool, direct slope access">含早晚餐 + 雪具 package &yen;510,400（8人）<br>&#x1F4DE; 預約號碼 A00 24831946<br>附設溫泉、泳池，直通雪場</p>
+            </div>
+            <div class="accom-card">
+                <h4>&#x2668;&#xFE0F; <span data-zh="御宿東鳳" data-en="Onyado Toho">御宿東鳳</span></h4>
+                <div class="accom-dates" data-zh="Day 6 (1/18) &mdash; 1泊" data-en="Day 6 (1/18) &mdash; 1 night">Day 6 (1/18) &mdash; 1泊</div>
+                <p data-zh="會津若松溫泉旅館，含晚餐 + 早餐<br>露天溫泉，接駁車接送" data-en="Aizu-Wakamatsu onsen ryokan, dinner &amp; breakfast included<br>Open-air onsen, shuttle service">會津若松溫泉旅館，含晚餐 + 早餐<br>露天溫泉，接駁車接送</p>
+            </div>
+            <div class="accom-card">
+                <h4>&#x1F3E0; Nikko House / Vacation STAY 40938</h4>
+                <div class="accom-dates" data-zh="Day 7 (1/19) &mdash; 1泊" data-en="Day 7 (1/19) &mdash; 1 night">Day 7 (1/19) &mdash; 1泊</div>
+                <p data-zh="距東武日光站 1.1km<br>可能需搭計程車" data-en="1.1km from Tobu-Nikko Station<br>May need taxi">距東武日光站 1.1km<br>可能需搭計程車</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Costs -->
+<section class="section" id="costs">
+    <div class="section-header fade-in">
+        <h2 data-zh="費用概覽" data-en="Cost Breakdown">費用概覽</h2>
+        <div class="section-divider"></div>
+        <p class="section-sub" data-zh="Cost Breakdown (per person)" data-en="Cost Breakdown (per person)">Cost Breakdown (per person)</p>
+    </div>
+    <div class="cost-grid fade-in">
+        <div class="cost-card">
+            <h4 data-zh="&#x2708;&#xFE0F; 機票" data-en="&#x2708;&#xFE0F; Flights">&#x2708;&#xFE0F; 機票</h4>
+            <div class="cost-row"><span class="cost-label" data-zh="華航 TPE&harr;NRT 來回" data-en="China Airlines TPE&harr;NRT round trip">華航 TPE&harr;NRT 來回</span><span class="cost-value">~NT$14,000</span></div>
+        </div>
+        <div class="cost-card">
+            <h4 data-zh="&#x1F685; 交通" data-en="&#x1F685; Transportation">&#x1F685; 交通</h4>
+            <div class="cost-row"><span class="cost-label" data-zh="新幹線（30% off 早鳥）" data-en="Shinkansen (30% off early bird)">新幹線（30% off 早鳥）</span><span class="cost-value">&yen;5,838</span></div>
+            <div class="cost-row"><span class="cost-label" data-zh="JR 磐越西線" data-en="JR Ban-Etsu West Line">JR 磐越西線</span><span class="cost-value">~&yen;1,000</span></div>
+            <div class="cost-row"><span class="cost-label" data-zh="五色沼公車" data-en="Goshikinuma bus">五色沼公車</span><span class="cost-value">~&yen;800</span></div>
+            <div class="cost-row"><span class="cost-label" data-zh="海卡拉桑巴士一日券" data-en="Haikara-san Bus 1-day pass">海卡拉桑巴士一日券</span><span class="cost-value">&yen;600</span></div>
+            <div class="cost-row"><span class="cost-label" data-zh="會津鐵道 + 東武日光" data-en="Aizu Railway + Tobu Nikko">會津鐵道 + 東武日光</span><span class="cost-value">~&yen;4,000</span></div>
+            <div class="cost-row"><span class="cost-label" data-zh="東武日光&rarr;淺草" data-en="Tobu Nikko&rarr;Asakusa">東武日光&rarr;淺草</span><span class="cost-value">~&yen;2,800</span></div>
+        </div>
+        <div class="cost-card">
+            <h4 data-zh="&#x26F7;&#xFE0F; 滑雪" data-en="&#x26F7;&#xFE0F; Skiing">&#x26F7;&#xFE0F; 滑雪</h4>
+            <div class="cost-row"><span class="cost-label" data-zh="李斯特住宿+餐+雪具（8人3晚）" data-en="Listel hotel+meals+gear (8 ppl, 3 nights)">李斯特住宿+餐+雪具（8人3晚）</span><span class="cost-value">&yen;510,400</span></div>
+            <div class="cost-row"><span class="cost-label" data-zh="教練課（SK 5人）" data-en="Instructor (SK 5 ppl)">教練課（SK 5人）</span><span class="cost-value">&yen;19,500</span></div>
+            <div class="cost-row"><span class="cost-label" data-zh="教練課（SB 3人）" data-en="Instructor (SB 3 ppl)">教練課（SB 3人）</span><span class="cost-value">&yen;22,000</span></div>
+            <div class="cost-row"><span class="cost-label" data-zh="纜車券（50% off）" data-en="Lift pass (50% off)">纜車券（50% off）</span><span class="cost-value" data-zh="半價優惠" data-en="Half price">半價優惠</span></div>
+        </div>
+        <div class="cost-card">
+            <h4 data-zh="&#x1F3E8; 其他住宿" data-en="&#x1F3E8; Other Accommodation">&#x1F3E8; 其他住宿</h4>
+            <div class="cost-row"><span class="cost-label" data-zh="東橫INN（2晚）" data-en="Toyoko Inn (2 nights)">東橫INN（2晚）</span><span class="cost-value">~&yen;12,000</span></div>
+            <div class="cost-row"><span class="cost-label" data-zh="御宿東鳳（1晚含餐）" data-en="Onyado Toho (1 night w/ meals)">御宿東鳳（1晚含餐）</span><span class="cost-value">~&yen;15,000</span></div>
+            <div class="cost-row"><span class="cost-label" data-zh="日光民宿（1晚）" data-en="Nikko House (1 night)">日光民宿（1晚）</span><span class="cost-value">~&yen;5,000</span></div>
+        </div>
+        <div class="cost-card">
+            <h4 data-zh="&#x1F37D;&#xFE0F; 餐費預估" data-en="&#x1F37D;&#xFE0F; Estimated Meals">&#x1F37D;&#xFE0F; 餐費預估</h4>
+            <div class="cost-row"><span class="cost-label" data-zh="USHIGORO 銀座燒肉" data-en="USHIGORO Ginza Yakiniku">USHIGORO 銀座燒肉</span><span class="cost-value">&yen;20,000&ndash;29,000</span></div>
+            <div class="cost-row"><span class="cost-label" data-zh="其他餐費（約 7 天）" data-en="Other meals (~7 days)">其他餐費（約 7 天）</span><span class="cost-value">~&yen;1,500&ndash;3,000/<span data-zh="餐" data-en="meal">餐</span></span></div>
+        </div>
+    </div>
+</section>
+
+<!-- Meeting Notes -->
+<div class="section-full" id="meetings">
+    <div class="section-inner">
+        <div class="section-header fade-in">
+            <h2 data-zh="行前討論紀錄" data-en="Pre-trip Meeting Notes">行前討論紀錄</h2>
+            <div class="section-divider"></div>
+            <p class="section-sub" data-zh="Meeting Notes (11 Sessions)" data-en="Meeting Notes (11 Sessions)">Meeting Notes (11 Sessions)</p>
+        </div>
+        <div class="meeting-timeline fade-in">
+            <div class="meeting-card">
+                <h4 data-zh="一籌" data-en="Meeting 1">一籌</h4>
+                <div class="meeting-date" data-zh="目的地投票" data-en="Destination Vote">目的地投票</div>
+                <ul>
+                    <li data-zh="候選：北海道、東北、長野、新潟" data-en="Candidates: Hokkaido, Tohoku, Nagano, Niigata">候選：北海道、東北、長野、新潟</li>
+                    <li data-zh="投票結果：東北勝出 <span class='vote-result'>東北 3 : 北海道 2 : 長野 2</span>" data-en="Vote result: Tohoku wins <span class='vote-result'>Tohoku 3 : Hokkaido 2 : Nagano 2</span>">投票結果：東北勝出 <span class="vote-result">東北 3 : 北海道 2 : 長野 2</span></li>
+                    <li data-zh="預算：機票 ~NT$14,000" data-en="Budget: flights ~NT$14,000">預算：機票 ~NT$14,000</li>
+                </ul>
+            </div>
+            <div class="meeting-card">
+                <h4 data-zh="二籌" data-en="Meeting 2">二籌</h4>
+                <div class="meeting-date" data-zh="雪場選擇" data-en="Ski Resort Selection">雪場選擇</div>
+                <ul>
+                    <li data-zh="候選雪場：安比高原、藏王、李斯特、裏磐梯" data-en="Candidate resorts: Appi Kogen, Zao, Listel, Urabandai">候選雪場：安比高原、藏王、李斯特、裏磐梯</li>
+                    <li data-zh="考量因素：交通便利性、費用、初學者友善度" data-en="Factors: accessibility, cost, beginner-friendliness">考量因素：交通便利性、費用、初學者友善度</li>
+                </ul>
+            </div>
+            <div class="meeting-card">
+                <h4 data-zh="三籌 &ndash; 四籌" data-en="Meeting 3&ndash;4">三籌 &ndash; 四籌</h4>
+                <div class="meeting-date" data-zh="住宿與行程規劃" data-en="Accommodation &amp; Itinerary Planning">住宿與行程規劃</div>
+                <ul>
+                    <li data-zh="李斯特 vs 裏磐梯住宿比較" data-en="Listel vs Urabandai accommodation comparison">李斯特 vs 裏磐梯住宿比較</li>
+                    <li data-zh="確定 9 天行程架構：東京&rarr;滑雪&rarr;會津&rarr;日光&rarr;東京" data-en="Confirmed 9-day structure: Tokyo&rarr;Skiing&rarr;Aizu&rarr;Nikko&rarr;Tokyo">確定 9 天行程架構：東京&rarr;滑雪&rarr;會津&rarr;日光&rarr;東京</li>
+                    <li data-zh="討論五色沼、大內宿、日光的可行性" data-en="Discussed feasibility of Goshikinuma, Ouchi-juku, Nikko">討論五色沼、大內宿、日光的可行性</li>
+                </ul>
+            </div>
+            <div class="meeting-card">
+                <h4 data-zh="五籌 &ndash; 六籌" data-en="Meeting 5&ndash;6">五籌 &ndash; 六籌</h4>
+                <div class="meeting-date" data-zh="交通與餐廳" data-en="Transportation &amp; Restaurants">交通與餐廳</div>
+                <ul>
+                    <li data-zh="新幹線早鳥票 30% off 搶票策略" data-en="Shinkansen 30% off early bird ticket strategy">新幹線早鳥票 30% off 搶票策略</li>
+                    <li data-zh="各天餐廳 Tabelog 搜尋與投票" data-en="Restaurant Tabelog search &amp; voting for each day">各天餐廳 Tabelog 搜尋與投票</li>
+                    <li data-zh="USHIGORO 銀座燒肉訂位" data-en="USHIGORO Ginza yakiniku reservation">USHIGORO 銀座燒肉訂位</li>
+                </ul>
+            </div>
+            <div class="meeting-card">
+                <h4 data-zh="七籌" data-en="Meeting 7">七籌</h4>
+                <div class="meeting-date" data-zh="住宿最終確認" data-en="Final Accommodation Confirmation">住宿最終確認</div>
+                <ul>
+                    <li data-zh="李斯特 booking 換成官網訂早+晚餐+雪具 package：&yen;510,400" data-en="Listel booking changed to official site: breakfast+dinner+gear package: &yen;510,400">李斯特 booking 換成官網訂早+晚餐+雪具 package：&yen;510,400</li>
+                    <li data-zh="12/3 小叮噹滑雪練習已訂" data-en="12/3 Xiao Ding Dang ski practice booked">12/3 小叮噹滑雪練習已訂</li>
+                    <li data-zh="維持 1/15&ndash;17 滑雪行程，教練課 Day 3" data-en="Confirmed 1/15&ndash;17 ski schedule, instructor on Day 3">維持 1/15&ndash;17 滑雪行程，教練課 Day 3</li>
+                    <li data-zh="飯店確定住李斯特（投票結果）" data-en="Hotel confirmed: Listel (by vote)">飯店確定住李斯特（投票結果）</li>
+                </ul>
+            </div>
+            <div class="meeting-card">
+                <h4 data-zh="八籌" data-en="Meeting 8">八籌</h4>
+                <div class="meeting-date" data-zh="Day 2 行程與會津景點投票" data-en="Day 2 Itinerary &amp; Aizu Attraction Vote">Day 2 行程與會津景點投票</div>
+                <ul>
+                    <li data-zh="1/14 要不要直接去李斯特？&rarr; 投票決定留在東京 <span class='vote-result'>東京勝出</span>" data-en="1/14 go directly to Listel? &rarr; Voted to stay in Tokyo <span class='vote-result'>Tokyo wins</span>">1/14 要不要直接去李斯特？&rarr; 投票決定留在東京 <span class="vote-result">東京勝出</span></li>
+                    <li data-zh="會津若松景點投票（一人兩票）：<br>鶴城（保底）、御藥園（5票最高）、會津武家屋敷（2票）" data-en="Aizu-Wakamatsu attraction vote (2 votes each):<br>Tsuruga Castle (guaranteed), Oyakuen (5 votes, highest), Aizu Bukeyashiki (2 votes)">會津若松景點投票（一人兩票）：<br>鶴城（保底）、御藥園（5票最高）、會津武家屋敷（2票）</li>
+                    <li data-zh="新幹線 30% off 早鳥票：12/7 左右可購買" data-en="Shinkansen 30% off early bird: available around 12/7">新幹線 30% off 早鳥票：12/7 左右可購買</li>
+                </ul>
+            </div>
+            <div class="meeting-card">
+                <h4 data-zh="九籌 &ndash; 十籌" data-en="Meeting 9&ndash;10">九籌 &ndash; 十籌</h4>
+                <div class="meeting-date" data-zh="最終確認：交通、門票、教練" data-en="Final Confirmation: Transport, Tickets, Instructor">最終確認：交通、門票、教練</div>
+                <ul>
+                    <li data-zh="TeamLab 門票透過 KKday/Klook 購買（hchsu1112 負責）" data-en="TeamLab tickets via KKday/Klook (hchsu1112 in charge)">TeamLab 門票透過 KKday/Klook 購買（hchsu1112 負責）</li>
+                    <li data-zh="新幹線已訂：&yen;52,000（8人，30% off 早鳥）" data-en="Shinkansen booked: &yen;52,000 (8 ppl, 30% off early bird)">新幹線已訂：&yen;52,000（8人，30% off 早鳥）</li>
+                    <li data-zh="教練確認：SB 3人 &yen;22,000/3hr、SK 5人 &yen;19,500/3hr" data-en="Instructor confirmed: SB 3 ppl &yen;22,000/3hr, SK 5 ppl &yen;19,500/3hr">教練確認：SB 3人 &yen;22,000/3hr、SK 5人 &yen;19,500/3hr</li>
+                    <li data-zh="纜車券 50% off 優惠（1日券/5時間券）" data-en="Lift pass 50% off (1-day/5-hour pass)">纜車券 50% off 優惠（1日券/5時間券）</li>
+                    <li data-zh="決定在東京站上車（各自決定午餐）" data-en="Decided to board at Tokyo Station (lunch on your own)">決定在東京站上車（各自決定午餐）</li>
+                </ul>
+            </div>
+            <div class="meeting-card">
+                <h4 data-zh="十一籌" data-en="Meeting 11">十一籌</h4>
+                <div class="meeting-date" data-zh="最終準備與無雪備案" data-en="Final Prep &amp; No-Snow Backup Plan">最終準備與無雪備案</div>
+                <ul>
+                    <li data-zh="李斯特無雪備案：改去豬苗代雪場（接駁車免費，但要1小時）" data-en="Listel no-snow backup: switch to Inawashiro resort (free shuttle, 1hr)">李斯特無雪備案：改去豬苗代雪場（接駁車免費，但要1小時）</li>
+                    <li data-zh="李斯特 vs 裏磐梯投票 &rarr; 維持李斯特 <span class='vote-result'>李斯特 4 : 裏磐梯 1</span>" data-en="Listel vs Urabandai vote &rarr; Stay with Listel <span class='vote-result'>Listel 4 : Urabandai 1</span>">李斯特 vs 裏磐梯投票 &rarr; 維持李斯特 <span class="vote-result">李斯特 4 : 裏磐梯 1</span></li>
+                    <li data-zh="費用比較：李斯特 &yen;562,400 vs 裏磐梯 &yen;626,600" data-en="Cost comparison: Listel &yen;562,400 vs Urabandai &yen;626,600">費用比較：李斯特 &yen;562,400 vs 裏磐梯 &yen;626,600</li>
+                    <li data-zh="其他備案雪場：Urabandai、Grandeco、Nekoma、Alts Bandai" data-en="Other backup resorts: Urabandai, Grandeco, Nekoma, Alts Bandai">其他備案雪場：Urabandai、Grandeco、Nekoma、Alts Bandai</li>
+                    <li data-zh="確認接駁車預約（1/13 下午五點前通知搭 17:00 接駁車）" data-en="Confirm shuttle reservation (notify by 5pm on 1/13 for 17:00 shuttle)">確認接駁車預約（1/13 下午五點前通知搭 17:00 接駁車）</li>
+                    <li data-zh="分享 Slopes app 追蹤滑雪數據" data-en="Share Slopes app for tracking ski data">分享 Slopes app 追蹤滑雪數據</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Checklist -->
+<section class="section" id="checklist">
+    <div class="section-header fade-in">
+        <h2 data-zh="行前準備清單" data-en="Packing Checklist">行前準備清單</h2>
+        <div class="section-divider"></div>
+        <p class="section-sub" data-zh="Packing Checklist" data-en="Packing Checklist">Packing Checklist</p>
+    </div>
+    <div class="checklist-grid fade-in">
+        <div class="checklist-group">
+            <h4 data-zh="&#x1F4C4; 證件與票券" data-en="&#x1F4C4; Documents &amp; Tickets">&#x1F4C4; 證件與票券</h4>
+            <div class="checklist-item" data-zh="護照（確認有效期）" data-en="Passport (check validity)">護照（確認有效期）</div>
+            <div class="checklist-item" data-zh="機票（華航 TPE&harr;NRT）" data-en="Flight tickets (China Airlines TPE&harr;NRT)">機票（華航 TPE&harr;NRT）</div>
+            <div class="checklist-item" data-zh="旅遊保險 / 旅遊不便險" data-en="Travel insurance / inconvenience insurance">旅遊保險 / 旅遊不便險</div>
+            <div class="checklist-item" data-zh="西瓜卡 / ICOCA" data-en="Suica / ICOCA card">西瓜卡 / ICOCA</div>
+            <div class="checklist-item" data-zh="Visit Japan Web 登錄" data-en="Visit Japan Web registration">Visit Japan Web 登錄</div>
+            <div class="checklist-item" data-zh="新幹線車票（已訂 30% off）" data-en="Shinkansen tickets (30% off booked)">新幹線車票（已訂 30% off）</div>
+            <div class="checklist-item" data-zh="TeamLab 門票 QR Code" data-en="TeamLab ticket QR Code">TeamLab 門票 QR Code</div>
+        </div>
+        <div class="checklist-group">
+            <h4 data-zh="&#x26F7;&#xFE0F; 滑雪裝備" data-en="&#x26F7;&#xFE0F; Ski Gear">&#x26F7;&#xFE0F; 滑雪裝備</h4>
+            <div class="checklist-item" data-zh="防風防水外套（雪衣）" data-en="Windproof waterproof jacket (ski jacket)">防風防水外套（雪衣）</div>
+            <div class="checklist-item" data-zh="防水褲子（雪褲）" data-en="Waterproof pants (ski pants)">防水褲子（雪褲）</div>
+            <div class="checklist-item" data-zh="保暖內層（排汗衫）" data-en="Warm base layer (moisture-wicking)">保暖內層（排汗衫）</div>
+            <div class="checklist-item" data-zh="防水手套" data-en="Waterproof gloves">防水手套</div>
+            <div class="checklist-item" data-zh="雪鏡" data-en="Ski goggles">雪鏡</div>
+            <div class="checklist-item" data-zh="長襪（穿雪靴較舒服）" data-en="Long socks (more comfortable with ski boots)">長襪（穿雪靴較舒服）</div>
+            <div class="checklist-item" data-zh="頭套 / Neck Warmer（不能圍巾）" data-en="Balaclava / Neck Warmer (no scarves)">頭套 / Neck Warmer（不能圍巾）</div>
+            <div class="checklist-item" data-zh="安全帽 / 毛帽" data-en="Helmet / Beanie">安全帽 / 毛帽</div>
+            <div class="checklist-item" data-zh="護膝、護肘、護臀（可考慮購買）" data-en="Knee/elbow/hip pads (consider buying)">護膝、護肘、護臀（可考慮購買）</div>
+        </div>
+        <div class="checklist-group">
+            <h4 data-zh="&#x1F455; 日常用品" data-en="&#x1F455; Daily Essentials">&#x1F455; 日常用品</h4>
+            <div class="checklist-item" data-zh="換洗衣物" data-en="Change of clothes">換洗衣物</div>
+            <div class="checklist-item" data-zh="泳衣（溫泉用）" data-en="Swimsuit (for onsen)">泳衣（溫泉用）</div>
+            <div class="checklist-item" data-zh="隱形眼鏡" data-en="Contact lenses">隱形眼鏡</div>
+            <div class="checklist-item" data-zh="日本網路方案" data-en="Japan internet plan">日本網路方案</div>
+            <div class="checklist-item" data-zh="翻譯 App" data-en="Translation app">翻譯 App</div>
+            <div class="checklist-item" data-zh="泡麵 + 筷子" data-en="Instant noodles + chopsticks">泡麵 + 筷子</div>
+            <div class="checklist-item" data-zh="毛巾（溫泉用）" data-en="Towel (for onsen)">毛巾（溫泉用）</div>
+        </div>
+        <div class="checklist-group">
+            <h4 data-zh="&#x1F48A; 保養與其他" data-en="&#x1F48A; Skincare &amp; Others">&#x1F48A; 保養與其他</h4>
+            <div class="checklist-item" data-zh="保濕用品" data-en="Moisturizer">保濕用品</div>
+            <div class="checklist-item" data-zh="護唇膏（強烈建議！）" data-en="Lip balm (highly recommended!)">護唇膏（強烈建議！）</div>
+            <div class="checklist-item" data-zh="防曬" data-en="Sunscreen">防曬</div>
+            <div class="checklist-item" data-zh="酸痛貼布" data-en="Pain relief patches">酸痛貼布</div>
+            <div class="checklist-item" data-zh="耳塞 LV5" data-en="Earplugs LV5">耳塞 LV5</div>
+        </div>
+    </div>
+</section>
+
+<!-- Emergency -->
+<section class="section" id="emergency">
+    <div class="section-header fade-in">
+        <h2 data-zh="應急備案" data-en="Emergency Plans">應急備案</h2>
+        <div class="section-divider"></div>
+        <p class="section-sub" data-zh="Emergency Plans" data-en="Emergency Plans">Emergency Plans</p>
+    </div>
+    <div class="cost-grid fade-in">
+        <div class="cost-card">
+            <h4 data-zh="&#x2744;&#xFE0F; 天氣因素" data-en="&#x2744;&#xFE0F; Weather">&#x2744;&#xFE0F; 天氣因素</h4>
+            <div class="cost-row"><span class="cost-label" data-zh="下雨" data-en="Rain">下雨</span><span class="cost-value" data-zh="撐傘 / 穿雪衣" data-en="Umbrella / wear ski jacket">撐傘 / 穿雪衣</span></div>
+            <div class="cost-row"><span class="cost-label" data-zh="暴風雪" data-en="Blizzard">暴風雪</span><span class="cost-value" data-zh="待飯店休息" data-en="Stay at hotel">待飯店休息</span></div>
+            <div class="cost-row"><span class="cost-label" data-zh="下雪路不通" data-en="Roads blocked by snow">下雪路不通</span><span class="cost-value" data-zh="鬼轉市區行程" data-en="Switch to city itinerary">鬼轉市區行程</span></div>
+            <div class="cost-row"><span class="cost-label" data-zh="李斯特無雪" data-en="No snow at Listel">李斯特無雪</span><span class="cost-value" data-zh="改去豬苗代雪場" data-en="Switch to Inawashiro resort">改去豬苗代雪場</span></div>
+        </div>
+        <div class="cost-card">
+            <h4 data-zh="&#x1F6A8; 意外狀況" data-en="&#x1F6A8; Emergencies">&#x1F6A8; 意外狀況</h4>
+            <div class="cost-row"><span class="cost-label" data-zh="班機延誤" data-en="Flight delay">班機延誤</span><span class="cost-value" data-zh="旅遊不便險" data-en="Travel inconvenience insurance">旅遊不便險</span></div>
+            <div class="cost-row"><span class="cost-label" data-zh="護照遺失" data-en="Lost passport">護照遺失</span><span class="cost-value" data-zh="找駐日辦事處" data-en="Contact Taiwan office in Japan">找駐日辦事處</span></div>
+            <div class="cost-row"><span class="cost-label" data-zh="生病 / 骨折" data-en="Illness / fracture">生病 / 骨折</span><span class="cost-value" data-zh="花錢出門躺平" data-en="Rest &amp; seek medical help">花錢出門躺平</span></div>
+            <div class="cost-row"><span class="cost-label" data-zh="景點沒開" data-en="Attraction closed">景點沒開</span><span class="cost-value" data-zh="鬼轉市區行程" data-en="Switch to city itinerary">鬼轉市區行程</span></div>
+        </div>
+        <div class="cost-card">
+            <h4 data-zh="&#x26F7;&#xFE0F; 滑雪備案雪場" data-en="&#x26F7;&#xFE0F; Backup Ski Resorts">&#x26F7;&#xFE0F; 滑雪備案雪場</h4>
+            <div class="cost-row"><span class="cost-label" data-zh="豬苗代雪場" data-en="Inawashiro Ski Resort">豬苗代雪場</span><span class="cost-value" data-zh="接駁車免費" data-en="Free shuttle">接駁車免費</span></div>
+            <div class="cost-row"><span class="cost-label">Urabandai Ski Resort</span><span class="cost-value" data-zh="裏磐梯" data-en="Urabandai">裏磐梯</span></div>
+            <div class="cost-row"><span class="cost-label">Grandeco Snow Resort</span><span class="cost-value" data-zh="裏磐梯" data-en="Urabandai">裏磐梯</span></div>
+            <div class="cost-row"><span class="cost-label">Hoshino Alts Bandai</span><span class="cost-value" data-zh="星野度假村" data-en="Hoshino Resort">星野度假村</span></div>
+            <div class="cost-row"><span class="cost-label">Nekoma Ski Resort</span><span class="cost-value" data-zh="星野度假村" data-en="Hoshino Resort">星野度假村</span></div>
+        </div>
+    </div>
+</section>
+
+<!-- Trip Series Navigation -->
+<section class="ts-section">
+    <h3 class="ts-title" data-zh="滑雪旅行系列" data-en="Ski Trip Series">滑雪旅行系列</h3>
+    <div class="ts-grid">
+        <div class="ts-card ts-card--active">
+            <div class="ts-year">2024</div>
+            <div class="ts-info">
+                <h4 data-zh="福島滑雪之旅" data-en="Fukushima Ski Trip">福島滑雪之旅</h4>
+                <p>Fukushima · Aizu · Nikko · Tokyo</p>
+                <span class="ts-meta" data-zh="9 天 · 8 人 · Listel Ski Fantasia" data-en="9 Days · 8 People · Listel Ski Fantasia">9 天 · 8 人 · Listel Ski Fantasia</span>
+            </div>
+            <span class="ts-badge" data-zh="目前" data-en="Current">目前</span>
+        </div>
+        <a href="/trip/2025/2425-jp-ski/" class="ts-card">
+            <div class="ts-year">2025 (I)</div>
+            <div class="ts-info">
+                <h4 data-zh="北海道 Kiroro 滑雪之旅" data-en="Hokkaido Kiroro Ski Trip">北海道 Kiroro 滑雪之旅</h4>
+                <p>Hokkaido · Kiroro · Otaru · Sapporo</p>
+                <span class="ts-meta" data-zh="11 天 · 8 人 · Kiroro Snow World" data-en="11 Days · 8 People · Kiroro Snow World">11 天 · 8 人 · Kiroro Snow World</span>
+            </div>
+            <span class="ts-arrow">&rarr;</span>
+        </a>
+        <a href="/trip/2025/2526-jp-ski/" class="ts-card">
+            <div class="ts-year">2025 (II)</div>
+            <div class="ts-info">
+                <h4 data-zh="新潟滑雪團" data-en="Niigata Ski Trip">新潟滑雪團</h4>
+                <p>Naeba · Joetsu Kokusai · Echigo-Yuzawa · Tokyo</p>
+                <span class="ts-meta" data-zh="11 天 · 9 人 · 苗場 + 上越國際" data-en="11 Days · 9 People · Naeba + Joetsu Kokusai">11 天 · 9 人 · 苗場 + 上越國際</span>
+            </div>
+            <span class="ts-arrow">&rarr;</span>
+        </a>
+        <a href="/trip/2026/eu-ski/" class="ts-card">
+            <div class="ts-year">2026</div>
+            <div class="ts-info">
+                <h4 data-zh="歐洲滑雪＋城市旅遊" data-en="Europe Ski + City Tour">歐洲滑雪＋城市旅遊</h4>
+                <p>Austria · Christmas Markets · Alpine Skiing</p>
+                <span class="ts-meta" data-zh="規劃中 · 奧地利四大雪場" data-en="Planning · 4 Austrian Resorts">規劃中 · 奧地利四大雪場</span>
+            </div>
+            <span class="ts-arrow">&rarr;</span>
+        </a>
+    </div>
+</section>
+<footer class="footer">
+    <p style="font-size:1.2rem; margin-bottom:0.5rem;">&#x1F3D4;&#xFE0F; <span data-zh="2024/01 福島滑雪之旅" data-en="2024/01 Fukushima Ski Trip">2024/01 福島滑雪之旅</span></p>
+    <p style="font-size:0.85rem; opacity:0.6;">Fukushima &middot; Aizu-Wakamatsu &middot; Nikko &middot; Tokyo</p>
+    <p style="font-size:0.8rem; margin-top:1rem; opacity:0.4;">Built with care. Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors.</p>
+</footer>
+
+<!-- Scripts -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+// ===== Language Toggle =====
+let currentLang = 'zh';
+
+function toggleLang() {
+    currentLang = currentLang === 'zh' ? 'en' : 'zh';
+    applyLang();
+}
+
+function applyLang() {
+    const label = currentLang === 'zh' ? 'EN' : '中';
+    document.getElementById('heroLangLabel').textContent = label;
+    document.getElementById('navLangLabel').textContent = label;
+
+    document.querySelectorAll('[data-zh][data-en]').forEach(el => {
+        const text = el.getAttribute('data-' + currentLang);
+        if (text !== null) {
+            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                el.value = text;
+            } else {
+                el.innerHTML = text;
+            }
+        }
+    });
+
+    document.documentElement.lang = currentLang === 'zh' ? 'zh-Hant' : 'en';
+}
+
+// ===== Snowfall =====
+(function() {
+    const hero = document.querySelector('.hero');
+    const flakes = ['\u2744', '\u2745', '\u2746', '\u2022'];
+    for (let i = 0; i < 40; i++) {
+        const el = document.createElement('div');
+        el.className = 'snowflake';
+        el.textContent = flakes[Math.floor(Math.random() * flakes.length)];
+        el.style.left = Math.random() * 100 + '%';
+        el.style.fontSize = (Math.random() * 1 + 0.5) + 'em';
+        el.style.opacity = Math.random() * 0.6 + 0.2;
+        el.style.animationDuration = (Math.random() * 5 + 5) + 's';
+        el.style.animationDelay = (Math.random() * 10) + 's';
+        hero.appendChild(el);
+    }
+})();
+
+// ===== Navbar show/hide + hero lang toggle =====
+const nav = document.getElementById('navbar');
+const heroLangBtn = document.getElementById('heroLangBtn');
+window.addEventListener('scroll', () => {
+    const scrolled = window.pageYOffset > 500;
+    nav.classList.toggle('visible', scrolled);
+    heroLangBtn.classList.toggle('hidden', scrolled);
+});
+
+// ===== Fade in =====
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// ===== Maps =====
+const locations = [
+    { name: '東京（秋葉原）', nameEn: 'Tokyo (Akihabara)', lat: 35.6984, lng: 139.7731, desc: 'Day 1,2,8,9 — 東橫INN 神田秋葉原', descEn: 'Day 1,2,8,9 — Toyoko Inn Kanda Akihabara', icon: '\uD83C\uDFE8' },
+    { name: 'teamLab Planets', nameEn: 'teamLab Planets', lat: 35.6503, lng: 139.7892, desc: 'Day 2 — 沉浸式數位藝術', descEn: 'Day 2 — Immersive digital art', icon: '\uD83C\uDFA8' },
+    { name: '郡山站', nameEn: 'Koriyama Station', lat: 37.3988, lng: 140.3887, desc: '新幹線轉乘站', descEn: 'Shinkansen transfer', icon: '\uD83D\uDE85' },
+    { name: '豬苗代站', nameEn: 'Inawashiro Station', lat: 37.5526, lng: 140.0999, desc: 'JR 磐越西線', descEn: 'JR Ban-Etsu West Line', icon: '\uD83D\uDE83' },
+    { name: 'Hotel Listel Inawashiro', nameEn: 'Hotel Listel Inawashiro', lat: 37.5407, lng: 140.0878, desc: 'Day 2-5 — 滑雪住宿', descEn: 'Day 2-5 — Ski accommodation', icon: '\u26F7\uFE0F' },
+    { name: '五色沼', nameEn: 'Goshikinuma', lat: 37.6667, lng: 140.0667, desc: 'Day 6 — 火山湖群健行', descEn: 'Day 6 — Volcanic lake hike', icon: '\uD83C\uDF3F' },
+    { name: '會津若松（鶴城）', nameEn: 'Aizu-Wakamatsu (Tsuruga Castle)', lat: 37.4876, lng: 139.9310, desc: 'Day 6 — 赤瓦天守閣', descEn: 'Day 6 — Red-tiled castle keep', icon: '\uD83C\uDFEF' },
+    { name: '御宿東鳳', nameEn: 'Onyado Toho', lat: 37.4700, lng: 139.8800, desc: 'Day 6 — 溫泉旅館', descEn: 'Day 6 — Onsen ryokan', icon: '\u2668\uFE0F' },
+    { name: '大內宿', nameEn: 'Ouchi-juku', lat: 37.3383, lng: 139.8500, desc: 'Day 7 — 江戶宿場町', descEn: 'Day 7 — Edo post town', icon: '\uD83C\uDFD8\uFE0F' },
+    { name: '湯野上溫泉站', nameEn: 'Yunokami-Onsen Station', lat: 37.3300, lng: 139.8700, desc: 'Day 7 — 行李寄放 + 猿遊號', descEn: 'Day 7 — Luggage storage + Saruyugo bus', icon: '\uD83D\uDE83' },
+    { name: '會津田島', nameEn: 'Aizu-Tajima', lat: 37.2100, lng: 139.8700, desc: 'Day 7 — 轉乘站', descEn: 'Day 7 — Transfer station', icon: '\uD83D\uDE83' },
+    { name: '日光東照宮', nameEn: 'Nikko Toshogu Shrine', lat: 36.7581, lng: 139.5994, desc: 'Day 8 — UNESCO 世界遺產', descEn: 'Day 8 — UNESCO World Heritage', icon: '\u26E9\uFE0F' },
+    { name: '華嚴瀑布', nameEn: 'Kegon Falls', lat: 36.7378, lng: 139.5000, desc: 'Day 8 — 冬季冰瀑', descEn: 'Day 8 — Frozen waterfall', icon: '\uD83D\uDCA7' },
+    { name: 'USHIGORO S. GINZA', nameEn: 'USHIGORO S. GINZA', lat: 35.6721, lng: 139.7636, desc: 'Day 8 — 銀座燒肉 ¥20k~29k', descEn: 'Day 8 — Ginza yakiniku ¥20k~29k', icon: '\uD83E\uDD69' }
+];
+
+const routePoints = [
+    [35.6984, 139.7731], [35.6503, 139.7892], [37.3988, 140.3887],
+    [37.5526, 140.0999], [37.5407, 140.0878], [37.6667, 140.0667],
+    [37.4876, 139.9310], [37.4700, 139.8800], [37.3383, 139.8500],
+    [37.3300, 139.8700], [37.2100, 139.8700], [36.7581, 139.5994],
+    [36.7378, 139.5000], [35.6984, 139.7731],
+];
+
+let mapOverview, mapRoute;
+
+function getPopup(loc) {
+    var n = currentLang === 'en' ? (loc.nameEn || loc.name) : loc.name;
+    var d = currentLang === 'en' ? (loc.descEn || loc.desc) : loc.desc;
+    return '<strong>' + loc.icon + ' ' + n + '</strong><br>' + d;
+}
+
+var mapMarkers = [];
+
+function initMaps() {
+    mapOverview = L.map('map-overview').setView([36.8, 139.8], 7);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(mapOverview);
+    locations.forEach(loc => {
+        var m = L.marker([loc.lat, loc.lng]).addTo(mapOverview)
+            .bindPopup(getPopup(loc));
+        mapMarkers.push({ marker: m, loc: loc });
+    });
+
+    mapRoute = L.map('map-route').setView([36.8, 139.8], 7);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(mapRoute);
+    locations.forEach(loc => {
+        var m = L.marker([loc.lat, loc.lng]).addTo(mapRoute)
+            .bindPopup(getPopup(loc));
+        mapMarkers.push({ marker: m, loc: loc });
+    });
+    L.polyline(routePoints, {
+        color: '#667eea', weight: 3, opacity: 0.7, dashArray: '10, 10'
+    }).addTo(mapRoute);
+
+    var dayLabels = [
+        { pos: [35.6984, 139.7731], text: 'Day 1-2, 8-9' },
+        { pos: [37.5407, 140.0878], text: 'Day 2-5' },
+        { pos: [37.6667, 140.0667], text: 'Day 6' },
+        { pos: [37.4876, 139.9310], text: 'Day 6' },
+        { pos: [37.3383, 139.8500], text: 'Day 7' },
+        { pos: [36.7581, 139.5994], text: 'Day 7-8' },
+    ];
+    dayLabels.forEach(function(d) {
+        L.marker(d.pos, {
+            icon: L.divIcon({
+                className: '',
+                html: '<div style="background:#667eea;color:white;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;white-space:nowrap;">' + d.text + '</div>',
+                iconSize: [80, 20], iconAnchor: [40, -5]
+            })
+        }).addTo(mapRoute);
+    });
+}
+
+function showMap(type) {
+    document.querySelectorAll('.map-tab').forEach(function(t) { t.classList.remove('active'); });
+    if (type === 'overview') {
+        document.getElementById('map-overview').style.display = 'block';
+        document.getElementById('map-route').style.display = 'none';
+        document.querySelectorAll('.map-tab')[0].classList.add('active');
+        setTimeout(function() { mapOverview.invalidateSize(); }, 100);
+    } else {
+        document.getElementById('map-overview').style.display = 'none';
+        document.getElementById('map-route').style.display = 'block';
+        document.querySelectorAll('.map-tab')[1].classList.add('active');
+        setTimeout(function() { mapRoute.invalidateSize(); }, 100);
+    }
+}
+
+var mapObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+        if (e.isIntersecting && !mapOverview) { initMaps(); mapObs.disconnect(); }
+    });
+}, { threshold: 0.1 });
+mapObs.observe(document.getElementById('map'));
+</script>
+</body>
+</html>

@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>⛷️ 2025 Japan Kiroro Ski Trip</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛷️</text></svg>">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+<style>
+/* ===== Trip Series Navigation ===== */
+.ts-section {
+    padding: 4rem 2rem 3rem;
+    background: linear-gradient(180deg, #f8f9fa 0%, #e3f2fd 100%);
+    text-align: center;
+}
+.ts-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1a237e;
+    margin-bottom: 2rem;
+    letter-spacing: 0.05em;
+}
+.ts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+.ts-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.2rem 1.5rem;
+    border-radius: 14px;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    text-align: left;
+    min-height: 90px;
+}
+a.ts-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+.ts-card--active {
+    background: #e8eaf6;
+    border: 2px solid #667eea;
+}
+.ts-card--active .ts-year {
+    color: #667eea;
+}
+a.ts-card .ts-year {
+    color: #2b6cb0;
+}
+.ts-year {
+    font-size: 1.4rem;
+    font-weight: 800;
+    font-family: 'Inter', sans-serif;
+    line-height: 1.1;
+    flex-shrink: 0;
+    white-space: nowrap;
+    min-width: 68px;
+}
+.ts-info h4 {
+    font-size: 0.98rem;
+    font-weight: 600;
+    color: #1a1a2e;
+    margin: 0 0 0.15rem;
+    line-height: 1.3;
+}
+.ts-info p {
+    font-size: 0.8rem;
+    color: #5a5a7a;
+    margin: 0 0 0.15rem;
+    line-height: 1.3;
+}
+.ts-meta {
+    font-size: 0.73rem;
+    color: #999;
+}
+.ts-arrow {
+    font-size: 1.2rem;
+    color: #2b6cb0;
+    margin-left: auto;
+    flex-shrink: 0;
+    transition: transform 0.25s ease;
+}
+a.ts-card:hover .ts-arrow {
+    transform: translateX(4px);
+}
+.ts-badge {
+    position: absolute;
+    top: -9px;
+    right: 14px;
+    background: #667eea;
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 2px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.03em;
+}
+@media (max-width: 640px) {
+    .ts-grid {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+    }
+    .ts-card {
+        padding: 1rem 1.2rem;
+    }
+    .ts-year {
+        font-size: 1.2rem;
+        min-width: 58px;
+    }
+}
+</style>
+</head>
+<body>
+
+<!-- Hero Section -->
+<header class="hero" id="top">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-date">2025.01.02 — 01.12</p>
+    <h1 class="hero-title">北海道 Kiroro<br>滑雪之旅</h1>
+    <p class="hero-subtitle">Hokkaido, Japan &mdash; Kiroro Snow World &bull; 小樽 &bull; 札幌</p>
+    <a href="#overview" class="hero-cta">探索行程 ↓</a>
+  </div>
+</header>
+
+<!-- Sticky Nav -->
+<nav class="sticky-nav" id="nav">
+  <div class="nav-inner">
+    <a href="#top" class="nav-logo">⛷️ Kiroro 2025</a>
+    <div class="nav-links">
+      <a href="#overview">總覽</a>
+      <a href="#itinerary">行程</a>
+      <a href="#ski">滑雪</a>
+      <a href="#food">美食</a>
+      <a href="#sightseeing">景點</a>
+      <a href="#map">地圖</a>
+      <a href="#planning">籌備</a>
+      <a href="#tips">實用資訊</a>
+    </div>
+    <button class="nav-toggle" aria-label="Menu">☰</button>
+  </div>
+</nav>
+
+<!-- Overview Section -->
+<section class="section" id="overview">
+  <div class="container">
+    <h2 class="section-title">旅程總覽</h2>
+    <p class="section-desc">一群好友從台灣、英國、美國出發，齊聚北海道，展開為期 11 天的滑雪與觀光之旅。以小樽為據點，每日搭乘接駁車前往 Kiroro Snow World 享受粉雪，並在札幌與小樽品嚐北海道美食、探索冬日風景。</p>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">📅</div>
+        <div class="stat-value">11 天</div>
+        <div class="stat-label">旅程天數</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">👥</div>
+        <div class="stat-value">8 人</div>
+        <div class="stat-label">旅伴人數</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">⛷️</div>
+        <div class="stat-value">6 天</div>
+        <div class="stat-label">滑雪天數</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🏔️</div>
+        <div class="stat-value">23 條</div>
+        <div class="stat-label">Kiroro 雪道</div>
+      </div>
+    </div>
+
+    <div class="overview-cards">
+      <div class="overview-card">
+        <img src="images/kiroro-resort.jpg" alt="Kiroro Ski Resort" loading="lazy">
+        <div class="overview-card-body">
+          <h3>Kiroro Snow World</h3>
+          <p>位於北海道余市郡赤井川村，擁有朝里岳與長峰兩座山峰共 23 條雪道。以優質粉雪聞名，年均降雪量超過 21 公尺，是北海道最佳的滑雪勝地之一。</p>
+        </div>
+      </div>
+      <div class="overview-card">
+        <img src="images/otaru-canal.jpg" alt="Otaru Canal" loading="lazy">
+        <div class="overview-card-body">
+          <h3>小樽 Otaru</h3>
+          <p>浪漫的運河之城，以玻璃工藝、音樂盒、壽司與海鮮聞名。冬季覆蓋白雪的運河倉庫群，搭配溫暖的街燈，是北海道最迷人的冬日風景之一。</p>
+        </div>
+      </div>
+      <div class="overview-card">
+        <img src="images/sapporo-winter.jpg" alt="Sapporo Winter" loading="lazy">
+        <div class="overview-card-body">
+          <h3>札幌 Sapporo</h3>
+          <p>北海道首府，擁有大通公園、狸小路商店街、二條市場等知名景點。冬季的札幌啤酒園、湯咖哩與味噌拉麵更是不可錯過的美食體驗。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Itinerary Section -->
+<section class="section section-alt" id="itinerary">
+  <div class="container">
+    <h2 class="section-title">每日行程</h2>
+    <p class="section-desc">從抵達札幌到離開北海道，完整的 11 天行程安排。</p>
+
+    <div class="timeline">
+      <!-- Day 1: Jan 2 -->
+      <div class="timeline-item">
+        <div class="timeline-marker">
+          <span class="timeline-day">Day 1</span>
+        </div>
+        <div class="timeline-content">
+          <div class="timeline-date">1/2 (四)</div>
+          <h3>抵達札幌</h3>
+          <div class="timeline-tags">
+            <span class="tag tag-transport">✈️ 交通</span>
+            <span class="tag tag-stay">🏨 住宿</span>
+          </div>
+          <div class="timeline-details">
+            <div class="flight-info">
+              <p><strong>台灣組 (4人)</strong>：長榮航空 TPE→CTS 09:30-14:05 (2P/23KG)</p>
+              <p><strong>hchsu1112</strong>：TPE→CTS 08:35-13:10</p>
+              <p><strong>calee + yahsieh</strong>：JAL JL0042 LHR→NRT 08:35-翌日07:25</p>
+              <p><strong>wangtr</strong>：SFO→NRT 19:00-翌日23:00 (前一天出發)</p>
+            </div>
+            <p>抵達新千歲機場後搭 JR 快速列車至札幌（約 37 分鐘）。</p>
+            <p class="hotel-info">🏨 <strong>札幌東橫 Inn</strong>（1/2-1/4，兩晚）</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Day 2: Jan 3 -->
+      <div class="timeline-item">
+        <div class="timeline-marker">
+          <span class="timeline-day">Day 2</span>
+        </div>
+        <div class="timeline-content">
+          <div class="timeline-date">1/3 (五)</div>
+          <h3>札幌觀光</h3>
+          <div class="timeline-tags">
+            <span class="tag tag-sight">🏙️ 觀光</span>
+            <span class="tag tag-food">🍽️ 美食</span>
+          </div>
+          <div class="timeline-details">
+            <ul>
+              <li>狸小路商店街 + 二條市場</li>
+              <li>午餐</li>
+              <li>札幌啤酒博物館（免費參觀，11:00-18:00）</li>
+              <li>大通公園 / AOAO SAPPORO 水族館</li>
+              <li>Parco 百貨</li>
+              <li>晚餐：壽喜燒（已預約 23:00）</li>
+            </ul>
+            <p class="hotel-info">🏨 <strong>札幌東橫 Inn</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Day 3: Jan 4 -->
+      <div class="timeline-item">
+        <div class="timeline-marker">
+          <span class="timeline-day">Day 3</span>
+        </div>
+        <div class="timeline-content">
+          <div class="timeline-date">1/4 (六)</div>
+          <h3>移動至小樽 + 小樽觀光</h3>
+          <div class="timeline-tags">
+            <span class="tag tag-transport">🚃 交通</span>
+            <span class="tag tag-sight">🏙️ 觀光</span>
+          </div>
+          <div class="timeline-details">
+            <p><strong>calee + yahsieh</strong>：HND→CTS 10:00-11:35，抵達後直接前往小樽</p>
+            <p>其他人：JR 札幌→小樽（約 30 分鐘）</p>
+            <p>下午小樽觀光：</p>
+            <ul>
+              <li>堺町通り（Sakaimachi Street）</li>
+              <li>田中酒造本店</li>
+              <li>小樽三角市場</li>
+              <li>かま栄工場直売店</li>
+              <li>天狗山展望台</li>
+              <li>小樽運河散步</li>
+            </ul>
+            <p class="hotel-info">🏨 <strong>OMO5 小樽 by 星野集團</strong>（1/4-1/11，七晚）</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Day 4-9: Jan 5-10 -->
+      <div class="timeline-item timeline-ski">
+        <div class="timeline-marker">
+          <span class="timeline-day">Day 4-9</span>
+        </div>
+        <div class="timeline-content">
+          <div class="timeline-date">1/5 — 1/10</div>
+          <h3>Kiroro 滑雪六日</h3>
+          <div class="timeline-tags">
+            <span class="tag tag-ski">⛷️ 滑雪</span>
+          </div>
+          <div class="timeline-details">
+            <p>每日搭乘接駁車從小樽前往 Kiroro Snow World，享受北海道頂級粉雪。</p>
+            <table class="schedule-table">
+              <thead>
+                <tr><th>日期</th><th>去程</th><th>回程</th><th>備註</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>1/5 (日)</td><td>08:25</td><td>15:30</td><td></td></tr>
+                <tr><td>1/6 (一)</td><td>07:35</td><td>16:10</td><td>SKI 教練課（如有）</td></tr>
+                <tr><td>1/7 (二)</td><td>07:35</td><td>16:10</td><td>SB 教練課</td></tr>
+                <tr><td>1/8 (三)</td><td>07:35</td><td>16:10</td><td></td></tr>
+                <tr><td>1/9 (四)</td><td>07:35</td><td>16:10</td><td></td></tr>
+                <tr><td>1/10 (五)</td><td>07:35</td><td>15:30</td><td></td></tr>
+              </tbody>
+            </table>
+            <p><strong>套票</strong>：6 小時纜車券 + 來回接駁車 = ¥7,500/人/日</p>
+            <p>回到小樽後自由活動，可享受小樽夜景、運河散步、居酒屋等。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Day 10: Jan 11 -->
+      <div class="timeline-item">
+        <div class="timeline-marker">
+          <span class="timeline-day">Day 10</span>
+        </div>
+        <div class="timeline-content">
+          <div class="timeline-date">1/11 (六)</div>
+          <h3>手稻滑雪場 + 移動至札幌</h3>
+          <div class="timeline-tags">
+            <span class="tag tag-ski">⛷️ 滑雪</span>
+            <span class="tag tag-transport">🚃 交通</span>
+          </div>
+          <div class="timeline-details">
+            <p>最後一天滑雪！前往<strong>札幌手稻滑雪場（Sapporo Teine）</strong>。</p>
+            <p>從小樽搭 JR 至手稻站（約 20 分鐘），再轉巴士上山。</p>
+            <p>手稻滑雪場擁有奧林匹克等級雪道，可同時欣賞石狩灣與札幌市區景色。</p>
+            <p><strong>hchsu1112</strong>：17:30 CTS→TPE 提前離開</p>
+            <p class="hotel-info">🏨 <strong>札幌東橫 Inn</strong>（1/11-1/12，一晚）</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Day 11: Jan 12 -->
+      <div class="timeline-item">
+        <div class="timeline-marker">
+          <span class="timeline-day">Day 11</span>
+        </div>
+        <div class="timeline-content">
+          <div class="timeline-date">1/12 (日)</div>
+          <h3>札幌自由行 + 回程</h3>
+          <div class="timeline-tags">
+            <span class="tag tag-sight">🏙️ 觀光</span>
+            <span class="tag tag-transport">✈️ 交通</span>
+          </div>
+          <div class="timeline-details">
+            <p>上午札幌自由活動，下午前往機場。</p>
+            <div class="flight-info">
+              <p><strong>台灣組 (4人)</strong>：長榮 CTS→TPE 15:20-19:05</p>
+              <p><strong>hchsu1112</strong>：CTS→TPE 14:40-18:20</p>
+              <p><strong>calee + yahsieh</strong>：CTS→HND 19:30-21:10（之後繼續東京行程）</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Ski Section -->
+<section class="section" id="ski">
+  <div class="container">
+    <h2 class="section-title">滑雪資訊</h2>
+
+    <div class="ski-grid">
+      <div class="ski-card main-resort">
+        <div class="ski-card-header">
+          <h3>Kiroro Snow World</h3>
+          <span class="ski-badge">主雪場 · 6 日</span>
+        </div>
+        <div class="ski-card-body">
+          <div class="ski-stats">
+            <div class="ski-stat">
+              <span class="ski-stat-value">23</span>
+              <span class="ski-stat-label">雪道數</span>
+            </div>
+            <div class="ski-stat">
+              <span class="ski-stat-value">1,180m</span>
+              <span class="ski-stat-label">最高海拔</span>
+            </div>
+            <div class="ski-stat">
+              <span class="ski-stat-value">610m</span>
+              <span class="ski-stat-label">落差</span>
+            </div>
+            <div class="ski-stat">
+              <span class="ski-stat-value">21m+</span>
+              <span class="ski-stat-label">年均降雪</span>
+            </div>
+          </div>
+          <div class="ski-difficulty">
+            <div class="difficulty-bar">
+              <div class="diff-beginner" style="width:35%">初級 35%</div>
+              <div class="diff-intermediate" style="width:35%">中級 35%</div>
+              <div class="diff-advanced" style="width:30%">上級 30%</div>
+            </div>
+          </div>
+          <div class="ski-info-grid">
+            <div class="ski-info-item">
+              <strong>纜車券 + 接駁車</strong>
+              <p>¥7,500/人/日（6 小時券 + 來回巴士）</p>
+            </div>
+            <div class="ski-info-item">
+              <strong>接駁車</strong>
+              <p>小樽 OMO5 出發，車程約 50 分鐘</p>
+            </div>
+            <div class="ski-info-item">
+              <strong>雪具租借</strong>
+              <p>全套 ¥7,000（OMO5 住客優惠），可單租板/鞋</p>
+            </div>
+            <div class="ski-info-item">
+              <strong>置物櫃</strong>
+              <p>1 泊 2 日 ¥1,500，之後每日 +¥500</p>
+            </div>
+          </div>
+          <a href="https://www.kiroro.co.jp/guide_map/" target="_blank" class="ski-link">查看雪道地圖 →</a>
+        </div>
+      </div>
+
+      <div class="ski-card">
+        <div class="ski-card-header">
+          <h3>札幌手稻 Teine</h3>
+          <span class="ski-badge secondary">最終日 · 1 日</span>
+        </div>
+        <div class="ski-card-body">
+          <div class="ski-stats">
+            <div class="ski-stat">
+              <span class="ski-stat-value">15</span>
+              <span class="ski-stat-label">雪道數</span>
+            </div>
+            <div class="ski-stat">
+              <span class="ski-stat-value">1,023m</span>
+              <span class="ski-stat-label">最高海拔</span>
+            </div>
+          </div>
+          <p>1972 年冬季奧運會場地，分為 Highland Zone（中上級）與 Olympia Zone（初中級）。從山頂可同時眺望石狩灣與札幌市區全景。</p>
+          <p><strong>交通</strong>：JR 小樽→手稻站（約 20 分鐘）→ 巴士上山</p>
+          <a href="https://sapporo-teine.com/snow/lang/en/" target="_blank" class="ski-link">查看官網 →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rental Table -->
+    <h3 class="subsection-title">雪具租借一覽</h3>
+    <div class="table-responsive">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>成員</th>
+            <th>類型</th>
+            <th>租借項目</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>yysung</td><td>SKI</td><td>SKI 板</td></tr>
+          <tr><td>calee</td><td>SKI</td><td>Ski Gear Set (1/9-1/11)</td></tr>
+          <tr><td>hchsu1112</td><td>SKI</td><td>SKI 鞋 + 板</td></tr>
+          <tr><td>hchsu</td><td>SKI</td><td>SKI 鞋 + 板</td></tr>
+          <tr><td>yaowen</td><td>SB</td><td>SB 板 (152cm)</td></tr>
+          <tr><td>yahsieh</td><td>SB</td><td>SB 鞋 + 板</td></tr>
+          <tr><td>syujy</td><td>SB</td><td>SB 板</td></tr>
+          <tr><td>wangtr</td><td>SKI</td><td>SKI 板</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Instructor -->
+    <h3 class="subsection-title">教練課程</h3>
+    <div class="instructor-grid">
+      <div class="instructor-card">
+        <h4>🏂 Snowboard 私人課程</h4>
+        <p>日期：1/7（二）</p>
+        <p>人數：4 人（yahsieh, syujy, yaowen, calee）</p>
+        <p>時長：半日</p>
+        <p>狀態：<span class="status-booked">已預約</span></p>
+      </div>
+      <div class="instructor-card">
+        <h4>⛷️ Ski 課程</h4>
+        <p>經討論後決定不請教練，自行練習。</p>
+        <p>狀態：<span class="status-cancelled">不請教練</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Food Section -->
+<section class="section section-alt" id="food">
+  <div class="container">
+    <h2 class="section-title">美食推薦</h2>
+    <p class="section-desc">北海道是日本的美食天堂，從新鮮海鮮到成吉思汗烤羊肉，每一餐都是驚喜。</p>
+
+    <div class="food-tabs">
+      <button class="food-tab active" data-tab="otaru">🍣 小樽</button>
+      <button class="food-tab" data-tab="sapporo">🍜 札幌</button>
+    </div>
+
+    <div class="food-content active" id="tab-otaru">
+      <div class="food-grid">
+        <div class="food-category">
+          <h3>🐟 海鮮</h3>
+          <div class="food-item">
+            <strong>瀧波食堂 (Takinami Donburi)</strong>
+            <p>北稻穗 3-10-16，以超值海鮮丼聞名</p>
+          </div>
+          <div class="food-item">
+            <strong>与一屋 小樽運河支店 (Yoichiya)</strong>
+            <p>堺町 2-18，新鮮海鮮料理</p>
+          </div>
+        </div>
+        <div class="food-category">
+          <h3>🍣 壽司</h3>
+          <div class="food-item">
+            <strong>和楽 小樽店 (Waraku)</strong>
+            <p>堺町 3-1，人氣迴轉壽司</p>
+          </div>
+          <div class="food-item">
+            <strong>くく膳 (Kukizen)</strong>
+            <p>色内 1-10-7，握壽司名店</p>
+          </div>
+          <div class="food-item">
+            <strong>小樽政壽司 本店 (Masazushi)</strong>
+            <p>花園 1-1-1，老字號握壽司</p>
+          </div>
+        </div>
+        <div class="food-category">
+          <h3>🍜 麵類</h3>
+          <div class="food-item">
+            <strong>麺や北伊所</strong>
+            <p>山田町 2-2，小樽人氣拉麵</p>
+          </div>
+          <div class="food-item">
+            <strong>龍神 (Ryujin)</strong>
+            <p>入船 4-7-8</p>
+          </div>
+          <div class="food-item">
+            <strong>藪半 (Yabuhan)</strong>
+            <p>稻穗 2-19-14，蕎麥麵名店</p>
+          </div>
+        </div>
+        <div class="food-category">
+          <h3>🥩 燒肉 / 烤物</h3>
+          <div class="food-item">
+            <strong>大仁門 色内本店</strong>
+            <p>色内 1-13-5，和牛燒肉</p>
+          </div>
+          <div class="food-item">
+            <strong>和牛黑澤 (Kurosawa)</strong>
+            <p>色内 1-11-10，和牛專門店</p>
+          </div>
+          <div class="food-item">
+            <strong>ジンギスカーン 小樽別邸</strong>
+            <p>山田町 1-1，成吉思汗烤羊肉</p>
+          </div>
+          <div class="food-item">
+            <strong>炸牛排 黑澤 (Beef Cutlet)</strong>
+            <p>堺町 2-3</p>
+          </div>
+        </div>
+        <div class="food-category">
+          <h3>🍺 居酒屋</h3>
+          <div class="food-item">
+            <strong>焼鳥谷やん</strong>
+            <p>色内 1-1-17，串燒居酒屋</p>
+          </div>
+          <div class="food-item">
+            <strong>小樽 Beer 倉庫 No.1</strong>
+            <p>港町 5-4，運河倉庫群內的啤酒餐廳</p>
+          </div>
+          <div class="food-item">
+            <strong>藤鈴 (Fujirin)</strong>
+            <p>稻穗 2-11-2，關東煮名店</p>
+          </div>
+        </div>
+        <div class="food-category">
+          <h3>🍰 甜點</h3>
+          <div class="food-item">
+            <strong>LeTAO Pathos</strong>
+            <p>堺町 5-22，北海道知名甜點品牌</p>
+          </div>
+          <div class="food-item">
+            <strong>六花亭 (Rokkatei)</strong>
+            <p>北海道代表性甜點，必買伴手禮</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="food-content" id="tab-sapporo">
+      <div class="food-grid">
+        <div class="food-category">
+          <h3>🍜 拉麵</h3>
+          <div class="food-item">
+            <strong>すみれ 中の島本店 (Sumire)</strong>
+            <p>豐平區中之島 2 條 4-7-28，札幌味噌拉麵名店</p>
+          </div>
+          <div class="food-item">
+            <strong>麵屋彩未</strong>
+            <p>札幌人氣拉麵，經常大排長龍</p>
+          </div>
+        </div>
+        <div class="food-category">
+          <h3>🍛 湯咖哩</h3>
+          <div class="food-item">
+            <strong>Soup Curry 奥芝商店 駅前創成寺</strong>
+            <p>中央區北 4 條西 1，ホクレンビル B1F，札幌湯咖哩代表</p>
+          </div>
+        </div>
+        <div class="food-category">
+          <h3>🥘 壽喜燒</h3>
+          <div class="food-item">
+            <strong>壽喜燒（已預約）</strong>
+            <p>1/3 晚餐，calee + yahsieh 的東京組聚餐</p>
+            <span class="status-booked">已預約</span>
+          </div>
+        </div>
+        <div class="food-category">
+          <h3>🍺 啤酒</h3>
+          <div class="food-item">
+            <strong>札幌啤酒博物館</strong>
+            <p>免費參觀，11:00-18:00，可試飲經典札幌啤酒</p>
+          </div>
+          <div class="food-item">
+            <strong>札幌啤酒花園 (Sapporo Beer Garden)</strong>
+            <p>成吉思汗烤羊肉 + 啤酒暢飲的經典組合</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Sightseeing Section -->
+<section class="section" id="sightseeing">
+  <div class="container">
+    <h2 class="section-title">景點推薦</h2>
+
+    <div class="sight-grid">
+      <div class="sight-card">
+        <div class="sight-icon">🏛️</div>
+        <h3>小樽運河</h3>
+        <p>明治至大正時代的石造倉庫群沿運河而建，冬季點燈後格外浪漫。推薦傍晚散步，欣賞雪中運河倒影。</p>
+      </div>
+      <div class="sight-card">
+        <div class="sight-icon">🎵</div>
+        <h3>堺町通り</h3>
+        <p>小樽最熱鬧的觀光街道，聚集了玻璃工藝品店、音樂盒堂、甜點店等。LeTAO 本店與北一硝子都在此。</p>
+      </div>
+      <div class="sight-card">
+        <div class="sight-icon">🍶</div>
+        <h3>田中酒造本店</h3>
+        <p>創業於 1899 年的老字號酒造，可免費試飲各種日本酒。冬季限定的新酒特別值得品嚐。</p>
+      </div>
+      <div class="sight-card">
+        <div class="sight-icon">🐟</div>
+        <h3>小樽三角市場</h3>
+        <p>位於 JR 小樽站旁的傳統市場，以新鮮海鮮和平價海鮮丼聞名，是早餐的絕佳選擇。</p>
+      </div>
+      <div class="sight-card">
+        <div class="sight-icon">🏔️</div>
+        <h3>天狗山展望台</h3>
+        <p>搭乘纜車登上天狗山，可俯瞰小樽市區與石狩灣全景。冬季夜景被譽為北海道三大夜景之一。</p>
+      </div>
+      <div class="sight-card">
+        <div class="sight-icon">🍺</div>
+        <h3>札幌啤酒博物館</h3>
+        <p>日本唯一的啤酒博物館，免費參觀。紅磚建築本身就是明治時代的歷史遺產，付費可體驗啤酒試飲。</p>
+      </div>
+      <div class="sight-card">
+        <div class="sight-icon">🛍️</div>
+        <h3>狸小路商店街</h3>
+        <p>札幌最大的商店街，全長約 900 公尺的拱廊商店街，藥妝店、餐廳、伴手禮店應有盡有。</p>
+      </div>
+      <div class="sight-card">
+        <div class="sight-icon">🐧</div>
+        <h3>AOAO SAPPORO</h3>
+        <p>位於大通公園旁的都市型水族館，以企鵝和水母展示聞名，是札幌的新興人氣景點。</p>
+      </div>
+      <div class="sight-card">
+        <div class="sight-icon">⛩️</div>
+        <h3>北海道神宮</h3>
+        <p>北海道最大的神社，新年期間可體驗初詣（新年參拜）。冬季雪景中的神社格外莊嚴。</p>
+      </div>
+      <div class="sight-card">
+        <div class="sight-icon">🥃</div>
+        <h3>余市蒸餾所</h3>
+        <p>Nikka Whisky 創業地，可免費參觀威士忌製造過程並試飲。從小樽搭 JR 約 25 分鐘即達。</p>
+      </div>
+      <div class="sight-card">
+        <div class="sight-icon">♨️</div>
+        <h3>定山溪溫泉</h3>
+        <p>札幌近郊的溫泉鄉，從札幌市區搭巴士約 60 分鐘。滑雪後泡溫泉是最佳的恢復方式。</p>
+      </div>
+      <div class="sight-card">
+        <div class="sight-icon">🌃</div>
+        <h3>藻岩山夜景</h3>
+        <p>日本新三大夜景之一，搭乘纜車登上山頂，可 360 度俯瞰札幌市區燈火。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Map Section -->
+<section class="section section-alt" id="map">
+  <div class="container">
+    <h2 class="section-title">旅程地圖</h2>
+    <p class="section-desc">主要地點與交通路線一覽</p>
+    <div id="trip-map" class="trip-map"></div>
+    <div class="map-legend">
+      <span class="legend-item"><span class="legend-dot" style="background:#e74c3c"></span> 雪場</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#3498db"></span> 住宿</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#2ecc71"></span> 景點</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#f39c12"></span> 交通</span>
+    </div>
+  </div>
+</section>
+
+<!-- Planning Section -->
+<section class="section" id="planning">
+  <div class="container">
+    <h2 class="section-title">籌備歷程</h2>
+    <p class="section-desc">從 2024 年 4 月開始，歷經 11 次會議討論，從地點選擇到最終行程確認的完整過程。</p>
+
+    <div class="planning-timeline">
+      <div class="planning-item">
+        <div class="planning-number">0</div>
+        <div class="planning-body">
+          <h4>第 0 籌 — 啟動</h4>
+          <p>確定前往<strong>北海道</strong>滑雪，比較星野 Tomamu、Kiroro、Niseko、富良野等雪場。初步確定時間為一月初。</p>
+        </div>
+      </div>
+      <div class="planning-item">
+        <div class="planning-number">1</div>
+        <div class="planning-body">
+          <h4>第 1 籌 — 雪場投票</h4>
+          <p>投票決定去 <strong>Kiroro</strong>（彈性高、人少、可兼顧小樽觀光）。確定保底 9 天行程，暫定 1/4-1/12。</p>
+        </div>
+      </div>
+      <div class="planning-item">
+        <div class="planning-number">2</div>
+        <div class="planning-body">
+          <h4>第 2 籌 — 天數與住宿</h4>
+          <p>決定<strong>先滑後玩</strong>，滑雪 5-6 天。投票決定小樽住 <strong>7 晚</strong>（1/4-1/11），提前至 1/2 抵達日本。</p>
+        </div>
+      </div>
+      <div class="planning-item">
+        <div class="planning-number">3</div>
+        <div class="planning-body">
+          <h4>第 3 籌 — 確認方向</h4>
+          <p>最終確認雪場為 Kiroro，1/4 開始入住小樽，住 7 晚。開始尋找小樽飯店。</p>
+        </div>
+      </div>
+      <div class="planning-item">
+        <div class="planning-number">4</div>
+        <div class="planning-body">
+          <h4>第 4 籌 — 飯店比較</h4>
+          <p>比較多家小樽飯店（Winkel Village、OMO5、Grand Park 等），考慮 Kiroro 接駁車停靠點。投票選擇飯店。</p>
+        </div>
+      </div>
+      <div class="planning-item">
+        <div class="planning-number">5-6</div>
+        <div class="planning-body">
+          <h4>第 5-6 籌 — 訂房與交通</h4>
+          <p>確定入住 <strong>OMO5 小樽</strong>。討論機場到札幌交通、札幌到小樽的 JR 列車、途中換雪場的可能性。</p>
+        </div>
+      </div>
+      <div class="planning-item">
+        <div class="planning-number">7</div>
+        <div class="planning-body">
+          <h4>第 7 籌 — 機票與住宿確認</h4>
+          <p>確認各人機票。訂 <strong>札幌東橫 Inn</strong>（1/2-1/4 及 1/11）。開始討論是否請教練。</p>
+        </div>
+      </div>
+      <div class="planning-item">
+        <div class="planning-number">8</div>
+        <div class="planning-body">
+          <h4>第 8 籌 — 雪場方案</h4>
+          <p>比較 Kiroro 套票方案，投票選擇 <strong>Option 1</strong>（¥7,500 含 6hr 纜車 + 來回巴士）。討論第二雪場選項。</p>
+        </div>
+      </div>
+      <div class="planning-item">
+        <div class="planning-number">9</div>
+        <div class="planning-body">
+          <h4>第 9 籌 — 餐廳與教練</h4>
+          <p>詳細研究小樽與札幌餐廳選項。確認 SB 教練 4 人私人課程，SKI 教練詢問中。</p>
+        </div>
+      </div>
+      <div class="planning-item">
+        <div class="planning-number">10</div>
+        <div class="planning-body">
+          <h4>第 10 籌 — 最終確認</h4>
+          <p>確認所有租借裝備、接駁車時刻表。投票最後一天去<strong>手稻滑雪場</strong>。規劃每日景點與餐廳。完成所有預訂。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Tips Section -->
+<section class="section section-alt" id="tips">
+  <div class="container">
+    <h2 class="section-title">實用資訊</h2>
+
+    <div class="tips-grid">
+      <div class="tip-card">
+        <h3>🚃 交通</h3>
+        <ul>
+          <li><strong>新千歲機場→札幌</strong>：JR 快速 Airport 號，約 37 分鐘，¥1,150</li>
+          <li><strong>札幌→小樽</strong>：JR 函館本線，約 30-45 分鐘，¥750</li>
+          <li><strong>小樽→Kiroro</strong>：接駁巴士，約 50 分鐘，需提前預約</li>
+          <li><strong>小樽→手稻</strong>：JR 約 20 分鐘，¥360</li>
+          <li>建議購買 <strong>Kitaca IC 卡</strong>方便搭乘各種交通工具</li>
+        </ul>
+      </div>
+      <div class="tip-card">
+        <h3>🏨 住宿</h3>
+        <ul>
+          <li><strong>OMO5 小樽</strong>：星野集團旗下，提供滑雪優惠套組（ゆきたび）</li>
+          <li>住客可享 Kiroro 雪具租借折扣（全套 ¥7,500→¥7,000）</li>
+          <li>飯店位於 Kiroro 接駁車停靠站附近</li>
+          <li><strong>東橫 Inn</strong>：經濟實惠，會員可提前 6 個月預訂</li>
+          <li>旅館不含早餐，建議前一天在超市購買</li>
+        </ul>
+      </div>
+      <div class="tip-card">
+        <h3>⛷️ 滑雪</h3>
+        <ul>
+          <li>Kiroro 雪場 9:00 開放，建議搭最早班接駁車</li>
+          <li>雪具可寄放在雪場置物櫃，不用每天搬回飯店</li>
+          <li>安全帽可在雪場租借</li>
+          <li>建議穿著多層次衣物，山上溫度可達 -15°C</li>
+          <li>粉雪日建議挑戰 Asari Dynamic Course</li>
+        </ul>
+      </div>
+      <div class="tip-card">
+        <h3>💡 其他</h3>
+        <ul>
+          <li>一月初的北海道日照時間約 7-16 時</li>
+          <li>建議攜帶暖暖包、防水手套、護目鏡</li>
+          <li>小樽運河夜景最佳拍攝時間為日落後 30 分鐘</li>
+          <li>藥妝店推薦在狸小路購買，價格較便宜</li>
+          <li>記得帶護照，部分店家提供免稅服務</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Booking Summary -->
+    <h3 class="subsection-title">預訂總覽</h3>
+    <div class="table-responsive">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>項目</th>
+            <th>日期</th>
+            <th>路線/地點</th>
+            <th>費用</th>
+            <th>狀態</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>機票（台灣組 4 人）</td>
+            <td>1/2</td>
+            <td>TPE→CTS 長榮</td>
+            <td>30,094 TWD/人</td>
+            <td><span class="status-booked">已訂</span></td>
+          </tr>
+          <tr>
+            <td>機票（hchsu1112）</td>
+            <td>12/26</td>
+            <td>TPE→CTS 酷航</td>
+            <td>18,445 TWD</td>
+            <td><span class="status-booked">已訂</span></td>
+          </tr>
+          <tr>
+            <td>機票（calee+yahsieh）</td>
+            <td>1/2</td>
+            <td>LHR→NRT JAL</td>
+            <td>850.29 GBP</td>
+            <td><span class="status-booked">已訂</span></td>
+          </tr>
+          <tr>
+            <td>機票（calee+yahsieh）</td>
+            <td>1/4</td>
+            <td>HND→CTS</td>
+            <td>47,240 JPY</td>
+            <td><span class="status-booked">已訂</span></td>
+          </tr>
+          <tr>
+            <td>OMO5 小樽</td>
+            <td>1/4-1/11</td>
+            <td>小樽</td>
+            <td>68,207 TWD (全員)</td>
+            <td><span class="status-booked">已訂</span></td>
+          </tr>
+          <tr>
+            <td>東橫 Inn 札幌</td>
+            <td>1/2-1/4</td>
+            <td>札幌</td>
+            <td>—</td>
+            <td><span class="status-booked">已訂</span></td>
+          </tr>
+          <tr>
+            <td>東橫 Inn 札幌</td>
+            <td>1/11-1/12</td>
+            <td>札幌</td>
+            <td>—</td>
+            <td><span class="status-pending">待確認</span></td>
+          </tr>
+          <tr>
+            <td>Kiroro 纜車+巴士</td>
+            <td>1/5-1/10</td>
+            <td>Kiroro</td>
+            <td>¥7,500/人/日</td>
+            <td><span class="status-booked">已訂</span></td>
+          </tr>
+          <tr>
+            <td>手稻接駁車+纜車</td>
+            <td>1/11</td>
+            <td>Teine</td>
+            <td>—</td>
+            <td><span class="status-booked">已訂</span></td>
+          </tr>
+          <tr>
+            <td>SB 教練</td>
+            <td>1/7</td>
+            <td>Kiroro</td>
+            <td>—</td>
+            <td><span class="status-booked">已訂</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- Trip Series Navigation -->
+<section class="ts-section">
+    <h3 class="ts-title" data-zh="滑雪旅行系列" data-en="Ski Trip Series">滑雪旅行系列</h3>
+    <div class="ts-grid">
+        <a href="/trip/2024/2324-jp-ski/" class="ts-card">
+            <div class="ts-year">2024</div>
+            <div class="ts-info">
+                <h4 data-zh="福島滑雪之旅" data-en="Fukushima Ski Trip">福島滑雪之旅</h4>
+                <p>Fukushima · Aizu · Nikko · Tokyo</p>
+                <span class="ts-meta" data-zh="9 天 · 8 人 · Listel Ski Fantasia" data-en="9 Days · 8 People · Listel Ski Fantasia">9 天 · 8 人 · Listel Ski Fantasia</span>
+            </div>
+            <span class="ts-arrow">&rarr;</span>
+        </a>
+        <div class="ts-card ts-card--active">
+            <div class="ts-year">2025 (I)</div>
+            <div class="ts-info">
+                <h4 data-zh="北海道 Kiroro 滑雪之旅" data-en="Hokkaido Kiroro Ski Trip">北海道 Kiroro 滑雪之旅</h4>
+                <p>Hokkaido · Kiroro · Otaru · Sapporo</p>
+                <span class="ts-meta" data-zh="11 天 · 8 人 · Kiroro Snow World" data-en="11 Days · 8 People · Kiroro Snow World">11 天 · 8 人 · Kiroro Snow World</span>
+            </div>
+            <span class="ts-badge" data-zh="目前" data-en="Current">目前</span>
+        </div>
+        <a href="/trip/2025/2526-jp-ski/" class="ts-card">
+            <div class="ts-year">2025 (II)</div>
+            <div class="ts-info">
+                <h4 data-zh="新潟滑雪團" data-en="Niigata Ski Trip">新潟滑雪團</h4>
+                <p>Naeba · Joetsu Kokusai · Echigo-Yuzawa · Tokyo</p>
+                <span class="ts-meta" data-zh="11 天 · 9 人 · 苗場 + 上越國際" data-en="11 Days · 9 People · Naeba + Joetsu Kokusai">11 天 · 9 人 · 苗場 + 上越國際</span>
+            </div>
+            <span class="ts-arrow">&rarr;</span>
+        </a>
+        <a href="/trip/2026/eu-ski/" class="ts-card">
+            <div class="ts-year">2026</div>
+            <div class="ts-info">
+                <h4 data-zh="歐洲滑雪＋城市旅遊" data-en="Europe Ski + City Tour">歐洲滑雪＋城市旅遊</h4>
+                <p>Austria · Christmas Markets · Alpine Skiing</p>
+                <span class="ts-meta" data-zh="規劃中 · 奧地利四大雪場" data-en="Planning · 4 Austrian Resorts">規劃中 · 奧地利四大雪場</span>
+            </div>
+            <span class="ts-arrow">&rarr;</span>
+        </a>
+    </div>
+</section>
+<footer class="footer">
+  <div class="container">
+    <p>⛷️ 2025 Japan Kiroro Ski Trip &mdash; 北海道滑雪之旅</p>
+    <p class="footer-sub">Built with data from Notion planning docs &bull; Map powered by OpenStreetMap</p>
+  </div>
+</footer>
+
+<!-- Back to top -->
+<a href="#top" class="back-to-top" id="backToTop" aria-label="Back to top">↑</a>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
