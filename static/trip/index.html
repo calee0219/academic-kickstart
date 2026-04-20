@@ -86,7 +86,7 @@
       letter-spacing: 0.05em;
     }
 
-    /* Top controls: Group + Search + Language */
+    /* Top controls: Group + Search + View + Language */
     .controls-top {
       max-width: 1200px;
       margin: 0 auto;
@@ -125,6 +125,37 @@
       box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
     }
     .search-input { width: 200px; }
+
+    /* View toggle */
+    .view-toggle {
+      display: flex;
+      gap: 0;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .view-btn {
+      background: var(--bg-card);
+      color: var(--text-muted);
+      border: none;
+      padding: 0.45rem 0.7rem;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+    .view-btn.active {
+      background: var(--accent);
+      color: #0f172a;
+    }
+    .view-btn:hover:not(.active) {
+      background: var(--bg-card-hover);
+      color: var(--text);
+    }
+
     .lang-toggle {
       margin-left: auto;
       display: flex;
@@ -343,7 +374,7 @@
       gap: 1.25rem;
     }
 
-    /* Trip card */
+    /* Trip card (grid view) */
     .trip-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
@@ -451,6 +482,99 @@
       font-size: 0.7rem;
     }
 
+    /* ===== LIST VIEW ===== */
+    .trip-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .trip-list-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      align-items: stretch;
+    }
+    .trip-list-item:hover {
+      border-color: var(--accent);
+      box-shadow: 0 4px 20px rgba(56, 189, 248, 0.12);
+      transform: translateX(4px);
+    }
+    .list-banner {
+      width: 200px;
+      min-height: 120px;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .list-banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      transition: transform 0.3s ease;
+    }
+    .trip-list-item:hover .list-banner img {
+      transform: scale(1.05);
+    }
+    .list-banner-fallback {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+    }
+    .list-status {
+      position: absolute;
+      top: 0.5rem;
+      left: 0.5rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 6px;
+      font-size: 0.65rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .list-body {
+      flex: 1;
+      padding: 1rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.4rem;
+    }
+    .list-flag-title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .list-flag { font-size: 1.3rem; }
+    .list-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+    .list-subtitle {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+    .list-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .list-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+
     /* Active filter summary */
     .active-filters-summary {
       max-width: 1200px;
@@ -522,6 +646,7 @@
       .controls-top { flex-direction: column; align-items: stretch; }
       .controls-sort { flex-direction: column; align-items: stretch; }
       .lang-toggle { margin-left: 0; justify-content: center; }
+      .view-toggle { justify-content: center; }
       .search-input { width: 100%; }
       .trip-grid { grid-template-columns: 1fr; }
       .card-banner { height: 150px; }
@@ -531,6 +656,9 @@
       .dropdown-multi { width: 100%; }
       .dropdown-toggle { width: 100%; }
       .dropdown-menu { width: 100%; }
+      .list-banner { width: 120px; min-height: 100px; }
+      .list-title { font-size: 0.95rem; }
+      .list-subtitle { font-size: 0.75rem; }
     }
   </style>
 </head>
@@ -560,7 +688,7 @@
     </div>
   </div>
 
-  <!-- Top row: Group + Search + Language -->
+  <!-- Top row: Group + Search + View + Language -->
   <div class="controls-top">
     <div class="control-group">
       <span class="control-label" id="groupLabel">Group</span>
@@ -577,6 +705,10 @@
     <div class="control-group">
       <input type="text" class="search-input" id="searchInput" placeholder="Search trips...">
     </div>
+    <div class="view-toggle" id="viewToggle">
+      <button class="view-btn active" data-view="grid" onclick="setView('grid')" title="Grid view">&#9638;</button>
+      <button class="view-btn" data-view="list" onclick="setView('list')" title="List view">&#9776;</button>
+    </div>
     <div class="lang-toggle">
       <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
       <button class="lang-btn" data-lang="zh" onclick="setLang('zh')">中文</button>
@@ -586,7 +718,7 @@
   <!-- Filter row 1: Type + Status + Year (pill tags) -->
   <div class="filter-tags" id="filterTagsType"></div>
 
-  <!-- Filter row 2: Region dropdown multi-select -->
+  <!-- Filter row 2: Region dropdown multi-select + Sort -->
   <div class="filter-tags" id="filterTagsGeo"></div>
 
   <!-- Active filters summary -->
@@ -619,10 +751,10 @@
       {
         id: 'swiss-2024',
         url: '/2024/Swiss/',
-        flag: '🇨🇭',
+        flag: '\u{1f1e8}\u{1f1ed}',
         image: '/trip/images/swiss.webp',
         banner_gradient: 'linear-gradient(135deg, #1e3a5f 0%, #065f46 50%, #f0fdf4 100%)',
-        banner_emoji: '🏔️',
+        banner_emoji: '\u{1f3d4}\ufe0f',
         date: '2024-08-17',
         date_end: '2024-08-26',
         duration: 10,
@@ -634,26 +766,26 @@
         countries: ['Switzerland'],
         en: {
           title: 'Switzerland 2024',
-          subtitle: 'Zürich · Zermatt · Interlaken · Bern · Colmar · Luzern',
-          date_str: 'Aug 17 – 26, 2024',
+          subtitle: 'Z\u00fcrich \u00b7 Zermatt \u00b7 Interlaken \u00b7 Bern \u00b7 Colmar \u00b7 Luzern',
+          date_str: 'Aug 17 \u2013 26, 2024',
           tags: ['City', 'Alps', 'Train'],
           status_str: 'Completed',
         },
         zh: {
-          title: '2024 瑞士',
-          subtitle: '蘇黎世 · 策馬特 · 因特拉肯 · 伯恩 · 科爾馬 · 琉森',
-          date_str: '2024.08.17 – 08.26',
-          tags: ['城市', '阿爾卑斯', '火車'],
-          status_str: '已完成',
+          title: '2024 \u745e\u58eb',
+          subtitle: '\u8607\u9ece\u4e16 \u00b7 \u7b56\u99ac\u7279 \u00b7 \u56e0\u7279\u62c9\u80af \u00b7 \u4f2f\u6069 \u00b7 \u79d1\u723e\u99ac \u00b7 \u7409\u68ee',
+          date_str: '2024.08.17 \u2013 08.26',
+          tags: ['\u57ce\u5e02', '\u963f\u723e\u5351\u65af', '\u706b\u8eca'],
+          status_str: '\u5df2\u5b8c\u6210',
         }
       },
       {
         id: 'iceland-2024',
         url: '/2024/Iceland/',
-        flag: '🇮🇸',
+        flag: '\u{1f1ee}\u{1f1f8}',
         image: '/trip/images/iceland.webp',
         banner_gradient: 'linear-gradient(135deg, #0f172a 0%, #1e3a5f 30%, #4c1d95 60%, #22c55e 100%)',
-        banner_emoji: '🌌',
+        banner_emoji: '\u{1f30c}',
         date: '2024-11-03',
         date_end: '2024-11-10',
         duration: 8,
@@ -665,26 +797,26 @@
         countries: ['Iceland'],
         en: {
           title: 'Iceland 2024',
-          subtitle: 'Ring Road · Golden Circle · Glaciers · Northern Lights',
-          date_str: 'Nov 3 – 10, 2024',
+          subtitle: 'Ring Road \u00b7 Golden Circle \u00b7 Glaciers \u00b7 Northern Lights',
+          date_str: 'Nov 3 \u2013 10, 2024',
           tags: ['Nature', 'Road Trip', 'Aurora'],
           status_str: 'Completed',
         },
         zh: {
-          title: '2024 冰島',
-          subtitle: '環島公路 · 金圈 · 冰川 · 極光',
-          date_str: '2024.11.03 – 11.10',
-          tags: ['自然', '自駕', '極光'],
-          status_str: '已完成',
+          title: '2024 \u51b0\u5cf6',
+          subtitle: '\u74b0\u5cf6\u516c\u8def \u00b7 \u91d1\u5708 \u00b7 \u51b0\u5ddd \u00b7 \u6975\u5149',
+          date_str: '2024.11.03 \u2013 11.10',
+          tags: ['\u81ea\u7136', '\u81ea\u99d5', '\u6975\u5149'],
+          status_str: '\u5df2\u5b8c\u6210',
         }
       },
       {
         id: 'paris-2023',
         url: '/2023/Paris/',
-        flag: '🇫🇷',
+        flag: '\u{1f1eb}\u{1f1f7}',
         image: '/trip/images/paris.webp',
         banner_gradient: 'linear-gradient(135deg, #1e3a5f 0%, #1e40af 30%, #dbeafe 60%, #fef3c7 100%)',
-        banner_emoji: '🗼',
+        banner_emoji: '\u{1f5fc}',
         date: '2023-11-21',
         date_end: '2023-11-28',
         duration: 8,
@@ -696,26 +828,26 @@
         countries: ['France'],
         en: {
           title: 'Paris 2023',
-          subtitle: 'Montmartre · Versailles · Louvre · Seine River',
-          date_str: 'Nov 21 – 28, 2023',
+          subtitle: 'Montmartre \u00b7 Versailles \u00b7 Louvre \u00b7 Seine River',
+          date_str: 'Nov 21 \u2013 28, 2023',
           tags: ['City', 'Culture', 'Museum'],
           status_str: 'Completed',
         },
         zh: {
-          title: '2023 巴黎',
-          subtitle: '蒙馬特 · 凡爾賽 · 羅浮宮 · 塞納河',
-          date_str: '2023.11.21 – 11.28',
-          tags: ['城市', '文化', '博物館'],
-          status_str: '已完成',
+          title: '2023 \u5df4\u9ece',
+          subtitle: '\u8499\u99ac\u7279 \u00b7 \u51e1\u723e\u8cfd \u00b7 \u7f85\u6d6e\u5bae \u00b7 \u585e\u7d0d\u6cb3',
+          date_str: '2023.11.21 \u2013 11.28',
+          tags: ['\u57ce\u5e02', '\u6587\u5316', '\u535a\u7269\u9928'],
+          status_str: '\u5df2\u5b8c\u6210',
         }
       },
       {
         id: 'ny-boston-2023',
         url: '/2023/NY-Boston/',
-        flag: '🇺🇸',
+        flag: '\u{1f1fa}\u{1f1f8}',
         image: '/trip/images/ny-boston.webp',
         banner_gradient: 'linear-gradient(135deg, #1e3a5f 0%, #1e40af 30%, #3b82f6 60%, #93c5fd 100%)',
-        banner_emoji: '🗽',
+        banner_emoji: '\u{1f5fd}',
         date: '2023-11-03',
         date_end: '2023-11-14',
         duration: 12,
@@ -727,26 +859,26 @@
         countries: ['USA'],
         en: {
           title: 'Boston & New York 2023',
-          subtitle: 'Harvard · MIT · Broadway · Empire State · The Met',
-          date_str: 'Nov 3 – 14, 2023',
+          subtitle: 'Harvard \u00b7 MIT \u00b7 Broadway \u00b7 Empire State \u00b7 The Met',
+          date_str: 'Nov 3 \u2013 14, 2023',
           tags: ['City', 'Culture', 'Broadway'],
           status_str: 'Completed',
         },
         zh: {
-          title: '2023 波士頓 & 紐約',
-          subtitle: '哈佛 · MIT · 百老匯 · 帝國大廈 · 大都會博物館',
-          date_str: '2023.11.03 – 11.14',
-          tags: ['城市', '文化', '百老匯'],
-          status_str: '已完成',
+          title: '2023 \u6ce2\u58eb\u9813 & \u7d10\u7d04',
+          subtitle: '\u54c8\u4f5b \u00b7 MIT \u00b7 \u767e\u8001\u532f \u00b7 \u5e1d\u570b\u5927\u5ec8 \u00b7 \u5927\u90fd\u6703\u535a\u7269\u9928',
+          date_str: '2023.11.03 \u2013 11.14',
+          tags: ['\u57ce\u5e02', '\u6587\u5316', '\u767e\u8001\u532f'],
+          status_str: '\u5df2\u5b8c\u6210',
         }
       },
       {
         id: 'jp-ski-2025',
         url: '/2025/jp-ski/',
-        flag: '🇯🇵',
+        flag: '\u{1f1ef}\u{1f1f5}',
         image: '/trip/images/jp-ski.webp',
         banner_gradient: 'linear-gradient(135deg, #1e3a5f 0%, #1d4ed8 30%, #dbeafe 60%, #f0f9ff 100%)',
-        banner_emoji: '⛷️',
+        banner_emoji: '\u26f7\ufe0f',
         date: '2025-12-24',
         date_end: '2026-01-04',
         duration: 11,
@@ -757,27 +889,27 @@
         continent: 'Asia',
         countries: ['Japan'],
         en: {
-          title: 'Japan Ski 2025–26',
-          subtitle: 'Naeba · Joetsu Kokusai · Echigo-Yuzawa · Tokyo',
-          date_str: 'Dec 24, 2025 – Jan 4, 2026',
+          title: 'Japan Ski 2025\u201326',
+          subtitle: 'Naeba \u00b7 Joetsu Kokusai \u00b7 Echigo-Yuzawa \u00b7 Tokyo',
+          date_str: 'Dec 24, 2025 \u2013 Jan 4, 2026',
           tags: ['Ski', 'Powder Snow', 'Onsen'],
           status_str: 'Completed',
         },
         zh: {
-          title: '2025 日本滑雪團',
-          subtitle: '苗場 · 上越國際 · 越後湯澤 · 東京',
-          date_str: '2025.12.24 – 2026.01.04',
-          tags: ['滑雪', '粉雪', '溫泉'],
-          status_str: '已完成',
+          title: '2025 \u65e5\u672c\u6ed1\u96ea\u5718',
+          subtitle: '\u82d7\u5834 \u00b7 \u4e0a\u8d8a\u570b\u969b \u00b7 \u8d8a\u5f8c\u6e6f\u6fa4 \u00b7 \u6771\u4eac',
+          date_str: '2025.12.24 \u2013 2026.01.04',
+          tags: ['\u6ed1\u96ea', '\u7c89\u96ea', '\u6eab\u6cc9'],
+          status_str: '\u5df2\u5b8c\u6210',
         }
       },
       {
         id: 'spain-2025',
         url: '/2025/Spain/',
-        flag: '🇪🇸',
+        flag: '\u{1f1ea}\u{1f1f8}',
         image: '/trip/images/spain.webp',
         banner_gradient: 'linear-gradient(135deg, #7c2d12 0%, #dc2626 30%, #fbbf24 60%, #fef3c7 100%)',
-        banner_emoji: '💃',
+        banner_emoji: '\u{1f483}',
         date: '2025-05-17',
         date_end: '2025-05-21',
         duration: 5,
@@ -789,26 +921,26 @@
         countries: ['Spain'],
         en: {
           title: 'Barcelona & Madrid 2025',
-          subtitle: 'Gaudí · Flamenco · Tapas · Prado Museum',
-          date_str: 'May 17 – 21, 2025',
+          subtitle: 'Gaud\u00ed \u00b7 Flamenco \u00b7 Tapas \u00b7 Prado Museum',
+          date_str: 'May 17 \u2013 21, 2025',
           tags: ['City', 'Culture', 'Food'],
           status_str: 'Completed',
         },
         zh: {
-          title: '2025 西班牙',
-          subtitle: '高第 · 佛朗明哥 · Tapas · 普拉多博物館',
-          date_str: '2025.05.17 – 05.21',
-          tags: ['城市', '文化', '美食'],
-          status_str: '已完成',
+          title: '2025 \u897f\u73ed\u7259',
+          subtitle: '\u9ad8\u7b2c \u00b7 \u4f5b\u6717\u660e\u54e5 \u00b7 Tapas \u00b7 \u666e\u62c9\u591a\u535a\u7269\u9928',
+          date_str: '2025.05.17 \u2013 05.21',
+          tags: ['\u57ce\u5e02', '\u6587\u5316', '\u7f8e\u98df'],
+          status_str: '\u5df2\u5b8c\u6210',
         }
       },
       {
         id: 'eu-ski-2026',
         url: '/2026/eu-ski/',
-        flag: '🇪🇺',
+        flag: '\u{1f1ea}\u{1f1fa}',
         image: '/trip/images/eu-ski.webp',
         banner_gradient: 'linear-gradient(135deg, #1e3a5f 0%, #1e40af 30%, #60a5fa 60%, #dbeafe 100%)',
-        banner_emoji: '🎿',
+        banner_emoji: '\u{1f3bf}',
         date: '2026-12-25',
         date_end: '2027-01-03',
         duration: 10,
@@ -820,17 +952,17 @@
         countries: ['Austria', 'Germany', 'Czech Republic'],
         en: {
           title: 'EU Ski + City 2026',
-          subtitle: 'Austria Ski · Christmas Markets · Central Europe',
-          date_str: 'Dec 2026 – Jan 2027',
+          subtitle: 'Austria Ski \u00b7 Christmas Markets \u00b7 Central Europe',
+          date_str: 'Dec 2026 \u2013 Jan 2027',
           tags: ['Ski', 'Christmas Market', 'City'],
           status_str: 'Planning',
         },
         zh: {
-          title: '2026 歐洲滑雪',
-          subtitle: '奧地利滑雪 · 聖誕市集 · 中歐城市',
-          date_str: '2026.12 – 2027.01',
-          tags: ['滑雪', '聖誕市集', '城市'],
-          status_str: '規劃中',
+          title: '2026 \u6b50\u6d32\u6ed1\u96ea',
+          subtitle: '\u5967\u5730\u5229\u6ed1\u96ea \u00b7 \u8056\u8a95\u5e02\u96c6 \u00b7 \u4e2d\u6b50\u57ce\u5e02',
+          date_str: '2026.12 \u2013 2027.01',
+          tags: ['\u6ed1\u96ea', '\u8056\u8a95\u5e02\u96c6', '\u57ce\u5e02'],
+          status_str: '\u898f\u5283\u4e2d',
         }
       }
     ];
@@ -839,7 +971,7 @@
     const i18n = {
       en: {
         pageTitle: 'Trip Planning & History',
-        pageDesc: 'A collection of travel itineraries and trip plans — from city explorations to ski adventures.',
+        pageDesc: 'A collection of travel itineraries and trip plans \u2014 from city explorations to ski adventures.',
         backLink: '\u2190 Back to Homepage',
         sortLabel: 'Sort',
         groupLabel: 'Group',
@@ -890,68 +1022,72 @@
         continentAsia: 'Asia',
         activeFilters: 'Active filters:',
         clearAll: 'Clear all',
+        viewGrid: 'Grid',
+        viewList: 'List',
       },
       zh: {
-        pageTitle: '旅行規劃 & 歷史',
-        pageDesc: '從城市探索到滑雪冒險 — 旅行行程與規劃的完整紀錄。',
-        backLink: '\u2190 返回首頁',
-        sortLabel: '排序',
-        groupLabel: '分組',
-        searchPlaceholder: '搜尋旅程...',
-        statTripsLabel: '旅程',
-        statCountriesLabel: '國家',
-        statDaysLabel: '天數',
-        statCitiesLabel: '城市',
-        footerText: '\u00a9 2025 Chia-An Lee. 隸屬於',
-        sortDateDesc: '最新優先',
-        sortDateAsc: '最舊優先',
-        sortDurDesc: '最長優先',
-        sortDurAsc: '最短優先',
-        sortName: '名稱 A\u2192Z',
-        groupNone: '不分組',
-        groupYear: '依年份',
-        groupSeason: '依季節',
-        groupType: '依類型',
-        groupStatus: '依狀態',
-        groupContinent: '依洲別',
-        groupCountry: '依國家',
-        filterTypeLabel: '類型',
-        filterStatusLabel: '狀態',
-        filterYearLabel: '年份',
-        filterCity: '城市',
-        filterSki: '滑雪',
-        filterNature: '自然',
-        filterCompleted: '已完成',
-        filterPlanning: '規劃中',
-        filterGeoLabel: '地區',
-        regionDropdownLabel: '選擇地區...',
-        regionContinentGroup: '洲別',
-        regionCountryGroup: '國家',
-        emptyTitle: '找不到旅程',
-        emptyDesc: '請嘗試調整篩選條件或搜尋關鍵字。',
-        seasonSpring: '春季',
-        seasonSummer: '夏季',
-        seasonAutumn: '秋季',
-        seasonWinter: '冬季',
-        typeCity: '城市 / 文化',
-        typeSki: '滑雪',
-        typeNature: '自然 / 公路旅行',
-        statusCompleted: '已完成',
-        statusPlanning: '規劃中',
-        days: '天',
-        continentEurope: '歐洲',
-        continentNorthAmerica: '北美洲',
-        continentAsia: '亞洲',
-        activeFilters: '篩選條件：',
-        clearAll: '清除全部',
+        pageTitle: '\u65c5\u884c\u898f\u5283 & \u6b77\u53f2',
+        pageDesc: '\u5f9e\u57ce\u5e02\u63a2\u7d22\u5230\u6ed1\u96ea\u5192\u96aa \u2014 \u65c5\u884c\u884c\u7a0b\u8207\u898f\u5283\u7684\u5b8c\u6574\u7d00\u9304\u3002',
+        backLink: '\u2190 \u8fd4\u56de\u9996\u9801',
+        sortLabel: '\u6392\u5e8f',
+        groupLabel: '\u5206\u7d44',
+        searchPlaceholder: '\u641c\u5c0b\u65c5\u7a0b...',
+        statTripsLabel: '\u65c5\u7a0b',
+        statCountriesLabel: '\u570b\u5bb6',
+        statDaysLabel: '\u5929\u6578',
+        statCitiesLabel: '\u57ce\u5e02',
+        footerText: '\u00a9 2025 Chia-An Lee. \u96b8\u5c6c\u65bc',
+        sortDateDesc: '\u6700\u65b0\u512a\u5148',
+        sortDateAsc: '\u6700\u820a\u512a\u5148',
+        sortDurDesc: '\u6700\u9577\u512a\u5148',
+        sortDurAsc: '\u6700\u77ed\u512a\u5148',
+        sortName: '\u540d\u7a31 A\u2192Z',
+        groupNone: '\u4e0d\u5206\u7d44',
+        groupYear: '\u4f9d\u5e74\u4efd',
+        groupSeason: '\u4f9d\u5b63\u7bc0',
+        groupType: '\u4f9d\u985e\u578b',
+        groupStatus: '\u4f9d\u72c0\u614b',
+        groupContinent: '\u4f9d\u6d32\u5225',
+        groupCountry: '\u4f9d\u570b\u5bb6',
+        filterTypeLabel: '\u985e\u578b',
+        filterStatusLabel: '\u72c0\u614b',
+        filterYearLabel: '\u5e74\u4efd',
+        filterCity: '\u57ce\u5e02',
+        filterSki: '\u6ed1\u96ea',
+        filterNature: '\u81ea\u7136',
+        filterCompleted: '\u5df2\u5b8c\u6210',
+        filterPlanning: '\u898f\u5283\u4e2d',
+        filterGeoLabel: '\u5730\u5340',
+        regionDropdownLabel: '\u9078\u64c7\u5730\u5340...',
+        regionContinentGroup: '\u6d32\u5225',
+        regionCountryGroup: '\u570b\u5bb6',
+        emptyTitle: '\u627e\u4e0d\u5230\u65c5\u7a0b',
+        emptyDesc: '\u8acb\u5617\u8a66\u8abf\u6574\u7be9\u9078\u689d\u4ef6\u6216\u641c\u5c0b\u95dc\u9375\u5b57\u3002',
+        seasonSpring: '\u6625\u5b63',
+        seasonSummer: '\u590f\u5b63',
+        seasonAutumn: '\u79cb\u5b63',
+        seasonWinter: '\u51ac\u5b63',
+        typeCity: '\u57ce\u5e02 / \u6587\u5316',
+        typeSki: '\u6ed1\u96ea',
+        typeNature: '\u81ea\u7136 / \u516c\u8def\u65c5\u884c',
+        statusCompleted: '\u5df2\u5b8c\u6210',
+        statusPlanning: '\u898f\u5283\u4e2d',
+        days: '\u5929',
+        continentEurope: '\u6b50\u6d32',
+        continentNorthAmerica: '\u5317\u7f8e\u6d32',
+        continentAsia: '\u4e9e\u6d32',
+        activeFilters: '\u7be9\u9078\u689d\u4ef6\uff1a',
+        clearAll: '\u6e05\u9664\u5168\u90e8',
+        viewGrid: '\u5361\u7247',
+        viewList: '\u5217\u8868',
       }
     };
 
     // Country name translations
     const countryI18n = {
-      'Switzerland': '瑞士', 'Iceland': '冰島', 'France': '法國',
-      'USA': '美國', 'Japan': '日本', 'Spain': '西班牙',
-      'Austria': '奧地利', 'Germany': '德國', 'Czech Republic': '捷克',
+      'Switzerland': '\u745e\u58eb', 'Iceland': '\u51b0\u5cf6', 'France': '\u6cd5\u570b',
+      'USA': '\u7f8e\u570b', 'Japan': '\u65e5\u672c', 'Spain': '\u897f\u73ed\u7259',
+      'Austria': '\u5967\u5730\u5229', 'Germany': '\u5fb7\u570b', 'Czech Republic': '\u6377\u514b',
     };
 
     const continentI18n = {
@@ -961,6 +1097,7 @@
     };
 
     let currentLang = 'en';
+    let currentView = 'grid'; // 'grid' or 'list'
 
     // Multi-select filter state
     let activeTypeFilters = new Set();
@@ -982,6 +1119,15 @@
     }
     function getUniqueYears() {
       return [...new Set(trips.map(t => t.year))].sort((a, b) => b - a);
+    }
+
+    // ===== VIEW TOGGLE =====
+    function setView(view) {
+      currentView = view;
+      document.querySelectorAll('.view-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.view === view);
+      });
+      render();
     }
 
     // ===== LANGUAGE =====
@@ -1083,7 +1229,6 @@
 
       let toggleLabel = tr('regionDropdownLabel');
       if (selectedCount > 0) {
-        // Show first selected item + count
         const firstKey = [...activeGeoFilters][0];
         const firstName = firstKey.startsWith('continent:')
           ? translateContinent(firstKey.replace('continent:', ''))
@@ -1094,23 +1239,21 @@
       }
 
       let menuHtml = '';
-      // Continents group
       menuHtml += `<div class="dropdown-menu-group-label">${tr('regionContinentGroup')}</div>`;
       continents.forEach(c => {
         const key = 'continent:' + c;
         const selected = activeGeoFilters.has(key);
         menuHtml += `<div class="dropdown-menu-item ${selected ? 'selected' : ''}" onclick="event.stopPropagation(); toggleGeoFilter('${key}')">
-          <span class="check">${selected ? '✓' : ''}</span>
+          <span class="check">${selected ? '\u2713' : ''}</span>
           <span>${translateContinent(c)}</span>
         </div>`;
       });
-      // Countries group
       menuHtml += `<div class="dropdown-menu-group-label">${tr('regionCountryGroup')}</div>`;
       countries.forEach(c => {
         const key = 'country:' + c;
         const selected = activeGeoFilters.has(key);
         menuHtml += `<div class="dropdown-menu-item ${selected ? 'selected' : ''}" onclick="event.stopPropagation(); toggleGeoFilter('country:${c}')">
-          <span class="check">${selected ? '✓' : ''}</span>
+          <span class="check">${selected ? '\u2713' : ''}</span>
           <span>${translateCountry(c)}</span>
         </div>`;
       });
@@ -1258,19 +1401,15 @@
     function filterTrips(list) {
       const search = document.getElementById('searchInput').value.toLowerCase();
       return list.filter(trip => {
-        // Type filter
         if (activeTypeFilters.size > 0) {
           if (!activeTypeFilters.has(trip.type)) return false;
         }
-        // Status filter
         if (activeStatusFilters.size > 0) {
           if (!activeStatusFilters.has(trip.status)) return false;
         }
-        // Year filter
         if (activeYearFilters.size > 0) {
           if (!activeYearFilters.has(trip.year)) return false;
         }
-        // Geo filter
         if (activeGeoFilters.size > 0) {
           let geoMatch = false;
           for (const gf of activeGeoFilters) {
@@ -1282,7 +1421,6 @@
           }
           if (!geoMatch) return false;
         }
-        // Search
         if (search) {
           const haystack = [
             trip.en.title, trip.zh.title,
@@ -1336,7 +1474,6 @@
         });
       });
 
-      // Sort group keys
       const sortedKeys = Object.keys(groups).sort((a, b) => {
         if (groupVal === 'year') return parseInt(b) - parseInt(a);
         return a.localeCompare(b, currentLang === 'zh' ? 'zh-TW' : 'en');
@@ -1346,7 +1483,7 @@
       return sorted;
     }
 
-    // ===== RENDER =====
+    // ===== RENDER: GRID CARD =====
     function renderCard(trip) {
       const data = trip[currentLang];
       const statusClass = trip.status === 'completed' ? 'status-completed' : 'status-planning';
@@ -1369,9 +1506,9 @@
             </div>
             <div class="card-subtitle">${data.subtitle}</div>
             <div class="card-meta">
-              <span class="meta-item"><span class="meta-icon">📅</span> ${data.date_str}</span>
-              <span class="meta-item"><span class="meta-icon">⏱️</span> ${trip.duration} ${tr('days')}</span>
-              <span class="meta-item"><span class="meta-icon">📍</span> ${countriesDisplay}</span>
+              <span class="meta-item"><span class="meta-icon">\u{1f4c5}</span> ${data.date_str}</span>
+              <span class="meta-item"><span class="meta-icon">\u23f1\ufe0f</span> ${trip.duration} ${tr('days')}</span>
+              <span class="meta-item"><span class="meta-icon">\u{1f4cd}</span> ${countriesDisplay}</span>
             </div>
             <div class="card-tags">
               ${data.tags.map(tag => `<span class="card-tag">${tag}</span>`).join('')}
@@ -1381,6 +1518,42 @@
       `;
     }
 
+    // ===== RENDER: LIST ITEM =====
+    function renderListItem(trip) {
+      const data = trip[currentLang];
+      const statusClass = trip.status === 'completed' ? 'status-completed' : 'status-planning';
+      const countriesDisplay = trip.countries.map(c => translateCountry(c)).join(', ');
+
+      const bannerHtml = trip.image
+        ? `<img src="${trip.image}" alt="${data.title}" loading="lazy">`
+        : `<div class="list-banner-fallback" style="background: ${trip.banner_gradient};">${trip.banner_emoji}</div>`;
+
+      return `
+        <a class="trip-list-item" href="${trip.url}" title="${data.title}">
+          <div class="list-banner">
+            ${bannerHtml}
+            <span class="list-status ${statusClass}">${data.status_str}</span>
+          </div>
+          <div class="list-body">
+            <div class="list-flag-title">
+              <span class="list-flag">${trip.flag}</span>
+              <span class="list-title">${data.title}</span>
+            </div>
+            <div class="list-subtitle">${data.subtitle}</div>
+            <div class="list-meta">
+              <span class="meta-item"><span class="meta-icon">\u{1f4c5}</span> ${data.date_str}</span>
+              <span class="meta-item"><span class="meta-icon">\u23f1\ufe0f</span> ${trip.duration} ${tr('days')}</span>
+              <span class="meta-item"><span class="meta-icon">\u{1f4cd}</span> ${countriesDisplay}</span>
+            </div>
+            <div class="list-tags">
+              ${data.tags.map(tag => `<span class="card-tag">${tag}</span>`).join('')}
+            </div>
+          </div>
+        </a>
+      `;
+    }
+
+    // ===== MAIN RENDER =====
     function render() {
       const container = document.getElementById('tripContainer');
       let filtered = filterTrips(trips);
@@ -1390,7 +1563,7 @@
       if (filtered.length === 0) {
         container.innerHTML = `
           <div class="empty-state">
-            <div class="empty-state-icon">🔍</div>
+            <div class="empty-state-icon">\u{1f50d}</div>
             <h3>${tr('emptyTitle')}</h3>
             <p>${tr('emptyDesc')}</p>
           </div>
@@ -1403,7 +1576,11 @@
         if (groupName) {
           html += `<div class="group-header">${groupName} <span class="group-count">${groupTrips.length}</span></div>`;
         }
-        html += `<div class="trip-grid">${groupTrips.map(renderCard).join('')}</div>`;
+        if (currentView === 'list') {
+          html += `<div class="trip-list">${groupTrips.map(renderListItem).join('')}</div>`;
+        } else {
+          html += `<div class="trip-grid">${groupTrips.map(renderCard).join('')}</div>`;
+        }
       }
       container.innerHTML = html;
     }
