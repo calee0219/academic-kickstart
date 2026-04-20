@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trip Planning & History — Chia-An Lee</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-card: #1e293b;
+      --bg-card-hover: #334155;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-hover: #7dd3fc;
+      --border: #334155;
+      --tag-bg: #1e3a5f;
+      --tag-text: #7dd3fc;
+      --planning-badge: #f59e0b;
+      --completed-badge: #22c55e;
+      --radius: 12px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      padding: 3rem 1.5rem 2rem;
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0f172a 100%);
+      border-bottom: 1px solid var(--border);
+    }
+    .header h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #38bdf8, #818cf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .header p {
+      color: var(--text-muted);
+      font-size: 1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1rem;
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--accent-hover); }
+
+    /* Stats bar */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .stat {
+      text-align: center;
+    }
+    .stat-num {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Controls */
+    .controls {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+    }
+    .control-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .control-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+    select, .search-input {
+      background: var(--bg-card);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    select:hover, .search-input:hover {
+      border-color: var(--accent);
+    }
+    select:focus, .search-input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
+    }
+    .search-input {
+      width: 200px;
+    }
+    .lang-toggle {
+      margin-left: auto;
+      display: flex;
+      gap: 0;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .lang-btn {
+      background: var(--bg-card);
+      color: var(--text-muted);
+      border: none;
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .lang-btn.active {
+      background: var(--accent);
+      color: #0f172a;
+      font-weight: 600;
+    }
+    .lang-btn:hover:not(.active) {
+      background: var(--bg-card-hover);
+      color: var(--text);
+    }
+
+    /* Filter tags */
+    .filter-tags {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .filter-tag {
+      background: var(--bg-card);
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 0.35rem 0.85rem;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      user-select: none;
+    }
+    .filter-tag:hover {
+      border-color: var(--accent);
+      color: var(--text);
+    }
+    .filter-tag.active {
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      border-color: var(--accent);
+    }
+
+    /* Trip grid */
+    .trip-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem 3rem;
+    }
+    .group-header {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 2rem 0 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .group-count {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      background: var(--bg-card);
+      padding: 0.15rem 0.5rem;
+      border-radius: 10px;
+    }
+    .trip-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1.25rem;
+    }
+
+    /* Trip card */
+    .trip-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .trip-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+      box-shadow: 0 8px 30px rgba(56, 189, 248, 0.15);
+    }
+    .card-banner {
+      height: 160px;
+      position: relative;
+      overflow: hidden;
+    }
+    .card-banner-bg {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+    }
+    .card-status {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .status-completed {
+      background: rgba(34, 197, 94, 0.2);
+      color: var(--completed-badge);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+    }
+    .status-planning {
+      background: rgba(245, 158, 11, 0.2);
+      color: var(--planning-badge);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+    .card-body {
+      padding: 1.25rem;
+    }
+    .card-flag-title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .card-flag {
+      font-size: 1.5rem;
+    }
+    .card-title {
+      font-size: 1.15rem;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+    .card-subtitle {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-bottom: 0.75rem;
+    }
+    .card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .meta-icon {
+      font-size: 0.9rem;
+    }
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+    .card-tag {
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      padding: 0.15rem 0.55rem;
+      border-radius: 6px;
+      font-size: 0.7rem;
+    }
+
+    /* Empty state */
+    .empty-state {
+      text-align: center;
+      padding: 3rem;
+      color: var(--text-muted);
+    }
+    .empty-state-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      border-top: 1px solid var(--border);
+    }
+    .footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .header h1 { font-size: 1.6rem; }
+      .stats { gap: 1.5rem; }
+      .controls { flex-direction: column; align-items: stretch; }
+      .lang-toggle { margin-left: 0; justify-content: center; }
+      .search-input { width: 100%; }
+      .trip-grid { grid-template-columns: 1fr; }
+      .card-banner { height: 130px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a href="/" class="back-link" id="backLink">← Back to Homepage</a>
+    <h1 id="pageTitle">Trip Planning & History</h1>
+    <p id="pageDesc">A collection of travel itineraries and trip plans — from city explorations to ski adventures.</p>
+  </header>
+
+  <div class="stats" id="statsBar">
+    <div class="stat">
+      <div class="stat-num" id="statTrips">7</div>
+      <div class="stat-label" id="statTripsLabel">Trips</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" id="statCountries">8</div>
+      <div class="stat-label" id="statCountriesLabel">Countries</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" id="statDays">62</div>
+      <div class="stat-label" id="statDaysLabel">Days</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" id="statCities">20+</div>
+      <div class="stat-label" id="statCitiesLabel">Cities</div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <span class="control-label" id="sortLabel">Sort</span>
+      <select id="sortSelect">
+        <option value="date-desc">Newest First</option>
+        <option value="date-asc">Oldest First</option>
+        <option value="duration-desc">Longest First</option>
+        <option value="duration-asc">Shortest First</option>
+        <option value="name-asc">Name A→Z</option>
+      </select>
+    </div>
+    <div class="control-group">
+      <span class="control-label" id="groupLabel">Group</span>
+      <select id="groupSelect">
+        <option value="none">No Grouping</option>
+        <option value="year">By Year</option>
+        <option value="season">By Season</option>
+        <option value="type">By Type</option>
+        <option value="status">By Status</option>
+      </select>
+    </div>
+    <div class="control-group">
+      <input type="text" class="search-input" id="searchInput" placeholder="Search trips...">
+    </div>
+    <div class="lang-toggle">
+      <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" data-lang="zh" onclick="setLang('zh')">中文</button>
+    </div>
+  </div>
+
+  <div class="filter-tags" id="filterTags"></div>
+
+  <div class="trip-container" id="tripContainer"></div>
+
+  <footer class="footer">
+    <span id="footerText">© 2025 Chia-An Lee. Part of</span>
+    <a href="/">calee0219.github.io</a>
+  </footer>
+
+  <script>
+    // ===== DATA =====
+    const trips = [
+      {
+        id: 'swiss-2024',
+        url: '/2024/Swiss/',
+        flag: '🇨🇭',
+        banner_gradient: 'linear-gradient(135deg, #065f46 0%, #047857 30%, #a7f3d0 70%, #f0fdf4 100%)',
+        banner_emoji: '🏔️',
+        date: '2024-08-17',
+        date_end: '2024-08-26',
+        duration: 10,
+        season: 'summer',
+        status: 'completed',
+        type: 'city',
+        countries: ['Switzerland', 'France'],
+        en: {
+          title: 'Switzerland 2024',
+          subtitle: 'Zürich · Zermatt · Interlaken · Bern · Colmar · Luzern',
+          date_str: 'Aug 17 – 26, 2024',
+          tags: ['Mountain', 'City', 'Train'],
+          status_str: 'Completed',
+        },
+        zh: {
+          title: '2024 瑞士',
+          subtitle: '蘇黎世 · 策馬特 · 因特拉肯 · 伯恩 · 科爾馬 · 琉森',
+          date_str: '2024.08.17 – 08.26',
+          tags: ['山岳', '城市', '火車'],
+          status_str: '已完成',
+        }
+      },
+      {
+        id: 'iceland-2024',
+        url: '/2024/Iceland/',
+        flag: '🇮🇸',
+        banner_gradient: 'linear-gradient(135deg, #1e1b4b 0%, #312e81 30%, #4338ca 60%, #22d3ee 100%)',
+        banner_emoji: '🌌',
+        date: '2024-11-03',
+        date_end: '2024-11-10',
+        duration: 8,
+        season: 'autumn',
+        status: 'completed',
+        type: 'nature',
+        countries: ['Iceland'],
+        en: {
+          title: 'Iceland 2024',
+          subtitle: 'Golden Circle · Glaciers · Blue Ice Cave · Northern Lights',
+          date_str: 'Nov 3 – 10, 2024',
+          tags: ['Road Trip', 'Nature', 'Glacier'],
+          status_str: 'Completed',
+        },
+        zh: {
+          title: '2024 冰島',
+          subtitle: '金圈 · 冰川 · 藍冰洞 · 極光',
+          date_str: '2024.11.03 – 11.10',
+          tags: ['自駕', '自然', '冰川'],
+          status_str: '已完成',
+        }
+      },
+      {
+        id: 'paris-2023',
+        url: '/2023/Paris/',
+        flag: '🇫🇷',
+        banner_gradient: 'linear-gradient(135deg, #fef3c7 0%, #fbbf24 30%, #d97706 60%, #92400e 100%)',
+        banner_emoji: '🗼',
+        date: '2023-11-21',
+        date_end: '2023-11-28',
+        duration: 8,
+        season: 'autumn',
+        status: 'completed',
+        type: 'city',
+        countries: ['France'],
+        en: {
+          title: 'Paris 2023',
+          subtitle: 'Montmartre · Versailles · Louvre · Seine River',
+          date_str: 'Nov 21 – 28, 2023',
+          tags: ['City', 'Culture', 'Museum'],
+          status_str: 'Completed',
+        },
+        zh: {
+          title: '2023 巴黎',
+          subtitle: '蒙馬特 · 凡爾賽 · 羅浮宮 · 塞納河',
+          date_str: '2023.11.21 – 11.28',
+          tags: ['城市', '文化', '博物館'],
+          status_str: '已完成',
+        }
+      },
+      {
+        id: 'ny-boston-2023',
+        url: '/2023/NY-Boston/',
+        flag: '🇺🇸',
+        banner_gradient: 'linear-gradient(135deg, #1e3a5f 0%, #1e40af 30%, #3b82f6 60%, #93c5fd 100%)',
+        banner_emoji: '🗽',
+        date: '2023-11-03',
+        date_end: '2023-11-14',
+        duration: 12,
+        season: 'autumn',
+        status: 'completed',
+        type: 'city',
+        countries: ['USA'],
+        en: {
+          title: 'Boston & New York 2023',
+          subtitle: 'Harvard · MIT · Broadway · Empire State · The Met',
+          date_str: 'Nov 3 – 14, 2023',
+          tags: ['City', 'Culture', 'Broadway'],
+          status_str: 'Completed',
+        },
+        zh: {
+          title: '2023 波士頓 & 紐約',
+          subtitle: '哈佛 · MIT · 百老匯 · 帝國大廈 · 大都會博物館',
+          date_str: '2023.11.03 – 11.14',
+          tags: ['城市', '文化', '百老匯'],
+          status_str: '已完成',
+        }
+      },
+      {
+        id: 'jp-ski-2025',
+        url: '/2025/jp-ski/',
+        flag: '🇯🇵',
+        banner_gradient: 'linear-gradient(135deg, #1e3a5f 0%, #1d4ed8 30%, #dbeafe 60%, #f0f9ff 100%)',
+        banner_emoji: '⛷️',
+        date: '2025-12-24',
+        date_end: '2026-01-04',
+        duration: 11,
+        season: 'winter',
+        status: 'completed',
+        type: 'ski',
+        countries: ['Japan'],
+        en: {
+          title: 'Japan Ski 2025–26',
+          subtitle: 'Naeba · Joetsu Kokusai · Echigo-Yuzawa · Tokyo',
+          date_str: 'Dec 24, 2025 – Jan 4, 2026',
+          tags: ['Ski', 'Powder Snow', 'Onsen'],
+          status_str: 'Completed',
+        },
+        zh: {
+          title: '2025 日本滑雪團',
+          subtitle: '苗場 · 上越國際 · 越後湯澤 · 東京',
+          date_str: '2025.12.24 – 2026.01.04',
+          tags: ['滑雪', '粉雪', '溫泉'],
+          status_str: '已完成',
+        }
+      },
+      {
+        id: 'spain-2025',
+        url: '/2025/Spain/',
+        flag: '🇪🇸',
+        banner_gradient: 'linear-gradient(135deg, #7c2d12 0%, #dc2626 30%, #fbbf24 60%, #fef3c7 100%)',
+        banner_emoji: '💃',
+        date: '2025-05-17',
+        date_end: '2025-05-21',
+        duration: 5,
+        season: 'spring',
+        status: 'completed',
+        type: 'city',
+        countries: ['Spain'],
+        en: {
+          title: 'Barcelona & Madrid 2025',
+          subtitle: 'Gaudí · Flamenco · Tapas · Prado Museum',
+          date_str: 'May 17 – 21, 2025',
+          tags: ['City', 'Culture', 'Food'],
+          status_str: 'Completed',
+        },
+        zh: {
+          title: '2025 西班牙',
+          subtitle: '高第 · 佛朗明哥 · Tapas · 普拉多博物館',
+          date_str: '2025.05.17 – 05.21',
+          tags: ['城市', '文化', '美食'],
+          status_str: '已完成',
+        }
+      },
+      {
+        id: 'eu-ski-2026',
+        url: '/2026/eu-ski/',
+        flag: '🇪🇺',
+        banner_gradient: 'linear-gradient(135deg, #1e3a5f 0%, #1e40af 30%, #60a5fa 60%, #dbeafe 100%)',
+        banner_emoji: '🎿',
+        date: '2026-12-25',
+        date_end: '2027-01-03',
+        duration: 10,
+        season: 'winter',
+        status: 'planning',
+        type: 'ski',
+        countries: ['Austria', 'Germany', 'Czech Republic'],
+        en: {
+          title: 'EU Ski + City 2026',
+          subtitle: 'Austria Ski · Christmas Markets · Central Europe',
+          date_str: 'Dec 2026 – Jan 2027',
+          tags: ['Ski', 'Christmas Market', 'City'],
+          status_str: 'Planning',
+        },
+        zh: {
+          title: '2026 歐洲滑雪',
+          subtitle: '奧地利滑雪 · 聖誕市集 · 中歐城市',
+          date_str: '2026.12 – 2027.01',
+          tags: ['滑雪', '聖誕市集', '城市'],
+          status_str: '規劃中',
+        }
+      }
+    ];
+
+    // ===== I18N =====
+    const i18n = {
+      en: {
+        pageTitle: 'Trip Planning & History',
+        pageDesc: 'A collection of travel itineraries and trip plans — from city explorations to ski adventures.',
+        backLink: '← Back to Homepage',
+        sortLabel: 'Sort',
+        groupLabel: 'Group',
+        searchPlaceholder: 'Search trips...',
+        statTripsLabel: 'Trips',
+        statCountriesLabel: 'Countries',
+        statDaysLabel: 'Days',
+        statCitiesLabel: 'Cities',
+        footerText: '© 2025 Chia-An Lee. Part of',
+        sortDateDesc: 'Newest First',
+        sortDateAsc: 'Oldest First',
+        sortDurDesc: 'Longest First',
+        sortDurAsc: 'Shortest First',
+        sortName: 'Name A→Z',
+        groupNone: 'No Grouping',
+        groupYear: 'By Year',
+        groupSeason: 'By Season',
+        groupType: 'By Type',
+        groupStatus: 'By Status',
+        filterAll: 'All',
+        filterCity: 'City',
+        filterSki: 'Ski',
+        filterNature: 'Nature',
+        filterCompleted: 'Completed',
+        filterPlanning: 'Planning',
+        emptyTitle: 'No trips found',
+        emptyDesc: 'Try adjusting your filters or search terms.',
+        seasonSpring: 'Spring',
+        seasonSummer: 'Summer',
+        seasonAutumn: 'Autumn',
+        seasonWinter: 'Winter',
+        typeCity: 'City / Culture',
+        typeSki: 'Ski',
+        typeNature: 'Nature / Road Trip',
+        statusCompleted: 'Completed',
+        statusPlanning: 'Planning',
+        days: 'days',
+      },
+      zh: {
+        pageTitle: '旅行規劃 & 歷史',
+        pageDesc: '從城市探索到滑雪冒險 — 旅行行程與規劃的完整紀錄。',
+        backLink: '← 返回首頁',
+        sortLabel: '排序',
+        groupLabel: '分組',
+        searchPlaceholder: '搜尋旅程...',
+        statTripsLabel: '旅程',
+        statCountriesLabel: '國家',
+        statDaysLabel: '天數',
+        statCitiesLabel: '城市',
+        footerText: '© 2025 Chia-An Lee. 隸屬於',
+        sortDateDesc: '最新優先',
+        sortDateAsc: '最舊優先',
+        sortDurDesc: '最長優先',
+        sortDurAsc: '最短優先',
+        sortName: '名稱 A→Z',
+        groupNone: '不分組',
+        groupYear: '依年份',
+        groupSeason: '依季節',
+        groupType: '依類型',
+        groupStatus: '依狀態',
+        filterAll: '全部',
+        filterCity: '城市',
+        filterSki: '滑雪',
+        filterNature: '自然',
+        filterCompleted: '已完成',
+        filterPlanning: '規劃中',
+        emptyTitle: '找不到旅程',
+        emptyDesc: '請嘗試調整篩選條件或搜尋關鍵字。',
+        seasonSpring: '春季',
+        seasonSummer: '夏季',
+        seasonAutumn: '秋季',
+        seasonWinter: '冬季',
+        typeCity: '城市 / 文化',
+        typeSki: '滑雪',
+        typeNature: '自然 / 公路旅行',
+        statusCompleted: '已完成',
+        statusPlanning: '規劃中',
+        days: '天',
+      }
+    };
+
+    let currentLang = 'en';
+    let activeFilter = 'all';
+
+    // ===== LANGUAGE =====
+    function setLang(lang) {
+      currentLang = lang;
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+      });
+      document.documentElement.lang = lang === 'zh' ? 'zh-TW' : 'en';
+      updateUI();
+      render();
+    }
+
+    function t(key) {
+      return i18n[currentLang][key] || key;
+    }
+
+    function updateUI() {
+      document.getElementById('pageTitle').textContent = t('pageTitle');
+      document.getElementById('pageDesc').textContent = t('pageDesc');
+      document.getElementById('backLink').textContent = t('backLink');
+      document.getElementById('sortLabel').textContent = t('sortLabel');
+      document.getElementById('groupLabel').textContent = t('groupLabel');
+      document.getElementById('searchInput').placeholder = t('searchPlaceholder');
+      document.getElementById('statTripsLabel').textContent = t('statTripsLabel');
+      document.getElementById('statCountriesLabel').textContent = t('statCountriesLabel');
+      document.getElementById('statDaysLabel').textContent = t('statDaysLabel');
+      document.getElementById('statCitiesLabel').textContent = t('statCitiesLabel');
+      document.getElementById('footerText').textContent = t('footerText');
+
+      const sortSelect = document.getElementById('sortSelect');
+      sortSelect.options[0].text = t('sortDateDesc');
+      sortSelect.options[1].text = t('sortDateAsc');
+      sortSelect.options[2].text = t('sortDurDesc');
+      sortSelect.options[3].text = t('sortDurAsc');
+      sortSelect.options[4].text = t('sortName');
+
+      const groupSelect = document.getElementById('groupSelect');
+      groupSelect.options[0].text = t('groupNone');
+      groupSelect.options[1].text = t('groupYear');
+      groupSelect.options[2].text = t('groupSeason');
+      groupSelect.options[3].text = t('groupType');
+      groupSelect.options[4].text = t('groupStatus');
+
+      renderFilterTags();
+    }
+
+    // ===== FILTER TAGS =====
+    function renderFilterTags() {
+      const container = document.getElementById('filterTags');
+      const filters = [
+        { key: 'all', label: t('filterAll') },
+        { key: 'city', label: t('filterCity') },
+        { key: 'ski', label: t('filterSki') },
+        { key: 'nature', label: t('filterNature') },
+        { key: 'completed', label: t('filterCompleted') },
+        { key: 'planning', label: t('filterPlanning') },
+      ];
+      container.innerHTML = filters.map(f =>
+        `<span class="filter-tag ${activeFilter === f.key ? 'active' : ''}" onclick="setFilter('${f.key}')">${f.label}</span>`
+      ).join('');
+    }
+
+    function setFilter(filter) {
+      activeFilter = filter;
+      renderFilterTags();
+      render();
+    }
+
+    // ===== SORTING =====
+    function sortTrips(list) {
+      const sortVal = document.getElementById('sortSelect').value;
+      return [...list].sort((a, b) => {
+        switch (sortVal) {
+          case 'date-desc': return new Date(b.date) - new Date(a.date);
+          case 'date-asc': return new Date(a.date) - new Date(b.date);
+          case 'duration-desc': return b.duration - a.duration;
+          case 'duration-asc': return a.duration - b.duration;
+          case 'name-asc': return a[currentLang].title.localeCompare(b[currentLang].title);
+          default: return 0;
+        }
+      });
+    }
+
+    // ===== FILTERING =====
+    function filterTrips(list) {
+      const search = document.getElementById('searchInput').value.toLowerCase();
+      return list.filter(trip => {
+        // Type / status filter
+        if (activeFilter !== 'all') {
+          if (activeFilter === 'completed' && trip.status !== 'completed') return false;
+          if (activeFilter === 'planning' && trip.status !== 'planning') return false;
+          if (activeFilter === 'city' && trip.type !== 'city') return false;
+          if (activeFilter === 'ski' && trip.type !== 'ski') return false;
+          if (activeFilter === 'nature' && trip.type !== 'nature') return false;
+        }
+        // Search
+        if (search) {
+          const haystack = [
+            trip.en.title, trip.zh.title,
+            trip.en.subtitle, trip.zh.subtitle,
+            ...trip.countries,
+            ...trip.en.tags, ...trip.zh.tags
+          ].join(' ').toLowerCase();
+          if (!haystack.includes(search)) return false;
+        }
+        return true;
+      });
+    }
+
+    // ===== GROUPING =====
+    function groupTrips(list) {
+      const groupVal = document.getElementById('groupSelect').value;
+      if (groupVal === 'none') return { '': list };
+
+      const groups = {};
+      list.forEach(trip => {
+        let key;
+        switch (groupVal) {
+          case 'year':
+            key = new Date(trip.date).getFullYear().toString();
+            break;
+          case 'season':
+            const seasonMap = { spring: t('seasonSpring'), summer: t('seasonSummer'), autumn: t('seasonAutumn'), winter: t('seasonWinter') };
+            key = seasonMap[trip.season] || trip.season;
+            break;
+          case 'type':
+            const typeMap = { city: t('typeCity'), ski: t('typeSki'), nature: t('typeNature') };
+            key = typeMap[trip.type] || trip.type;
+            break;
+          case 'status':
+            key = trip.status === 'completed' ? t('statusCompleted') : t('statusPlanning');
+            break;
+          default:
+            key = '';
+        }
+        if (!groups[key]) groups[key] = [];
+        groups[key].push(trip);
+      });
+
+      // Sort group keys
+      const sortedKeys = Object.keys(groups).sort((a, b) => {
+        if (groupVal === 'year') return parseInt(b) - parseInt(a);
+        return a.localeCompare(b);
+      });
+      const sorted = {};
+      sortedKeys.forEach(k => sorted[k] = groups[k]);
+      return sorted;
+    }
+
+    // ===== RENDER =====
+    function renderCard(trip) {
+      const data = trip[currentLang];
+      const statusClass = trip.status === 'completed' ? 'status-completed' : 'status-planning';
+      return `
+        <a class="trip-card" href="${trip.url}" title="${data.title}">
+          <div class="card-banner">
+            <div class="card-banner-bg" style="background: ${trip.banner_gradient};">
+              ${trip.banner_emoji}
+            </div>
+            <span class="card-status ${statusClass}">${data.status_str}</span>
+          </div>
+          <div class="card-body">
+            <div class="card-flag-title">
+              <span class="card-flag">${trip.flag}</span>
+              <span class="card-title">${data.title}</span>
+            </div>
+            <div class="card-subtitle">${data.subtitle}</div>
+            <div class="card-meta">
+              <span class="meta-item"><span class="meta-icon">📅</span> ${data.date_str}</span>
+              <span class="meta-item"><span class="meta-icon">⏱️</span> ${trip.duration} ${t('days')}</span>
+              <span class="meta-item"><span class="meta-icon">📍</span> ${trip.countries.join(', ')}</span>
+            </div>
+            <div class="card-tags">
+              ${data.tags.map(tag => `<span class="card-tag">${tag}</span>`).join('')}
+            </div>
+          </div>
+        </a>
+      `;
+    }
+
+    function render() {
+      const container = document.getElementById('tripContainer');
+      let filtered = filterTrips(trips);
+      let sorted = sortTrips(filtered);
+      let groups = groupTrips(sorted);
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-state-icon">🔍</div>
+            <h3>${t('emptyTitle')}</h3>
+            <p>${t('emptyDesc')}</p>
+          </div>
+        `;
+        return;
+      }
+
+      let html = '';
+      for (const [groupName, groupTrips] of Object.entries(groups)) {
+        if (groupName) {
+          html += `<div class="group-header">${groupName} <span class="group-count">${groupTrips.length}</span></div>`;
+        }
+        html += `<div class="trip-grid">${groupTrips.map(renderCard).join('')}</div>`;
+      }
+      container.innerHTML = html;
+    }
+
+    // ===== EVENT LISTENERS =====
+    document.getElementById('sortSelect').addEventListener('change', render);
+    document.getElementById('groupSelect').addEventListener('change', render);
+    document.getElementById('searchInput').addEventListener('input', render);
+
+    // ===== INIT =====
+    updateUI();
+    render();
+  </script>
+</body>
+</html>
