@@ -671,19 +671,19 @@
 
   <div class="stats" id="statsBar">
     <div class="stat">
-      <div class="stat-num" id="statTrips">7</div>
+      <div class="stat-num" id="statTrips">10</div>
       <div class="stat-label" id="statTripsLabel">Trips</div>
     </div>
     <div class="stat">
-      <div class="stat-num" id="statCountries">8</div>
+      <div class="stat-num" id="statCountries">9</div>
       <div class="stat-label" id="statCountriesLabel">Countries</div>
     </div>
     <div class="stat">
-      <div class="stat-num" id="statDays">62</div>
+      <div class="stat-num" id="statDays">89</div>
       <div class="stat-label" id="statDaysLabel">Days</div>
     </div>
     <div class="stat">
-      <div class="stat-num" id="statCities">20+</div>
+      <div class="stat-num" id="statCities">30+</div>
       <div class="stat-label" id="statCitiesLabel">Cities</div>
     </div>
   </div>
@@ -749,8 +749,70 @@
     // ===== TRIP DATA =====
     const trips = [
       {
+        id: 'fukushima-ski-2024',
+        url: '/trip/2024/2324-jp-ski/',
+        flag: '\u{1f1ef}\u{1f1f5}',
+        image: '',
+        banner_gradient: 'linear-gradient(135deg, #1a237e 0%, #302b63 30%, #667eea 60%, #f0f9ff 100%)',
+        banner_emoji: '\u{1f3d4}\ufe0f',
+        date: '2024-01-13',
+        date_end: '2024-01-21',
+        duration: 9,
+        year: 2024,
+        season: 'winter',
+        status: 'completed',
+        type: 'ski',
+        continent: 'Asia',
+        countries: ['Japan'],
+        en: {
+          title: 'Fukushima Ski 2024',
+          subtitle: 'Listel Ski Fantasia \u00b7 Inawashiro \u00b7 Aizu-Wakamatsu \u00b7 Nikko \u00b7 Tokyo',
+          date_str: 'Jan 13 \u2013 21, 2024',
+          tags: ['Ski', 'Onsen', 'History'],
+          status_str: 'Completed',
+        },
+        zh: {
+          title: '2024 \u798f\u5cf6\u6ed1\u96ea',
+          subtitle: 'Listel Ski Fantasia \u00b7 \u8c6c\u82d7\u4ee3 \u00b7 \u6703\u6d25\u82e5\u677e \u00b7 \u65e5\u5149 \u00b7 \u6771\u4eac',
+          date_str: '2024.01.13 \u2013 01.21',
+          tags: ['\u6ed1\u96ea', '\u6eab\u6cc9', '\u6b77\u53f2'],
+          status_str: '\u5df2\u5b8c\u6210',
+        }
+      },
+      {
+        id: 'jp-kiroro-2025',
+        url: '/trip/2025/2425-jp-ski/',
+        flag: '\u{1f1ef}\u{1f1f5}',
+        image: '/trip/images/jp-ski.webp',
+        banner_gradient: 'linear-gradient(135deg, #1e3a5f 0%, #1d4ed8 30%, #93c5fd 60%, #f0f9ff 100%)',
+        banner_emoji: '\u26f7\ufe0f',
+        date: '2025-01-02',
+        date_end: '2025-01-12',
+        duration: 11,
+        year: 2025,
+        season: 'winter',
+        status: 'completed',
+        type: 'ski',
+        continent: 'Asia',
+        countries: ['Japan'],
+        en: {
+          title: 'Hokkaido Kiroro Ski 2025',
+          subtitle: 'Kiroro Snow World \u00b7 Otaru \u00b7 Sapporo \u00b7 Teine',
+          date_str: 'Jan 2 \u2013 12, 2025',
+          tags: ['Ski', 'Powder Snow', 'Seafood'],
+          status_str: 'Completed',
+        },
+        zh: {
+          title: '2025 \u5317\u6d77\u9053 Kiroro \u6ed1\u96ea',
+          subtitle: 'Kiroro Snow World \u00b7 \u5c0f\u6a3d \u00b7 \u672d\u5e4c \u00b7 \u624b\u7a3b',
+          date_str: '2025.01.02 \u2013 01.12',
+          tags: ['\u6ed1\u96ea', '\u7c89\u96ea', '\u6d77\u9bae'],
+          status_str: '\u5df2\u5b8c\u6210',
+        }
+      },
+      {
         id: 'swiss-2024',
-        url: '/2024/Swiss/',
+        url: '/trip/2024/Swiss/',
         flag: '\u{1f1e8}\u{1f1ed}',
         image: '/trip/images/swiss.webp',
         banner_gradient: 'linear-gradient(135deg, #1e3a5f 0%, #065f46 50%, #f0fdf4 100%)',
@@ -781,7 +843,7 @@
       },
       {
         id: 'iceland-2024',
-        url: '/2024/Iceland/',
+        url: '/trip/2024/Iceland/',
         flag: '\u{1f1ee}\u{1f1f8}',
         image: '/trip/images/iceland.webp',
         banner_gradient: 'linear-gradient(135deg, #0f172a 0%, #1e3a5f 30%, #4c1d95 60%, #22c55e 100%)',
@@ -812,7 +874,7 @@
       },
       {
         id: 'paris-2023',
-        url: '/2023/Paris/',
+        url: '/trip/2023/Paris/',
         flag: '\u{1f1eb}\u{1f1f7}',
         image: '/trip/images/paris.webp',
         banner_gradient: 'linear-gradient(135deg, #1e3a5f 0%, #1e40af 30%, #dbeafe 60%, #fef3c7 100%)',
@@ -843,7 +905,7 @@
       },
       {
         id: 'ny-boston-2023',
-        url: '/2023/NY-Boston/',
+        url: '/trip/2023/NY-Boston/',
         flag: '\u{1f1fa}\u{1f1f8}',
         image: '/trip/images/ny-boston.webp',
         banner_gradient: 'linear-gradient(135deg, #1e3a5f 0%, #1e40af 30%, #3b82f6 60%, #93c5fd 100%)',
@@ -874,7 +936,7 @@
       },
       {
         id: 'jp-ski-2025',
-        url: '/2025/jp-ski/',
+        url: '/trip/2025/2526-jp-ski/',
         flag: '\u{1f1ef}\u{1f1f5}',
         image: '/trip/images/jp-ski.webp',
         banner_gradient: 'linear-gradient(135deg, #1e3a5f 0%, #1d4ed8 30%, #dbeafe 60%, #f0f9ff 100%)',
@@ -905,7 +967,7 @@
       },
       {
         id: 'spain-2025',
-        url: '/2025/Spain/',
+        url: '/trip/2025/Spain/',
         flag: '\u{1f1ea}\u{1f1f8}',
         image: '/trip/images/spain.webp',
         banner_gradient: 'linear-gradient(135deg, #7c2d12 0%, #dc2626 30%, #fbbf24 60%, #fef3c7 100%)',
@@ -935,8 +997,39 @@
         }
       },
       {
+        id: 'napoli-2025',
+        url: '/trip/2025/Napoli/',
+        flag: '\u{1f1ee}\u{1f1f9}',
+        image: '',
+        banner_gradient: 'linear-gradient(135deg, #7c2d12 0%, #b91c1c 30%, #f59e0b 60%, #fef3c7 100%)',
+        banner_emoji: '\u{1f355}',
+        date: '2025-11-29',
+        date_end: '2025-12-02',
+        duration: 4,
+        year: 2025,
+        season: 'autumn',
+        status: 'planning',
+        type: 'city',
+        continent: 'Europe',
+        countries: ['Italy'],
+        en: {
+          title: 'Napoli 2025',
+          subtitle: 'Naples \u00b7 Pompeii \u00b7 Caserta Palace \u00b7 Pizza',
+          date_str: 'Nov 29 \u2013 Dec 2, 2025',
+          tags: ['City', 'History', 'Food'],
+          status_str: 'Planning',
+        },
+        zh: {
+          title: '2025 \u62ff\u5761\u91cc',
+          subtitle: '\u62ff\u5761\u91cc \u00b7 \u9f90\u8c9d \u00b7 \u5361\u585e\u5854\u738b\u5bae \u00b7 \u62ab\u85a9',
+          date_str: '2025.11.29 \u2013 12.02',
+          tags: ['\u57ce\u5e02', '\u6b77\u53f2', '\u7f8e\u98df'],
+          status_str: '\u898f\u5283\u4e2d',
+        }
+      },
+      {
         id: 'eu-ski-2026',
-        url: '/2026/eu-ski/',
+        url: '/trip/2026/eu-ski/',
         flag: '\u{1f1ea}\u{1f1fa}',
         image: '/trip/images/eu-ski.webp',
         banner_gradient: 'linear-gradient(135deg, #1e3a5f 0%, #1e40af 30%, #60a5fa 60%, #dbeafe 100%)',
@@ -1088,6 +1181,7 @@
       'Switzerland': '\u745e\u58eb', 'Iceland': '\u51b0\u5cf6', 'France': '\u6cd5\u570b',
       'USA': '\u7f8e\u570b', 'Japan': '\u65e5\u672c', 'Spain': '\u897f\u73ed\u7259',
       'Austria': '\u5967\u5730\u5229', 'Germany': '\u5fb7\u570b', 'Czech Republic': '\u6377\u514b',
+      'Italy': '\u7fa9\u5927\u5229',
     };
 
     const continentI18n = {
