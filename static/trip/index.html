@@ -1,0 +1,1692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trip Planning & History — Chia-An Lee</title>
+  <link rel="icon" type="image/png" href="/trip/favicon.png">
+  <link rel="apple-touch-icon" href="/trip/favicon.png">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-card: #1e293b;
+      --bg-card-hover: #334155;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-hover: #7dd3fc;
+      --border: #334155;
+      --tag-bg: #1e3a5f;
+      --tag-text: #7dd3fc;
+      --planning-badge: #f59e0b;
+      --completed-badge: #22c55e;
+      --radius: 12px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      padding: 3rem 1.5rem 2rem;
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0f172a 100%);
+      border-bottom: 1px solid var(--border);
+    }
+    .header h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #38bdf8, #818cf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .header p {
+      color: var(--text-muted);
+      font-size: 1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1rem;
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--accent-hover); }
+
+    /* Stats bar */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .stat { text-align: center; }
+    .stat-num {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Top controls: Group + Search + View + Language */
+    .controls-top {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem 0.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+    }
+    .control-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .control-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+    select, .search-input {
+      background: var(--bg-card);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    select:hover, .search-input:hover { border-color: var(--accent); }
+    select:focus, .search-input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
+    }
+    .search-input { width: 200px; }
+
+    /* View toggle */
+    .view-toggle {
+      display: flex;
+      gap: 0;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .view-btn {
+      background: var(--bg-card);
+      color: var(--text-muted);
+      border: none;
+      padding: 0.45rem 0.7rem;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+    .view-btn.active {
+      background: var(--accent);
+      color: #0f172a;
+    }
+    .view-btn:hover:not(.active) {
+      background: var(--bg-card-hover);
+      color: var(--text);
+    }
+
+    .lang-toggle {
+      margin-left: auto;
+      display: flex;
+      gap: 0;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .lang-btn {
+      background: var(--bg-card);
+      color: var(--text-muted);
+      border: none;
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .lang-btn.active {
+      background: var(--accent);
+      color: #0f172a;
+      font-weight: 600;
+    }
+    .lang-btn:hover:not(.active) {
+      background: var(--bg-card-hover);
+      color: var(--text);
+    }
+
+    /* Filter tags */
+    .filter-tags {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem 0.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+    }
+    .filter-section-label {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.35rem 0;
+      margin-right: 0.25rem;
+      white-space: nowrap;
+    }
+    .filter-divider {
+      width: 1px;
+      background: var(--border);
+      margin: 0 0.5rem;
+      align-self: stretch;
+      min-height: 1.5rem;
+    }
+    .filter-tag {
+      background: var(--bg-card);
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 0.35rem 0.85rem;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      user-select: none;
+    }
+    .filter-tag:hover {
+      border-color: var(--accent);
+      color: var(--text);
+    }
+    .filter-tag.active {
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      border-color: var(--accent);
+    }
+
+    /* Dropdown multi-select */
+    .dropdown-multi {
+      position: relative;
+      display: inline-block;
+    }
+    .dropdown-toggle {
+      background: var(--bg-card);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.4rem 2rem 0.4rem 0.75rem;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: border-color 0.2s;
+      white-space: nowrap;
+      min-width: 140px;
+      text-align: left;
+      position: relative;
+    }
+    .dropdown-toggle::after {
+      content: '\25BC';
+      font-size: 0.6rem;
+      position: absolute;
+      right: 0.6rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+    }
+    .dropdown-toggle:hover { border-color: var(--accent); }
+    .dropdown-toggle.open {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
+    }
+    .dropdown-toggle .selected-count {
+      background: var(--accent);
+      color: #0f172a;
+      border-radius: 10px;
+      padding: 0 0.4rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      margin-left: 0.3rem;
+    }
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      min-width: 200px;
+      max-height: 300px;
+      overflow-y: auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+      z-index: 100;
+      padding: 0.25rem 0;
+    }
+    .dropdown-menu.open { display: block; }
+    .dropdown-menu-group-label {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.5rem 0.75rem 0.25rem;
+      border-top: 1px solid var(--border);
+    }
+    .dropdown-menu-group-label:first-child { border-top: none; }
+    .dropdown-menu-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 0.75rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .dropdown-menu-item:hover {
+      background: var(--bg-card-hover);
+      color: var(--text);
+    }
+    .dropdown-menu-item.selected {
+      color: var(--tag-text);
+      background: rgba(30, 58, 95, 0.5);
+    }
+    .dropdown-menu-item .check {
+      width: 16px;
+      height: 16px;
+      border: 1.5px solid var(--border);
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      flex-shrink: 0;
+      transition: all 0.15s;
+    }
+    .dropdown-menu-item.selected .check {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #0f172a;
+    }
+
+    /* Sort controls (below filters) */
+    .controls-sort {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0.5rem 1.5rem 0.75rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    /* Trip grid */
+    .trip-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem 3rem;
+    }
+    .group-header {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 2rem 0 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .group-count {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      background: var(--bg-card);
+      padding: 0.15rem 0.5rem;
+      border-radius: 10px;
+    }
+    .trip-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1.25rem;
+    }
+
+    /* Trip card (grid view) */
+    .trip-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .trip-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+      box-shadow: 0 8px 30px rgba(56, 189, 248, 0.15);
+    }
+    .card-banner {
+      height: 180px;
+      position: relative;
+      overflow: hidden;
+    }
+    .card-banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      transition: transform 0.3s ease;
+    }
+    .trip-card:hover .card-banner img {
+      transform: scale(1.05);
+    }
+    .card-banner-fallback {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+    }
+    .card-status {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .status-completed {
+      background: rgba(34, 197, 94, 0.25);
+      color: var(--completed-badge);
+      border: 1px solid rgba(34, 197, 94, 0.4);
+      backdrop-filter: blur(4px);
+    }
+    .status-planning {
+      background: rgba(245, 158, 11, 0.25);
+      color: var(--planning-badge);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      backdrop-filter: blur(4px);
+    }
+    .card-body { padding: 1.25rem; }
+    .card-flag-title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .card-flag { font-size: 1.5rem; }
+    .card-title {
+      font-size: 1.15rem;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+    .card-subtitle {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-bottom: 0.75rem;
+    }
+    .card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .meta-icon { font-size: 0.9rem; }
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+    .card-tag {
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      padding: 0.15rem 0.55rem;
+      border-radius: 6px;
+      font-size: 0.7rem;
+    }
+
+    /* ===== LIST VIEW ===== */
+    .trip-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .trip-list-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      align-items: stretch;
+    }
+    .trip-list-item:hover {
+      border-color: var(--accent);
+      box-shadow: 0 4px 20px rgba(56, 189, 248, 0.12);
+      transform: translateX(4px);
+    }
+    .list-banner {
+      width: 200px;
+      min-height: 120px;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .list-banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      transition: transform 0.3s ease;
+    }
+    .trip-list-item:hover .list-banner img {
+      transform: scale(1.05);
+    }
+    .list-banner-fallback {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+    }
+    .list-status {
+      position: absolute;
+      top: 0.5rem;
+      left: 0.5rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 6px;
+      font-size: 0.65rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .list-body {
+      flex: 1;
+      padding: 1rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.4rem;
+    }
+    .list-flag-title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .list-flag { font-size: 1.3rem; }
+    .list-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+    .list-subtitle {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+    .list-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .list-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+
+    /* Active filter summary */
+    .active-filters-summary {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem 0.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      align-items: center;
+    }
+    .active-filter-chip {
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      border: 1px solid var(--accent);
+      border-radius: 20px;
+      padding: 0.2rem 0.6rem;
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .active-filter-chip .chip-remove {
+      cursor: pointer;
+      opacity: 0.7;
+      font-size: 0.85rem;
+      line-height: 1;
+    }
+    .active-filter-chip .chip-remove:hover {
+      opacity: 1;
+    }
+    .clear-all-btn {
+      background: transparent;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 0.2rem 0.6rem;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .clear-all-btn:hover {
+      border-color: var(--accent);
+      color: var(--text);
+    }
+
+    /* Empty state */
+    .empty-state {
+      text-align: center;
+      padding: 3rem;
+      color: var(--text-muted);
+    }
+    .empty-state-icon { font-size: 3rem; margin-bottom: 1rem; }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      border-top: 1px solid var(--border);
+    }
+    .footer a { color: var(--accent); text-decoration: none; }
+    .footer a:hover { text-decoration: underline; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .header h1 { font-size: 1.6rem; }
+      .stats { gap: 1.5rem; }
+      .controls-top { flex-direction: column; align-items: stretch; }
+      .controls-sort { flex-direction: column; align-items: stretch; }
+      .lang-toggle { margin-left: 0; justify-content: center; }
+      .view-toggle { justify-content: center; }
+      .search-input { width: 100%; }
+      .trip-grid { grid-template-columns: 1fr; }
+      .card-banner { height: 150px; }
+      .filter-tags { gap: 0.35rem; }
+      .filter-divider { display: none; }
+      .filter-section-label { width: 100%; margin-top: 0.25rem; }
+      .dropdown-multi { width: 100%; }
+      .dropdown-toggle { width: 100%; }
+      .dropdown-menu { width: 100%; }
+      .list-banner { width: 120px; min-height: 100px; }
+      .list-title { font-size: 0.95rem; }
+      .list-subtitle { font-size: 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a href="/" class="back-link" id="backLink">&larr; Back to Homepage</a>
+    <h1 id="pageTitle">Trip Planning & History</h1>
+    <p id="pageDesc">A collection of travel itineraries and trip plans — from city explorations to ski adventures.</p>
+  </header>
+
+  <div class="stats" id="statsBar">
+    <div class="stat">
+      <div class="stat-num" id="statTrips">10</div>
+      <div class="stat-label" id="statTripsLabel">Trips</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" id="statCountries">9</div>
+      <div class="stat-label" id="statCountriesLabel">Countries</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" id="statDays">89</div>
+      <div class="stat-label" id="statDaysLabel">Days</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" id="statCities">30+</div>
+      <div class="stat-label" id="statCitiesLabel">Cities</div>
+    </div>
+  </div>
+
+  <!-- Top row: Group + Search + View + Language -->
+  <div class="controls-top">
+    <div class="control-group">
+      <span class="control-label" id="groupLabel">Group</span>
+      <select id="groupSelect">
+        <option value="none">No Grouping</option>
+        <option value="year">By Year</option>
+        <option value="season">By Season</option>
+        <option value="type">By Type</option>
+        <option value="status">By Status</option>
+        <option value="continent" selected>By Continent</option>
+        <option value="country">By Country</option>
+      </select>
+    </div>
+    <div class="control-group">
+      <input type="text" class="search-input" id="searchInput" placeholder="Search trips...">
+    </div>
+    <div class="view-toggle" id="viewToggle">
+      <button class="view-btn active" data-view="grid" onclick="setView('grid')" title="Grid view">&#9638;</button>
+      <button class="view-btn" data-view="list" onclick="setView('list')" title="List view">&#9776;</button>
+    </div>
+    <div class="lang-toggle">
+      <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" data-lang="zh" onclick="setLang('zh')">中文</button>
+    </div>
+  </div>
+
+  <!-- Filter row 1: Type + Status + Year (pill tags) -->
+  <div class="filter-tags" id="filterTagsType"></div>
+
+  <!-- Filter row 2: Region dropdown multi-select + Sort -->
+  <div class="filter-tags" id="filterTagsGeo"></div>
+
+  <!-- Active filters summary -->
+  <div class="active-filters-summary" id="activeFiltersSummary"></div>
+
+  <!-- Sort row (below filters) -->
+  <div class="controls-sort">
+    <div class="control-group">
+      <span class="control-label" id="sortLabel">Sort</span>
+      <select id="sortSelect">
+        <option value="date-desc">Newest First</option>
+        <option value="date-asc">Oldest First</option>
+        <option value="duration-desc">Longest First</option>
+        <option value="duration-asc">Shortest First</option>
+        <option value="name-asc">Name A&rarr;Z</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="trip-container" id="tripContainer"></div>
+
+  <footer class="footer">
+    <span id="footerText">&copy; 2025 Chia-An Lee. Part of</span>
+    <a href="/">calee.xyz</a>
+  </footer>
+
+  <script>
+    // ===== TRIP DATA =====
+    const trips = [
+      {
+        id: 'fukushima-ski-2024',
+        url: '/trip/2024/2324-jp-ski/',
+        flag: '\u{1f1ef}\u{1f1f5}',
+        image: '',
+        banner_gradient: 'linear-gradient(135deg, #1a237e 0%, #302b63 30%, #667eea 60%, #f0f9ff 100%)',
+        banner_emoji: '\u{1f3d4}\ufe0f',
+        date: '2024-01-13',
+        date_end: '2024-01-21',
+        duration: 9,
+        year: 2024,
+        season: 'winter',
+        status: 'completed',
+        type: 'ski',
+        continent: 'Asia',
+        countries: ['Japan'],
+        en: {
+          title: 'Fukushima Ski 2024',
+          subtitle: 'Listel Ski Fantasia \u00b7 Inawashiro \u00b7 Aizu-Wakamatsu \u00b7 Nikko \u00b7 Tokyo',
+          date_str: 'Jan 13 \u2013 21, 2024',
+          tags: ['Ski', 'Onsen', 'History'],
+          status_str: 'Completed',
+        },
+        zh: {
+          title: '2024 \u798f\u5cf6\u6ed1\u96ea',
+          subtitle: 'Listel Ski Fantasia \u00b7 \u8c6c\u82d7\u4ee3 \u00b7 \u6703\u6d25\u82e5\u677e \u00b7 \u65e5\u5149 \u00b7 \u6771\u4eac',
+          date_str: '2024.01.13 \u2013 01.21',
+          tags: ['\u6ed1\u96ea', '\u6eab\u6cc9', '\u6b77\u53f2'],
+          status_str: '\u5df2\u5b8c\u6210',
+        }
+      },
+      {
+        id: 'jp-kiroro-2025',
+        url: '/trip/2025/2425-jp-ski/',
+        flag: '\u{1f1ef}\u{1f1f5}',
+        image: '/trip/images/jp-ski.webp',
+        banner_gradient: 'linear-gradient(135deg, #1e3a5f 0%, #1d4ed8 30%, #93c5fd 60%, #f0f9ff 100%)',
+        banner_emoji: '\u26f7\ufe0f',
+        date: '2025-01-02',
+        date_end: '2025-01-12',
+        duration: 11,
+        year: 2025,
+        season: 'winter',
+        status: 'completed',
+        type: 'ski',
+        continent: 'Asia',
+        countries: ['Japan'],
+        en: {
+          title: 'Hokkaido Kiroro Ski 2025',
+          subtitle: 'Kiroro Snow World \u00b7 Otaru \u00b7 Sapporo \u00b7 Teine',
+          date_str: 'Jan 2 \u2013 12, 2025',
+          tags: ['Ski', 'Powder Snow', 'Seafood'],
+          status_str: 'Completed',
+        },
+        zh: {
+          title: '2025 \u5317\u6d77\u9053 Kiroro \u6ed1\u96ea',
+          subtitle: 'Kiroro Snow World \u00b7 \u5c0f\u6a3d \u00b7 \u672d\u5e4c \u00b7 \u624b\u7a3b',
+          date_str: '2025.01.02 \u2013 01.12',
+          tags: ['\u6ed1\u96ea', '\u7c89\u96ea', '\u6d77\u9bae'],
+          status_str: '\u5df2\u5b8c\u6210',
+        }
+      },
+      {
+        id: 'swiss-2024',
+        url: '/trip/2024/Swiss/',
+        flag: '\u{1f1e8}\u{1f1ed}',
+        image: '/trip/images/swiss.webp',
+        banner_gradient: 'linear-gradient(135deg, #1e3a5f 0%, #065f46 50%, #f0fdf4 100%)',
+        banner_emoji: '\u{1f3d4}\ufe0f',
+        date: '2024-08-17',
+        date_end: '2024-08-26',
+        duration: 10,
+        year: 2024,
+        season: 'summer',
+        status: 'completed',
+        type: 'city',
+        continent: 'Europe',
+        countries: ['Switzerland'],
+        en: {
+          title: 'Switzerland 2024',
+          subtitle: 'Z\u00fcrich \u00b7 Zermatt \u00b7 Interlaken \u00b7 Bern \u00b7 Colmar \u00b7 Luzern',
+          date_str: 'Aug 17 \u2013 26, 2024',
+          tags: ['City', 'Alps', 'Train'],
+          status_str: 'Completed',
+        },
+        zh: {
+          title: '2024 \u745e\u58eb',
+          subtitle: '\u8607\u9ece\u4e16 \u00b7 \u7b56\u99ac\u7279 \u00b7 \u56e0\u7279\u62c9\u80af \u00b7 \u4f2f\u6069 \u00b7 \u79d1\u723e\u99ac \u00b7 \u7409\u68ee',
+          date_str: '2024.08.17 \u2013 08.26',
+          tags: ['\u57ce\u5e02', '\u963f\u723e\u5351\u65af', '\u706b\u8eca'],
+          status_str: '\u5df2\u5b8c\u6210',
+        }
+      },
+      {
+        id: 'iceland-2024',
+        url: '/trip/2024/Iceland/',
+        flag: '\u{1f1ee}\u{1f1f8}',
+        image: '/trip/images/iceland.webp',
+        banner_gradient: 'linear-gradient(135deg, #0f172a 0%, #1e3a5f 30%, #4c1d95 60%, #22c55e 100%)',
+        banner_emoji: '\u{1f30c}',
+        date: '2024-11-03',
+        date_end: '2024-11-10',
+        duration: 8,
+        year: 2024,
+        season: 'autumn',
+        status: 'completed',
+        type: 'nature',
+        continent: 'Europe',
+        countries: ['Iceland'],
+        en: {
+          title: 'Iceland 2024',
+          subtitle: 'Ring Road \u00b7 Golden Circle \u00b7 Glaciers \u00b7 Northern Lights',
+          date_str: 'Nov 3 \u2013 10, 2024',
+          tags: ['Nature', 'Road Trip', 'Aurora'],
+          status_str: 'Completed',
+        },
+        zh: {
+          title: '2024 \u51b0\u5cf6',
+          subtitle: '\u74b0\u5cf6\u516c\u8def \u00b7 \u91d1\u5708 \u00b7 \u51b0\u5ddd \u00b7 \u6975\u5149',
+          date_str: '2024.11.03 \u2013 11.10',
+          tags: ['\u81ea\u7136', '\u81ea\u99d5', '\u6975\u5149'],
+          status_str: '\u5df2\u5b8c\u6210',
+        }
+      },
+      {
+        id: 'paris-2023',
+        url: '/trip/2023/Paris/',
+        flag: '\u{1f1eb}\u{1f1f7}',
+        image: '/trip/images/paris.webp',
+        banner_gradient: 'linear-gradient(135deg, #1e3a5f 0%, #1e40af 30%, #dbeafe 60%, #fef3c7 100%)',
+        banner_emoji: '\u{1f5fc}',
+        date: '2023-11-21',
+        date_end: '2023-11-28',
+        duration: 8,
+        year: 2023,
+        season: 'autumn',
+        status: 'completed',
+        type: 'city',
+        continent: 'Europe',
+        countries: ['France'],
+        en: {
+          title: 'Paris 2023',
+          subtitle: 'Montmartre \u00b7 Versailles \u00b7 Louvre \u00b7 Seine River',
+          date_str: 'Nov 21 \u2013 28, 2023',
+          tags: ['City', 'Culture', 'Museum'],
+          status_str: 'Completed',
+        },
+        zh: {
+          title: '2023 \u5df4\u9ece',
+          subtitle: '\u8499\u99ac\u7279 \u00b7 \u51e1\u723e\u8cfd \u00b7 \u7f85\u6d6e\u5bae \u00b7 \u585e\u7d0d\u6cb3',
+          date_str: '2023.11.21 \u2013 11.28',
+          tags: ['\u57ce\u5e02', '\u6587\u5316', '\u535a\u7269\u9928'],
+          status_str: '\u5df2\u5b8c\u6210',
+        }
+      },
+      {
+        id: 'ny-boston-2023',
+        url: '/trip/2023/NY-Boston/',
+        flag: '\u{1f1fa}\u{1f1f8}',
+        image: '/trip/images/ny-boston.webp',
+        banner_gradient: 'linear-gradient(135deg, #1e3a5f 0%, #1e40af 30%, #3b82f6 60%, #93c5fd 100%)',
+        banner_emoji: '\u{1f5fd}',
+        date: '2023-11-03',
+        date_end: '2023-11-14',
+        duration: 12,
+        year: 2023,
+        season: 'autumn',
+        status: 'completed',
+        type: 'city',
+        continent: 'North America',
+        countries: ['USA'],
+        en: {
+          title: 'Boston & New York 2023',
+          subtitle: 'Harvard \u00b7 MIT \u00b7 Broadway \u00b7 Empire State \u00b7 The Met',
+          date_str: 'Nov 3 \u2013 14, 2023',
+          tags: ['City', 'Culture', 'Broadway'],
+          status_str: 'Completed',
+        },
+        zh: {
+          title: '2023 \u6ce2\u58eb\u9813 & \u7d10\u7d04',
+          subtitle: '\u54c8\u4f5b \u00b7 MIT \u00b7 \u767e\u8001\u532f \u00b7 \u5e1d\u570b\u5927\u5ec8 \u00b7 \u5927\u90fd\u6703\u535a\u7269\u9928',
+          date_str: '2023.11.03 \u2013 11.14',
+          tags: ['\u57ce\u5e02', '\u6587\u5316', '\u767e\u8001\u532f'],
+          status_str: '\u5df2\u5b8c\u6210',
+        }
+      },
+      {
+        id: 'jp-ski-2025',
+        url: '/trip/2025/2526-jp-ski/',
+        flag: '\u{1f1ef}\u{1f1f5}',
+        image: '/trip/images/jp-ski.webp',
+        banner_gradient: 'linear-gradient(135deg, #1e3a5f 0%, #1d4ed8 30%, #dbeafe 60%, #f0f9ff 100%)',
+        banner_emoji: '\u26f7\ufe0f',
+        date: '2025-12-24',
+        date_end: '2026-01-04',
+        duration: 11,
+        year: 2025,
+        season: 'winter',
+        status: 'completed',
+        type: 'ski',
+        continent: 'Asia',
+        countries: ['Japan'],
+        en: {
+          title: 'Japan Ski 2025\u201326',
+          subtitle: 'Naeba \u00b7 Joetsu Kokusai \u00b7 Echigo-Yuzawa \u00b7 Tokyo',
+          date_str: 'Dec 24, 2025 \u2013 Jan 4, 2026',
+          tags: ['Ski', 'Powder Snow', 'Onsen'],
+          status_str: 'Completed',
+        },
+        zh: {
+          title: '2025 \u65e5\u672c\u6ed1\u96ea\u5718',
+          subtitle: '\u82d7\u5834 \u00b7 \u4e0a\u8d8a\u570b\u969b \u00b7 \u8d8a\u5f8c\u6e6f\u6fa4 \u00b7 \u6771\u4eac',
+          date_str: '2025.12.24 \u2013 2026.01.04',
+          tags: ['\u6ed1\u96ea', '\u7c89\u96ea', '\u6eab\u6cc9'],
+          status_str: '\u5df2\u5b8c\u6210',
+        }
+      },
+      {
+        id: 'spain-2025',
+        url: '/trip/2025/Spain/',
+        flag: '\u{1f1ea}\u{1f1f8}',
+        image: '/trip/images/spain.webp',
+        banner_gradient: 'linear-gradient(135deg, #7c2d12 0%, #dc2626 30%, #fbbf24 60%, #fef3c7 100%)',
+        banner_emoji: '\u{1f483}',
+        date: '2025-05-17',
+        date_end: '2025-05-21',
+        duration: 5,
+        year: 2025,
+        season: 'spring',
+        status: 'completed',
+        type: 'city',
+        continent: 'Europe',
+        countries: ['Spain'],
+        en: {
+          title: 'Barcelona & Madrid 2025',
+          subtitle: 'Gaud\u00ed \u00b7 Flamenco \u00b7 Tapas \u00b7 Prado Museum',
+          date_str: 'May 17 \u2013 21, 2025',
+          tags: ['City', 'Culture', 'Food'],
+          status_str: 'Completed',
+        },
+        zh: {
+          title: '2025 \u897f\u73ed\u7259',
+          subtitle: '\u9ad8\u7b2c \u00b7 \u4f5b\u6717\u660e\u54e5 \u00b7 Tapas \u00b7 \u666e\u62c9\u591a\u535a\u7269\u9928',
+          date_str: '2025.05.17 \u2013 05.21',
+          tags: ['\u57ce\u5e02', '\u6587\u5316', '\u7f8e\u98df'],
+          status_str: '\u5df2\u5b8c\u6210',
+        }
+      },
+      {
+        id: 'napoli-2025',
+        url: '/trip/2025/Napoli/',
+        flag: '\u{1f1ee}\u{1f1f9}',
+        image: '',
+        banner_gradient: 'linear-gradient(135deg, #7c2d12 0%, #b91c1c 30%, #f59e0b 60%, #fef3c7 100%)',
+        banner_emoji: '\u{1f355}',
+        date: '2025-11-29',
+        date_end: '2025-12-02',
+        duration: 4,
+        year: 2025,
+        season: 'autumn',
+        status: 'planning',
+        type: 'city',
+        continent: 'Europe',
+        countries: ['Italy'],
+        en: {
+          title: 'Napoli 2025',
+          subtitle: 'Naples \u00b7 Pompeii \u00b7 Caserta Palace \u00b7 Pizza',
+          date_str: 'Nov 29 \u2013 Dec 2, 2025',
+          tags: ['City', 'History', 'Food'],
+          status_str: 'Planning',
+        },
+        zh: {
+          title: '2025 \u62ff\u5761\u91cc',
+          subtitle: '\u62ff\u5761\u91cc \u00b7 \u9f90\u8c9d \u00b7 \u5361\u585e\u5854\u738b\u5bae \u00b7 \u62ab\u85a9',
+          date_str: '2025.11.29 \u2013 12.02',
+          tags: ['\u57ce\u5e02', '\u6b77\u53f2', '\u7f8e\u98df'],
+          status_str: '\u898f\u5283\u4e2d',
+        }
+      },
+      {
+        id: 'eu-ski-2026',
+        url: '/trip/2026/eu-ski/',
+        flag: '\u{1f1ea}\u{1f1fa}',
+        image: '/trip/images/eu-ski.webp',
+        banner_gradient: 'linear-gradient(135deg, #1e3a5f 0%, #1e40af 30%, #60a5fa 60%, #dbeafe 100%)',
+        banner_emoji: '\u{1f3bf}',
+        date: '2026-12-25',
+        date_end: '2027-01-03',
+        duration: 10,
+        year: 2026,
+        season: 'winter',
+        status: 'planning',
+        type: 'ski',
+        continent: 'Europe',
+        countries: ['Austria', 'Germany', 'Czech Republic'],
+        en: {
+          title: 'EU Ski + City 2026',
+          subtitle: 'Austria Ski \u00b7 Christmas Markets \u00b7 Central Europe',
+          date_str: 'Dec 2026 \u2013 Jan 2027',
+          tags: ['Ski', 'Christmas Market', 'City'],
+          status_str: 'Planning',
+        },
+        zh: {
+          title: '2026 \u6b50\u6d32\u6ed1\u96ea',
+          subtitle: '\u5967\u5730\u5229\u6ed1\u96ea \u00b7 \u8056\u8a95\u5e02\u96c6 \u00b7 \u4e2d\u6b50\u57ce\u5e02',
+          date_str: '2026.12 \u2013 2027.01',
+          tags: ['\u6ed1\u96ea', '\u8056\u8a95\u5e02\u96c6', '\u57ce\u5e02'],
+          status_str: '\u898f\u5283\u4e2d',
+        }
+      }
+    ];
+
+    // ===== I18N =====
+    const i18n = {
+      en: {
+        pageTitle: 'Trip Planning & History',
+        pageDesc: 'A collection of travel itineraries and trip plans \u2014 from city explorations to ski adventures.',
+        backLink: '\u2190 Back to Homepage',
+        sortLabel: 'Sort',
+        groupLabel: 'Group',
+        searchPlaceholder: 'Search trips...',
+        statTripsLabel: 'Trips',
+        statCountriesLabel: 'Countries',
+        statDaysLabel: 'Days',
+        statCitiesLabel: 'Cities',
+        footerText: '\u00a9 2025 Chia-An Lee. Part of',
+        sortDateDesc: 'Newest First',
+        sortDateAsc: 'Oldest First',
+        sortDurDesc: 'Longest First',
+        sortDurAsc: 'Shortest First',
+        sortName: 'Name A\u2192Z',
+        groupNone: 'No Grouping',
+        groupYear: 'By Year',
+        groupSeason: 'By Season',
+        groupType: 'By Type',
+        groupStatus: 'By Status',
+        groupContinent: 'By Continent',
+        groupCountry: 'By Country',
+        filterTypeLabel: 'Type',
+        filterStatusLabel: 'Status',
+        filterYearLabel: 'Year',
+        filterCity: 'City',
+        filterSki: 'Ski',
+        filterNature: 'Nature',
+        filterCompleted: 'Completed',
+        filterPlanning: 'Planning',
+        filterGeoLabel: 'Region',
+        regionDropdownLabel: 'Select Regions...',
+        regionContinentGroup: 'Continents',
+        regionCountryGroup: 'Countries',
+        emptyTitle: 'No trips found',
+        emptyDesc: 'Try adjusting your filters or search terms.',
+        seasonSpring: 'Spring',
+        seasonSummer: 'Summer',
+        seasonAutumn: 'Autumn',
+        seasonWinter: 'Winter',
+        typeCity: 'City / Culture',
+        typeSki: 'Ski',
+        typeNature: 'Nature / Road Trip',
+        statusCompleted: 'Completed',
+        statusPlanning: 'Planning',
+        days: 'days',
+        continentEurope: 'Europe',
+        continentNorthAmerica: 'North America',
+        continentAsia: 'Asia',
+        activeFilters: 'Active filters:',
+        clearAll: 'Clear all',
+        viewGrid: 'Grid',
+        viewList: 'List',
+      },
+      zh: {
+        pageTitle: '\u65c5\u884c\u898f\u5283 & \u6b77\u53f2',
+        pageDesc: '\u5f9e\u57ce\u5e02\u63a2\u7d22\u5230\u6ed1\u96ea\u5192\u96aa \u2014 \u65c5\u884c\u884c\u7a0b\u8207\u898f\u5283\u7684\u5b8c\u6574\u7d00\u9304\u3002',
+        backLink: '\u2190 \u8fd4\u56de\u9996\u9801',
+        sortLabel: '\u6392\u5e8f',
+        groupLabel: '\u5206\u7d44',
+        searchPlaceholder: '\u641c\u5c0b\u65c5\u7a0b...',
+        statTripsLabel: '\u65c5\u7a0b',
+        statCountriesLabel: '\u570b\u5bb6',
+        statDaysLabel: '\u5929\u6578',
+        statCitiesLabel: '\u57ce\u5e02',
+        footerText: '\u00a9 2025 Chia-An Lee. \u96b8\u5c6c\u65bc',
+        sortDateDesc: '\u6700\u65b0\u512a\u5148',
+        sortDateAsc: '\u6700\u820a\u512a\u5148',
+        sortDurDesc: '\u6700\u9577\u512a\u5148',
+        sortDurAsc: '\u6700\u77ed\u512a\u5148',
+        sortName: '\u540d\u7a31 A\u2192Z',
+        groupNone: '\u4e0d\u5206\u7d44',
+        groupYear: '\u4f9d\u5e74\u4efd',
+        groupSeason: '\u4f9d\u5b63\u7bc0',
+        groupType: '\u4f9d\u985e\u578b',
+        groupStatus: '\u4f9d\u72c0\u614b',
+        groupContinent: '\u4f9d\u6d32\u5225',
+        groupCountry: '\u4f9d\u570b\u5bb6',
+        filterTypeLabel: '\u985e\u578b',
+        filterStatusLabel: '\u72c0\u614b',
+        filterYearLabel: '\u5e74\u4efd',
+        filterCity: '\u57ce\u5e02',
+        filterSki: '\u6ed1\u96ea',
+        filterNature: '\u81ea\u7136',
+        filterCompleted: '\u5df2\u5b8c\u6210',
+        filterPlanning: '\u898f\u5283\u4e2d',
+        filterGeoLabel: '\u5730\u5340',
+        regionDropdownLabel: '\u9078\u64c7\u5730\u5340...',
+        regionContinentGroup: '\u6d32\u5225',
+        regionCountryGroup: '\u570b\u5bb6',
+        emptyTitle: '\u627e\u4e0d\u5230\u65c5\u7a0b',
+        emptyDesc: '\u8acb\u5617\u8a66\u8abf\u6574\u7be9\u9078\u689d\u4ef6\u6216\u641c\u5c0b\u95dc\u9375\u5b57\u3002',
+        seasonSpring: '\u6625\u5b63',
+        seasonSummer: '\u590f\u5b63',
+        seasonAutumn: '\u79cb\u5b63',
+        seasonWinter: '\u51ac\u5b63',
+        typeCity: '\u57ce\u5e02 / \u6587\u5316',
+        typeSki: '\u6ed1\u96ea',
+        typeNature: '\u81ea\u7136 / \u516c\u8def\u65c5\u884c',
+        statusCompleted: '\u5df2\u5b8c\u6210',
+        statusPlanning: '\u898f\u5283\u4e2d',
+        days: '\u5929',
+        continentEurope: '\u6b50\u6d32',
+        continentNorthAmerica: '\u5317\u7f8e\u6d32',
+        continentAsia: '\u4e9e\u6d32',
+        activeFilters: '\u7be9\u9078\u689d\u4ef6\uff1a',
+        clearAll: '\u6e05\u9664\u5168\u90e8',
+        viewGrid: '\u5361\u7247',
+        viewList: '\u5217\u8868',
+      }
+    };
+
+    // Country name translations
+    const countryI18n = {
+      'Switzerland': '\u745e\u58eb', 'Iceland': '\u51b0\u5cf6', 'France': '\u6cd5\u570b',
+      'USA': '\u7f8e\u570b', 'Japan': '\u65e5\u672c', 'Spain': '\u897f\u73ed\u7259',
+      'Austria': '\u5967\u5730\u5229', 'Germany': '\u5fb7\u570b', 'Czech Republic': '\u6377\u514b',
+      'Italy': '\u7fa9\u5927\u5229',
+    };
+
+    const continentI18n = {
+      'Europe': 'continentEurope',
+      'North America': 'continentNorthAmerica',
+      'Asia': 'continentAsia',
+    };
+
+    let currentLang = 'en';
+    let currentView = 'grid'; // 'grid' or 'list'
+
+    // Multi-select filter state
+    let activeTypeFilters = new Set();
+    let activeStatusFilters = new Set();
+    let activeYearFilters = new Set();
+    let activeGeoFilters = new Set();
+
+    // Dropdown open state
+    let geoDropdownOpen = false;
+
+    // ===== Derive unique values =====
+    function getUniqueContinents() {
+      return [...new Set(trips.map(t => t.continent))].sort();
+    }
+    function getUniqueCountries() {
+      const all = [];
+      trips.forEach(t => t.countries.forEach(c => { if (!all.includes(c)) all.push(c); }));
+      return all.sort();
+    }
+    function getUniqueYears() {
+      return [...new Set(trips.map(t => t.year))].sort((a, b) => b - a);
+    }
+
+    // ===== VIEW TOGGLE =====
+    function setView(view) {
+      currentView = view;
+      document.querySelectorAll('.view-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.view === view);
+      });
+      render();
+    }
+
+    // ===== LANGUAGE =====
+    function setLang(lang) {
+      currentLang = lang;
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+      });
+      document.documentElement.lang = lang === 'zh' ? 'zh-TW' : 'en';
+      updateUI();
+      render();
+    }
+
+    function tr(key) {
+      return i18n[currentLang][key] || key;
+    }
+
+    function translateCountry(name) {
+      if (currentLang === 'zh' && countryI18n[name]) return countryI18n[name];
+      return name;
+    }
+
+    function translateContinent(name) {
+      if (continentI18n[name]) return tr(continentI18n[name]);
+      return name;
+    }
+
+    function updateUI() {
+      document.getElementById('pageTitle').textContent = tr('pageTitle');
+      document.getElementById('pageDesc').textContent = tr('pageDesc');
+      document.getElementById('backLink').textContent = tr('backLink');
+      document.getElementById('sortLabel').textContent = tr('sortLabel');
+      document.getElementById('groupLabel').textContent = tr('groupLabel');
+      document.getElementById('searchInput').placeholder = tr('searchPlaceholder');
+      document.getElementById('statTripsLabel').textContent = tr('statTripsLabel');
+      document.getElementById('statCountriesLabel').textContent = tr('statCountriesLabel');
+      document.getElementById('statDaysLabel').textContent = tr('statDaysLabel');
+      document.getElementById('statCitiesLabel').textContent = tr('statCitiesLabel');
+      document.getElementById('footerText').textContent = tr('footerText');
+
+      const sortSelect = document.getElementById('sortSelect');
+      sortSelect.options[0].text = tr('sortDateDesc');
+      sortSelect.options[1].text = tr('sortDateAsc');
+      sortSelect.options[2].text = tr('sortDurDesc');
+      sortSelect.options[3].text = tr('sortDurAsc');
+      sortSelect.options[4].text = tr('sortName');
+
+      const groupSelect = document.getElementById('groupSelect');
+      groupSelect.options[0].text = tr('groupNone');
+      groupSelect.options[1].text = tr('groupYear');
+      groupSelect.options[2].text = tr('groupSeason');
+      groupSelect.options[3].text = tr('groupType');
+      groupSelect.options[4].text = tr('groupStatus');
+      groupSelect.options[5].text = tr('groupContinent');
+      groupSelect.options[6].text = tr('groupCountry');
+
+      renderFilterTags();
+      renderGeoDropdown();
+      renderActiveFiltersSummary();
+    }
+
+    // ===== FILTER TAGS (Type + Status + Year as pill tags) =====
+    function renderFilterTags() {
+      const typeContainer = document.getElementById('filterTagsType');
+      const typeFilters = [
+        { key: 'city', label: tr('filterCity') },
+        { key: 'ski', label: tr('filterSki') },
+        { key: 'nature', label: tr('filterNature') },
+      ];
+      const statusFilters = [
+        { key: 'completed', label: tr('filterCompleted') },
+        { key: 'planning', label: tr('filterPlanning') },
+      ];
+      const years = getUniqueYears();
+
+      typeContainer.innerHTML =
+        `<span class="filter-section-label">${tr('filterTypeLabel')}</span>` +
+        typeFilters.map(f =>
+          `<span class="filter-tag ${activeTypeFilters.has(f.key) ? 'active' : ''}" onclick="toggleTypeFilter('${f.key}')">${f.label}</span>`
+        ).join('') +
+        `<span class="filter-divider"></span>` +
+        `<span class="filter-section-label">${tr('filterStatusLabel')}</span>` +
+        statusFilters.map(f =>
+          `<span class="filter-tag ${activeStatusFilters.has(f.key) ? 'active' : ''}" onclick="toggleStatusFilter('${f.key}')">${f.label}</span>`
+        ).join('') +
+        `<span class="filter-divider"></span>` +
+        `<span class="filter-section-label">${tr('filterYearLabel')}</span>` +
+        years.map(y =>
+          `<span class="filter-tag ${activeYearFilters.has(y) ? 'active' : ''}" onclick="toggleYearFilter(${y})">${y}</span>`
+        ).join('');
+    }
+
+    // ===== GEO DROPDOWN MULTI-SELECT =====
+    function renderGeoDropdown() {
+      const geoContainer = document.getElementById('filterTagsGeo');
+      const continents = getUniqueContinents();
+      const countries = getUniqueCountries();
+      const selectedCount = activeGeoFilters.size;
+
+      let toggleLabel = tr('regionDropdownLabel');
+      if (selectedCount > 0) {
+        const firstKey = [...activeGeoFilters][0];
+        const firstName = firstKey.startsWith('continent:')
+          ? translateContinent(firstKey.replace('continent:', ''))
+          : translateCountry(firstKey.replace('country:', ''));
+        toggleLabel = selectedCount === 1
+          ? firstName
+          : `${firstName} +${selectedCount - 1}`;
+      }
+
+      let menuHtml = '';
+      menuHtml += `<div class="dropdown-menu-group-label">${tr('regionContinentGroup')}</div>`;
+      continents.forEach(c => {
+        const key = 'continent:' + c;
+        const selected = activeGeoFilters.has(key);
+        menuHtml += `<div class="dropdown-menu-item ${selected ? 'selected' : ''}" onclick="event.stopPropagation(); toggleGeoFilter('${key}')">
+          <span class="check">${selected ? '\u2713' : ''}</span>
+          <span>${translateContinent(c)}</span>
+        </div>`;
+      });
+      menuHtml += `<div class="dropdown-menu-group-label">${tr('regionCountryGroup')}</div>`;
+      countries.forEach(c => {
+        const key = 'country:' + c;
+        const selected = activeGeoFilters.has(key);
+        menuHtml += `<div class="dropdown-menu-item ${selected ? 'selected' : ''}" onclick="event.stopPropagation(); toggleGeoFilter('country:${c}')">
+          <span class="check">${selected ? '\u2713' : ''}</span>
+          <span>${translateCountry(c)}</span>
+        </div>`;
+      });
+
+      geoContainer.innerHTML =
+        `<span class="filter-section-label">${tr('filterGeoLabel')}</span>` +
+        `<div class="dropdown-multi" id="geoDropdown">
+          <div class="dropdown-toggle ${geoDropdownOpen ? 'open' : ''}" onclick="toggleGeoDropdown()">
+            ${toggleLabel}
+            ${selectedCount > 0 ? `<span class="selected-count">${selectedCount}</span>` : ''}
+          </div>
+          <div class="dropdown-menu ${geoDropdownOpen ? 'open' : ''}">
+            ${menuHtml}
+          </div>
+        </div>`;
+    }
+
+    function toggleGeoDropdown() {
+      geoDropdownOpen = !geoDropdownOpen;
+      renderGeoDropdown();
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+      if (geoDropdownOpen && !e.target.closest('#geoDropdown')) {
+        geoDropdownOpen = false;
+        renderGeoDropdown();
+      }
+    });
+
+    function toggleTypeFilter(key) {
+      if (activeTypeFilters.has(key)) activeTypeFilters.delete(key);
+      else activeTypeFilters.add(key);
+      renderFilterTags();
+      renderActiveFiltersSummary();
+      render();
+    }
+
+    function toggleStatusFilter(key) {
+      if (activeStatusFilters.has(key)) activeStatusFilters.delete(key);
+      else activeStatusFilters.add(key);
+      renderFilterTags();
+      renderActiveFiltersSummary();
+      render();
+    }
+
+    function toggleYearFilter(year) {
+      if (activeYearFilters.has(year)) activeYearFilters.delete(year);
+      else activeYearFilters.add(year);
+      renderFilterTags();
+      renderActiveFiltersSummary();
+      render();
+    }
+
+    function toggleGeoFilter(key) {
+      if (activeGeoFilters.has(key)) activeGeoFilters.delete(key);
+      else activeGeoFilters.add(key);
+      renderGeoDropdown();
+      renderActiveFiltersSummary();
+      render();
+    }
+
+    function clearAllFilters() {
+      activeTypeFilters.clear();
+      activeStatusFilters.clear();
+      activeYearFilters.clear();
+      activeGeoFilters.clear();
+      geoDropdownOpen = false;
+      renderFilterTags();
+      renderGeoDropdown();
+      renderActiveFiltersSummary();
+      render();
+    }
+
+    function removeFilter(category, key) {
+      if (category === 'type') activeTypeFilters.delete(key);
+      else if (category === 'status') activeStatusFilters.delete(key);
+      else if (category === 'year') activeYearFilters.delete(parseInt(key));
+      else if (category === 'geo') activeGeoFilters.delete(key);
+      renderFilterTags();
+      renderGeoDropdown();
+      renderActiveFiltersSummary();
+      render();
+    }
+
+    // ===== ACTIVE FILTERS SUMMARY =====
+    function renderActiveFiltersSummary() {
+      const container = document.getElementById('activeFiltersSummary');
+      const hasFilters = activeTypeFilters.size > 0 || activeStatusFilters.size > 0 || activeYearFilters.size > 0 || activeGeoFilters.size > 0;
+
+      if (!hasFilters) {
+        container.innerHTML = '';
+        return;
+      }
+
+      const filterLabelMap = {
+        'city': tr('filterCity'),
+        'ski': tr('filterSki'),
+        'nature': tr('filterNature'),
+        'completed': tr('filterCompleted'),
+        'planning': tr('filterPlanning'),
+      };
+
+      let html = `<span class="filter-section-label">${tr('activeFilters')}</span>`;
+
+      activeTypeFilters.forEach(key => {
+        html += `<span class="active-filter-chip">${filterLabelMap[key]} <span class="chip-remove" onclick="removeFilter('type','${key}')">&times;</span></span>`;
+      });
+      activeStatusFilters.forEach(key => {
+        html += `<span class="active-filter-chip">${filterLabelMap[key]} <span class="chip-remove" onclick="removeFilter('status','${key}')">&times;</span></span>`;
+      });
+      activeYearFilters.forEach(year => {
+        html += `<span class="active-filter-chip">${year} <span class="chip-remove" onclick="removeFilter('year','${year}')">&times;</span></span>`;
+      });
+      activeGeoFilters.forEach(key => {
+        let label;
+        if (key.startsWith('continent:')) {
+          label = translateContinent(key.replace('continent:', ''));
+        } else {
+          label = translateCountry(key.replace('country:', ''));
+        }
+        html += `<span class="active-filter-chip">${label} <span class="chip-remove" onclick="removeFilter('geo','${key}')">&times;</span></span>`;
+      });
+
+      html += `<button class="clear-all-btn" onclick="clearAllFilters()">${tr('clearAll')}</button>`;
+      container.innerHTML = html;
+    }
+
+    // ===== SORTING =====
+    function sortTrips(list) {
+      const sortVal = document.getElementById('sortSelect').value;
+      return [...list].sort((a, b) => {
+        switch (sortVal) {
+          case 'date-desc': return new Date(b.date) - new Date(a.date);
+          case 'date-asc': return new Date(a.date) - new Date(b.date);
+          case 'duration-desc': return b.duration - a.duration;
+          case 'duration-asc': return a.duration - b.duration;
+          case 'name-asc': return a[currentLang].title.localeCompare(b[currentLang].title);
+          default: return 0;
+        }
+      });
+    }
+
+    // ===== FILTERING (AND across categories, OR within category) =====
+    function filterTrips(list) {
+      const search = document.getElementById('searchInput').value.toLowerCase();
+      return list.filter(trip => {
+        if (activeTypeFilters.size > 0) {
+          if (!activeTypeFilters.has(trip.type)) return false;
+        }
+        if (activeStatusFilters.size > 0) {
+          if (!activeStatusFilters.has(trip.status)) return false;
+        }
+        if (activeYearFilters.size > 0) {
+          if (!activeYearFilters.has(trip.year)) return false;
+        }
+        if (activeGeoFilters.size > 0) {
+          let geoMatch = false;
+          for (const gf of activeGeoFilters) {
+            if (gf.startsWith('continent:')) {
+              if (trip.continent === gf.replace('continent:', '')) { geoMatch = true; break; }
+            } else if (gf.startsWith('country:')) {
+              if (trip.countries.includes(gf.replace('country:', ''))) { geoMatch = true; break; }
+            }
+          }
+          if (!geoMatch) return false;
+        }
+        if (search) {
+          const haystack = [
+            trip.en.title, trip.zh.title,
+            trip.en.subtitle, trip.zh.subtitle,
+            ...trip.countries,
+            trip.continent,
+            ...trip.en.tags, ...trip.zh.tags,
+            trip.year.toString()
+          ].join(' ').toLowerCase();
+          if (!haystack.includes(search)) return false;
+        }
+        return true;
+      });
+    }
+
+    // ===== GROUPING =====
+    function groupTrips(list) {
+      const groupVal = document.getElementById('groupSelect').value;
+      if (groupVal === 'none') return { '': list };
+
+      const groups = {};
+      list.forEach(trip => {
+        let keys = [];
+        switch (groupVal) {
+          case 'year':
+            keys = [trip.year.toString()];
+            break;
+          case 'season':
+            const seasonMap = { spring: tr('seasonSpring'), summer: tr('seasonSummer'), autumn: tr('seasonAutumn'), winter: tr('seasonWinter') };
+            keys = [seasonMap[trip.season] || trip.season];
+            break;
+          case 'type':
+            const typeMap = { city: tr('typeCity'), ski: tr('typeSki'), nature: tr('typeNature') };
+            keys = [typeMap[trip.type] || trip.type];
+            break;
+          case 'status':
+            keys = [trip.status === 'completed' ? tr('statusCompleted') : tr('statusPlanning')];
+            break;
+          case 'continent':
+            keys = [translateContinent(trip.continent)];
+            break;
+          case 'country':
+            keys = trip.countries.map(c => translateCountry(c));
+            break;
+          default:
+            keys = [''];
+        }
+        keys.forEach(key => {
+          if (!groups[key]) groups[key] = [];
+          groups[key].push(trip);
+        });
+      });
+
+      const sortedKeys = Object.keys(groups).sort((a, b) => {
+        if (groupVal === 'year') return parseInt(b) - parseInt(a);
+        return a.localeCompare(b, currentLang === 'zh' ? 'zh-TW' : 'en');
+      });
+      const sorted = {};
+      sortedKeys.forEach(k => sorted[k] = groups[k]);
+      return sorted;
+    }
+
+    // ===== RENDER: GRID CARD =====
+    function renderCard(trip) {
+      const data = trip[currentLang];
+      const statusClass = trip.status === 'completed' ? 'status-completed' : 'status-planning';
+      const countriesDisplay = trip.countries.map(c => translateCountry(c)).join(', ');
+
+      const bannerHtml = trip.image
+        ? `<img src="${trip.image}" alt="${data.title}" loading="lazy">`
+        : `<div class="card-banner-fallback" style="background: ${trip.banner_gradient};">${trip.banner_emoji}</div>`;
+
+      return `
+        <a class="trip-card" href="${trip.url}" title="${data.title}">
+          <div class="card-banner">
+            ${bannerHtml}
+            <span class="card-status ${statusClass}">${data.status_str}</span>
+          </div>
+          <div class="card-body">
+            <div class="card-flag-title">
+              <span class="card-flag">${trip.flag}</span>
+              <span class="card-title">${data.title}</span>
+            </div>
+            <div class="card-subtitle">${data.subtitle}</div>
+            <div class="card-meta">
+              <span class="meta-item"><span class="meta-icon">\u{1f4c5}</span> ${data.date_str}</span>
+              <span class="meta-item"><span class="meta-icon">\u23f1\ufe0f</span> ${trip.duration} ${tr('days')}</span>
+              <span class="meta-item"><span class="meta-icon">\u{1f4cd}</span> ${countriesDisplay}</span>
+            </div>
+            <div class="card-tags">
+              ${data.tags.map(tag => `<span class="card-tag">${tag}</span>`).join('')}
+            </div>
+          </div>
+        </a>
+      `;
+    }
+
+    // ===== RENDER: LIST ITEM =====
+    function renderListItem(trip) {
+      const data = trip[currentLang];
+      const statusClass = trip.status === 'completed' ? 'status-completed' : 'status-planning';
+      const countriesDisplay = trip.countries.map(c => translateCountry(c)).join(', ');
+
+      const bannerHtml = trip.image
+        ? `<img src="${trip.image}" alt="${data.title}" loading="lazy">`
+        : `<div class="list-banner-fallback" style="background: ${trip.banner_gradient};">${trip.banner_emoji}</div>`;
+
+      return `
+        <a class="trip-list-item" href="${trip.url}" title="${data.title}">
+          <div class="list-banner">
+            ${bannerHtml}
+            <span class="list-status ${statusClass}">${data.status_str}</span>
+          </div>
+          <div class="list-body">
+            <div class="list-flag-title">
+              <span class="list-flag">${trip.flag}</span>
+              <span class="list-title">${data.title}</span>
+            </div>
+            <div class="list-subtitle">${data.subtitle}</div>
+            <div class="list-meta">
+              <span class="meta-item"><span class="meta-icon">\u{1f4c5}</span> ${data.date_str}</span>
+              <span class="meta-item"><span class="meta-icon">\u23f1\ufe0f</span> ${trip.duration} ${tr('days')}</span>
+              <span class="meta-item"><span class="meta-icon">\u{1f4cd}</span> ${countriesDisplay}</span>
+            </div>
+            <div class="list-tags">
+              ${data.tags.map(tag => `<span class="card-tag">${tag}</span>`).join('')}
+            </div>
+          </div>
+        </a>
+      `;
+    }
+
+    // ===== MAIN RENDER =====
+    function render() {
+      const container = document.getElementById('tripContainer');
+      let filtered = filterTrips(trips);
+      let sorted = sortTrips(filtered);
+      let groups = groupTrips(sorted);
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-state-icon">\u{1f50d}</div>
+            <h3>${tr('emptyTitle')}</h3>
+            <p>${tr('emptyDesc')}</p>
+          </div>
+        `;
+        return;
+      }
+
+      let html = '';
+      for (const [groupName, groupTrips] of Object.entries(groups)) {
+        if (groupName) {
+          html += `<div class="group-header">${groupName} <span class="group-count">${groupTrips.length}</span></div>`;
+        }
+        if (currentView === 'list') {
+          html += `<div class="trip-list">${groupTrips.map(renderListItem).join('')}</div>`;
+        } else {
+          html += `<div class="trip-grid">${groupTrips.map(renderCard).join('')}</div>`;
+        }
+      }
+      container.innerHTML = html;
+    }
+
+    // ===== EVENT LISTENERS =====
+    document.getElementById('sortSelect').addEventListener('change', render);
+    document.getElementById('groupSelect').addEventListener('change', render);
+    document.getElementById('searchInput').addEventListener('input', render);
+
+    // ===== INIT =====
+    updateUI();
+    render();
+  </script>
+</body>
+</html>
