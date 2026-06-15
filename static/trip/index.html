@@ -671,15 +671,15 @@
 
   <div class="stats" id="statsBar">
     <div class="stat">
-      <div class="stat-num" id="statTrips">16</div>
+      <div class="stat-num" id="statTrips">18</div>
       <div class="stat-label" id="statTripsLabel">Trips</div>
     </div>
     <div class="stat">
-      <div class="stat-num" id="statCountries">10</div>
+      <div class="stat-num" id="statCountries">11</div>
       <div class="stat-label" id="statCountriesLabel">Countries</div>
     </div>
     <div class="stat">
-      <div class="stat-num" id="statDays">111</div>
+      <div class="stat-num" id="statDays">121</div>
       <div class="stat-label" id="statDaysLabel">Days</div>
     </div>
     <div class="stat">
@@ -1245,6 +1245,37 @@
         }
       },
       {
+        id: 'cornwall-2026',
+        url: '/trip/2026/Cornwall/',
+        flag: '\u{1f1ec}\u{1f1e7}',
+        image: '/trip/images/cornwall.webp',
+        banner_gradient: 'linear-gradient(135deg, #1a3a4a 0%, #2e86ab 40%, #00d4aa 80%, #f0fdf9 100%)',
+        banner_emoji: '\u{1f3d6}',
+        date: '2026-08-29',
+        date_end: '2026-08-31',
+        duration: 3,
+        year: 2026,
+        season: 'summer',
+        status: 'planning',
+        type: 'nature',
+        continent: 'Europe',
+        countries: ['UK'],
+        en: {
+          title: 'Cornwall Road Trip 2026',
+          subtitle: 'Eden Project \u00b7 St Michael\'s Mount \u00b7 Minack Theatre \u00b7 St Ives \u00b7 Sea Sparkle',
+          date_str: 'Aug 29\u201331, 2026',
+          tags: ['Road Trip', 'Nature', 'Bioluminescence', 'Coast'],
+          status_str: 'Planning',
+        },
+        zh: {
+          title: '2026 Cornwall \u81ea\u99d5\u4e4b\u65c5',
+          subtitle: 'Eden Project \u00b7 St Michael\'s Mount \u00b7 Minack Theatre \u00b7 St Ives \u00b7 \u85cd\u773c\u6dda',
+          date_str: '2026.08.29 \u2013 08.31',
+          tags: ['\u81ea\u99d5', '\u81ea\u7136', '\u85cd\u773c\u6dda', '\u6d77\u5cb8'],
+          status_str: '\u898f\u5283\u4e2d',
+        }
+      },
+      {
         id: 'puffin-piano-2026',
         url: '/trip/2026/puffin-piano/',
         flag: '\u{1f1ec}\u{1f1e7}',
@@ -1273,6 +1304,37 @@
           date_str: '2026.05.23 \u2013 24',
           tags: ['\u516c\u8def\u65c5\u884c', '\u9732\u71df', 'Puffin'],
           status_str: '\u5df2\u5b8c\u6210',
+        }
+      },
+      {
+        id: 'faroe-islands-2026',
+        url: '/trip/2026/FaroeIslands/',
+        flag: '\u{1f1eb}\u{1f1f4}',
+        image: '/trip/images/faroe-islands.webp',
+        banner_gradient: 'linear-gradient(135deg, #2d3436 0%, #4a6741 30%, #6ab04c 60%, #dfe6e9 100%)',
+        banner_emoji: '\u{1f3d4}',
+        date: '2026-08-22',
+        date_end: '2026-08-29',
+        duration: 8,
+        year: 2026,
+        season: 'summer',
+        status: 'planning',
+        type: 'nature',
+        continent: 'Europe',
+        countries: ['Faroe Islands'],
+        en: {
+          title: 'Faroe Islands 2026',
+          subtitle: 'M\u00falafossur \u00b7 Mykines Puffins \u00b7 Kalsoy \u00b7 Saksun \u00b7 Gj\u00f3gv',
+          date_str: 'Aug 22\u201329, 2026',
+          tags: ['Nature', 'Hiking', 'Puffins', 'Islands'],
+          status_str: 'Planning',
+        },
+        zh: {
+          title: '2026 \u6cd5\u7f85\u7fa4\u5cf6\u63a2\u96aa\u4e4b\u65c5',
+          subtitle: 'M\u00falafossur \u00b7 Mykines \u6d77\u9e1a \u00b7 Kalsoy \u00b7 Saksun \u00b7 Gj\u00f3gv',
+          date_str: '2026.08.22 \u2013 08.29',
+          tags: ['\u81ea\u7136', '\u5065\u884c', '\u6d77\u9e1a', '\u5cf6\u5dbc'],
+          status_str: '\u898f\u5283\u4e2d',
         }
       }
     ];
@@ -1400,6 +1462,7 @@
       'Austria': '\u5967\u5730\u5229', 'Germany': '\u5fb7\u570b', 'Czech Republic': '\u6377\u514b',
       'Italy': '\u7fa9\u5927\u5229',
       'UK': '\u82f1\u570b',
+      'Faroe Islands': '\u6cd5\u7f85\u7fa4\u5cf6',
     };
 
     const continentI18n = {
