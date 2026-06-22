@@ -671,15 +671,15 @@
 
   <div class="stats" id="statsBar">
     <div class="stat">
-      <div class="stat-num" id="statTrips">18</div>
+      <div class="stat-num" id="statTrips">19</div>
       <div class="stat-label" id="statTripsLabel">Trips</div>
     </div>
     <div class="stat">
-      <div class="stat-num" id="statCountries">11</div>
+      <div class="stat-num" id="statCountries">12</div>
       <div class="stat-label" id="statCountriesLabel">Countries</div>
     </div>
     <div class="stat">
-      <div class="stat-num" id="statDays">121</div>
+      <div class="stat-num" id="statDays">124</div>
       <div class="stat-label" id="statDaysLabel">Days</div>
     </div>
     <div class="stat">
@@ -748,6 +748,37 @@
   <script>
     // ===== TRIP DATA =====
     const trips = [
+      {
+        id: 'oslo-2026',
+        url: '/trip/2026/Oslo/',
+        flag: '\u{1f1f3}\u{1f1f4}',
+        image: '/trip/images/oslo.webp',
+        banner_gradient: 'linear-gradient(135deg, #15263b 0%, #2c5d8f 40%, #c0392b 75%, #eef4fa 100%)',
+        banner_emoji: '\u{1f6b6}',
+        date: '2026-08-28',
+        date_end: '2026-08-31',
+        duration: 3,
+        year: 2026,
+        season: 'summer',
+        status: 'planning',
+        type: 'city',
+        continent: 'Europe',
+        countries: ['Norway'],
+        en: {
+          title: 'Oslo City Walk 2026',
+          subtitle: 'Karl Johans gate \u00b7 Opera Roof \u00b7 Vigeland Park \u00b7 Fjord',
+          date_str: 'Aug 28 \u2013 31, 2026',
+          tags: ['City', 'Walking', 'Art', 'Fjord'],
+          status_str: 'Planning',
+        },
+        zh: {
+          title: '2026 \u5967\u65af\u9678 City Walk',
+          subtitle: 'Karl Johans gate \u00b7 \u6b4c\u5287\u9662\u5c4b\u9802 \u00b7 Vigeland \u516c\u5712 \u00b7 \u5ced\u7063',
+          date_str: '2026.08.28 \u2013 08.31',
+          tags: ['\u57ce\u5e02', '\u6b65\u884c', '\u85dd\u8853', '\u5ced\u7063'],
+          status_str: '\u898f\u5283\u4e2d',
+        }
+      },
       {
         id: 'fukushima-ski-2024',
         url: '/trip/2024/2324-jp-ski/',
@@ -1463,6 +1494,7 @@
       'Italy': '\u7fa9\u5927\u5229',
       'UK': '\u82f1\u570b',
       'Faroe Islands': '\u6cd5\u7f85\u7fa4\u5cf6',
+      'Norway': '\u632a\u5a01',
     };
 
     const continentI18n = {
